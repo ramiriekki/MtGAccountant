@@ -7,7 +7,7 @@ const { json } = require('stream/consumers');
 
 var con = mysql.createConnection({
     host: "localhost",
-    user: "root", 
+    user: "root",  
     password: "", 
     database: "collections"
 });
