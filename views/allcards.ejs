@@ -1,21 +1,63 @@
 <html>
     <head>
         <title>Dashboard</title>
+        <style>
+            .active {
+                background-color: green;
+                width: 250px;
+                margin: 10px;
+                text-align: center;
+                line-height: 25px;
+                font-size: 15px;
+            }
+            
+            .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: rgb(135, 135, 135);
+            }
+
+            .flex-container > div {
+            background-color: #bbbbbb;
+            width: 250px;
+            margin: 10px;
+            text-align: center;
+            line-height: 25px;
+            font-size: 15px;
+            }
+
+            .item {
+                padding: 10px;
+            }
+        </style>
     </head>
     <body>
         
         <h1>Cards</h1>
-        <ul>
-            <%cards.forEach(function(cards) { %>
-                <div>
-                    
-                    <li><%= cards[0] %></li>
-                    <li><%= cards[1] %></li>
-                    <li><%= cards[2] %></li>
-                    <img src = <%= cards[3] %>></img>
-                    <br>
+        <form method="post" action="my-collection" enctype="application/x-www-form-urlencoded">
+            <ul>
+                <input type="submit">
+                <div class="flex-container">
+                    <%cards.forEach(function(cards) { %>
+                        <div class="item">
+                            <% if(cards[5] == 1){ %>
+                                <div style="background-color: rgb(78, 117, 78); height: 360; padding: 0;">
+                            <% } else { %>
+                                <input type="checkbox" id="card" name="card" value="<%= cards[7] %>">
+                            <% } %>
+                            
+                            <img src = <%= cards[3] %>></img>
+                            <li>Name: <%= cards[0] %></li>
+                            <li>Collector ID: <%= cards[1] %></li>
+                            <li>Rarity: <%= cards[2] %></li>
+                            <li>Price: <%= cards[4] %></li>
+                            <li>Set: <%= cards[6] %></li>
+                            <br>
+                        </div>
+                    <% }); %>
                 </div>
-            <% }); %>
-        </ul>
+                <input type="submit">
+            </ul>
+        </form>
     </body>
 </html>
