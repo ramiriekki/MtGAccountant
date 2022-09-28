@@ -7,8 +7,8 @@
     "node-schedule": "^2.1.0"
   },
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "nodemon dist/server.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
