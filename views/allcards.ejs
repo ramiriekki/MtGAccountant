@@ -110,13 +110,15 @@
     <body>
         
         <h1>Cards</h1>
-        <form method="post" action="my-collection" enctype="application/x-www-form-urlencoded">
+        <form method="post" enctype="application/x-www-form-urlencoded">
             <ul>
-                <input type="submit" value="Submit to collection">
+                <input type="submit">
                 <div class="flex-container">
                     <%cards.forEach(function(cards) { %>
                         <div class="item">
-                            <img src = <%= cards[3] %>></img>
+                            <a href="./my-collection/<%= cards[7] %>">
+                                <img src = <%= cards[3] %> ></img>
+                            </a>
                             <br>
                             <div class="info-box">
                                 <p style="text-align: center; background-color: #848484; margin-left: 0;"><%= cards[0] %></p>

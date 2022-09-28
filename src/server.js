@@ -1,14 +1,12 @@
-const {Card, CardContainer} = require('./Card')
 const express = require('express');
 const mysql = require('mysql');
 const axios = require('axios');
 const schedule = require('node-schedule');
-const { json } = require('stream/consumers');
 
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",  
-    password: "", 
+    password: process.env.ADMIN_PASSWORD, 
     database: "collections"
 });
 
@@ -37,13 +35,13 @@ async function getCards(){
 
     //Arrange the API data to array
     for (const [key, value] of Object.entries(apidata.data.data)) {  
-        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name])
+        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text])
     }
     
     //let sql = "REPLACE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?";
     //let sql = "UPDATE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?"
     // TODO update price
-    let sql = "INSERT INTO allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ? ON DUPLICATE KEY UPDATE isincollection = IF(isincollection = 1, 1, 0)"
+    let sql = "INSERT INTO allcards (id, name, collectionnumber, rarity, imageuri, price, setcode, oracletext, flavortext) VALUES ? ON DUPLICATE KEY UPDATE isincollection = IF(isincollection = 1, 1, 0)"
 
     // Add the cards to the database
     con.query(sql, [cards], function (err, result) {
@@ -70,8 +68,12 @@ var scheduler = schedule.scheduleJob('*/10 * * * *', async function(){
 });
 
 const app = express();
+
+// --------- middleware ---------
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
+// --------- /middleware --------
+
 app.set('view engine', 'ejs');
 
 // -------------------------- endpoints ---------------------------------
@@ -104,6 +106,7 @@ app.post('/my-collection', async (req, res) => {
             cardscollected = value
         }
         
+        // Go through acquired array and update the isincollection value in the database
         for (const [key, value] of Object.entries(cardscollected)) {  
             let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
             con.query(sql)
@@ -118,7 +121,21 @@ app.post('/my-collection', async (req, res) => {
     }
 })
 
-// TODO endpoint: http://localhost:3001/my-collection/:card
+// endpoint: http://localhost:3001/all-cards/:cardid
+app.get('/my-collection/:card', (req, res) => {
+    const cardid = String(req.params.card)
+    let card
+    
+    con.query(`SELECT * FROM allcards WHERE id = "${cardid}"`, function (err, result) {
+        if (err) throw err;
+        // get id value from query
+        card = result
+        console.log(card);
+        // TODO Visual view of card data
+        res.render('singlecard.ejs');
+    });
+})
+
 // TODO endpoint: http://localhost:3001/my-collection/:set
 // TODO endpoint: http://localhost:3001/my-collection/:set/:card
 
