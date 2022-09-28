@@ -37,10 +37,13 @@ async function getCards(){
 
     //Arrange the API data to array
     for (const [key, value] of Object.entries(apidata.data.data)) {  
-        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, false, value.set_name])
+        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name])
     }
     
-    let sql = "REPLACE INTO allcards (id, name, collectionnumber, rarity, imageuri, price, isincollection, setcode) VALUES ?";
+    //let sql = "REPLACE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?";
+    //let sql = "UPDATE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?"
+    // TODO update price
+    let sql = "INSERT INTO allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ? ON DUPLICATE KEY UPDATE isincollection = IF(isincollection = 1, 1, 0)"
 
     // Add the cards to the database
     con.query(sql, [cards], function (err, result) {
@@ -90,22 +93,34 @@ app.get('/my-collection', (req, res) => {
 });
 
 app.post('/my-collection', async (req, res) => {
-    let cardscollected = []
+    let cardscollected
+    //console.log(JSON.stringify(req.body))
+    
     try {
+        // BUG if there is only one card, this wont work
+        // if only one card is received -> cardscollected not an array
+        // if multiple -> cardscollected array
         for (const [key, value] of Object.entries(req.body)) {  
-            cardscollected.push([value])
+            cardscollected = value
         }
-        //const body = await JSON.stringify(req.body.card)    // JSON.stringify needed here
+        
+        for (const [key, value] of Object.entries(cardscollected)) {  
+            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+            con.query(sql)
+            //console.log(value)
+        }
         //console.log("Body: " + body)
-        console.log(cardscollected)
+        console.log("collected" + cardscollected)
+        res.redirect('/my-collection');
     }
     catch {
         console.log("Fail")
     }
 })
 
-// TODO endpoint: http://localhost:3001/my-collection
+// TODO endpoint: http://localhost:3001/my-collection/:card
 // TODO endpoint: http://localhost:3001/my-collection/:set
+// TODO endpoint: http://localhost:3001/my-collection/:set/:card
 
 //
 // -------------------------- /endpoints ---------------------------------

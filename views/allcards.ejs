@@ -2,22 +2,98 @@
     <head>
         <title>Dashboard</title>
         <style>
-            .active {
-                background-color: green;
-                width: 250px;
-                margin: 10px;
+            ul{
+                padding: 0;
+                width: 100%;
+            }
+
+            div label input {
+                margin-right:100px;
+            }
+
+            body {
+                font-family:sans-serif;
+                background-color: #bbbbbb;
+            }
+
+            #ck-button {
+                font-weight: 600;
+                font-family: Arial, Helvetica, sans-serif;
+                margin:4px;
+                background-color:#EFEFEF;
+                border-radius:4px;
+                border:1px solid #D0D0D0;
+                overflow:auto;
+                float:inherit;
+            }
+
+            #ck-button label {
+                float:inherit;
+                width:4.0em;
+            }
+
+            #ck-button label span {
+                text-align:center;
+                padding:3px 0px;
+                display:block;
+            }
+
+            #ck-button label input {
+                top:-20px;
+            }
+
+            #ck-button input:checked + span {
+                background-color:#f9bd69;
+                color:#fff;
+            }
+
+            img{
+                padding-bottom: 15px;
+            }
+
+            .info-box{
+                background-color: #979797;
+                border: 1px solid black;
+            }
+
+            p{
+                margin: 0;
+                margin-left: 10;
+                font-family: Arial, Helvetica, sans-serif;
+                color:black;
+                text-align: left;
+                font-weight:600
+            }
+
+            p.collected-card{
+                margin:4px;
+                background-color:rgb(70, 116, 70);
+                border-radius:4px;
+                border:1px solid black;
+                overflow:auto;
+                height: 30px;
+                float:inherit;
                 text-align: center;
-                line-height: 25px;
-                font-size: 15px;
+                font-weight: 600;
             }
             
             .flex-container {
             display: flex;
             flex-wrap: wrap;
-            background-color: rgb(135, 135, 135);
+            background-color: rgb(73, 73, 73);
             }
 
             .flex-container > div {
+            background-color: #bbbbbb;
+            width: 250px;
+            margin: 10px;
+            text-align: center;
+            line-height: 25px;
+            font-size: 15px;
+            border: 2px solid black;
+            }
+
+            .flex-container > div.active{
             background-color: #bbbbbb;
             width: 250px;
             margin: 10px;
@@ -36,22 +112,32 @@
         <h1>Cards</h1>
         <form method="post" action="my-collection" enctype="application/x-www-form-urlencoded">
             <ul>
-                <input type="submit">
+                <input type="submit" value="Submit to collection">
                 <div class="flex-container">
                     <%cards.forEach(function(cards) { %>
                         <div class="item">
-                            <% if(cards[5] == 1){ %>
-                                <div style="background-color: rgb(78, 117, 78); height: 360; padding: 0;">
-                            <% } else { %>
-                                <input type="checkbox" id="card" name="card" value="<%= cards[7] %>">
-                            <% } %>
-                            
                             <img src = <%= cards[3] %>></img>
-                            <li>Name: <%= cards[0] %></li>
-                            <li>Collector ID: <%= cards[1] %></li>
-                            <li>Rarity: <%= cards[2] %></li>
-                            <li>Price: <%= cards[4] %></li>
-                            <li>Set: <%= cards[6] %></li>
+                            <br>
+                            <div class="info-box">
+                                <p style="text-align: center; background-color: #848484; margin-left: 0;"><%= cards[0] %></p>
+                                <p>Collector ID: <%= cards[1] %></p>
+                                <p>Rarity: <%= cards[2] %></p>
+                                <p>Price: <%= cards[4] %> €</p>
+                                <p>Set: <%= cards[6] %></p>
+                            
+                            <% if(cards[5] == 1){ %>
+                                    <p class="collected-card">Card in collection</p>
+                                </div>
+                            <% } else { %>
+                                <div id="ck-button">
+                                    <label>
+                                        <input type="checkbox" name="card" hidden value="<%= cards[7] %>"><span>Add to collection</span>
+                                    </label>
+                                </div>
+                                <!--<input type="checkbox" name="card" value="<%= cards[7] %>">-->
+                                <!--<label for="card">text</label>-->
+                                </div>
+                            <% } %>
                             <br>
                         </div>
                     <% }); %>
