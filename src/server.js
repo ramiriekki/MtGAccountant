@@ -96,7 +96,7 @@ app.post('/my-collection', async (req, res) => {
     let cardscollected
     //console.log(JSON.stringify(req.body))
     
-    try {
+    try { 
         // BUG if there is only one card, this wont work
         // if only one card is received -> cardscollected not an array
         // if multiple -> cardscollected array
