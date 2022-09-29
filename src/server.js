@@ -15,7 +15,6 @@ con.connect(function(err) {
     console.log("Connected!");
 });
 
-let cards = [];
 let api;
 let apidata;
 
@@ -31,17 +30,19 @@ const getApi = () => {
 };
 
 async function getCards(){
-    apidata = await getApi();
+    let cards = [];
 
+    apidata = await getApi();
+    
     //Arrange the API data to array
     for (const [key, value] of Object.entries(apidata.data.data)) {  
-        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text])
+        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal])
     }
     
     //let sql = "REPLACE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?";
     //let sql = "UPDATE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?"
     // TODO update price
-    let sql = "INSERT INTO allcards (id, name, collectionnumber, rarity, imageuri, price, setcode, oracletext, flavortext) VALUES ? ON DUPLICATE KEY UPDATE isincollection = IF(isincollection = 1, 1, 0)"
+    let sql = "INSERT INTO allcards (id, name, collectionnumber, rarity, imageuri, price, setcode, oracletext, flavortext, imageuri_normal) VALUES ? ON DUPLICATE KEY UPDATE isincollection = IF(isincollection = 1, 1, 0)"
 
     // Add the cards to the database
     con.query(sql, [cards], function (err, result) {
@@ -72,6 +73,7 @@ const app = express();
 // --------- middleware ---------
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
+app.use(express.static('public'))
 // --------- /middleware --------
 
 app.set('view engine', 'ejs');
@@ -80,17 +82,17 @@ app.set('view engine', 'ejs');
 //
 // endpoint: http://localhost:3001/all-cards
 app.get('/my-collection', (req, res) => {
-    let allcards = [];
+    let cards = [];
     
     // Get the cards from the database and render visually
     con.query("SELECT * FROM allcards ORDER BY collectionnumber", function (err, result, fields) {
         if (err) throw err;
         // Store the data in an array
         for (const [key, value] of Object.entries(result)) {  
-            allcards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
+            cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
         }
         //console.log(allcards);
-        res.render('allcards.ejs', {cards: allcards });
+        res.render('allcards.ejs', {cards: cards });
     });
 });
 
@@ -124,15 +126,28 @@ app.post('/my-collection', async (req, res) => {
 // endpoint: http://localhost:3001/all-cards/:cardid
 app.get('/my-collection/:card', (req, res) => {
     const cardid = String(req.params.card)
-    let card
+    let tempcard
+    let card = []
     
     con.query(`SELECT * FROM allcards WHERE id = "${cardid}"`, function (err, result) {
         if (err) throw err;
-        // get id value from query
-        card = result
-        console.log(card);
+        
+        tempcard = result
+
+        card.push(tempcard[0].id)
+        card.push(tempcard[0].name)
+        card.push(tempcard[0].collectionnumber)
+        card.push(tempcard[0].rarity)
+        card.push(tempcard[0].price)
+        card.push(tempcard[0].setcode)
+        card.push(tempcard[0].oracle_text)
+        card.push(tempcard[0].flavortext)
+        card.push(tempcard[0].imageuri_normal)
+        
+        //console.log(card[0].id);
+        
         // TODO Visual view of card data
-        res.render('singlecard.ejs');
+        res.render('singlecard.ejs', {card: card});
     });
 })
 
