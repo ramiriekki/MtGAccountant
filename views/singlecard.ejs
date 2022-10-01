@@ -4,19 +4,183 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MtG Accountant</title>
+    <style>
+        html {
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            min-height: 100%;
+            margin: 0;
+            background-color: rgb(57, 57, 57);
+        }
+
+        .top-nav{
+            height: 15vh;
+            background-color: #111;
+            border-bottom: 1px solid white;
+            display: flex;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .container{
+            display: flex;
+        }
+
+        .container #name{
+            position: relative;
+        }
+
+        #testcont{
+            display: flex;
+            flex-direction: column;
+            margin-left: 250px;
+            margin-top: 15vh;
+        }
+
+        #testcont #name{
+            color: #f1f1f1;
+            font-size: 30px;
+            margin-left: 30px;
+        }
+
+        .info-box{
+            margin-top: 0;
+            margin-left: 60px;
+            margin-right: 60px;
+        }
+
+        .info-box p{
+            margin-top: 0;
+            font-size: 20px;
+            color: #f1f1f1;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+        img{
+            height: 450px;
+            width: auto;
+            margin-left: 30px;
+        }
+
+        p#flavor-text{
+            font-style: italic;
+        }
+
+        .card-data{
+            background-color: #111;
+            padding: 20px;
+            padding-bottom: 10px;
+            display: flex;
+        }
+
+        .values p{
+            margin-left: 130px;
+        }
+    </style>
 </head>
 <body>
-    <div class="item">
-        <img src = <%= card[3] %> ></img>
-        <br>
-        <div class="info-box">
-            <p style="text-align: center; background-color: #848484; margin-left: 0;"><%= card[0] %></p>
-            <p>Collector ID: <%= card[1] %></p>
-            <p>Rarity: <%= card[2] %></p>
-            <p>Price: <%= card[4] %> €</p>
-            <p>Set: <%= card[6] %></p>
-        <br>
+    <div class="top-nav">
+        <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> 
     </div>
+    
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="/my-collection/">Collection</a>
+        <a href="#">Sets</a>
+    </div>
+
+    <div id="testcont">
+        <p id="name"><%= card[1] %></p>
+        <div id="content-container" class="container">
+            <div class="image">
+                <img src = <%= card[7] %>></img>
+            </div>
+            <div class="info-box">
+                <div class="card-data">
+                    <div class="titles">
+                        <p>Rarity: </p>
+                        <p>Set: </p>
+                        <p>Collector ID: </p>
+                        <p>Price: </p>
+                    </div>
+
+                    <div class="values">
+                        <p><%= card[3] %></p>
+                        <p><%= card[5] %></p>
+                        <p><%= card[2] %></p>
+                        <p><%= card[4] %> €</p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <p id="flavor-text"><%= card[6] %></p>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("testcont").style.marginLeft = "250px";
+        }
+        
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("testcont").style.marginLeft= "0";
+        }
+        </script>
 </body>
 </html>

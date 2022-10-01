@@ -18,8 +18,6 @@ con.connect(function(err) {
 let api;
 let apidata;
 
-// ALL CARDS: https://c2.scryfall.com/file/scryfall-bulk/default-cards/default-cards-20220926090845.json
-
 // Get the API data
 const getApi = () => {
     return new Promise(resolve => {
@@ -81,7 +79,7 @@ app.set('view engine', 'ejs');
 // -------------------------- endpoints ---------------------------------
 //
 // endpoint: http://localhost:3001/all-cards
-app.get('/my-collection', (req, res) => {
+app.get('/my-collection/', (req, res) => {
     let cards = [];
     
     // Get the cards from the database and render visually
@@ -96,7 +94,7 @@ app.get('/my-collection', (req, res) => {
     });
 });
 
-app.post('/my-collection', async (req, res) => {
+app.post('/my-collection/', async (req, res) => {
     let cardscollected
     //console.log(JSON.stringify(req.body))
     
@@ -124,14 +122,14 @@ app.post('/my-collection', async (req, res) => {
 })
 
 // endpoint: http://localhost:3001/all-cards/:cardid
-app.get('/my-collection/:card', (req, res) => {
+app.get('/my-collection/:card/', (req, res) => {
     const cardid = String(req.params.card)
     let tempcard
     let card = []
     
     con.query(`SELECT * FROM allcards WHERE id = "${cardid}"`, function (err, result) {
         if (err) throw err;
-        
+
         tempcard = result
 
         card.push(tempcard[0].id)
@@ -140,13 +138,11 @@ app.get('/my-collection/:card', (req, res) => {
         card.push(tempcard[0].rarity)
         card.push(tempcard[0].price)
         card.push(tempcard[0].setcode)
-        card.push(tempcard[0].oracle_text)
         card.push(tempcard[0].flavortext)
         card.push(tempcard[0].imageuri_normal)
         
-        //console.log(card[0].id);
+        console.log(card);
         
-        // TODO Visual view of card data
         res.render('singlecard.ejs', {card: card});
     });
 })
