@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const axios = require('axios');
 const schedule = require('node-schedule');
+const { resolve } = require('path');
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -18,27 +19,53 @@ con.connect(function(err) {
 let api;
 let apidata;
 
+// multiple sets --> https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=(set%3Aaer+OR+set%3Admu)
+// whole set --> https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=e%3Admu
 // Get the API data
 const getApi = () => {
     return new Promise(resolve => {
-        api = axios.get('https://api.scryfall.com/cards/search?q=e%3Admu')
-        //console.log(api)
-        resolve(api);
+        // api = axios.get('https://api.scryfall.com/cards/search?q=e%3Admu')
+        // resolve(api);
+        async function getData(){
+            // If there is multiple pages go through one page then alter url and repeat
+            // As long as the has_more value is true or on the last page when there is still data
+            async function getAllPages(){
+                let repo = null, page = 1, results = [];
+                do {
+                    repo = await axios.get(`https://api.scryfall.com/cards/search?format=json&include_extras=true&include_multilingual=false&include_variations=true&order=set&page=${page++}&q=(set%3Aaer+or+set%3Admu)&unique=cards`);
+                    results = results.concat(repo)
+                    // console.log(repo.data.has_more)
+                    // console.log(results.length)
+                } while(repo.data.has_more == true | page < results.lenght)
+                page = 0
+                return results
+            }
+            result = await getAllPages()
+            return result
+        }
+        api = getData()
+        resolve(api)
     });
+
 };
 
 async function getCards(){
     let cards = [];
-
+    
     apidata = await getApi();
+    //console.log(ID of card in pos 1: apidata[0].data.data[1].id)
     
-    //Arrange the API data to array
-    for (const [key, value] of Object.entries(apidata.data.data)) {  
-        cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal])
-    }
+    //Arrange the API data to array from all pages
+    let p = 0
+    console.log("Lenght: " +  Object.keys(apidata).length)
+    do {
+        for (const [key, value] of Object.entries(apidata[p].data.data)) {  
+            cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal])
+            //console.log("p: " + p)
+        }
+        p++
+    } while(p < Object.keys(apidata).length)
     
-    //let sql = "REPLACE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?";
-    //let sql = "UPDATE allcards (id, name, collectionnumber, rarity, imageuri, price, setcode) VALUES ?"
     // TODO update price
     let sql = "INSERT INTO allcards (id, name, collectionnumber, rarity, imageuri, price, setcode, oracletext, flavortext, imageuri_normal) VALUES ? ON DUPLICATE KEY UPDATE isincollection = IF(isincollection = 1, 1, 0)"
 
@@ -47,19 +74,39 @@ async function getCards(){
         if (err) throw err;
         console.log("Number of records inserted: " + result.affectedRows);
     });
-
 }
 
 getCards();
 
 // Update the database every 10 minutes
 // TODO when no longer needed -> minute to every 12 hours or so
+// TODO update to go through all pages
 var scheduler = schedule.scheduleJob('*/10 * * * *', async function(){
     const getApi = () => {
         return new Promise(resolve => {
-            api = axios.get('https://api.scryfall.com/cards/search?q=e%3Admu')
-            resolve(api);
+            // api = axios.get('https://api.scryfall.com/cards/search?q=e%3Admu')
+            // resolve(api);
+            async function getData(){
+                // If there is multiple pages go through one page then alter url and repeat
+                // As long as the has_more value is true or on the last page when there is still data
+                async function getAllPages(){
+                    let repo = null, page = 1, results = [];
+                    do {
+                        repo = await axios.get(`https://api.scryfall.com/cards/search?format=json&include_extras=true&include_multilingual=false&include_variations=true&order=set&page=${page++}&q=(set%3Aaer+or+set%3Admu)&unique=cards`);
+                        results = results.concat(repo)
+                        // console.log(repo.data.has_more)
+                        // console.log(results.length)
+                    } while(repo.data.has_more == true | page < results.lenght)
+                    page = 0
+                    return results
+                }
+                result = await getAllPages()
+                return result
+            }
+            api = getData()
+            resolve(api)
         });
+    
     };
     apidata = await getApi();
 
@@ -77,13 +124,13 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 // -------------------------- endpoints ---------------------------------
-//
+// TODO change this to set view --> all sets displayed with number of cards and progress bar
 // endpoint: http://localhost:3001/all-cards
 app.get('/my-collection/', (req, res) => {
     let cards = [];
     
     // Get the cards from the database and render visually
-    con.query("SELECT * FROM allcards ORDER BY collectionnumber", function (err, result, fields) {
+    con.query("SELECT * FROM allcards ORDER BY name", function (err, result, fields) {
         if (err) throw err;
         // Store the data in an array
         for (const [key, value] of Object.entries(result)) {  
