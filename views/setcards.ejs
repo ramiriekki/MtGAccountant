@@ -162,9 +162,58 @@
                 width: 100%;
                 height: 7vh;
             }
+
+            .set-info{
+                margin-top: 20vh;
+                text-align: center;
+                position: relative;
+                display: block;
+                margin-left: 250px;
+            }
+
+            .set-info > p{
+                text-align: center;
+            }
+
+            #set-img{
+                height: 150px;
+                filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
+                width: auto;
+            }
+
+            h1{
+                color: white;
+                margin-top: 0;
+            }
+
+            progress[value] {
+                -webkit-appearance: none;
+                appearance: none;
+
+                width: 230px;
+                height: 25px;
+            }
+
+            progress[value]::-webkit-progress-bar {
+                background-color: #eee;
+                border-radius: 2px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+            }
+
         </style>
     </head>
     <body>
+        <div class="set-info" id="set-info">
+            <img src="<%= set[6] %>" id="set-img">
+            <h1><%= set[2] %></h1>
+            <p style="text-transform: uppercase;"><%= set[1] %></p>
+            <p><%= set[4] %></p>
+            <p>Released: <%= set[3] %></p>
+            <br>
+            <progress max="<%= set[5] %>" value="<%= cardsCollected %>"></progress>
+            <p>Collected <%= cardsCollected %>/<%= set[5] %></p>
+        </div>
+
         <div class="top-nav">
             <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> 
         </div>
@@ -176,11 +225,6 @@
             <a href="#">Search</a>
         </div>
 
-        <div class="set-info">
-
-        </div>
-        
-        <h1>Cards</h1>
         <form method="post" enctype="application/x-www-form-urlencoded" id="form">
             <ul>
                 <input type="submit" class="submit" value="Add selected to collection">
@@ -221,10 +265,12 @@
             function openNav() {
                 document.getElementById("sidebar").style.width = "250px";
                 document.getElementById("form").style.marginLeft = "250px";
+                document.getElementById("set-info").style.marginLeft = "250px";
             }
             
             function closeNav() {
                 document.getElementById("sidebar").style.width = "0";
+                document.getElementById("set-info").style.marginLeft = "0";
                 document.getElementById("form").style.marginLeft= "0";
             }
         </script>
