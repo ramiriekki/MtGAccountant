@@ -159,14 +159,35 @@
             }
 
             .submit{
-                width: 100%;
+                width: 80%;
                 height: 7vh;
+                font-size: normal;
+                font-weight: 700;
+            }
+
+            .sumbitcont{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #title{
+                margin-left: 100px;
+                color: white;
+            }
+
+            .titlebox{
+                display: flex;
+                align-items: center;
             }
         </style>
     </head>
     <body>
         <div class="top-nav">
-            <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> 
+            <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>
+            <div class="titlebox">
+                <h1 id="title">MtG Accountant</h1>
+            </div> 
         </div>
 
         <div id="sidebar" class="sidebar">
@@ -183,7 +204,9 @@
         <h1>Cards</h1>
         <form method="post" enctype="application/x-www-form-urlencoded" id="form">
             <ul>
-                <input type="submit" class="submit" value="Add selected to collection">
+                <div class="sumbitcont">
+                    <input type="submit" class="submit" value="Add selected to collection">
+                </div>
                 <div class="flex-container">
                     <%cards.forEach(function(cards) { %>
                         <div class="item">
@@ -213,7 +236,9 @@
                         </div>
                     <% }); %>
                 </div>
-                <input type="submit" class="submit" value="Add selected to collection">
+                <div class="sumbitcont">
+                    <input type="submit" class="submit" value="Add selected to collection">
+                </div>
             </ul>
         </form>
 

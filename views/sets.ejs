@@ -185,11 +185,24 @@
             color: white;
             text-decoration: none;
         }
+
+        #title{
+            margin-left: 100px;
+            color: white;
+        }
+
+        .titlebox{
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <div class="top-nav">
         <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> 
+        <div class="titlebox">
+            <h1 id="title">MtG Accountant</h1>
+        </div>
     </div>
 
     <div id="sidebar" class="sidebar">

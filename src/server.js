@@ -224,7 +224,7 @@ app.get('/my-collection/:card/', (req, res) => {
     });
 })
 
-// TODO endpoint: http://localhost:3001/my-collection/:set
+// TODO progress bar for each set item
 app.get('/sets/', (reg, res) => {
     let sets = [];
 
@@ -276,11 +276,39 @@ app.get('/sets/:set/', (req, res) => {
             set.push(tempset[0].card_count)
             set.push(tempset[0].icon_uri)
             
-            console.log(set);
+            //console.log(set);
             
             res.render('setcards.ejs', {cards: cards, set: set, cardsCollected});
         });
     });
+})
+
+app.post('/sets/:set', async (req, res) => {
+    let cardscollected = []
+    let set = req.body.set
+    console.log(set)
+    
+    try { 
+        // BUG if there is only one card, this wont work
+        // if only one card is received -> cardscollected not an array
+        // if multiple -> cardscollected array
+        for (const [key, value] of Object.entries(req.body.card)) {  
+            cardscollected.push(value)
+        }
+        
+        console.log(cardscollected)
+        // Go through acquired array and update the isincollection value in the database
+        for (const [key, value] of Object.entries(cardscollected)) {  
+            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+            con.query(sql)
+        }
+        //console.log("Body: " + body)
+        //console.log("collected" + cardscollected)
+        res.redirect(`/sets/${set}`);
+    }
+    catch {
+        console.log("Fail")
+    }
 })
 // TODO endpoint: http://localhost:3001/my-collection/:set/:card
 

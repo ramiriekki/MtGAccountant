@@ -159,8 +159,10 @@
             }
 
             .submit{
-                width: 100%;
+                width: 80%;
                 height: 7vh;
+                font-size: normal;
+                font-weight: 700;
             }
 
             .set-info{
@@ -200,6 +202,33 @@
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
             }
 
+            .proginfo{
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .proginfo > p{
+                margin-top: 10px;
+            }
+
+            .sumbitcont{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #title{
+                margin-left: 100px;
+                color: white;
+            }
+
+            .titlebox{
+                display: flex;
+                align-items: center;
+            }
+
         </style>
     </head>
     <body>
@@ -210,12 +239,19 @@
             <p><%= set[4] %></p>
             <p>Released: <%= set[3] %></p>
             <br>
-            <progress max="<%= set[5] %>" value="<%= cardsCollected %>"></progress>
-            <p>Collected <%= cardsCollected %>/<%= set[5] %></p>
+            <progress max="" value="<%= cardsCollected %>" id="prog"></progress>
+            <div class="proginfo">
+                <p>Collected <%= cardsCollected %> /</p>
+                <p id="setcards" style="margin-left: 3px;"></p>
+            </div>
+            
         </div>
 
         <div class="top-nav">
             <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> 
+            <div class="titlebox">
+                <h1 id="title">MtG Accountant</h1>
+            </div>
         </div>
 
         <div id="sidebar" class="sidebar">
@@ -227,8 +263,10 @@
 
         <form method="post" enctype="application/x-www-form-urlencoded" id="form">
             <ul>
-                <input type="submit" class="submit" value="Add selected to collection">
-                <div class="flex-container">
+                <div class="sumbitcont">
+                    <input type="submit" class="submit" value="Add selected to collection">
+                </div>
+                <div class="flex-container" id="flex-container">
                     <%cards.forEach(function(cards) { %>
                         <div class="item">
                             <a href="/my-collection/<%= cards[7] %>">
@@ -257,7 +295,10 @@
                         </div>
                     <% }); %>
                 </div>
-                <input type="submit" class="submit" value="Add selected to collection">
+                <input type="checkbox" name="set" hidden value="<%= set[1] %>" checked>
+                <div class="sumbitcont">
+                    <input type="submit" class="submit" value="Add selected to collection">
+                </div>
             </ul>
         </form>
 
@@ -272,6 +313,18 @@
                 document.getElementById("sidebar").style.width = "0";
                 document.getElementById("set-info").style.marginLeft = "0";
                 document.getElementById("form").style.marginLeft= "0";
+            }
+
+            window.onload = function(){
+                let cont = document.getElementById("flex-container")
+                let childcount = cont.childElementCount
+
+                document.getElementById('setcards').innerHTML = childcount;
+                document.getElementById('prog').max = childcount;
+            };
+
+            function countCards(){
+                
             }
         </script>
     </body>
