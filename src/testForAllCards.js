@@ -12,6 +12,7 @@ let apidata;
 
 // Get the API data
 const getApi = () => {
+    //TODO get bulk-data first -> download_uri to api variable
     return new Promise(resolve => {
         api = axios.get('https://data.scryfall.io/default-cards/default-cards-20221001090531.json')
         console.log(api)
@@ -30,7 +31,7 @@ async function getCards(){
     //     cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal])
     // }
 
-    //console.log("Numer of objects collected: " + cards.length)
+    console.log("Numer of objects collected: " + apidata.lenght)
 }
 console.log("asfsgaf")
 getCards();
