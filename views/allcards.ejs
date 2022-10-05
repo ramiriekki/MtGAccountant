@@ -184,31 +184,9 @@
             .pagination-container {
                 display: flex;
                 align-items: center;
-                position: absolute;
+                position: relative;
                 bottom: 0;
                 justify-content: center;
-            }
-            
-            .pagination-number,
-            .pagination-button{
-                font-size: 1.1rem;
-                background-color: transparent;
-                border: none;
-                margin: 0.25rem 0.25rem;
-                cursor: pointer;
-                height: 2.5rem;
-                width: 2.5rem;
-                border-radius: .2rem;
-            }
-            
-            .pagination-number:hover,
-            .pagination-button:not(.disabled):hover {
-                background: #fff;
-            }
-            
-            .pagination-number.active {
-                color: #fff;
-                background: #0085b6;
             }
         </style>
     </head>
@@ -272,6 +250,25 @@
             </ul>
         </form>
 
+        <div class="pagination-container">
+
+            <%if (page == 1) { %>
+            <% } else if(page == 2) { %>
+                <a href="/my-collection?page=<%= prev %>"><%= prev %></a>
+            <% } else { %>
+                <a href="/my-collection?page=1">1</a>
+                ..
+                <a href="/my-collection?page=<%= prev %>"><%= prev %></a>
+            <% } %>    
+
+            <p><%= page %></p>
+
+            <%if (length < limit) { %>
+            <% } else {%>
+                <a href="/my-collection?page=<%= next %>"><%= next %></a>
+            <% } %>
+
+        </div>
         
 
         <script>

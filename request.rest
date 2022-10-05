@@ -1,1 +1,1 @@
-GET http://localhost:3001/my-collection
+GET http://localhost:3001/my-collection?page=10&limit=51

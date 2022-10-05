@@ -156,18 +156,27 @@ app.set('view engine', 'ejs');
 app.get('/my-collection/', async (req, res) => {
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`);
-    
-    const page = parseInt(req.query.page)
+    //console.log("lenght: "+Object.keys(cards).length)
+
+    let end = false
+    let page
+    if(req.url == "/my-collection/"){page = 1}else{page = parseInt(req.query.page)}
     const limit = 51
 
+    console.log(req.url)
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
     const results = {}
 
-    if (endIndex < cards.lenght) {
+    if (endIndex < Object.keys(cards).length) {
         results.next = {
             page: page + 1,
+            limit: limit
+        }
+    } else {
+        results.next = {
+            page: page,
             limit: limit
         }
     }
@@ -175,14 +184,20 @@ app.get('/my-collection/', async (req, res) => {
     if (startIndex > 0) {
         results.previous = {
             page: page - 1,
-            limit: limit
+            limit: limit,
+        }
+    } else {
+        results.previous = {
+            page: page,
+            limit: limit,
         }
     }
 
     // Convert cards from object to array of values
     results.results = Object.values(cards).slice(startIndex, endIndex)
-    //console.log(results.results)
-    res.render('allcards.ejs', {cards: results.results });
+    console.log(results.results.length)
+    // console.log(typeof(results.previous))
+    res.render('allcards.ejs', {cards: results.results, prev: results.previous.page, next: results.next.page, page, endIndex, limit, length: results.results.length});
 });
 
 app.post('/my-collection/', async (req, res) => {
