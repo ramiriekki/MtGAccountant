@@ -187,6 +187,41 @@
                 position: relative;
                 bottom: 0;
                 justify-content: center;
+                margin-left: 250px;
+                margin-bottom: 50px;
+            }
+
+            .pagination-container > p {
+                margin: 0;
+                font-size: large;
+                margin-right: 8px;
+                margin-left: 8px;
+                font-weight: 700;
+                color: #797979;
+            }
+
+            .pagination-container > a {
+                text-decoration: none;
+                font-size: large;
+            }
+
+            .pagination-container > a:link {
+                color: white;
+            }
+
+            /* visited link */
+            .pagination-container > a:visited {
+                color: white;
+            }
+
+            /* mouse over link */
+            .pagination-container > a:hover {
+                color: white;
+            }
+
+            /* selected link */
+            .pagination-container > a:active {
+                color: white;
             }
         </style>
     </head>
@@ -250,14 +285,14 @@
             </ul>
         </form>
 
-        <div class="pagination-container">
+        <div class="pagination-container" id="pagi-cont">
 
             <%if (page == 1) { %>
             <% } else if(page == 2) { %>
                 <a href="/my-collection?page=<%= prev %>"><%= prev %></a>
             <% } else { %>
                 <a href="/my-collection?page=1">1</a>
-                ..
+                <p>..</p>
                 <a href="/my-collection?page=<%= prev %>"><%= prev %></a>
             <% } %>    
 
@@ -275,11 +310,13 @@
             function openNav() {
                 document.getElementById("sidebar").style.width = "250px";
                 document.getElementById("form").style.marginLeft = "250px";
+                document.getElementById("pagi-cont").style.marginLeft = "250px";
             }
             
             function closeNav() {
                 document.getElementById("sidebar").style.width = "0";
                 document.getElementById("form").style.marginLeft= "0";
+                document.getElementById("pagi-cont").style.marginLeft = "0";
             }
         </script>
     </body>

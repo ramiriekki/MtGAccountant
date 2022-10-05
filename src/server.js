@@ -202,7 +202,7 @@ app.get('/my-collection/', async (req, res) => {
 
 app.post('/my-collection/', async (req, res) => {
     let cardscollected
-    
+    console.log(req.body)
     try { 
         // BUG if there is only one card, this wont work
         // if only one card is received -> cardscollected not an array
