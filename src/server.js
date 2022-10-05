@@ -21,7 +21,7 @@ let cardData;
 
 // multiple sets --> https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=(set%3Aaer+OR+set%3Admu)
 // whole set --> https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=e%3Admu
-// Get the API data
+// Get the card API data
 const getCardAPI = () => {
     return new Promise(resolve => {
         async function getData(){
@@ -47,6 +47,7 @@ const getCardAPI = () => {
 
 };
 
+// Get the set data
 const getSetAPI = () => {
     return new Promise(resolve => {
         let results
@@ -72,23 +73,20 @@ async function getCards(){
     setData = await getSetAPI()
     cardData = await getCardAPI()
 
-    //console.log(ID of card in pos 1: cardData[0].data.data[1].id)
-    //console.log(setData.data.data)
-
-    //Arrange the card API data to array from all pages
+    // Page variable
     let p = 0
-    console.log("Lenght: " +  Object.keys(cardData).length)
+
+    // Arrange the card API data to array from all pages. Increase p after getting all the data on one page.
     do {
         for (const [key, value] of Object.entries(cardData[p].data.data)) {  
             cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal, value.set])
-            //console.log("p: " + p)
         }
         p++
     } while(p < Object.keys(cardData).length)
 
+    // Arrange the set data to an array
     for (const [key, value] of Object.entries(setData.data.data)) {  
         sets.push([value.id, value.code, value.name, value.released_at, value.set_type, value.card_count, value.icon_svg_uri])
-        //console.log("p: " + p)
     }
     
     // TODO update price
@@ -97,14 +95,14 @@ async function getCards(){
     // Add the cards to the database
     con.query(sql, [cards], function (err, result) {
         if (err) throw err;
-        console.log("Number of records inserted: " + result.affectedRows);
+        //console.log("Number of records inserted: " + result.affectedRows);
     });
 
     let sql2 = "REPLACE INTO sets (set_id, code, name, release_date, type, card_count, icon_uri) VALUES ?"
 
     con.query(sql2, [sets], function (err, result) {
         if (err) throw err;
-        console.log("Number of records inserted: " + result.affectedRows);
+        //console.log("Number of records inserted: " + result.affectedRows);
     });
 }
 
@@ -124,23 +122,23 @@ var scheduler = schedule.scheduleJob('*/10 * * * *', async function(){
                     do {
                         repo = await axios.get(`https://api.scryfall.com/cards/search?format=json&include_extras=true&include_multilingual=false&include_variations=true&order=set&page=${page++}&q=(set%3Aaer+or+set%3Admu)`);
                         results = results.concat(repo)
-                        // console.log(repo.data.has_more)
-                        // console.log(results.length)
                     } while(repo.data.has_more == true | page < results.lenght)
                     page = 0
                     return results
                 }
+
                 result = await getAllPages()
                 return result
             }
             api = getData()
             resolve(api)
         });
-    
     };
     cardData = await getCardAPI();
 
     getCards();
+
+    console.log("DB updated. " + new Date())
 });
 
 const app = express();
@@ -154,26 +152,41 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 // -------------------------- endpoints ---------------------------------
-// TODO change this to set view --> all sets displayed with number of cards and progress bar
-// endpoint: http://localhost:3001/all-cards
-app.get('/my-collection/', (req, res) => {
-    let cards = [];
+// endpoint: http://localhost:3001/my-collection
+app.get('/my-collection/', async (req, res) => {
+    // Get the cards from the database
+    let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`);
     
-    // Get the cards from the database and render visually
-    con.query("SELECT * FROM allcards ORDER BY name", function (err, result, fields) {
-        if (err) throw err;
-        // Store the data in an array
-        for (const [key, value] of Object.entries(result)) {  
-            cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
+    const page = parseInt(req.query.page)
+    const limit = 51
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const results = {}
+
+    if (endIndex < cards.lenght) {
+        results.next = {
+            page: page + 1,
+            limit: limit
         }
-        //console.log(allcards);
-        res.render('allcards.ejs', {cards: cards });
-    });
+    }
+    
+    if (startIndex > 0) {
+        results.previous = {
+            page: page - 1,
+            limit: limit
+        }
+    }
+
+    // Convert cards from object to array of values
+    results.results = Object.values(cards).slice(startIndex, endIndex)
+    //console.log(results.results)
+    res.render('allcards.ejs', {cards: results.results });
 });
 
 app.post('/my-collection/', async (req, res) => {
     let cardscollected
-    //console.log(JSON.stringify(req.body))
     
     try { 
         // BUG if there is only one card, this wont work
@@ -187,11 +200,9 @@ app.post('/my-collection/', async (req, res) => {
         for (const [key, value] of Object.entries(cardscollected)) {  
             let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
             con.query(sql)
-            //console.log(value)
         }
-        //console.log("Body: " + body)
-        console.log("collected" + cardscollected)
-        res.redirect('/my-collection');
+
+        res.redirect('/my-collection?page=1');
     }
     catch {
         console.log("Fail")
@@ -204,6 +215,7 @@ app.get('/my-collection/:card/', (req, res) => {
     let tempcard
     let card = []
     
+    // TODO create a card class
     con.query(`SELECT * FROM allcards WHERE id = "${cardid}"`, function (err, result) {
         if (err) throw err;
 
@@ -217,8 +229,6 @@ app.get('/my-collection/:card/', (req, res) => {
         card.push(tempcard[0].setcode)
         card.push(tempcard[0].flavortext)
         card.push(tempcard[0].imageuri_normal)
-        
-        console.log(card);
         
         res.render('singlecard.ejs', {card: card});
     });
@@ -235,7 +245,7 @@ app.get('/sets/', (reg, res) => {
         for (const [key, value] of Object.entries(result)) {  
             sets.push([value.id, value.set_id, value.code, value.name, value.released_date, value.type, value.card_count, value.icon_uri])
         }
-        //console.log(allcards);
+
         res.render('sets.ejs', {sets: sets });
     });
 })
@@ -251,19 +261,17 @@ app.get('/sets/:set/', (req, res) => {
         let cardsCollected = 0
 
         if (err) throw err;
-        //console.log(result)
 
+        // Progress bar values
         for (const [key, value] of Object.entries(result)) {  
             cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
             if(value.isincollection == 1){
                 cardsCollected++
             }
-            //console.log(value.isincollection)
         }
-
-        console.log("Collected cards: " + cardsCollected)
         
         // Get the set data
+        // TODO set class
         con.query(`SELECT * FROM sets WHERE code = "${code}"`, function (err, result) {
             if (err) throw err;
             tempset = result
@@ -276,8 +284,6 @@ app.get('/sets/:set/', (req, res) => {
             set.push(tempset[0].card_count)
             set.push(tempset[0].icon_uri)
             
-            //console.log(set);
-            
             res.render('setcards.ejs', {cards: cards, set: set, cardsCollected});
         });
     });
@@ -286,7 +292,6 @@ app.get('/sets/:set/', (req, res) => {
 app.post('/sets/:set', async (req, res) => {
     let cardscollected = []
     let set = req.body.set
-    console.log(set)
     
     try { 
         // BUG if there is only one card, this wont work
@@ -295,26 +300,70 @@ app.post('/sets/:set', async (req, res) => {
         for (const [key, value] of Object.entries(req.body.card)) {  
             cardscollected.push(value)
         }
-        
-        console.log(cardscollected)
+
         // Go through acquired array and update the isincollection value in the database
         for (const [key, value] of Object.entries(cardscollected)) {  
             let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
             con.query(sql)
         }
-        //console.log("Body: " + body)
-        //console.log("collected" + cardscollected)
+
         res.redirect(`/sets/${set}`);
     }
     catch {
         console.log("Fail")
     }
 })
-// TODO endpoint: http://localhost:3001/my-collection/:set/:card
 
 //
 // -------------------------- /endpoints ---------------------------------
 
+// For preparing paginating /my-collection/. 
+function promiseQuery(query) {
+    return new Promise((resolve, reject) => {
+        let cards = []
+        con.query(query, (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            for (const [key, value] of Object.entries(results)) {  
+                cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
+            }
+            resolve(cards);
+        })
+    })
+}
+
+function paginatedResults(model) {
+    // middleware function
+    return (req, res, next) => {
+      const page = parseInt(req.query.page);
+      const limit = parseInt(req.query.limit);
+   
+      // calculating the starting and ending index
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
+   
+      const results = {};
+      if (endIndex < model.length) {
+        results.next = {
+          page: page + 1,
+          limit: limit
+        };
+      }
+   
+      if (startIndex > 0) {
+        results.previous = {
+          page: page - 1,
+          limit: limit
+        };
+      }
+   
+      results.results = model.slice(startIndex, endIndex);
+   
+      res.paginatedResults = results;
+      next();
+    };
+}
 
 const PORT = 3001
 app.listen(PORT, () => {
