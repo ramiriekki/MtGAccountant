@@ -156,19 +156,19 @@ app.set('view engine', 'ejs');
 app.get('/my-collection/', async (req, res) => {
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`);
-    //console.log("lenght: "+Object.keys(cards).length)
 
-    let end = false
     let page
-    if(req.url == "/my-collection/"){page = 1}else{page = parseInt(req.query.page)}
-    const limit = 51
+    // If requested url is the my-collection root set page to 1
+    if(req.url == "/my-collection/" || req.url == "/my-collection"){page = 1}else{page = parseInt(req.query.page)}
+    const limit = 51    // How many cards are displayed on page
 
-    console.log(req.url)
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
     const results = {}
 
+    // Check if current page has next page by comparing the 
+    // lenght of cards object to pages last cards index
     if (endIndex < Object.keys(cards).length) {
         results.next = {
             page: page + 1,
@@ -181,6 +181,8 @@ app.get('/my-collection/', async (req, res) => {
         }
     }
     
+    // Check if current page has previous page by comparing the 
+    // lenght of cards object to pages last cards index
     if (startIndex > 0) {
         results.previous = {
             page: page - 1,
@@ -346,38 +348,6 @@ function promiseQuery(query) {
             resolve(cards);
         })
     })
-}
-
-function paginatedResults(model) {
-    // middleware function
-    return (req, res, next) => {
-      const page = parseInt(req.query.page);
-      const limit = parseInt(req.query.limit);
-   
-      // calculating the starting and ending index
-      const startIndex = (page - 1) * limit;
-      const endIndex = page * limit;
-   
-      const results = {};
-      if (endIndex < model.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit
-        };
-      }
-   
-      if (startIndex > 0) {
-        results.previous = {
-          page: page - 1,
-          limit: limit
-        };
-      }
-   
-      results.results = model.slice(startIndex, endIndex);
-   
-      res.paginatedResults = results;
-      next();
-    };
 }
 
 const PORT = 3001
