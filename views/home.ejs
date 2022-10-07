@@ -1,133 +1,7 @@
 <html>
     <head>
         <title>Dashboard</title>
-        <style>
-            ul{
-                padding: 0;
-                width: 100%;
-            }
-
-            div label input {
-                margin-right:100px;
-            }
-
-            body {
-                font-family:sans-serif;
-                background-color: rgb(24, 24, 24);
-                margin: 0;
-            }
-
-            #title{
-                margin-left: 100px;
-                color: white;
-            }
-
-            .titlebox{
-                display: flex;
-                align-items: center;
-            }
-
-            #ck-button {
-                font-weight: 600;
-                font-family: Arial, Helvetica, sans-serif;
-                margin:4px;
-                background-color:#EFEFEF;
-                border-radius:4px;
-                border:1px solid #D0D0D0;
-                overflow:auto;
-                float:inherit;
-            }
-
-            #ck-button label {
-                float:inherit;
-                width:4.0em;
-            }
-
-            #ck-button label span {
-                text-align:center;
-                padding:3px 0px;
-                display:block;
-            }
-
-            #ck-button label input {
-                top:-20px;
-            }
-
-            #ck-button input:checked + span {
-                background-color:#f9bd69;
-                color:#fff;
-            }
-
-            .sidebar {
-                height: 100%;
-                width: 0;
-                position: fixed;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                background-color: #111;
-                overflow-x: hidden;
-                transition: 0.5s;
-                padding-top: 60px;
-            }
-
-            .sidebar a {
-                padding: 8px 8px 8px 32px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #818181;
-                display: block;
-                transition: 0.3s;
-            }
-
-            .sidebar a:hover {
-                color: #f1f1f1;
-            }
-
-            .sidebar .closebtn {
-                position: absolute;
-                top: 0;
-                right: 25px;
-                font-size: 36px;
-                margin-left: 50px;
-            }
-
-            .openbtn {
-                font-size: 20px;
-                cursor: pointer;
-                background-color: #111;
-                color: white;
-                padding: 10px 15px;
-                border: none;
-            }
-
-            .openbtn:hover {
-                background-color: #444;
-            }
-
-
-            p{
-                margin: 0;
-                margin-left: 10;
-                font-family: Arial, Helvetica, sans-serif;
-                color:white;
-                text-align: left;
-                font-weight:600;
-                font-size: small;
-            }
-
-            .top-nav{
-                height: 15vh;
-                background-color: #111;
-                border-bottom: 1px solid white;
-                display: flex;
-                position: fixed;
-                top: 0;
-                width: 100%;
-            }
-
-            
-        </style>
+        <link rel="stylesheet" href="/public/css/homeStyle.css">
     </head>
     <body>
         <div class="top-nav">
@@ -139,7 +13,7 @@
 
         <div id="sidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            <a href="/my-collection/">Collection</a>
+            <a href="/my-collection">Collection</a>
             <a href="/sets/">Sets</a>
             <a href="#">Search</a>
         </div>
@@ -148,13 +22,11 @@
             function openNav() {
                 document.getElementById("sidebar").style.width = "250px";
                 document.getElementById("form").style.marginLeft = "250px";
-                document.getElementById("pagi-cont").style.marginLeft = "250px";
             }
             
             function closeNav() {
                 document.getElementById("sidebar").style.width = "0";
                 document.getElementById("form").style.marginLeft= "0";
-                document.getElementById("pagi-cont").style.marginLeft = "0";
             }
         </script>
     </body>
