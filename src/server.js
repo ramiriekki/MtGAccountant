@@ -355,6 +355,10 @@ function promiseQuery(query) {
 }
 
 const PORT = 3001
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+
+if(process.env.NODE_ENV === "test"){
+    module.exports = app, con;
+    //module.exports = con;
+} else{
+    app.listen(PORT, () => console.log(`Server listening on localhost:${PORT}`));
+}
