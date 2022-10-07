@@ -2,7 +2,6 @@ const express = require('express');
 const mysql = require('mysql');
 const axios = require('axios');
 const schedule = require('node-schedule');
-const { resolve } = require('path');
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -79,7 +78,7 @@ async function getCards(){
     // Arrange the card API data to array from all pages. Increase p after getting all the data on one page.
     do {
         for (const [key, value] of Object.entries(cardData[p].data.data)) {  
-            cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.small, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal, value.set])
+            cards.push([value.id, value.name, value.collector_number, value.rarity, value.image_uris.border_crop, value.prices.eur, value.set_name, value.oracle_text, value.flavor_text, value.image_uris.normal, value.set])
         }
         p++
     } while(p < Object.keys(cardData).length)
@@ -152,6 +151,10 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 // -------------------------- endpoints ---------------------------------
+app.get('/home/', (req, res) => {
+    res.render('home.ejs')
+})
+
 // endpoint: http://localhost:3001/my-collection
 app.get('/my-collection/', async (req, res) => {
     // Get the cards from the database
