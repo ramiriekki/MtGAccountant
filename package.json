@@ -15,7 +15,7 @@
     "dev": "set NODE_ENV=dev&& env-cmd -f ./config/dev.env nodemon src/server.js",
     "build": "tsc -p .",
     "alltest": "node src/testForAllCards.js",
-    "test": "set NODE_ENV=test&& mocha"
+    "test": "set NODE_ENV=test&& env-cmd -f ./config/dev.env mocha"
   },
   "devDependencies": {
     "@types/express": "^4.17.14",
