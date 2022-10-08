@@ -7,7 +7,7 @@ const port = 3001
 describe("MtG Accountant endpoints", () => {
     before("Start Server", (done) => {
         server = app.listen(port, () => {
-            console.log(`Server listening on localhost:${port}`)
+            //console.log(`Server listening on localhost:${port}`)
             done();
         })
     })
@@ -74,9 +74,9 @@ describe("MtG Accountant endpoints", () => {
         })
     })
 
-    after("Close Server and database connection", (done) => {
+    after("Close Server", (done) => {
         server.close();
-        console.log("Server closed")
+        //console.log("Server closed")
         done();
     })
 })

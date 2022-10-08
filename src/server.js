@@ -201,7 +201,7 @@ app.get('/my-collection/', async (req, res) => {
 
     // Convert cards from object to array of values
     results.results = Object.values(cards).slice(startIndex, endIndex)
-    console.log(results.results.length)
+    // console.log(results.results.length)
     // console.log(typeof(results.previous))
     res.render('allcards.ejs', {cards: results.results, prev: results.previous.page, next: results.next.page, page, endIndex, limit, length: results.results.length});
 });
