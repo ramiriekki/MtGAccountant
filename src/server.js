@@ -1,6 +1,7 @@
 const express = require('express');
 const schedule = require('node-schedule');
 const init = require("./init");
+const auth = require("./authenticate");
 const con = init.getCon()
 const User = require('./user').User; 
 
@@ -25,6 +26,34 @@ app.get('/login/', (req, res) => {
     res.render('login.ejs')
 })
 
+app.post('/login/', (req, res) => {
+    let user
+
+    function setValue(value){
+        user = value
+        //console.log(user)
+    }
+
+    //console.log(req.body.password)
+    sql = `SELECT * FROM users WHERE login_name = "${req.body.username}"`
+    con.query(sql, function(err, rows){
+        if(err) {
+            throw err;
+        } else {
+            setValue(rows);
+            results=JSON.parse(JSON.stringify(user))
+            //console.log(results[0].login_name)
+            //auth.checkHash(req.body.password, results[0].password_salt)
+            if (auth.checkHash(req.body.password, results[0].password_salt, results[0].password_hash)) { 
+                console.log("Success!")
+                res.redirect('/login')
+            } else {
+                console.log("Fail")
+            }
+        }
+    })
+})
+
 app.get('/register/', (req, res) => {
     res.render('register.ejs')
 })
@@ -38,6 +67,7 @@ app.post('/register/', (req, res) => {
 
     let newUser = new User(usern, email, password)
 
+    // TODO this to user class constructor
     let sql = `INSERT INTO users(login_name, email, password_salt, password_hash) VALUES ("${newUser._username}", "${newUser._email}", "${newUser.passwordSalt}", "${newUser.hashedPassword}")`
     con.query(sql)
 

@@ -33,5 +33,7 @@ class User {
         this.hashedPassword = crypt.pbkdf2Sync(password, this.passwordSalt, 1000, 64, `sha512`).toString(`hex`);
         this.passwordDate = new Date();
     }
+
+    
 }
 exports.User = User;
