@@ -2,6 +2,7 @@ const express = require('express');
 const schedule = require('node-schedule');
 const init = require("./init");
 const con = init.getCon()
+const User = require('./user').User; 
 
 // When the server check for updates in the data once
 init.getCards()
@@ -29,8 +30,19 @@ app.get('/register/', (req, res) => {
 })
 
 app.post('/register/', (req, res) => {
-    console.log(req.body)
+    //console.log(typeof req.body.email)
     // TODO user class
+    const usern = req.body.username
+    const email = req.body.email
+    const password = req.body.password
+
+    let newUser = new User(usern, email, password)
+
+    let sql = `INSERT INTO users(login_name, email, password_salt, password_hash) VALUES ("${newUser._username}", "${newUser._email}", "${newUser.passwordSalt}", "${newUser.hashedPassword}")`
+    con.query(sql)
+
+
+    //console.log(newUser)
 })
 
 app.get('/home/', (req, res) => {
