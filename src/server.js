@@ -1,10 +1,9 @@
 const express = require('express');
-const mysql = require('mysql');
-const axios = require('axios');
 const schedule = require('node-schedule');
 const init = require("./init");
 const con = init.getCon()
 
+// When the server check for updates in the data once
 init.getCards()
 
 // Update the database every 10 minutes
@@ -15,17 +14,25 @@ var scheduler = schedule.scheduleJob('*/10 * * * *', async function(){
 });
 
 const app = express();
-
-// --------- middleware ---------
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
-//app.use(express.static('public'))
 app.use('/public', express.static('public')); // access css files
-// --------- /middleware --------
-
 app.set('view engine', 'ejs');
 
 // -------------------------- endpoints ---------------------------------
+app.get('/login/', (req, res) => {
+    res.render('login.ejs')
+})
+
+app.get('/register/', (req, res) => {
+    res.render('register.ejs')
+})
+
+app.post('/register/', (req, res) => {
+    console.log(req.body)
+    // TODO user class
+})
+
 app.get('/home/', (req, res) => {
     res.render('home.ejs')
 })
@@ -82,7 +89,7 @@ app.get('/my-collection/', async (req, res) => {
 
 app.post('/my-collection/', async (req, res) => {
     let cardscollected
-    console.log(req.body)
+    //console.log(req.body)
     try { 
         // BUG if there is only one card, this wont work
         // if only one card is received -> cardscollected not an array
@@ -129,7 +136,7 @@ app.get('/my-collection/:card/', (req, res) => {
     });
 })
 
-// TODO progress bar for each set item
+// TODO progress bar for each set item -> needs new column in sets db table (number_of_cards_collected)
 app.get('/sets/', (reg, res) => {
     let sets = [];
 
