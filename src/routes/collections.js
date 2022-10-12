@@ -1,6 +1,7 @@
 const express = require('express');
 const init = require("../init");
 const con = init.getCon()
+const regist = require("./register")
 
 const router = express.Router(); 
 
@@ -10,6 +11,7 @@ router.use('/public', express.static('public')); // access css files
 
 // endpoint: http://localhost:3001/my-collection
 router.get('/my-collection/', async (req, res) => {
+    console.log(req.session)
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`);
 

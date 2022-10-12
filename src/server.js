@@ -1,9 +1,13 @@
+// TODO Session management & session database table
+
 const express = require('express');
 const schedule = require('node-schedule');
 const init = require("./init");
 const con = init.getCon()
 const collections = require('./routes/collections')
 const regist = require('./routes/register');
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
 
 // When the server check for updates in the data once
 init.getCards()
@@ -18,12 +22,28 @@ var scheduler = schedule.scheduleJob('*/10 * * * *', async function(){
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
-app.use('/collections', collections)
-app.use('/home', regist)
+
 app.use('/public', express.static('public')); // access css files
 app.set('view engine', 'ejs');
 
+
+const oneDay = 1000 * 1;
+
+//session middleware
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
+
+app.use(cookieParser());
+app.use('/collections', collections)
+app.use('/home', regist.routeRegister)
+
 app.get('/home/', (req, res) => {
+    //req.session.destroy();
+    console.log(req.session)
     res.render('home.ejs')
 })
 
