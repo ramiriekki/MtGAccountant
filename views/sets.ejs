@@ -18,8 +18,8 @@
 
     <div id="sidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="/my-collection/">Collection</a>
-        <a href="#">Sets</a>
+        <a href="/collections/my-collection/">Collection</a>
+        <a href="/collections/sets">Sets</a>
         <a href="#">Search</a>
     </div>
 
@@ -29,7 +29,7 @@
             <%sets.forEach(function(sets) { %>
                 
                     <div class="item">
-                        <a href="/sets/<%= sets[2] %>">
+                        <a href="/collections/sets/<%= sets[2] %>">
                         <img src = <%= sets[7] %> ></img>
                         <br>
                         <div class="info-box">

@@ -13,8 +13,8 @@
 
         <div id="sidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            <a href="/my-collection/">Collection</a>
-            <a href="/sets/">Sets</a>
+            <a href="/collections/my-collection/">Collection</a>
+            <a href="/collections/sets/">Sets</a>
             <a href="#">Search</a>
         </div>
 
@@ -31,7 +31,7 @@
                 <div class="flex-container">
                     <%cards.forEach(function(cards) { %>
                         <div class="item">
-                            <a href="/my-collection/<%= cards[7] %>">
+                            <a href="/collections/my-collection/<%= cards[7] %>">
                                 <img src = <%= cards[3] %> ></img>
                             </a>
                             <br>
@@ -67,18 +67,18 @@
 
             <%if (page == 1) { %>
             <% } else if(page == 2) { %>
-                <a href="/my-collection?page=<%= prev %>"><%= prev %></a>
+                <a href="/collections/my-collection?page=<%= prev %>"><%= prev %></a>
             <% } else { %>
-                <a href="/my-collection?page=1">1</a>
+                <a href="/collections/my-collection?page=1">1</a>
                 <p>..</p>
-                <a href="/my-collection?page=<%= prev %>"><%= prev %></a>
+                <a href="/collections/my-collection?page=<%= prev %>"><%= prev %></a>
             <% } %>    
 
             <p><%= page %></p>
 
             <%if (length < limit) { %>
             <% } else {%>
-                <a href="/my-collection?page=<%= next %>"><%= next %></a>
+                <a href="/collections/my-collection?page=<%= next %>"><%= next %></a>
             <% } %>
 
         </div>
