@@ -35,8 +35,8 @@ const getCardAPI = () => {
                 do {
                     repo = await axios.get(`https://api.scryfall.com/cards/search?format=json&include_extras=true&include_multilingual=false&include_variations=true&order=set&page=${page++}&q=(set%3Aaer+or+set%3Admu)&unique=cards`);
                     results = results.concat(repo)
-                    console.log(repo.data.has_more)
-                    console.log(results.length)
+                    //console.log(repo.data.has_more)
+                    //console.log(results.length)
                 } while(repo.data.has_more == true | page < results.lenght)
                 page = 0
                 return results

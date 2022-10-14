@@ -22,28 +22,21 @@ var scheduler = schedule.scheduleJob('*/10 * * * *', async function(){
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
-
 app.use('/public', express.static('public')); // access css files
 app.set('view engine', 'ejs');
-
-
-const oneDay = 1000 * 1;
-
-//session middleware
 app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767", // TODO <-- env variable
     saveUninitialized:true,
-    cookie: { maxAge: oneDay },
+    cookie: { maxAge: 1000 * 30 },
     resave: false
 }));
-
 app.use(cookieParser());
 app.use('/collections', collections)
 app.use('/home', regist.routeRegister)
 
 app.get('/home/', (req, res) => {
     //req.session.destroy();
-    console.log(req.session)
+    console.log(req.session.user)
     res.render('home.ejs')
 })
 

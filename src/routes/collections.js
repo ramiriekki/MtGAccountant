@@ -11,7 +11,11 @@ router.use('/public', express.static('public')); // access css files
 
 // endpoint: http://localhost:3001/my-collection
 router.get('/my-collection/', async (req, res) => {
-    console.log(req.session)
+    // Check if there is a session, if not -> redirect home
+    // if(!req.session.user){
+    //     res.redirect("/home")
+    // }
+    //console.log(req.session)
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`);
 
@@ -64,20 +68,24 @@ router.post('/my-collection/', async (req, res) => {
     let cardscollected
     //console.log(req.body)
     try { 
-        // BUG if there is only one card, this wont work
-        // if only one card is received -> cardscollected not an array
-        // if multiple -> cardscollected array
         for (const [key, value] of Object.entries(req.body)) {  
             cardscollected = value
         }
         
-        // Go through acquired array and update the isincollection value in the database
-        for (const [key, value] of Object.entries(cardscollected)) {  
-            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+        //console.log(typeof(cardscollected))
+
+        if(typeof(cardscollected) == "string"){
+            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${cardscollected}"`
             con.query(sql)
+        } else {
+            // Go through acquired array and update the isincollection value in the database
+            for (const [key, value] of Object.entries(cardscollected)) {  
+                let sql2 = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+                con.query(sql2)
+            }
         }
 
-        res.redirect('/my-collection?page=1');
+        res.redirect('/collections/my-collection?page=1');
     }
     catch {
         console.log("Fail")
@@ -86,6 +94,7 @@ router.post('/my-collection/', async (req, res) => {
 
 // endpoint: http://localhost:3001/all-cards/:cardid
 router.get('/my-collection/:card/', (req, res) => {
+    console.log(req.session.user)
     const cardid = String(req.params.card)
     let tempcard
     let card = []
@@ -169,20 +178,24 @@ router.post('/sets/:set', async (req, res) => {
     let set = req.body.set
     
     try { 
-        // BUG if there is only one card, this wont work
-        // if only one card is received -> cardscollected not an array
-        // if multiple -> cardscollected array
-        for (const [key, value] of Object.entries(req.body.card)) {  
-            cardscollected.push(value)
-        }
+        //console.log(typeof(req.body.card))
 
-        // Go through acquired array and update the isincollection value in the database
-        for (const [key, value] of Object.entries(cardscollected)) {  
-            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+        if (typeof(req.body.card) == "string"){
+            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${req.body.card}"`
             con.query(sql)
-        }
+        } else {
+            for (const [key, value] of Object.entries(req.body.card)) {  
+                cardscollected.push(value)
+            }
 
-        res.redirect(`/sets/${set}`);
+            //console.log(cardscollected)
+            // Go through acquired array and update the isincollection value in the database
+            for (const [key, value] of Object.entries(cardscollected)) {  
+                let sql2 = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+                con.query(sql2)
+            }
+        }
+        res.redirect(`/collections/sets/${set}`);
     }
     catch {
         console.log("Fail")
