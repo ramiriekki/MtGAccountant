@@ -109,7 +109,7 @@ async function getCards(){
     });
 }
 
-// TODO copy all card data from allcards to cards database and add username for each card
+// copy all card data from allcards to cards database and add username for each card
 // to identify owner. This assumes two or more users will never register exactly at the same time.
 async function copyCardsTemplate(user){
     let sql = "INSERT INTO cards (card_id, card_name, collection_number, rarity, imageuri_small, imageuri_normal, price, set_name, oracle_text, flavor_text, set_code) SELECT id, name, collectionnumber, rarity, imageuri, imageuri_normal, price, setcode, oracletext, flavortext, set_code FROM allcards"

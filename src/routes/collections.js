@@ -15,9 +15,9 @@ router.get('/my-collection/', async (req, res) => {
     // if(!req.session.user){
     //     res.redirect("/home")
     // }
-    //console.log(req.session)
+    console.log(req.session.user)
     // Get the cards from the database
-    let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`);
+    let cards = await promiseQuery(`SELECT * FROM cards WHERE username = "${req.session.user}" ORDER BY card_name`); // TODO if undefined
 
     let page
     // If requested url is the my-collection root set page to 1
@@ -75,12 +75,12 @@ router.post('/my-collection/', async (req, res) => {
         //console.log(typeof(cardscollected))
 
         if(typeof(cardscollected) == "string"){
-            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${cardscollected}"`
+            let sql = `UPDATE cards SET is_in_collection = '1' WHERE card_id = "${cardscollected}" and username = "${req.session.user}"`
             con.query(sql)
         } else {
             // Go through acquired array and update the isincollection value in the database
             for (const [key, value] of Object.entries(cardscollected)) {  
-                let sql2 = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+                let sql2 = `UPDATE cards SET is_in_collection = '1' WHERE card_id = "${value}" and username = "${req.session.user}"`
                 con.query(sql2)
             }
         }
@@ -214,7 +214,7 @@ function promiseQuery(query) {
                 return reject(err);
             }
             for (const [key, value] of Object.entries(results)) {  
-                cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
+                cards.push([value.card_name, value.collection_number, value.rarity, value.imageuri_small, value.price, value.is_in_collection, value.set_name, value.card_id])
             }
             resolve(cards);
         })
