@@ -66,7 +66,14 @@ routeRegister.post('/register/', (req, res) => {
     let newUser = new User(usern, email, password)
 
     let sql = `INSERT INTO users(login_name, email, password_salt, password_hash) VALUES ("${newUser._username}", "${newUser._email}", "${newUser.passwordSalt}", "${newUser.hashedPassword}")`
-    con.query(sql)
+    con.query(sql, function (err, result) {
+        if (err){
+            res.render('register.ejs')
+        } else {
+            init.copyCardsTemplate(usern)
+            res.redirect('/home/login')
+        }
+    });
 
     //console.log(newUser)
 })

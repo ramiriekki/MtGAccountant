@@ -109,4 +109,19 @@ async function getCards(){
     });
 }
 
-module.exports = { getCards, getCon };
+// TODO copy all card data from allcards to cards database and add username for each card
+// to identify owner. This assumes two or more users will never register exactly at the same time.
+async function copyCardsTemplate(user){
+    let sql = "INSERT INTO cards (card_id, card_name, collection_number, rarity, imageuri_small, imageuri_normal, price, set_name, oracle_text, flavor_text, set_code) SELECT id, name, collectionnumber, rarity, imageuri, imageuri_normal, price, setcode, oracletext, flavortext, set_code FROM allcards"
+    let sql2 = `UPDATE cards SET username = "${user}", is_owned = "1" WHERE is_owned = 0`
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+    });
+
+    con.query(sql2, function (err, result) {
+        if (err) throw err;
+    });
+}
+
+module.exports = { getCards, getCon, copyCardsTemplate };
