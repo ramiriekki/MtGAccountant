@@ -121,20 +121,26 @@ router.get('/my-collection/:card/', requireLogin, (req, res) => {
     });
 })
 
-// TODO progress bar for each set item -> needs new column in sets db table (number_of_cards_collected)
 router.get('/sets/', requireLogin, (reg, res) => {
-    //TODO sql query which gets all set names into an array
-    //TODO sql query which uses the array to count all cards from each set
-    //TODO sql query which then check and returns how many cards user has collected from each set
-
     let sets = [];
 
     // Get the cards from the database and render visually
-    con.query("SELECT * FROM sets WHERE name = 'Dominaria United' OR name = 'Aether Revolt'", function (err, result, fields) {
+    // con.query("SELECT * FROM sets WHERE name = 'Dominaria United' OR name = 'Aether Revolt'", function (err, result, fields) {
+    //     if (err) throw err;
+    //     //Store the data in an array
+    //     for (const [key, value] of Object.entries(result)) {  
+    //         sets.push([value.id, value.set_id, value.code, value.name, value.released_date, value.type, value.card_count, value.icon_uri])
+    //     }
+
+    //     res.render('sets.ejs', {sets: sets });
+    // });
+
+    con.query(" select a.*, (select count(*) from cards x where (x.set_code = a.code and x.username = 'testaaja' and x.is_in_collection = '1')) as collected_amount from sets a where name = 'Dominaria United' OR name = 'Aether Revolt'", function (err, result, fields) {
         if (err) throw err;
         //Store the data in an array
         for (const [key, value] of Object.entries(result)) {  
-            sets.push([value.id, value.set_id, value.code, value.name, value.released_date, value.type, value.card_count, value.icon_uri])
+            sets.push([value.id, value.set_id, value.code, value.name, value.released_date, value.type, value.card_count, value.icon_uri, value.collected_amount])
+            //console.log("Cards collected from set: " + value.collected_amount)
         }
 
         res.render('sets.ejs', {sets: sets });

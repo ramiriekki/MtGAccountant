@@ -39,6 +39,11 @@
                             <p>Cards: <%= sets[6] %></p>
                             <p style="text-transform: uppercase;"><%= sets[2] %></p>
                             <br>
+                            <progress max="<%= sets[6] %>" value="<%= sets[8] %>" id="prog"></progress>
+                            <div class="proginfo">
+                                <p>Collected <%= sets[8] %> / </p>
+                                <p style="margin-left: 3px;"> <%= sets[6] %> </p>
+                            </div>
                         </div>
                     </a>
                     </div>
@@ -48,6 +53,10 @@
     </div>
 
     <script>
+        window.onload = function(){
+            document.getElementById('setcards').innerHTML = '<% sets[6] %>';
+        };
+
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
             document.getElementById("cont").style.marginLeft = "250px";

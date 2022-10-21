@@ -194,3 +194,24 @@ a:active{
         display: block;
         transition: 0.3s;
 }
+
+progress[value] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 230px;
+    height: 19px;
+}
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+.proginfo{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.proginfo > p{
+    margin-top: 10px;
+}

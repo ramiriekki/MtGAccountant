@@ -43,7 +43,6 @@ routeRegister.post('/login/', (req, res) => {
                 // Link username to session
                 req.session.user = req.body.username
                 console.log(req.session.user)
-                // TODO link users and collections
                 res.redirect('/collections/my-collection')
             } else {
                 console.log("Fail")
