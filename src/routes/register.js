@@ -18,6 +18,7 @@ routeRegister.get('/login/', (req, res) => {
 
 routeRegister.post('/login/', (req, res) => {
     let user
+    console.log(req.body)
     console.log(req.session)
     // Get the sql query values to variable
     function setValue(value){

@@ -9,6 +9,8 @@ const regist = require('./routes/register');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
+
+
 // When the server check for updates in the data once
 init.getCards()
 
@@ -25,7 +27,7 @@ app.use(express.urlencoded({extended : true}))
 app.use('/public', express.static('public')); // access css files
 app.set('view engine', 'ejs');
 app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767", // TODO <-- env variable
+    secret: process.env.SESSION_SECRET,
     saveUninitialized:true,
     cookie: { maxAge: 1000 * 30 },
     resave: false
@@ -34,11 +36,6 @@ app.use(cookieParser());
 app.use('/collections', collections)
 app.use('/home', regist.routeRegister)
 
-app.get('/home/', (req, res) => {
-    //req.session.destroy();
-    console.log(req.session.user)
-    res.render('home.ejs')
-})
 
 const PORT = 3001
 
@@ -48,3 +45,9 @@ if(process.env.NODE_ENV === "test"){
 } else{
     app.listen(PORT, () => console.log(`Server listening on localhost:${PORT}`));
 }
+
+app.get('/home/', (req, res) => {
+    //req.session.destroy();
+    console.log(req.session.user)
+    res.render('home.ejs')
+})

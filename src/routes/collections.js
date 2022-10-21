@@ -1,7 +1,16 @@
 const express = require('express');
 const init = require("../init");
 const con = init.getCon()
-const regist = require("./register")
+const requireLogin = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.render('./login', {
+            message: 'Please login to continue',
+            messageClass: 'alert-danger'
+        });
+    }
+};
 
 const router = express.Router(); 
 
@@ -9,12 +18,13 @@ router.use(express.json())
 router.use(express.urlencoded({extended : true}))
 router.use('/public', express.static('public')); // access css files
 
+
 // endpoint: http://localhost:3001/my-collection
-router.get('/my-collection/', async (req, res) => {
+router.get('/my-collection/', requireLogin, async (req, res) => {
     // Check if there is a session, if not -> redirect home
-    // if(!req.session.user){
-    //     res.redirect("/home")
-    // }
+    if(!req.session.user){
+        res.redirect("/home")
+    }
     console.log(req.session.user)
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM cards WHERE username = "${req.session.user}" ORDER BY card_name`); // TODO if undefined
@@ -93,7 +103,7 @@ router.post('/my-collection/', async (req, res) => {
 })
 
 // endpoint: http://localhost:3001/all-cards/:cardid
-router.get('/my-collection/:card/', (req, res) => {
+router.get('/my-collection/:card/', requireLogin, (req, res) => {
     console.log(req.session.user)
     const cardid = String(req.params.card)
     let tempcard
@@ -119,7 +129,7 @@ router.get('/my-collection/:card/', (req, res) => {
 })
 
 // TODO progress bar for each set item -> needs new column in sets db table (number_of_cards_collected)
-router.get('/sets/', (reg, res) => {
+router.get('/sets/', requireLogin, (reg, res) => {
     let sets = [];
 
     // Get the cards from the database and render visually
@@ -135,7 +145,7 @@ router.get('/sets/', (reg, res) => {
 })
 
 // endpoint: http://localhost:3001/all-cards/:cardid
-router.get('/sets/:set/', (req, res) => {
+router.get('/sets/:set/', requireLogin, (req, res) => {
     const code = String(req.params.set)
     let cards = []
     
