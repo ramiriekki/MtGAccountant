@@ -1,14 +1,11 @@
 const express = require('express');
 const init = require("../init");
 const con = init.getCon()
-const requireLogin = (req, res, next) => {
+const requireLogin = (req, res, next) => { // middleware for requiring authentication on requests
     if (req.session.user) {
         next();
     } else {
-        res.render('./login', {
-            message: 'Please login to continue',
-            messageClass: 'alert-danger'
-        });
+        res.redirect('/home/login');
     }
 };
 
@@ -21,11 +18,7 @@ router.use('/public', express.static('public')); // access css files
 
 // endpoint: http://localhost:3001/my-collection
 router.get('/my-collection/', requireLogin, async (req, res) => {
-    // Check if there is a session, if not -> redirect home
-    if(!req.session.user){
-        res.redirect("/home")
-    }
-    console.log(req.session.user)
+    //console.log(req.session.user)
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM cards WHERE username = "${req.session.user}" ORDER BY card_name`); // TODO if undefined
 
@@ -130,6 +123,10 @@ router.get('/my-collection/:card/', requireLogin, (req, res) => {
 
 // TODO progress bar for each set item -> needs new column in sets db table (number_of_cards_collected)
 router.get('/sets/', requireLogin, (reg, res) => {
+    //TODO sql query which gets all set names into an array
+    //TODO sql query which uses the array to count all cards from each set
+    //TODO sql query which then check and returns how many cards user has collected from each set
+
     let sets = [];
 
     // Get the cards from the database and render visually
@@ -150,7 +147,7 @@ router.get('/sets/:set/', requireLogin, (req, res) => {
     let cards = []
     
     // Select all cards that have the same set_code as given param in request
-    con.query(`SELECT * FROM allcards WHERE set_code = "${code}"`, function (err, result) {
+    con.query(`SELECT * FROM cards WHERE set_code = "${code}" and username = "${req.session.user}" ORDER BY card_name`, function (err, result) {
         let set = []
         let cardsCollected = 0
 
@@ -158,11 +155,13 @@ router.get('/sets/:set/', requireLogin, (req, res) => {
 
         // Progress bar values
         for (const [key, value] of Object.entries(result)) {  
-            cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
-            if(value.isincollection == 1){
+            cards.push([value.card_name, value.collection_number, value.rarity, value.imageuri_small, value.price, value.is_in_collection, value.set_name, value.card_id])
+            if(value.is_in_collection == 1){
                 cardsCollected++
             }
         }
+
+        console.log("cards array: " + cards.length)
         
         // Get the set data
         // TODO set class
