@@ -9,8 +9,6 @@ const regist = require('./routes/register');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 
-
-
 // When the server check for updates in the data once
 init.getCards()
 
