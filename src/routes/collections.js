@@ -236,4 +236,9 @@ function promiseQuery(query) {
     })
 }
 
+router.get('/search/', (req, res) => {
+    //TODO form handling and results view. Results view should have some type of sorting system
+    res.render('search.ejs')
+})
+
 module.exports = router

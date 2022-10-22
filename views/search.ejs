@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MtG Accountant</title>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/public/css/searchStyle.css">
+</head>
+<body>
+    <div class="top-nav">
+        <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>
+        <div class="titlebox">
+            <h1 id="title">MtG Accountant</h1>
+        </div>
+            <div class="logout" style="margin-left: auto; align-items: center;">
+                <h3 style="margin-top: 30px; margin-right: 25px"><a href="/home/logout/" style="text-decoration: none; color: white;">Logout</a></h3>
+            </div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="/collections/my-collection">Collection</a>
+        <a href="/collections/sets/">Sets</a>
+        <a href="#">Search</a>
+    </div>
+
+    <div class="form-container">
+        <form action="" class="search-form">
+            <h1>Search</h1>
+            <label for="card-name"><h3>Name:</h3></label>
+            <div class="card-name">
+                <input type="text">
+            </div>
+
+            <label for="rarity-boxes"><h3>Include rarity:</h3></label>
+            <div class="rarity-boxes">
+                <label for="common">Common</label>
+                <input type="checkbox" name="rarity" value="common" id="common">
+                <label for="uncommon">Uncommon</label>
+                <input type="checkbox" name="rarity" value="uncommon" id="uncommon">
+                <label for="rare">Rare</label>
+                <input type="checkbox" name="rarity" value="rare" id="rare">
+                <label for="mythic">Mythic</label>
+                <input type="checkbox" name="rarity" value="mythic" id="mythic">
+            </div>
+
+            <label for="price"><h3>Price range:</h3></label>
+            <div class="price">
+                <label for="min-value">Min:</label>
+                <input type="number" name="min-value" id="min-value">
+                <label for="max-value">Max:</label>
+                <input type="number" name="max-value" id="max-value">
+            </div>
+
+            <label for="sets"><h3>Sets:</h3></label>
+            <div class="sets">
+                <div class="selectBox" onclick="showCheckboxes()">
+                    <select name="" id="">
+                        <option>Sets</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                
+                <div id="checkboxes">
+                <label for="one">
+                    <input type="checkbox" id="one" />First checkbox</label>
+                <label for="two">
+                    <input type="checkbox" id="two" />Second checkbox</label>
+                <label for="three">
+                    <input type="checkbox" id="three" />Third checkbox</label>
+                </div>
+            </div>
+            <br>
+
+            <button type="submit" class="btn">Login</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <script>
+        var expanded = false;
+
+        function showCheckboxes() {
+            var checkboxes = document.getElementById("checkboxes");
+            if (!expanded) {
+                checkboxes.style.display = "block";
+                expanded = true;
+            } else {
+                checkboxes.style.display = "none";
+                expanded = false;
+            }
+        }
+
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("form").style.marginLeft = "250px";
+        }
+        
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("form").style.marginLeft= "0";
+        }
+    </script>
+</body>
+</html>
