@@ -241,4 +241,9 @@ router.get('/search/', (req, res) => {
     res.render('search.ejs')
 })
 
+router.post('/search/', (req, res) => {
+    console.log(req.body.rarity)
+    res.redirect('/collections/search/')
+})
+
 module.exports = router

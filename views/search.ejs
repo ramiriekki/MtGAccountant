@@ -27,12 +27,12 @@
         <a href="#">Search</a>
     </div>
 
-    <div class="form-container">
-        <form action="" class="search-form">
+    <div class="form-container" id="form-container">
+        <form method="post" class="search-form">
             <h1>Search</h1>
             <label for="card-name"><h3>Name:</h3></label>
             <div class="card-name">
-                <input type="text">
+                <input type="text" name="card-name" value="">
             </div>
 
             <label for="rarity-boxes"><h3>Include rarity:</h3></label>
@@ -75,8 +75,7 @@
             </div>
             <br>
 
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="submit" class="btn">Search</button>
         </form>
     </div>
 
@@ -96,12 +95,12 @@
 
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
-            document.getElementById("form").style.marginLeft = "250px";
+            document.getElementById("form-container").style.marginLeft = "350px";
         }
         
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
-            document.getElementById("form").style.marginLeft= "0";
+            document.getElementById("form-container").style.marginLeft= "100px";
         }
     </script>
 </body>

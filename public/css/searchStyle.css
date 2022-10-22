@@ -56,7 +56,7 @@ body {
 
 .sidebar {
     height: 100%;
-    width: 0;
+    width: 250px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -126,6 +126,8 @@ p{
     display: flex;
     justify-content: center;
     margin-top: 20vh;
+    margin-left: 350px;
+    margin-right: 50%;
 }
 
 .form-container > *{
