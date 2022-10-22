@@ -28,11 +28,11 @@
     </div>
 
     <div class="form-container" id="form-container">
-        <form method="post" class="search-form">
+        <form action="/collections/search/results" method="post" class="search-form">
             <h1>Search</h1>
             <label for="card-name"><h3>Name:</h3></label>
             <div class="card-name">
-                <input type="text" name="card-name" value="">
+                <input type="text" name="card_name" value="">
             </div>
 
             <label for="rarity-boxes"><h3>Include rarity:</h3></label>
@@ -50,9 +50,9 @@
             <label for="price"><h3>Price range:</h3></label>
             <div class="price">
                 <label for="min-value">Min:</label>
-                <input type="number" name="min-value" id="min-value">
+                <input type="number" name="min_value" id="min-value">
                 <label for="max-value">Max:</label>
-                <input type="number" name="max-value" id="max-value">
+                <input type="number" name="max_value" id="max-value">
             </div>
 
             <label for="sets"><h3>Sets:</h3></label>

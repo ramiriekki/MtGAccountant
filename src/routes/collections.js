@@ -33,7 +33,7 @@ router.get('/my-collection/', requireLogin, async (req, res) => {
     const results = {}
 
     // Check if current page has next page by comparing the 
-    // lenght of cards object to pages last cards index
+    // length of cards object to pages last cards index
     if (endIndex < Object.keys(cards).length) {
         results.next = {
             page: page + 1,
@@ -47,7 +47,7 @@ router.get('/my-collection/', requireLogin, async (req, res) => {
     }
     
     // Check if current page has previous page by comparing the 
-    // lenght of cards object to pages last cards index
+    // length of cards object to pages last cards index
     if (startIndex > 0) {
         results.previous = {
             page: page - 1,
@@ -241,9 +241,79 @@ router.get('/search/', (req, res) => {
     res.render('search.ejs')
 })
 
-router.post('/search/', (req, res) => {
-    console.log(req.body.rarity)
+router.post('/search/results', (req, res) => {
+    console.log(req.body)
+
+    let cardName = req.body.card_name
+    let rarity
+    // make sure rarity is always an array
+    if (typeof(req.body.rarity) == "string"){
+        rarity = [req.body.rarity]
+    } else {
+        rarity = req.body.rarity
+    }
+    let min = req.body.min_value
+    let max = req.body.max_value
+
+    searchQuery = []
+
+    if (cardName != "") {
+        searchQuery.push(cardName)
+    }
+    if (rarity != undefined) {
+        searchQuery.push(rarity)
+    }
+    if (min != "") {
+        searchQuery.push(min)
+    }
+    if (max != "") {
+        searchQuery.push(max)
+    }
+
+    //console.log("name: " + cardName + " | rarity: " + rarity + " | min: " + min + " | max: " + max)
+    //console.log("searchQuery: " + searchQuery[1])
+    //console.log("Rarity length: " + rarity.length)
+    console.log("searchQuery length: " + searchQuery.length)
+
+    if (searchQuery.length == 0){
+        res.redirect('collections/search')
+    }
+
+    sql = `SELECT * FROM cards WHERE username = "${req.session.user}" `
+
+    if (cardName != ""){
+        sql += `AND card_name = "${cardName}" `
+    }
+
+    console.log("SQL query: " + sql)
+
+    if (rarity != undefined){
+        if (rarity.length == 1){
+            sql += `AND rarity = "${rarity[0]}" `
+        } else if (rarity.length == 2){
+            sql += `AND (rarity = "${rarity[0]}" OR rarity = "${rarity[1]}") `
+        } else if (rarity.length == 3){
+            sql += `AND rarity = "${rarity[0]}" OR rarity = "${rarity[1]}" OR rarity = "${rarity[2]}") `
+        } else if (rarity.length == 4){
+            sql += `AND rarity = "${rarity[0]}" OR rarity = "${rarity[1]}" OR rarity = "${rarity[2]}" OR rarity = "${rarity[3]}") `
+        }
+    }
+
+    console.log("SQL query: " + sql)
+
+    if (min != "" && max != ""){
+        sql += `AND price BETWEEN = ${min} AND ${max}`
+    } else if (min == "" && max != ""){
+        sql += `AND price BETWEEN = 0 AND ${max}`
+    } else if (min != "" && max == ""){
+        sql += `AND price BETWEEN = ${min} AND (select max(price) as maxprice)`
+    }
+
+    console.log("SQL query: " + sql)
+    
+    // TODO results view
     res.redirect('/collections/search/')
 })
+
 
 module.exports = router
