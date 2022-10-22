@@ -9,6 +9,15 @@
             <div class="titlebox">
                 <h1 id="title">MtG Accountant</h1>
             </div> 
+            <% if(user){ %>
+                <div class="logout" style="margin-left: auto; align-items: center;">
+                    <h3 style="margin-top: 30px; margin-right: 25px"><a href="/home/logout/" style="text-decoration: none; color: white;">Logout</a></h3>
+                </div>
+            <% } else { %>
+                <div class="login" style="margin-left: auto; align-items: center;">
+                    <h3 style="margin-top: 30px; margin-right: 25px"><a href="/home/login/" style="text-decoration: none; color: white;">Login</a></h3>
+                </div>
+            <% } %>
         </div>
 
         <div id="sidebar" class="sidebar">

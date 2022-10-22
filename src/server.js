@@ -49,5 +49,5 @@ if(process.env.NODE_ENV === "test"){
 app.get('/home/', (req, res) => {
     //req.session.destroy();
     console.log(req.session.user)
-    res.render('home.ejs')
+    res.render('home.ejs', {user: req.session.user})
 })

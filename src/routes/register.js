@@ -18,8 +18,8 @@ routeRegister.get('/login/', (req, res) => {
 
 routeRegister.post('/login/', (req, res) => {
     let user
-    console.log(req.body)
-    console.log(req.session)
+    // console.log("Body: " + req.body)
+    // console.log("Session: " + req.session)
     // Get the sql query values to variable
     function setValue(value){
         user = value
@@ -37,7 +37,7 @@ routeRegister.post('/login/', (req, res) => {
 
             // Check if password is correct, if yes --> redirect, else --> fail
             if (auth.checkHash(req.body.password, results[0].password_salt, results[0].password_hash)) { 
-                console.log("Success!")
+                console.log("Password correct")
 
                 // session = req.session
                 // Link username to session
@@ -45,7 +45,7 @@ routeRegister.post('/login/', (req, res) => {
                 console.log(req.session.user)
                 res.redirect('/collections/my-collection')
             } else {
-                console.log("Fail")
+                console.log("Wrong password or username")
             }
         }
     })

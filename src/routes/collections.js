@@ -97,7 +97,7 @@ router.post('/my-collection/', async (req, res) => {
 
 // endpoint: http://localhost:3001/all-cards/:cardid
 router.get('/my-collection/:card/', requireLogin, (req, res) => {
-    console.log(req.session.user)
+    // console.log(req.session.user)
     const cardid = String(req.params.card)
     let tempcard
     let card = []
@@ -167,7 +167,7 @@ router.get('/sets/:set/', requireLogin, (req, res) => {
             }
         }
 
-        console.log("cards array: " + cards.length)
+        // console.log("cards array: " + cards.length)
         
         // Get the set data
         // TODO set class
