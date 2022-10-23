@@ -273,7 +273,7 @@ router.post('/search/results', (req, res) => {
     //console.log("name: " + cardName + " | rarity: " + rarity + " | min: " + min + " | max: " + max)
     //console.log("searchQuery: " + searchQuery[1])
     //console.log("Rarity length: " + rarity.length)
-    console.log("searchQuery length: " + searchQuery.length)
+    //console.log("searchQuery length: " + searchQuery.length)
 
     if (searchQuery.length == 0){
         res.redirect('collections/search')
@@ -285,7 +285,7 @@ router.post('/search/results', (req, res) => {
         sql += `AND card_name = "${cardName}" `
     }
 
-    console.log("SQL query: " + sql)
+    //console.log("SQL query: " + sql)
 
     if (rarity != undefined){
         if (rarity.length == 1){
@@ -299,7 +299,7 @@ router.post('/search/results', (req, res) => {
         }
     }
 
-    console.log("SQL query: " + sql)
+    //console.log("SQL query: " + sql)
 
     if (min != "" && max != ""){
         sql += `AND price BETWEEN = ${min} AND ${max}`
@@ -310,9 +310,23 @@ router.post('/search/results', (req, res) => {
     }
 
     console.log("SQL query: " + sql)
+
+    let cards = []
+
+    con.query(sql, (err, results) => {
+        if (err) {
+            return reject(err);
+        }
+        //console.log(results)
+        for (const [key, value] of Object.entries(results)) {  
+            cards.push([value.card_name, value.rarity, value.price, value.is_in_collection, value.card_id])
+        }
+        //console.log(cards)
+        res.render('results.ejs', {cards: cards})
+    })
     
     // TODO results view
-    res.redirect('/collections/search/')
+    
 })
 
 

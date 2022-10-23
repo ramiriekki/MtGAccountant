@@ -122,49 +122,38 @@ p{
     width: 100%;
 }
 
-.form-container{
-    display: flex;
-    justify-content: center;
-    margin-top: 20vh;
-    margin-left: 250px;
-    margin-right: 60%;
-    width: 50%;
+.tablediv{
+    margin-left: 280px;
+    margin-right: 30px;
+    margin-top: 150px; 
 }
 
-.form-container > *{
-    color: white;
+table{
+    width:100%;
+    color: white; 
+    border: 1px solid white;
+    background-color: white;
+    border-collapse: collapse;
 }
 
-.multiselect {
-    width: 200px;
+tr{
+    text-align: left;
+    border: 1px solid white;
+    background-color: #565656;
 }
 
-.selectBox {
-    position: relative;
+th, td{
+    border-left: 1px solid white;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
-.selectBox select {
+.divBox a
+{
     width: 100%;
-    font-weight: bold;
-}
-
-.overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-
-#checkboxes {
-    display: none;
-    border: 1px #dadada solid;
-}
-
-#checkboxes label {
+    height: 100%;
     display: block;
-}
-
-#checkboxes label:hover {
-    background-color: #1e90ff;
+    text-decoration: none;
+    color: white;
 }
