@@ -236,7 +236,7 @@ function promiseQuery(query) {
     })
 }
 
-router.get('/search/', (req, res) => {
+router.get('/search/', requireLogin, (req, res) => {
     sql = 'select code, name from sets where type = "core" or type = "expansion"'
 
     let setData = []
