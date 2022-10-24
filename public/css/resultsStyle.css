@@ -125,7 +125,7 @@ p{
 .tablediv{
     margin-left: 280px;
     margin-right: 30px;
-    margin-top: 150px; 
+    margin-top: 180px; 
 }
 
 table{
@@ -138,12 +138,12 @@ table{
 
 tr{
     text-align: left;
-    border: 1px solid white;
-    background-color: #565656;
+    border: 1px solid rgb(133, 133, 133);
+    background-color: #303030;
 }
 
 th, td{
-    border-left: 1px solid white;
+    border-left: 1px solid rgb(133, 133, 133);
     padding-left: 5px;
     padding-top: 3px;
     padding-bottom: 3px;

@@ -65,12 +65,13 @@
                 </div>
                 
                 <div id="checkboxes">
-                <label for="one">
-                    <input type="checkbox" id="one" />First checkbox</label>
-                <label for="two">
-                    <input type="checkbox" id="two" />Second checkbox</label>
-                <label for="three">
-                    <input type="checkbox" id="three" />Third checkbox</label>
+                    <%sets.forEach(function(sets) { %>
+                    <label for="<%= sets[0] %>">
+                        <input type="checkbox" name="sets" value="<%= sets[1] %>" style="margin-right: 20px;" id="<%= sets[0] %>"/>
+                        <p class="code" style="text-transform: uppercase; padding-top: 3px;"><%= sets[0] %> - </p>
+                        <p class="name" style="padding-top: 3px;">- <%= sets[1] %></p>
+                    </label>
+                    <% }); %>
                 </div>
             </div>
             <br>

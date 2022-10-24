@@ -237,8 +237,20 @@ function promiseQuery(query) {
 }
 
 router.get('/search/', (req, res) => {
+    sql = 'select code, name from sets where type = "core" or type = "expansion"'
+
+    let setData = []
+    con.query(sql, (err, results) => {
+        if (err) {
+            return reject(err);
+        }
+        for (const [key, value] of Object.entries(results)) {  
+            setData.push([value.code, value.name])
+        }
+        res.render('search.ejs', {sets: setData} )
+    })
+
     //TODO form handling and results view. Results view should have some type of sorting system
-    res.render('search.ejs')
 })
 
 router.post('/search/results', (req, res) => {
@@ -254,6 +266,12 @@ router.post('/search/results', (req, res) => {
     }
     let min = req.body.min_value
     let max = req.body.max_value
+    let sets
+    if (typeof(req.body.sets) == "string"){
+        sets = [req.body.sets]
+    } else {
+        sets = req.body.sets
+    }
 
     searchQuery = []
 
@@ -269,6 +287,9 @@ router.post('/search/results', (req, res) => {
     if (max != "") {
         searchQuery.push(max)
     }
+    if (sets != "") {
+        searchQuery.push(sets)
+    }
 
     //console.log("name: " + cardName + " | rarity: " + rarity + " | min: " + min + " | max: " + max)
     //console.log("searchQuery: " + searchQuery[1])
@@ -276,7 +297,7 @@ router.post('/search/results', (req, res) => {
     //console.log("searchQuery length: " + searchQuery.length)
 
     if (searchQuery.length == 0){
-        res.redirect('collections/search')
+        res.redirect('/collections/search')
     }
 
     sql = `SELECT * FROM cards WHERE username = "${req.session.user}" `
@@ -309,6 +330,22 @@ router.post('/search/results', (req, res) => {
         sql += `AND price BETWEEN = ${min} AND (select max(price) as maxprice)`
     }
 
+    if (sets != undefined){
+        if (sets.length == 1){
+            sql += `AND set_name = "${sets[0]}"`
+        } else if (sets.length > 1){
+            for (let i = 0; i < sets.length; i++){
+                if (i == 0){
+                    sql += `AND (set_name = "${sets[0]}" `
+                } else if (i == sets.length - 1) {
+                    sql += `OR set_name = "${sets[i]}")`
+                } else {
+                    sql += `OR set_name = "${sets[i]}" `
+                }
+            }
+        }
+    }
+
     console.log("SQL query: " + sql)
 
     let cards = []
@@ -319,7 +356,7 @@ router.post('/search/results', (req, res) => {
         }
         //console.log(results)
         for (const [key, value] of Object.entries(results)) {  
-            cards.push([value.card_name, value.rarity, value.price, value.is_in_collection, value.card_id])
+            cards.push([value.card_name, value.rarity, value.price, value.is_in_collection, value.card_id, value.set_name])
         }
         //console.log(cards)
         res.render('results.ejs', {cards: cards})

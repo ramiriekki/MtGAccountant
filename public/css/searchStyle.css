@@ -162,9 +162,11 @@ p{
 }
 
 #checkboxes label {
-    display: block;
+    display: flex; 
+    padding: 5px; 
+    background-color: rgb(49, 49, 49);
 }
 
 #checkboxes label:hover {
-    background-color: #1e90ff;
+    background-color: #636363;
 }
