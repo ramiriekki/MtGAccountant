@@ -323,11 +323,11 @@ router.post('/search/results', (req, res) => {
     //console.log("SQL query: " + sql)
 
     if (min != "" && max != ""){
-        sql += `AND price BETWEEN = ${min} AND ${max}`
+        sql += `AND price BETWEEN ${min} AND ${max}`
     } else if (min == "" && max != ""){
-        sql += `AND price BETWEEN = 0 AND ${max}`
+        sql += `AND price BETWEEN 0 AND ${max}`
     } else if (min != "" && max == ""){
-        sql += `AND price BETWEEN = ${min} AND (select max(price) as maxprice)`
+        sql += `AND price BETWEEN ${min} AND (select max(price) as maxprice)`
     }
 
     if (sets != undefined){
