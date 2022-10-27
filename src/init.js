@@ -3,10 +3,10 @@ const axios = require('axios');
 
 // Database connetion
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",  
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,  
     password: process.env.ADMIN_PASSWORD, 
-    database: "collections"
+    database: process.env.DB_DATABASE
 });
 
 con.connect(function(err) {
