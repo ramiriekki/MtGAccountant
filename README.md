@@ -53,8 +53,13 @@ Results:
 ### dev.env
 add these options
 
-    ADMIN_PASSWORD=[MySQL password here]
-    SESSION_SECRET=[secret here]
+    ADMIN_PASSWORD=[MySQL password]
+    SESSION_SECRET=[session secret]
+    DB_PORT=[database port]
+    DB_USER=[database user]
+    DB_DATABASE=[database]
+    DB_HOST=[database host]
+    PORT=[application port]
 
 ### SQL
 SQL table structures included in the files
