@@ -196,7 +196,7 @@ router.post('/sets/:set', async (req, res) => {
         //console.log(typeof(req.body.card))
 
         if (typeof(req.body.card) == "string"){
-            let sql = `UPDATE allcards SET isincollection = '1' WHERE id = "${req.body.card}"`
+            let sql = `UPDATE cards SET is_in_collection = '1' WHERE card_id = "${req.body.card}" and username = "${req.session.user}"`
             con.query(sql)
         } else {
             for (const [key, value] of Object.entries(req.body.card)) {  
@@ -206,7 +206,7 @@ router.post('/sets/:set', async (req, res) => {
             //console.log(cardscollected)
             // Go through acquired array and update the isincollection value in the database
             for (const [key, value] of Object.entries(cardscollected)) {  
-                let sql2 = `UPDATE allcards SET isincollection = '1' WHERE id = "${value}"`
+                let sql2 = `UPDATE cards SET isincollection = '1' WHERE card_id = "${value}" and username = "${req.session.user}"`
                 con.query(sql2)
             }
         }
