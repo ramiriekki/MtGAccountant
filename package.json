@@ -20,15 +20,25 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+<<<<<<< HEAD
+=======
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4",
+>>>>>>> 12434f84c2a5e205bdaaf85eabee3075723432db
     "axios": "^0.27.2",
     "bfg": "^0.3.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "mysql": "^2.18.1",
+<<<<<<< HEAD
     "node-schedule": "^2.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
+=======
+    "node-schedule": "^2.1.0"
+>>>>>>> 12434f84c2a5e205bdaaf85eabee3075723432db
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.7",
