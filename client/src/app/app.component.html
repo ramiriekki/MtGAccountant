@@ -1,2 +1,14 @@
-<h1>gasfased</h1>
-<app-cards></app-cards>
+<h1>MtG Accountant</h1>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <p>sidenav</p>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+  <router-outlet></router-outlet>
+</mat-drawer-container>
+

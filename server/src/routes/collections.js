@@ -25,7 +25,7 @@ router.get('/my-collection/', async (req, res) => {
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`); // TODO if undefined
 
     let results = []
-    const newKeys = { 0: "name", 1: "collection_number", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "" }; // rename keys for angular
+    const newKeys = { 0: "name", 1: "collection_number", 2: "rarity", 3: "image_uri", 4: "price", 5: "is_in_collection", 6: "set_name", 7: "id" }; // rename keys for angular
 
     for (const [key, value] of Object.entries(cards)) {  
         const renamedObj = renameKeys(value, newKeys);

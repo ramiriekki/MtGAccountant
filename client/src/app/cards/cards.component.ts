@@ -21,4 +21,6 @@ export class CardsComponent implements OnInit {
     this.serverService.getAllCards().subscribe(cards => this.cards = cards)
   }
 
+  showFiller = false;
+
 }
