@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ServerService } from '../server.service';
+import { Card } from '../card';
 
 @Component({
   selector: 'app-cards',
@@ -7,14 +9,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
+  cards: Card[] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private serverService: ServerService) { }
 
   ngOnInit(): void {
-    console.log('init')
-    this.http.get('http://localhost:3001/collections/my-collection').subscribe(res => {
-    console.log('res', res)
-  })
+    this.getAllCards()
+  }
+
+  getAllCards(): void {
+    this.serverService.getAllCards().subscribe(cards => this.cards = cards)
   }
 
 }

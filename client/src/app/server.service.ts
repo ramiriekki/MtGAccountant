@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Card } from './card';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,14 @@ import { Injectable } from '@angular/core';
 export class ServerService {
   private cardsUrl = 'http://localhost:3001/collections/my-collection'
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   constructor(private http: HttpClient) { }
+
+  getAllCards(): Observable<Card[]> {
+    return this.http.get<Card[]>(this.cardsUrl)
+  }
 
 }

@@ -1,3 +1,4 @@
+const { json } = require('express');
 const express = require('express');
 const db = require("../db");
 const con = db.getCon()
@@ -23,48 +24,14 @@ router.get('/my-collection/', async (req, res) => {
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`); // TODO if undefined
 
-    let page
-    // If requested url is the my-collection root set page to 1
-    if(req.url == "/my-collection/" || req.url == "/my-collection"){page = 1}else{page = parseInt(req.query.page)}
-    const limit = 51    // How many cards are displayed on page
+    let results = []
+    const newKeys = { 0: "name", 1: "collection_number", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "" }; // rename keys for angular
 
-    const startIndex = (page - 1) * limit
-    const endIndex = page * limit
-
-    const results = {}
-
-    // Check if current page has next page by comparing the 
-    // length of cards object to pages last cards index
-    if (endIndex < Object.keys(cards).length) {
-        results.next = {
-            page: page + 1,
-            limit: limit
-        }
-    } else {
-        results.next = {
-            page: page,
-            limit: limit
-        }
-    }
-    
-    // Check if current page has previous page by comparing the 
-    // length of cards object to pages last cards index
-    if (startIndex > 0) {
-        results.previous = {
-            page: page - 1,
-            limit: limit,
-        }
-    } else {
-        results.previous = {
-            page: page,
-            limit: limit,
-        }
+    for (const [key, value] of Object.entries(cards)) {  
+        const renamedObj = renameKeys(value, newKeys);
+        results.push((Object.assign({}, renamedObj)))
     }
 
-    // Convert cards from object to array of values
-    results.results = Object.values(cards).slice(startIndex, endIndex)
-    // console.log(results.results.length)
-    // console.log(typeof(results.previous))
     res.json(results);
 });
 
@@ -82,6 +49,14 @@ function promiseQuery(query) {
             resolve(cards);
         })
     })
+}
+
+function renameKeys(obj, newKeys) {
+    const keyValues = Object.keys(obj).map(key => {
+        const newKey = newKeys[key] || key;
+        return { [newKey]: obj[key] };
+    });
+    return Object.assign({}, ...keyValues);
 }
 
 module.exports = router
