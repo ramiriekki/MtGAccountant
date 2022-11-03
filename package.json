@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "node-start": "env-cmd -f ./config/dev.env node server/src/server.js",
-    "node-dev": "set NODE_ENV=dev&& env-cmd -f ./config/dev.env nodemon server/src/server.js"
+    "server-start": "env-cmd -f ./config/dev.env node server/src/server.js",
+    "server-dev": "set NODE_ENV=dev&& env-cmd -f ./config/dev.env nodemon server/src/server.js"
   },
   "private": true,
   "dependencies": {
