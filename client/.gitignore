@@ -29,7 +29,7 @@ client/yarn-error.log
 .history/*
 
 # Miscellaneous
-.angular/cache
+.angular
 .sass-cache/
 /connect.lock
 /coverage
@@ -40,8 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-<<<<<<< HEAD
-
-config
-=======
->>>>>>> 12434f84c2a5e205bdaaf85eabee3075723432db
