@@ -1,16 +1,16 @@
-<div class="info">
-  <h1>Cards</h1>
-  <h4>in http://localhost:4200/cards/:card</h4>
-</div>
-<div class="cards-container">
+<div class="card-container">
   <div *ngIf="card">
     <div class="card">
-      <h3>{{card.name}}</h3>
       <img src="{{card.image_uri}}" alt="">
-      <p>Rarity: {{card.rarity}}</p>
-      <p>Set: {{card.set_name}}</p>
-      <p>Collection number: {{card.collection_number}}</p>
-      <p>Price: {{card.price}}</p>
+      <div class="card-name">
+        <h3 class="name">{{card.name}}</h3>
+      </div>
+      <div class="card-info">
+        <p>Rarity: {{card.rarity}}</p>
+        <p>Set: {{card.set_name}}</p>
+        <p>Collection number: {{card.collection_number}}</p>
+        <p>Price: {{card.price}} €</p>
+      </div>
     </div>
   </div>
 </div>

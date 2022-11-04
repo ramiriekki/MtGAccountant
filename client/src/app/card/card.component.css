@@ -1,0 +1,37 @@
+img{
+  height: 440px;
+  width: auto;
+}
+
+.card-container{
+  width: 770px; /* pick whatever width you want */
+}
+
+.card{
+  display: flex;
+  width: 500px;
+}
+
+.card-info{
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.card-name{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(114, 114, 114);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.name{
+  text-align: center;
+}
+
+
