@@ -3,3 +3,6 @@ GET http://localhost:4200
 
 ###
 GET http://localhost:3001/collections/my-collection
+
+###
+GET http://localhost:3001/collections/my-collection/9fca4c4f-a77b-483e-9da4-574ba2e3d179

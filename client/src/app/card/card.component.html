@@ -1,14 +1,12 @@
 <div class="info">
   <h1>Cards</h1>
-  <h4>in http://localhost:4200/cards</h4>
+  <h4>in http://localhost:4200/cards/:card</h4>
 </div>
 <div class="cards-container">
-  <div *ngFor="let card of cards">
+  <div *ngIf="card">
     <div class="card">
       <h3>{{card.name}}</h3>
-      <a href="cards/{{card.id}}">
-        <img src="{{card.image_uri}}" alt="">
-      </a>
+      <img src="{{card.image_uri}}" alt="">
       <p>Rarity: {{card.rarity}}</p>
       <p>Set: {{card.set_name}}</p>
       <p>Collection number: {{card.collection_number}}</p>
@@ -16,4 +14,3 @@
     </div>
   </div>
 </div>
-

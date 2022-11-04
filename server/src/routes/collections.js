@@ -35,6 +35,34 @@ router.get('/my-collection/', async (req, res) => {
     res.json(results);
 });
 
+router.get('/my-collection/:card/', (req, res) => {
+    // console.log(req.session.user)
+    const cardid = String(req.params.card)
+    let tempcard
+    let card = {}
+    
+    // TODO create a card class
+    con.query(`SELECT * FROM allcards WHERE id = "${cardid}"`, function (err, result) {
+        if (err) throw err;
+
+        tempcard = result
+
+        card =
+            {
+                id: tempcard[0].id,
+                name: tempcard[0].name,
+                collection_number: tempcard[0].collectionnumber,
+                rarity: tempcard[0].rarity,
+                set_name: tempcard[0].setcode,
+                flavor_text: tempcard[0].flavortext,
+                image_uri: tempcard[0].imageuri_normal,
+                price: tempcard[0].price
+            }
+
+        res.json(card);
+    });
+})
+
 // For preparing paginating /my-collection/. 
 function promiseQuery(query) {
     return new Promise((resolve, reject) => {

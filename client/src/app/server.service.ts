@@ -19,4 +19,9 @@ export class ServerService {
     return this.http.get<Card[]>(this.cardsUrl)
   }
 
+  getSingleCard(id: string): Observable<Card> {
+    const cardUrl = `http://localhost:3001/collections/my-collection/${id}`
+    return this.http.get<Card>(cardUrl)
+  }
+
 }
