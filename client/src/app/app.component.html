@@ -1,16 +1,21 @@
-<a href="/home"><h1 class="title">MtG Accountant</h1></a>
-<mat-drawer-container class="container" autosize>
-  <mat-drawer #drawer class="sidenav" mode="side">
-    <p class="text">sidenav</p>
-  </mat-drawer>
-
-  <div class="content">
-    <div class="sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </div>
-    <router-outlet class="router-outlet"></router-outlet>
+<div class="main-container">
+  <div class="topnav">
+    <button type="button" mat-button (click)="drawer.toggle()" class="button">
+      ≡
+    </button>
+    <a href="/home"><h1 class="title">MtG Accountant</h1></a>
   </div>
-</mat-drawer-container>
+  <mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side" opened="true">
+      <a href="/cards" class="alink"><h2 class="link">Cards</h2></a>
+    </mat-drawer>
+
+    <div class="content">
+      <div class="sidenav-content">
+
+      </div>
+      <router-outlet class="router-outlet"></router-outlet>
+    </div>
+  </mat-drawer-container>
+</div>
 
