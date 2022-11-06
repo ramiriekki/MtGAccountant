@@ -1,1 +1,15 @@
-<p>sets works!</p>
+<div class="info">
+  <h1>Sets</h1>
+</div>
+<div class="sets-container">
+  <div *ngFor="let set of sets">
+    <div class="set">
+      <h3>{{set.name}}</h3>
+      <a href="sets/{{set.code}}">
+        <img src="{{set.icon_uri}}" alt="">
+      </a>
+      <p>Type: {{set.type}}</p>
+      <p>Cards: {{set.card_count}}</p>
+    </div>
+  </div>
+</div>

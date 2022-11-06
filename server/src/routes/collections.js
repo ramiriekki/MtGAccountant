@@ -63,6 +63,21 @@ router.get('/my-collection/:card/', (req, res) => {
     });
 })
 
+router.get('/sets/', (reg, res) => {
+    let sets = [];
+
+    con.query("select * from sets where type = 'expansion' OR type = 'core'", function (err, result, fields) {
+        if (err) throw err;
+        //Store the data in an array
+        for (const [key, value] of Object.entries(result)) {  
+            sets.push({code: value.code, name: value.name, released_date: value.released_date, type: value.type, card_count: value.card_count, icon_uri: value.icon_uri})
+            //console.log("Cards collected from set: " + value.collected_amount)
+        }
+
+        res.json(sets);
+    });
+})
+
 // For preparing paginating /my-collection/. 
 function promiseQuery(query) {
     return new Promise((resolve, reject) => {
