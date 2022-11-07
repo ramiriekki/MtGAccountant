@@ -1,7 +1,8 @@
 img {
   height: 100px;
   width: 100px;
-  filter: invert(1) sepia(1) saturate(15) hue-rotate(330deg) ;
+
+  filter: grayscale(1) invert(1);
 }
 
 .info{
@@ -21,6 +22,6 @@ img {
   text-align: center;
   line-height: 25px;
   font-size: 15px;
-  border: 1px solid rgb(138, 138, 138);
+  border: 0px solid rgb(138, 138, 138);
   background-image: radial-gradient(#606060, #2c2c2c, rgb(19, 19, 19));
   }

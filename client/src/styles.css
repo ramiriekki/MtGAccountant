@@ -1,5 +1,7 @@
 html {
   background-color: rgb(24, 24, 24);
+  background-image: radial-gradient(#494949, #202020, rgb(19, 19, 19));
+
   color: white;
   height: 100vh;
 }

@@ -20,6 +20,10 @@ img {
   text-align: center;
   line-height: 25px;
   font-size: 15px;
-  border: 1px solid rgb(138, 138, 138);
-  background-image: radial-gradient(#606060, #2c2c2c, rgb(19, 19, 19));
+  border: 0px solid rgb(148, 135, 22);
+  background-image: radial-gradient(#606060, #1a1a1a, rgb(19, 19, 19));
   }
+
+.card > p {
+  margin: 5px;
+}
