@@ -78,6 +78,47 @@ router.get('/sets/', (reg, res) => {
     });
 })
 
+router.get('/sets/:set/', (req, res) => {
+    const code = String(req.params.set)
+    let data = []
+    let cards = []
+    
+    // Select all cards that have the same set_code as given param in request
+    con.query(`SELECT * FROM allcards WHERE set_code = "${code}" ORDER BY name`, function (err, result) {
+        let set = []
+        let cardsCollected = 0
+
+        if (err) throw err;
+
+        // Progress bar values
+        for (const [key, value] of Object.entries(result)) {  
+            cards.push({ 
+                        id: value.id,
+                        name: value.name,
+                        collection_number: value.collectionnumber, 
+                        rarity: value.rarity, 
+                        set_name: value.setcode,
+                        flavor_text: value.flavortext,
+                        image_uri: value.imageuri_normal,
+                        price: value.price
+                        })
+        }
+
+        data.push({cards: cards})
+        
+        // Get the set data
+        con.query(`SELECT * FROM sets WHERE code = "${code}"`, function (err, result) {
+            if (err) throw err;
+            tempset = result
+
+            set.push({code: tempset[0].code, name: tempset[0].name, type: tempset[0].type, card_count: tempset[0].card_count, icon_uri: tempset[0].icon_uri})
+            data.push({set: set})
+
+            res.json(data);
+        });
+    });
+})
+
 // For preparing paginating /my-collection/. 
 function promiseQuery(query) {
     return new Promise((resolve, reject) => {

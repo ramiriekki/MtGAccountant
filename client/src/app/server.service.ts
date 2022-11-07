@@ -25,6 +25,11 @@ export class ServerService {
     return this.http.get<Set[]>(this.setsUrl)
   }
 
+  getAllSetCards(set: string): Observable<any> {
+    const setCardsUrl = `http://localhost:3001/collections/sets/${set}`
+    return this.http.get(setCardsUrl)
+  }
+
   getSingleCard(id: string): Observable<Card> {
     const cardUrl = `http://localhost:3001/collections/my-collection/${id}`
     return this.http.get<Card>(cardUrl)

@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'cards/:card', component: CardComponent},
   {path: 'home', component: HomeComponent},
   {path: 'sets', component: SetsComponent},
+  {path: 'sets/:set', component: CardsComponent}
 ];
 
 @NgModule({

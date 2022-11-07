@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './card/card.component';
+import { SetComponent } from './set/set.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CardComponent } from './card/card.component';
     CardsComponent,
     SetsComponent,
     HomeComponent,
-    CardComponent
+    CardComponent,
+    SetComponent
   ],
   imports: [
     BrowserModule,

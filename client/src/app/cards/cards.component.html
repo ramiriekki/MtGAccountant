@@ -1,6 +1,9 @@
-<div class="info">
+<app-set *ngIf="isSet"></app-set>
+
+<div class="info" *ngIf="!isSet">
   <h1>Cards</h1>
 </div>
+
 <div class="cards-container">
   <div *ngFor="let card of cards">
     <div class="card">
