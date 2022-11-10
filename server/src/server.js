@@ -28,14 +28,15 @@ app.use(sessions({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     store: sessionStore,
-    cookie: { /*httpOnly: true, secure: true, */ maxAge: 1000 * 30 },
+    cookie: { /*httpOnly: true, */ secure: false,  maxAge: 1000 * 30 },
     resave: false
 }));
 
 const corsOptions = {
-    origin: "http://localhost:4200"
+    origin: "http://localhost:4200",
+    credentials: true
 };
-  
+
 app.use(cors(corsOptions));
 
 app.use(cookieParser());

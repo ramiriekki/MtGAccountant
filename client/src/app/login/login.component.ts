@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { ServerService } from '../server.service';
 
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   };
   submitted = false;
 
-  constructor(private serverService: ServerService) { }
+  constructor(private serverService: ServerService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +36,8 @@ export class LoginComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+
+      this.router.navigate(['home']);
   }
 
 }

@@ -21,21 +21,21 @@ export class ServerService {
   constructor(private http: HttpClient) { }
 
   getAllCards(): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardsUrl)
+    return this.http.get<Card[]>(this.cardsUrl, {withCredentials: true})
   }
 
   getAllSets(): Observable<Set[]> {
-    return this.http.get<Set[]>(this.setsUrl)
+    return this.http.get<Set[]>(this.setsUrl, {withCredentials: true})
   }
 
   getAllSetCards(set: string): Observable<any> {
     const setCardsUrl = `http://localhost:3001/collections/sets/${set}`
-    return this.http.get(setCardsUrl)
+    return this.http.get(setCardsUrl, {withCredentials: true})
   }
 
   getSingleCard(id: string): Observable<Card> {
     const cardUrl = `http://localhost:3001/collections/my-collection/${id}`
-    return this.http.get<Card>(cardUrl)
+    return this.http.get<Card>(cardUrl, {withCredentials: true})
   }
 
   registerUser(data: any): Observable<any> {
@@ -43,7 +43,9 @@ export class ServerService {
   }
 
   loginUser(data: any): Observable<any> {
-    return this.http.post(this.loginUrl, data);
+    return this.http.post(this.loginUrl, data, {
+      withCredentials: true
+    });
   }
 
   logout(){

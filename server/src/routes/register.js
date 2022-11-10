@@ -18,10 +18,15 @@ router.use(function (req, res, next) {
     next();
 });
 
+let session
+
 router.post('/register/', async (req, res) => {
+    console.log(req.session)
+
     console.log("Got request!")
     const saltRounds = 10;
-    //console.log(req.body)
+    
+    console.log(req.session)
 
     const usern = req.body.login_name
     const email = req.body.email
@@ -48,6 +53,8 @@ router.post('/register/', async (req, res) => {
 });
 
 router.post('/login/', (req, res) => {
+    console.log(req.session.username)
+
     let user = {}
 
     console.log(req.body)
@@ -68,30 +75,41 @@ router.post('/login/', (req, res) => {
 
             bcrypt.compare(req.body.password, user.password_hash, function(err, result) {
                 console.log(result)
-                req.session.username = req.body.login_name
+                if (result == true){
+                    session = req.session
+                    session.username = req.body.login_name
+                    req.session.save()
+
+                    console.log(req.session)
+                    console.log(req.session.username)
+
+                    res.send(req.session)
+                }
             });
-            res.json('in login')
+            //res.json('in login')
         }
     })
 })
 
 router.get('/logout', function (req, res, next) {
-    // logout logic
+    console.log(req.session.username)
+    console.log(req.session)
 
+    
     // clear the user from the session object and save.
     // this will ensure that re-using the old session id
     // does not have a logged in user
-    req.session.user = null
-    req.session.save(function (err) {
-        if (err) next(err)
-    
-        // regenerate the session, which is good practice to help
-        // guard against forms of session fixation
-        req.session.regenerate(function (err) {
-            if (err) next(err)
-            res.json('in server logout')
-        })
-    })
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) {
+                res.status(400).send('Unable to log out')
+            } else {
+                res.send('Logout successful')
+            }
+    });
+    } else {
+    res.end()
+    }
 })
 
 module.exports = router

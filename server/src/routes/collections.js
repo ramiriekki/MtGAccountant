@@ -20,6 +20,9 @@ router.use(function (req, res, next) {
 
 // endpoint: http://localhost:3001/collections/my-collection
 router.get('/my-collection/', async (req, res) => {
+    console.log(req.session)
+    console.log(req.session.username)
+
     console.log("Got request!")
     // Get the cards from the database
     let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`); // TODO if undefined
@@ -36,6 +39,8 @@ router.get('/my-collection/', async (req, res) => {
 });
 
 router.get('/my-collection/:card/', (req, res) => {
+    console.log(req.session)
+
     // console.log(req.session.user)
     const cardid = String(req.params.card)
     let tempcard
@@ -63,7 +68,9 @@ router.get('/my-collection/:card/', (req, res) => {
     });
 })
 
-router.get('/sets/', (reg, res) => {
+router.get('/sets/', (req, res) => {
+    console.log(req.session)
+    console.log(req.session.username)
     let sets = [];
 
     con.query("select * from sets where type = 'expansion' OR type = 'core'", function (err, result, fields) {
@@ -79,6 +86,8 @@ router.get('/sets/', (reg, res) => {
 })
 
 router.get('/sets/:set/', (req, res) => {
+    console.log(req.session)
+
     const code = String(req.params.set)
     let data = []
     let cards = []

@@ -8,7 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { SetsComponent } from './sets/sets.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'cards', component: CardsComponent},
   {path: 'cards/:card', component: CardComponent},
   {path: 'home', component: HomeComponent},
