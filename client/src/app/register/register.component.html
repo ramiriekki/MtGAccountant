@@ -1,0 +1,49 @@
+<div>
+  <form action="">
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="login_name">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="login_name"
+            required
+            [(ngModel)]="user.login_name"
+            name="login_name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">email</label>
+          <input
+            class="form-control"
+            id="email"
+            required
+            [(ngModel)]="user.email"
+            name="email"
+            type="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            class="form-control"
+            id="password"
+            required
+            [(ngModel)]="user.password"
+            name="password"
+            type="password"
+          />
+        </div>
+
+        <button (click)="registerUser()" class="btn btn-success">Submit</button>
+      </div>
+
+      <div *ngIf="submitted">
+        <h4>Registration was submitted successfully!</h4>
+      </div>
+    </div>
+    </form>
+</div>

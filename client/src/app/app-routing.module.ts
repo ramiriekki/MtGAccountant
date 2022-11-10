@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CardComponent } from './card/card.component';
 import { CardsComponent } from './cards/cards.component';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 import { SetsComponent } from './sets/sets.component';
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path: 'cards/:card', component: CardComponent},
   {path: 'home', component: HomeComponent},
   {path: 'sets', component: SetsComponent},
-  {path: 'sets/:set', component: CardsComponent}
+  {path: 'sets/:set', component: CardsComponent},
+  {path: 'home/register', component: RegisterComponent},
 ];
 
 @NgModule({

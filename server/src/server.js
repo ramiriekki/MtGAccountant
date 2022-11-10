@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const collections = require('./routes/collections')
+const register = require('./routes/register')
 const app = express();
 const db = require("./db");
 const con = db.getCon()
@@ -8,6 +9,7 @@ const schedule = require('node-schedule');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const mysqlStore = require('express-mysql-session')(sessions);
+const cors = require('cors')
 
 // mysqlStore options
 const options ={
@@ -30,9 +32,16 @@ app.use(sessions({
     resave: false
 }));
 
+const corsOptions = {
+    origin: "http://localhost:4200"
+};
+  
+app.use(cors(corsOptions));
+
 app.use(cookieParser());
 
 app.use('/collections', collections)
+app.use('/home', register)
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {

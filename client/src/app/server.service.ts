@@ -10,6 +10,7 @@ import { Set } from './set';
 export class ServerService {
   private cardsUrl = 'http://localhost:3001/collections/my-collection'
   private setsUrl = 'http://localhost:3001/collections/sets'
+  private baseUrl = 'http://localhost:3001/home/register'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -33,6 +34,10 @@ export class ServerService {
   getSingleCard(id: string): Observable<Card> {
     const cardUrl = `http://localhost:3001/collections/my-collection/${id}`
     return this.http.get<Card>(cardUrl)
+  }
+
+  registerUser(data: any): Observable<any> {
+    return this.http.post(this.baseUrl, data);
   }
 
 }
