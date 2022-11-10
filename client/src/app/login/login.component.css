@@ -1,0 +1,23 @@
+form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.submit-form{
+  margin-top: 50px;
+}
+
+.form-group{
+  margin-top: 20px;
+  text-align: right;
+}
+
+.form-group > label{
+  margin-right: 20px;
+}
+
+button {
+  width: 100%;
+}

@@ -22,11 +22,11 @@ const options ={
     createDatabaseTable: true
 }
 
-const  sessionStore = new mysqlStore(options);
+const sessionStore = new mysqlStore(options);
 
 app.use(sessions({
     secret: process.env.SESSION_SECRET,
-    saveUninitialized:true,
+    saveUninitialized: false,
     store: sessionStore,
     cookie: { /*httpOnly: true, secure: true, */ maxAge: 1000 * 30 },
     resave: false

@@ -26,7 +26,6 @@ router.post('/register/', async (req, res) => {
     const usern = req.body.login_name
     const email = req.body.email
     const password = req.body.password
-    let hashedPass
 
     console.log("username: " + usern)
     console.log("email: " + email)
@@ -40,12 +39,59 @@ router.post('/register/', async (req, res) => {
                 res.json('fail')
             } else {
                 //init.copyCardsTemplate(usern)
-                res.json('succes')
+                res.json('success')
             }
         });
     });
 
     //res.json("in register");
 });
+
+router.post('/login/', (req, res) => {
+    let user = {}
+
+    console.log(req.body)
+
+    sql = `SELECT * FROM users WHERE login_name = "${req.body.login_name}"`
+    con.query(sql, function(err, result){
+        if(err) {
+            throw err;
+        } else {
+
+            for (const [key, value] of Object.entries(result)) {  
+                user = {
+                    login_name: value.login_name,
+                    password_hash: value.password_hash
+                }
+            }
+            console.log(user)
+
+            bcrypt.compare(req.body.password, user.password_hash, function(err, result) {
+                console.log(result)
+                req.session.username = req.body.login_name
+            });
+            res.json('in login')
+        }
+    })
+})
+
+router.get('/logout', function (req, res, next) {
+    // logout logic
+
+    // clear the user from the session object and save.
+    // this will ensure that re-using the old session id
+    // does not have a logged in user
+    req.session.user = null
+    req.session.save(function (err) {
+        if (err) next(err)
+    
+        // regenerate the session, which is good practice to help
+        // guard against forms of session fixation
+        req.session.regenerate(function (err) {
+            if (err) next(err)
+            res.json('in server logout')
+        })
+    })
+})
 
 module.exports = router

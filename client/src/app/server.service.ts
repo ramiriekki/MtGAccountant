@@ -10,7 +10,9 @@ import { Set } from './set';
 export class ServerService {
   private cardsUrl = 'http://localhost:3001/collections/my-collection'
   private setsUrl = 'http://localhost:3001/collections/sets'
-  private baseUrl = 'http://localhost:3001/home/register'
+  private registerUrl = 'http://localhost:3001/home/register'
+  private loginUrl = 'http://localhost:3001/home/login'
+  private logoutUrl = 'http://localhost:3001/home/logout'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,7 +39,15 @@ export class ServerService {
   }
 
   registerUser(data: any): Observable<any> {
-    return this.http.post(this.baseUrl, data);
+    return this.http.post(this.registerUrl, data);
+  }
+
+  loginUser(data: any): Observable<any> {
+    return this.http.post(this.loginUrl, data);
+  }
+
+  logout(){
+    return this.http.get(this.logoutUrl);
   }
 
 }

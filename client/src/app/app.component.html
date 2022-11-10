@@ -3,7 +3,12 @@
     <button type="button" mat-button (click)="drawer.toggle()" class="button">
       ≡
     </button>
+
     <a href="/home"><h1 class="title">MtG Accountant</h1></a>
+
+    <div class="logout" style="margin-left: auto; align-items: center;">
+      <h3 style="margin-top: 30px; margin-right: 25px"><a [routerLink]="" (click)="logOut()" style="text-decoration: none; color: white; cursor: pointer">Logout</a></h3>
+    </div>
   </div>
   <mat-drawer-container class="container" autosize>
     <mat-drawer #drawer class="sidenav" mode="side" opened="true">

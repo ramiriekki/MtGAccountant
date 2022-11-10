@@ -12,6 +12,7 @@ import { CardComponent } from './card/card.component';
 import { SetComponent } from './set/set.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardComponent,
     SetComponent,
     RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
