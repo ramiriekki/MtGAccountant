@@ -2,7 +2,7 @@ const { json } = require('express');
 const express = require('express');
 const db = require("../db");
 const con = db.getCon()
-
+const bcrypt = require('bcrypt');
 const router = express.Router(); 
 
 router.use(express.json())
@@ -20,10 +20,32 @@ router.use(function (req, res, next) {
 
 router.post('/register/', async (req, res) => {
     console.log("Got request!")
-    // Get the cards from the database
-    console.log(req.body)
+    const saltRounds = 10;
+    //console.log(req.body)
 
-    res.json("in register");
+    const usern = req.body.login_name
+    const email = req.body.email
+    const password = req.body.password
+    let hashedPass
+
+    console.log("username: " + usern)
+    console.log("email: " + email)
+    console.log("password: " + password)
+
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        // console.log("Hashed password: " + hash)
+        let sql = `INSERT INTO users(login_name, email, password_hash) VALUES ("${usern}", "${email}", "${hash}")`
+        con.query(sql, function (err, result) {
+            if (err){
+                res.json('fail')
+            } else {
+                //init.copyCardsTemplate(usern)
+                res.json('succes')
+            }
+        });
+    });
+
+    //res.json("in register");
 });
 
 module.exports = router
