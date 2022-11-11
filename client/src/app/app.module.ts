@@ -13,6 +13,7 @@ import { SetComponent } from './set/set.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

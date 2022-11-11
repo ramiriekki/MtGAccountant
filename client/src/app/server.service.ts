@@ -49,6 +49,8 @@ export class ServerService {
   }
 
   logout(){
+    localStorage.setItem('isLoggedIn','false');
+    localStorage.removeItem('token');
     return this.http.get(this.logoutUrl);
   }
 

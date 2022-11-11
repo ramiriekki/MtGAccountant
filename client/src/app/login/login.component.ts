@@ -32,6 +32,12 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+          if (res){
+            console.log("Login successful");
+            //this.authService.authLogin(this.model);
+            localStorage.setItem('isLoggedIn', "true");
+            localStorage.setItem('token', String(this.user.login_name));
+          }
           this.submitted = true;
         },
         error: (e) => console.error(e)
