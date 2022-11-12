@@ -43,7 +43,7 @@ router.post('/register/', async (req, res) => {
             if (err){
                 res.json('fail')
             } else {
-                //init.copyCardsTemplate(usern)
+                db.copyCardsTemplate(usern)
                 res.json('success')
             }
         });

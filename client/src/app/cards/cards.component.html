@@ -5,16 +5,30 @@
 </div>
 
 <div class="cards-container">
+  <button (click)="postCards()" class="btn btn-success">Submit</button>
   <div *ngFor="let card of cards">
     <div class="card">
       <h3>{{card.name}}</h3>
       <a href="cards/{{card.id}}">
-        <img src="{{card.image_uri}}" alt="">
+        <img src="{{card.imageuri_small}}" alt="">
       </a>
       <p>{{card.set_name}}</p>
       <p style="text-transform: capitalize;">{{card.rarity}}</p>
       <p>Collection number: {{card.collection_number}}</p>
       <p>{{card.price}} €</p>
+
+      <div *ngIf="card.is_in_collection == 1; else elseBlock">
+        <div>in Collection</div>
+      </div>
+
+      <ng-template #elseBlock>
+        <label>
+          <input type="checkbox"
+                name="data"
+                value="{{card.name}}"
+                [(ngModel)]="card.isChecked"/>
+        </label>
+      </ng-template>
     </div>
   </div>
 </div>

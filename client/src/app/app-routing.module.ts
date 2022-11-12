@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'sets', component: SetsComponent, canActivate: [AuthGuard]},
   {path: 'sets/:set', component: CardsComponent, canActivate: [AuthGuard]},
-  {path: 'home/register', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'home/register', component: RegisterComponent},
   {path: 'home/login', component: LoginComponent},
 ];
 

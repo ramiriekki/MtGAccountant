@@ -39,6 +39,21 @@ export class CardsComponent implements OnInit {
     }
   }
 
+  postCards(): void{
+    const data = [
+      {value: this.cards.filter(c=>c.isChecked)} // Get only cards that are checked
+    ];
+
+    console.log(data)
+
+    this.serverService.postCards(data).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
   showFiller = false;
 
 }

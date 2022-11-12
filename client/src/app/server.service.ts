@@ -24,6 +24,10 @@ export class ServerService {
     return this.http.get<Card[]>(this.cardsUrl, {withCredentials: true})
   }
 
+  postCards(data: any): Observable<any>{
+    return this.http.post(this.cardsUrl, data)
+  }
+
   getAllSets(): Observable<Set[]> {
     return this.http.get<Set[]>(this.setsUrl, {withCredentials: true})
   }

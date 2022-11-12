@@ -25,17 +25,24 @@ router.get('/my-collection/', async (req, res) => {
 
     console.log("Got request!")
     // Get the cards from the database
-    let cards = await promiseQuery(`SELECT * FROM allcards ORDER BY name`); // TODO if undefined
+    let cards = await promiseQuery(`SELECT * FROM cards WHERE username = "${req.session.username}" ORDER BY card_name`); // TODO if undefined
 
     let results = []
-    const newKeys = { 0: "name", 1: "collection_number", 2: "rarity", 3: "image_uri", 4: "price", 5: "is_in_collection", 6: "set_name", 7: "id" }; // rename keys for angular
+    const newKeys = { 0: "card_name", 1: "collection_number", 2: "rarity", 3: "imageuri_small", 4: "price", 5: "is_in_collection", 6: "set_name", 7: "card_id"}; // rename keys for angular
 
+    //console.log(cards)
     for (const [key, value] of Object.entries(cards)) {  
         const renamedObj = renameKeys(value, newKeys);
         results.push((Object.assign({}, renamedObj)))
     }
 
     res.json(results);
+});
+
+router.post('/my-collection/', async (req, res) => {
+    console.log(req.body)
+
+    //res.json(results);
 });
 
 router.get('/my-collection/:card/', (req, res) => {
@@ -137,7 +144,7 @@ function promiseQuery(query) {
                 return reject(err);
             }
             for (const [key, value] of Object.entries(results)) {  
-                cards.push([value.name, value.collectionnumber, value.rarity, value.imageuri, value.price, value.isincollection, value.setcode, value.id])
+                cards.push([value.card_name, value.collection_number, value.rarity, value.imageuri_small, value.price, value.is_in_collection, value.set_name, value.card_id])
             }
             resolve(cards);
         })
