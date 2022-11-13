@@ -4,6 +4,7 @@ import { ServerService } from '../server.service';
 import { Card } from '../card';
 import { Set } from '../set';
 import { ActivatedRoute } from '@angular/router';
+import { Collected_Data } from '../models/collected_data.model';
 
 @Component({
   selector: 'app-cards',
@@ -14,6 +15,10 @@ export class CardsComponent implements OnInit {
   cards: Card[] = []
   data: any[] = []
   isSet: boolean = false
+  user: String | null = localStorage.getItem('token');
+  collectedAmount?: number
+  collected_data!: Collected_Data
+
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +32,7 @@ export class CardsComponent implements OnInit {
       this.isSet = true
     }
     this.getAllCards()
+    this.getCollectedData()
   }
 
   getAllCards(): void {
@@ -52,6 +58,10 @@ export class CardsComponent implements OnInit {
       },
       error: (e) => console.error(e)
     });
+  }
+
+  getCollectedData(){
+    this.serverService.getCollectedData().subscribe(collected_data => this.collected_data = collected_data)
   }
 
   showFiller = false;

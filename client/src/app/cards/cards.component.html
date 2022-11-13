@@ -1,11 +1,14 @@
 <app-set *ngIf="isSet"></app-set>
 
 <div class="info" *ngIf="!isSet">
-  <h1>Cards</h1>
+  <h1>{{user}}'s collection</h1>
+  <!--<p>Total cards: {{cards[1].requested_amount}}</p> -->
+  <p>{{collected_data.total}}</p>
+  <p>{{collected_data.collected}}</p>
+  <button (click)="postCards()" class="btn btn-success">Submit</button>
 </div>
 
 <div class="cards-container">
-  <button (click)="postCards()" class="btn btn-success">Submit</button>
   <div *ngFor="let card of cards">
     <div class="card">
       <h3>{{card.name}}</h3>

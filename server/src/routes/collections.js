@@ -28,7 +28,7 @@ router.get('/my-collection/', async (req, res) => {
     let cards = await promiseQuery(`SELECT * FROM cards WHERE username = "${req.session.username}" ORDER BY card_name`); // TODO if undefined
 
     let results = []
-    const newKeys = { 0: "card_name", 1: "collection_number", 2: "rarity", 3: "imageuri_small", 4: "price", 5: "is_in_collection", 6: "set_name", 7: "card_id"}; // rename keys for angular
+    const newKeys = { 0: "name", 1: "collection_number", 2: "rarity", 3: "imageuri_small", 4: "price", 5: "is_in_collection", 6: "set_name", 7: "card_id", 8: "requested_amount"}; // rename keys for angular
 
     //console.log(cards)
     for (const [key, value] of Object.entries(cards)) {  
@@ -135,7 +135,30 @@ router.get('/sets/:set/', (req, res) => {
     });
 })
 
-// For preparing paginating /my-collection/. 
+router.get('/collected-data', (req, res) => {
+    let cards_amount
+    let collected_amount
+    let data
+
+    con.query(`SELECT * FROM allcards`, function (err, result) {
+        if (err) throw err;
+
+        cards_amount = Object.entries(result).length
+
+        con.query(`SELECT * FROM cards WHERE username = "${req.session.username}" AND is_in_collection = "1"`, function (err, result) {
+            if (err) throw err;
+    
+            collected_amount = Object.entries(result).length
+
+            data = {total: cards_amount, collected: collected_amount}
+    
+            res.json(data);
+        });
+
+        //res.json(cards_amount);
+    });
+})
+
 function promiseQuery(query) {
     return new Promise((resolve, reject) => {
         let cards = []
@@ -144,8 +167,9 @@ function promiseQuery(query) {
                 return reject(err);
             }
             for (const [key, value] of Object.entries(results)) {  
-                cards.push([value.card_name, value.collection_number, value.rarity, value.imageuri_small, value.price, value.is_in_collection, value.set_name, value.card_id])
+                cards.push([value.card_name, value.collection_number, value.rarity, value.imageuri_small, value.price, value.is_in_collection, value.set_name, value.card_id, cards.length])
             }
+            console.log(cards.length)
             resolve(cards);
         })
     })

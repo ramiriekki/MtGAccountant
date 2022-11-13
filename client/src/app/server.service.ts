@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Card } from './card';
+import { Collected_Data } from './models/collected_data.model';
 import { Set } from './set';
 
 @Injectable({
@@ -56,6 +57,10 @@ export class ServerService {
     localStorage.setItem('isLoggedIn','false');
     localStorage.removeItem('token');
     return this.http.get(this.logoutUrl);
+  }
+
+  getCollectedData(){
+    return this.http.get<Collected_Data>("http://localhost:3001/collections/collected-data", {withCredentials: true})
   }
 
 }

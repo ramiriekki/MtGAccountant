@@ -8,4 +8,5 @@ export interface Card{
   set_name: string
   id: string
   isChecked: boolean
+  requested_amount: number
 }
