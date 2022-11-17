@@ -3,8 +3,14 @@
 <div class="info" *ngIf="!isSet">
   <h1>{{user}}'s collection</h1>
   <!--<p>Total cards: {{cards[1].requested_amount}}</p> -->
-  <p>{{collected_data.total}}</p>
-  <p>{{collected_data.collected}}</p>
+  <div class="progress-cont">
+    <div class="progress-bar">
+      <div class="progress" [style.with.%]="[progress]"></div>
+    </div>
+    <div class="collected-data">
+      <p>{{collected_data.collected}} / {{collected_data.total}}</p>
+    </div>
+  </div>
   <button (click)="postCards()" class="btn btn-success">Submit</button>
 </div>
 

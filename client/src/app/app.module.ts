@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardsComponent } from './cards/cards.component';
@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AuthGuard } from './guards/auth.guard';
     HttpClientModule,
     MatSidenavModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatProgressBarModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

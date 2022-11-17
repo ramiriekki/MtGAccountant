@@ -35,8 +35,12 @@ router.get('/my-collection/', async (req, res) => {
         const renamedObj = renameKeys(value, newKeys);
         results.push((Object.assign({}, renamedObj)))
     }
+    if (req.session.username == undefined){
+        console.log("user undefined")
+    } else{
+        res.json(results);
+    }
 
-    res.json(results);
 });
 
 router.post('/my-collection/', async (req, res) => {
