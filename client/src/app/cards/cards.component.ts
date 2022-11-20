@@ -12,6 +12,7 @@ import { Collected_Data } from '../models/collected_data.model';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
+  topCards: Card[] = []
   cards: Card[] = []
   data: any[] = []
   isSet: boolean = false
@@ -43,6 +44,7 @@ export class CardsComponent implements OnInit {
     this.progress = (this.collected_data.collected! / this.collected_data.total!)*100
     this.renderer.setStyle(this.elRef.nativeElement.querySelector('.progress'), 'width', this.progress + "%");
     //this.renderer.setStyle(this.elRef.nativeElement.querySelector('.progress'), 'width', 50 + "%");
+    this.getTopCards()
   }
 
   getAllCards(): void {
@@ -72,6 +74,14 @@ export class CardsComponent implements OnInit {
 
   getCollectedData(){
     this.serverService.getCollectedData().subscribe(collected_data => this.collected_data = collected_data)
+  }
+
+  getTopCards(){
+    let temp = [...this.cards]
+    temp = temp.sort(function (a:Card , b:Card) {  return a.price - b.price; })
+    temp = temp.slice(Math.max(temp.length - 3, 0))
+    this.topCards = temp
+    console.log(this.topCards)
   }
 
   showFiller = false;

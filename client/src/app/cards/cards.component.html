@@ -11,6 +11,22 @@
       <p>{{collected_data.collected}} / {{collected_data.total}}</p>
     </div>
   </div>
+
+  <div class="topcards-container">
+    <h2>Top Cards</h2>
+    <div class="subcont">
+      <div class="slide" *ngFor="let card of topCards">
+        <a href="#">
+          <img src="{{card.imageuri_small}}" alt="">
+        </a>
+        <div>
+          <h3>{{card.name}}</h3>
+          <h4>{{card.price}} €</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
   <button (click)="postCards()" class="btn btn-success">Submit</button>
 </div>
 
@@ -19,7 +35,7 @@
     <div class="card">
       <h3>{{card.name}}</h3>
       <a href="cards/{{card.id}}">
-        <img src="{{card.imageuri_small}}" alt="">
+        <img src="{{card.imageuri_small}}" class="img" alt="">
       </a>
       <p>{{card.set_name}}</p>
       <p style="text-transform: capitalize;">{{card.rarity}}</p>

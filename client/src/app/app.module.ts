@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { CarouselModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSidenavModule,
     ReactiveFormsModule,
     FormsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    CarouselModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
