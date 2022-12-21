@@ -20,6 +20,7 @@ export class CardsComponent implements OnInit {
   collectedAmount?: number
   collected_data!: Collected_Data
   progress!: number
+  filterArray?: []
 
   constructor(
     private route: ActivatedRoute,
@@ -72,16 +73,70 @@ export class CardsComponent implements OnInit {
     });
   }
 
+  // Progress bar data
   getCollectedData(){
     this.serverService.getCollectedData().subscribe(collected_data => this.collected_data = collected_data)
   }
 
+  // TODO get 3 most expensive cards currently owned
   getTopCards(){
     let temp = [...this.cards]
-    temp = temp.sort(function (a:Card , b:Card) {  return a.price - b.price; })
-    temp = temp.slice(Math.max(temp.length - 3, 0))
+    temp = temp.sort(function (a:Card, b:Card) {  return a.price - b.price; })
+    temp = temp.slice(Math.max(temp.length - 3, 0)) // Get 3 most expensive cards
     this.topCards = temp
     console.log(this.topCards)
+  }
+
+  // For the sort buttons
+  // TODO local cards array and filtered array
+  sortCards(number: number){
+
+    switch (number) {
+      case 0:   // Price ascending
+          //this.getAllCards()
+          this.cards.sort(function (a:Card, b:Card) {  return a.price - b.price; })
+          break;
+      case 1:   // Price decending
+          ////this.getAllCards()
+          this.cards.sort(function (a:Card, b:Card) {  return b.price - a.price; })
+          break;
+      case 2:   // Name A-Z
+          //this.getAllCards()
+          this.cards.sort(function (a:Card, b:Card) {return a.name.localeCompare(b.name)})
+          break
+      case 3:   // Name Z-A
+          //this.getAllCards()
+          this.cards.sort(function (a:Card, b:Card) {return a.name.localeCompare(b.name)})
+          this.cards.reverse()
+          break
+      case 4:
+         // this.getAllCards()
+          this.groupBy("common")
+          console.log(this.cards)
+          break
+      case 5:
+          //this.getAllCards()
+          this.groupBy("uncommon")
+          console.log(this.cards)
+          break
+      case 6:
+          //this.getAllCards()
+          this.groupBy("rare")
+          console.log(this.cards)
+          break
+      case 7:
+          //this.getAllCards()
+          this.groupBy("mythic")
+          console.log(this.cards)
+          break
+      default:
+          console.log("error");
+          break;
+    }
+  }
+
+  groupBy(rarity: string) {
+    this.cards = this.cards.filter((c: { rarity: string; }) => c.rarity === rarity)
   }
 
   showFiller = false;

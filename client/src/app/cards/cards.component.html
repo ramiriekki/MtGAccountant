@@ -27,6 +27,24 @@
     </div>
   </div>
   <br>
+</div>
+
+<div class="sort">
+  <h2>Sort</h2>
+  <div class="button-cont">
+    <div class="button-row">
+      <input type="button" value="Price Ascending" class="sort-button" (click)="sortCards(0)">
+      <input type="button" value="Price Decending" class="sort-button" (click)="sortCards(1)">
+    </div>
+    <div class="button-row">
+      <input type="button" value="Name A-Z" class="sort-button" (click)="sortCards(2)">
+      <input type="button" value="Name Z-A" class="sort-button" (click)="sortCards(3)">
+    </div>
+    <div class="button-row">
+      <input type="button" value="name" class="sort-button" (click)="sortCards(4)">
+      <input type="button" value="name" class="sort-button ">
+    </div>
+  </div>
   <button (click)="postCards()" class="btn btn-success">Submit</button>
 </div>
 

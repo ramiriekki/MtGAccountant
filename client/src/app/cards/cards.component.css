@@ -93,5 +93,21 @@ h1 {
   align-items: center;
 }
 
+.sort{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.sort-button{
+  width: 150px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 8px;
+}
 
+.btn-success{
+  margin-top: 20px;
+}
