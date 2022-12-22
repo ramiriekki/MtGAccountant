@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "paths": {"@angular/*": [ "./node_modules/@angular/*"]},
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
