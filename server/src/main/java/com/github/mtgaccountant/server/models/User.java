@@ -16,6 +16,12 @@ import lombok.Data;
 
 @NamedQuery(name = "User.findByEmailId", query = "SELECT u FROM User u WHERE u.email=:email")
 
+@NamedQuery(name = "User.getAllUsers", query = "SELECT new com.github.mtgaccountant.server.wrapper.UserWrapper(u.id, u.username, u.email, u.status) from User u where u.role = 'user'")
+
+@NamedQuery(name = "User.getAllAdmins", query = "SELECT u.email from User u where u.role = 'admin'")
+
+@NamedQuery(name = "User.updateStatus", query = "UPDATE User u SET u.status=:status where u.id=:id")
+
 @Data
 @Entity
 @DynamicUpdate
