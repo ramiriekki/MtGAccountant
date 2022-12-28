@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService{
                 if(!optional.isEmpty()){
                     userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
 
-                    // sendMailToAllAdmins(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmins());
+                    sendMailToAllAdmins(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmins());
 
                     return MtgAccountantUtils.getResponseEntity("User status updated succesfully", HttpStatus.OK);
                 } else {
@@ -212,6 +212,8 @@ public class UserServiceImpl implements UserService{
     // TODO this doesn't work with BCryptPasswordEncoder. --> Generate new temp password that replaces the old one and send it to user.
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        System.out.println("Forgot password.");
+
         try {
             User user = userDao.findByEmail(requestMap.get("email"));
 
@@ -227,14 +229,14 @@ public class UserServiceImpl implements UserService{
         return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // private void sendMailToAllAdmins(String status, String user, List<String> allAdmins) {
-    //     allAdmins.remove(jwtFilter.getCurrentUser());
+    private void sendMailToAllAdmins(String status, String user, List<String> allAdmins) {
+        allAdmins.remove(jwtFilter.getCurrentUser());
 
-    //     if(status != null && status.equalsIgnoreCase("true")) {
-    //         emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved", "USER:- " + user +" \n is approved by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
-    //     } else {
-    //         emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:- " + user +" \n is disabled by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
-    //     }
-    // }
+        if(status != null && status.equalsIgnoreCase("true")) {
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved", "USER:- " + user +" \n is approved by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
+        } else {
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:- " + user +" \n is disabled by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
+        }
+    }
     
 }

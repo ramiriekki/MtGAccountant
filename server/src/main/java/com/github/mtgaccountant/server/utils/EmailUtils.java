@@ -18,7 +18,7 @@ public class EmailUtils {
 
     public void sendSimpleMessage(String to, String subject, String text, List<String> list){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("rami.riekkinen@gmail.com");
+        message.setFrom("mtgaccnt@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -44,7 +44,7 @@ public class EmailUtils {
         MimeMessage message = eMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom("rami.riekkinen@gmail.com");
+        helper.setFrom("mtgaccnt@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
 
