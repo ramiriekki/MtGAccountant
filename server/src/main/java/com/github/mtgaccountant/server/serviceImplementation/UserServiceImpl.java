@@ -25,6 +25,7 @@ import com.github.mtgaccountant.server.service.UserService;
 import com.github.mtgaccountant.server.utils.EmailUtils;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
+import com.google.common.base.Strings;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -99,6 +100,9 @@ public class UserServiceImpl implements UserService{
     public ResponseEntity<String> login(Map<String, String> requestMap) {
         log.info("Inside login.");
 
+        //String encodedPassword = new BCryptPasswordEncoder().encode(requestMap.get("password"));
+        //System.out.println(encodedPassword);
+
         try {
             Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
@@ -158,6 +162,64 @@ public class UserServiceImpl implements UserService{
             } else {
                 return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> checkToken() {
+        return MtgAccountantUtils.getResponseEntity("true", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
+        try {
+            User userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+
+            if (!userObj.equals(null)) {
+        
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                String oldPassword = requestMap.get("oldPassword");
+                String dbPassword = userObj.getPassword();
+
+                System.out.println(oldPassword);
+                System.out.println(dbPassword);
+
+                if (passwordEncoder.matches(oldPassword, dbPassword)){
+                    String encodedPassword = new BCryptPasswordEncoder().encode(requestMap.get("newPassword"));
+
+                    userObj.setPassword(encodedPassword);
+                    userDao.save(userObj);
+
+                    return MtgAccountantUtils.getResponseEntity("Password updated succesfully.", HttpStatus.OK);
+                }
+
+                
+                return MtgAccountantUtils.getResponseEntity("Incorrect old password.", HttpStatus.BAD_REQUEST);
+            }
+
+            return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // TODO this doesn't work with BCryptPasswordEncoder. --> Generate new temp password that replaces the old one and send it to user.
+    @Override
+    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        try {
+            User user = userDao.findByEmail(requestMap.get("email"));
+
+            if (!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail())) {
+                emailUtils.forgotMail(user.getEmail(), "Credentials by MtgAccountant System", user.getPassword());
+            }
+
+            return MtgAccountantUtils.getResponseEntity("Check your mail for credentials.", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
