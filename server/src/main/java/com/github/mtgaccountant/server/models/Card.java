@@ -41,7 +41,7 @@ public class Card implements Serializable{
     //@Column(name = "image")
     //private String image;
 
-    @Column(name = "oracle_text")
+    @Column(name = "oracle_text", length = 1337)
     private String oracle_text;
 
     @Column(name = "colors")

@@ -3,6 +3,7 @@ package com.github.mtgaccountant.server;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.github.mtgaccountant.server.dao.CardDao;
 import com.github.mtgaccountant.server.models.Search;
 
 @Component
 public class ScheduledTasks {
+
+	@Autowired
+	CardDao cardDao;
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	@Scheduled(cron = "*/30 * * * * *")
@@ -26,6 +32,8 @@ public class ScheduledTasks {
 		ResponseEntity<Search> rateResponse = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
 		Search cards = rateResponse.getBody();
 		
-		System.out.println(cards);
+		System.out.println(cards.getData());
+
+		cardDao.saveAll(cards.getData());
 	}
 }
