@@ -10,8 +10,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.Data;
+
+@NamedQuery(name = "Card.getAllCards", query = "SELECT c FROM Card c")
 
 @Data
 @Entity
