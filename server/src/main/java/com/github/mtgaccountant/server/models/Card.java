@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
@@ -27,37 +28,41 @@ public class Card implements Serializable{
     @Id
     @Column(name = "id")
     private String id;
-
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "id")
-    // private Integer id;
-
     
     @JsonProperty("name")
     @Column(name = "name")
     private String name;
 
-    @Column(name = "release_date")
-    private String release_date;
+    @Column(name = "released_at")
+    private String released_at;
 
-    //@Column(name = "image")
-    //private String image;
+    @Column(name = "image_uris")
+    @Embedded
+    private ImageUri image_uris;
 
     @Column(name = "oracle_text", length = 1337)
     private String oracle_text;
 
+    @Column(name = "power")
+    private String power;
+
+    @Column(name = "toughness")
+    private String toughness;
+
     @Column(name = "colors")
     private String[] colors;
+
+    @Column(name = "color_identity")
+    private String[] color_identity;    
 
     @Column(name = "keywords")
     private String[] keywords;
 
-    @Column(name = "set_code")
-    private String set_code;
-
     @Column(name = "set_name")
     private String set_name;
+
+    @Column(name = "set_type")
+    private String set_type;
 
     @Column(name = "collector_number")
     private String collector_number;
@@ -65,9 +70,17 @@ public class Card implements Serializable{
     @Column(name = "rarity")
     private String rarity;
 
+    @Column(name = "flavor_text")
+    private String flavor_text;
+
     @Column(name = "artist")
     private String artist;
 
-    //@Column(name = "prices")
-    //private Object prices;
+    @Column(name = "prices")
+    @Embedded
+    private Prices prices;
+
+    @Column(name = "purchase_uris")
+    @Embedded
+    private PurchaseUri purchase_uris;
 }
