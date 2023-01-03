@@ -60,6 +60,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     EmailUtils emailUtils;
 
+    /*
+     * Create a new user and collection to database if user doesn't already
+     * exist.
+     */
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
         log.info("Inside signup {}", requestMap);
@@ -70,12 +74,14 @@ public class UserServiceImpl implements UserService{
                 Collection collection = new Collection();
 
                 if(Objects.isNull(user)){
-                    userDao.save(getUserFromMap(requestMap));
+                    userDao.save(getUserFromMap(requestMap));   // Save user document to database
+
+                    UserWrapper collectionUser = userDao.findUser(requestMap.get("email"));
                     
                     collection.setCards(cardDao.findAll());
-                    collection.setUser(getUserFromMap(requestMap));
+                    collection.setUser(collectionUser);
 
-                    collectionDao.save(collection);
+                    collectionDao.save(collection);     // Save user specific collection to database
                     
                     return MtgAccountantUtils.getResponseEntity("Succesfully registered.", HttpStatus.OK);
                 } else {
@@ -99,6 +105,9 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    /*
+     * Get user data from request map to User object
+     */
     private User getUserFromMap(Map<String, String> requestMap) {
         User user = new User();
 
@@ -113,12 +122,13 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    /*
+     * Authenticate user by email and password. 
+     * If authenticated returns a JWT token
+     */
     @Override
     public ResponseEntity<String> login(Map<String, String> requestMap) {
         log.info("Inside login.");
-
-        //String encodedPassword = new BCryptPasswordEncoder().encode(requestMap.get("password"));
-        //System.out.println(encodedPassword);
 
         try {
             System.out.println("Authenticate");
@@ -126,10 +136,9 @@ public class UserServiceImpl implements UserService{
             Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
             );
-            System.out.println("Authenticate2");
 
             if (auth.isAuthenticated()){
-                System.out.println("Is authenticated");
+                // System.out.println("Is authenticated");
                 if(customerUserDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
                     return new ResponseEntity<String>("{\"token\":\"" + 
                             jwtUtil.generateToken(customerUserDetailsService.getUserDetails().getEmail(),
@@ -149,9 +158,12 @@ public class UserServiceImpl implements UserService{
                         HttpStatus.BAD_REQUEST);
     }
 
+    /*
+     * For admins. Gets all user data from the database.
+     */
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
-        System.out.println("Inside getAllUsers");
+        // System.out.println("Inside getAllUsers");
 
         try {
             if(jwtFilter.isAdmin()){
@@ -168,6 +180,13 @@ public class UserServiceImpl implements UserService{
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /*
+     * Admin method. 
+     * If user is admin: changes the status of the specified user to the
+     * specified status from the request map.
+     * 
+     * Sends an email to all other admins. 
+     */
     @Override
     public ResponseEntity<String> update(Map<String, String> requestMap) {
         try {
@@ -210,9 +229,10 @@ public class UserServiceImpl implements UserService{
                 String oldPassword = requestMap.get("oldPassword");
                 String dbPassword = userObj.getPassword();
 
-                System.out.println(oldPassword);
-                System.out.println(dbPassword);
+                // System.out.println(oldPassword);
+                // System.out.println(dbPassword);
 
+                // If passwords match -> set new
                 if (passwordEncoder.matches(oldPassword, dbPassword)){
                     String encodedPassword = new BCryptPasswordEncoder().encode(requestMap.get("newPassword"));
 

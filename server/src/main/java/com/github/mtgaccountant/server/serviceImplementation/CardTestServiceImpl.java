@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.github.mtgaccountant.server.dao.CardDao;
+import com.github.mtgaccountant.server.dao.CollectionDao;
+import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.models.Card;
 import com.github.mtgaccountant.server.service.CardTestService;
 
@@ -17,6 +19,12 @@ public class CardTestServiceImpl implements CardTestService{
 
     @Autowired
     CardDao cardDao;
+
+    @Autowired
+    CollectionDao collectionDao;
+
+    @Autowired
+    UserDao userDao;
     
     @Override
     public ResponseEntity<List<Card>> getAllCards() {
@@ -30,4 +38,10 @@ public class CardTestServiceImpl implements CardTestService{
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // @Override
+    // public ResponseEntity<String> createCollection() {
+    //     List<Card> cards = cardDao.findAll();
+    //     User user = userDao.
+    // }
 }

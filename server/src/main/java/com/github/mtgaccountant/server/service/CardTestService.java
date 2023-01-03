@@ -8,4 +8,5 @@ import com.github.mtgaccountant.server.models.Card;
 
 public interface CardTestService {
     ResponseEntity<List<Card>> getAllCards();
+    //ResponseEntity<String> createCollection();
 }
