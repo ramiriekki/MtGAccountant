@@ -1,5 +1,7 @@
 package com.github.mtgaccountant.server.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Embeddable;
@@ -7,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Embeddable
-public class ImageUri {
+public class ImageUri implements Serializable{
     @JsonProperty("small")
     private String small;
 

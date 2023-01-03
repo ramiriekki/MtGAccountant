@@ -16,10 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.github.mtgaccountant.server.constants.MtgAccountantConstants;
+import com.github.mtgaccountant.server.dao.CardDao;
+import com.github.mtgaccountant.server.dao.CollectionDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.CustomerUserDetailsService;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.jwt.JwtUtil;
+import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.User;
 import com.github.mtgaccountant.server.service.UserService;
 import com.github.mtgaccountant.server.utils.EmailUtils;
@@ -35,6 +38,12 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    CollectionDao collectionDao;
+
+    @Autowired
+    CardDao cardDao;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -57,9 +66,17 @@ public class UserServiceImpl implements UserService{
 
         try{
             if(validateSignUpMap(requestMap)){
-                User user = userDao.findByEmailId(requestMap.get("email"));
+                User user = userDao.findUserByEmail(requestMap.get("email"));
+                Collection collection = new Collection();
+
                 if(Objects.isNull(user)){
                     userDao.save(getUserFromMap(requestMap));
+                    
+                    collection.setCards(cardDao.findAll());
+                    collection.setUser(getUserFromMap(requestMap));
+
+                    collectionDao.save(collection);
+                    
                     return MtgAccountantUtils.getResponseEntity("Succesfully registered.", HttpStatus.OK);
                 } else {
                     return MtgAccountantUtils.getResponseEntity("Email already exists.", HttpStatus.BAD_REQUEST);
@@ -90,7 +107,7 @@ public class UserServiceImpl implements UserService{
         user.setUsername(requestMap.get("username"));
         user.setEmail(requestMap.get("email"));
         user.setPassword(encodedPassword);
-        user.setStatus("false");
+        user.setStatus("true");
         user.setRole("user");
 
         return user;
@@ -104,11 +121,15 @@ public class UserServiceImpl implements UserService{
         //System.out.println(encodedPassword);
 
         try {
+            System.out.println("Authenticate");
+
             Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
             );
+            System.out.println("Authenticate2");
 
             if (auth.isAuthenticated()){
+                System.out.println("Is authenticated");
                 if(customerUserDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
                     return new ResponseEntity<String>("{\"token\":\"" + 
                             jwtUtil.generateToken(customerUserDetailsService.getUserDetails().getEmail(),
@@ -130,9 +151,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
+        System.out.println("Inside getAllUsers");
+
         try {
             if(jwtFilter.isAdmin()){
-                return new ResponseEntity<>(userDao.getAllUsers(), HttpStatus.OK);
+                //System.out.println(userDao.findAllUsers());
+                return new ResponseEntity<>(userDao.findAllUsers(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
             }
@@ -151,9 +175,10 @@ public class UserServiceImpl implements UserService{
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
 
                 if(!optional.isEmpty()){
-                    userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
+                    //userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
+                    optional.get().setStatus(requestMap.get("status"));
 
-                    sendMailToAllAdmins(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmins());
+                    sendMailToAllAdmins(requestMap.get("status"), optional.get().getEmail(), userDao.findAllAdmins());
 
                     return MtgAccountantUtils.getResponseEntity("User status updated succesfully", HttpStatus.OK);
                 } else {
@@ -177,7 +202,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
         try {
-            User userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+            User userObj = userDao.findUserByEmail(jwtFilter.getCurrentUser());
 
             if (!userObj.equals(null)) {
         
@@ -215,7 +240,7 @@ public class UserServiceImpl implements UserService{
         System.out.println("Forgot password.");
 
         try {
-            User user = userDao.findByEmail(requestMap.get("email"));
+            User user = userDao.findUserByEmail(requestMap.get("email"));
 
             if (!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail())) {
                 emailUtils.forgotMail(user.getEmail(), "Credentials by MtgAccountant System", user.getPassword());

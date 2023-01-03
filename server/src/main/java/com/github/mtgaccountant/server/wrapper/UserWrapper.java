@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserWrapper {
-    private Integer id;
+    private String id;
     private String username;
     private String email;
     private String status;
     
-    public UserWrapper(Integer id, String username, String email, String status) {
+    public UserWrapper(String id, String username, String email, String status) {
         this.id = id;
         this.username = username;
         this.email = email;

@@ -23,11 +23,14 @@ public class CustomerUserDetailsService implements UserDetailsService{
 
     private com.github.mtgaccountant.server.models.User userDetails;
 
+    // TODO Username => email
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("Inside loadUserByUsername {}", username);
 
-        userDetails = userDao.findByEmailId(username);
+        userDetails = userDao.findUserByEmail(username);
+        //System.out.println(userDetails);
+
         if (!Objects.isNull(userDetails)){
             return new User(userDetails.getEmail(), userDetails.getPassword(), new ArrayList<>());
         } else {
