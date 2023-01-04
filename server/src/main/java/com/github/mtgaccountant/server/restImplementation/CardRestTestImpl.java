@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.mtgaccountant.server.models.Card;
 import com.github.mtgaccountant.server.rest.CardTestRest;
 import com.github.mtgaccountant.server.service.CardTestService;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @RestController
 public class CardRestTestImpl implements CardTestRest{
@@ -19,14 +19,14 @@ public class CardRestTestImpl implements CardTestRest{
     CardTestService cardTestService;
     
     @Override
-    public ResponseEntity<List<Card>> getAllCards() {
+    public ResponseEntity<List<CardWrapper>> getAllCards() {
         try {
             return cardTestService.getAllCards();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<List<Card>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<List<CardWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.github.mtgaccountant.server.dao.CardDao;
 import com.github.mtgaccountant.server.dao.CollectionDao;
 import com.github.mtgaccountant.server.dao.UserDao;
-import com.github.mtgaccountant.server.models.Card;
 import com.github.mtgaccountant.server.service.CardTestService;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @Service
 public class CardTestServiceImpl implements CardTestService{
@@ -27,7 +27,7 @@ public class CardTestServiceImpl implements CardTestService{
     UserDao userDao;
     
     @Override
-    public ResponseEntity<List<Card>> getAllCards() {
+    public ResponseEntity<List<CardWrapper>> getAllCards() {
         try {
             System.out.println(cardDao.findAll());
             

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;
@@ -18,5 +19,5 @@ public class Search implements Serializable{
     private String next_page;
 
     @JsonProperty("data")
-    private List<Card> data;
+    private List<CardWrapper> data;
 }

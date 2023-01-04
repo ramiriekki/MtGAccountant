@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService{
 
                     UserWrapper collectionUser = userDao.findUser(requestMap.get("email"));
                     
-                    collection.setCards(cardDao.findAll());
+                    collection.setCards(cardDao.findAllCollectionCards());
                     collection.setUser(collectionUser);
 
                     collectionDao.save(collection);     // Save user specific collection to database

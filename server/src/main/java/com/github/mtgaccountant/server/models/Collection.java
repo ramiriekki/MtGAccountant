@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 import jakarta.persistence.Id;
@@ -22,5 +23,5 @@ public class Collection implements Serializable{
 
     private UserWrapper user;
 
-    private List<Card> cards;
+    private List<CollectionCardWrapper> cards;
 }

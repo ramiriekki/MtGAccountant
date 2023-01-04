@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.github.mtgaccountant.server.dao.CardDao;
-import com.github.mtgaccountant.server.models.Card;
 import com.github.mtgaccountant.server.models.Search;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @Component
 public class ScheduledTasks {
@@ -35,7 +35,7 @@ public class ScheduledTasks {
 		// All cards: https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless
 		String url = "https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless";
 		Integer page = 1;
-		List<Card> cards = new ArrayList<>();
+		List<CardWrapper> cards = new ArrayList<>();
 		
 		RestTemplate template = new RestTemplate();
 		ResponseEntity<Search> response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
@@ -44,15 +44,15 @@ public class ScheduledTasks {
 
 		//System.out.println(search.getData());
 		
-		while(search.isHas_more()){
-			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
-			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
-			search = response.getBody();
-			cards.addAll(search.getData());
+		// while(search.isHas_more()){
+		// 	url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
+		// 	response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
+		// 	search = response.getBody();
+		// 	cards.addAll(search.getData());
 			
-			System.out.println(page);
-			page++;
-		}
+		// 	System.out.println(page);
+		// 	page++;
+		// }
 
 		//System.out.println(cards);
 

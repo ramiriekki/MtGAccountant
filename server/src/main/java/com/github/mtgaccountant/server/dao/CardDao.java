@@ -1,9 +1,14 @@
 package com.github.mtgaccountant.server.dao;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-import com.github.mtgaccountant.server.models.Card;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
+import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 
-public interface CardDao extends MongoRepository<Card, Integer>{
-
+public interface CardDao extends MongoRepository<CardWrapper, Integer>{
+    @Query(value="{}", fields="{'id' : 1, 'name' : 1, 'collected' : 1}")
+    List<CollectionCardWrapper> findAllCollectionCards();
 }
