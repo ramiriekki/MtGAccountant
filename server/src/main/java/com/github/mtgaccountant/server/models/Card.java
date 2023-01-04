@@ -11,7 +11,6 @@ import lombok.Data;
 @Data
 @Document("cards")
 public class Card implements Serializable{
-
     private String id;
     
     private String name;
