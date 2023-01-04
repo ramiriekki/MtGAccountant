@@ -11,6 +11,12 @@ import lombok.Data;
 @Data
 @Embeddable
 public class Search implements Serializable{
+    @JsonProperty("has_more")
+    private boolean has_more;
+
+    @JsonProperty("next_page")
+    private String next_page;
+
     @JsonProperty("data")
     private List<Card> data;
 }

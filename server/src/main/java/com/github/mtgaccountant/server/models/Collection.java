@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 
 import lombok.Data;
 
+// TODO wrapper for cards
 @Data
 @Document("collections")
 public class Collection implements Serializable{

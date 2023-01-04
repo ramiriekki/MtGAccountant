@@ -1,7 +1,10 @@
 package com.github.mtgaccountant.server;
 
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.github.mtgaccountant.server.dao.CardDao;
+import com.github.mtgaccountant.server.models.Card;
 import com.github.mtgaccountant.server.models.Search;
 
 @Component
@@ -30,12 +34,28 @@ public class ScheduledTasks {
 		// reference: https://github.com/ricardoveramedina/single-cards/blob/master/src/main/java/com/pueblolavanda/singlecards/client/ApiScryfall.java
 		// All cards: https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless
 		String url = "https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless";
-		RestTemplate template = new RestTemplate();
-		ResponseEntity<Search> rateResponse = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
-		Search cards = rateResponse.getBody();
+		Integer page = 1;
+		List<Card> cards = new ArrayList<>();
 		
-		System.out.println(cards.getData());
+		RestTemplate template = new RestTemplate();
+		ResponseEntity<Search> response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
+		Search search = response.getBody();
+		cards.addAll(search.getData());
 
-		cardDao.saveAll(cards.getData());
+		//System.out.println(search.getData());
+		
+		while(search.isHas_more()){
+			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
+			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
+			search = response.getBody();
+			cards.addAll(search.getData());
+			
+			System.out.println(page);
+			page++;
+		}
+
+		//System.out.println(cards);
+
+		cardDao.saveAll(cards);
 	}
 }

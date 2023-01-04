@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+// TODO Wrapper with just fields: id and collected (for collections)
+
 @Data
 @Document("cards")
 public class Card implements Serializable{
