@@ -48,15 +48,15 @@ public class ScheduledTasks {
 
 		//System.out.println(search.getData());
 		
-		while(search.isHas_more()){
-			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
-			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
-			search = response.getBody();
-			cards.addAll(search.getData());
+		// while(search.isHas_more()){
+		// 	url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
+		// 	response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
+		// 	search = response.getBody();
+		// 	cards.addAll(search.getData());
 			
-			System.out.println(page);
-			page++;
-		}
+		// 	System.out.println(page);
+		// 	page++;
+		// }
 
 		//System.out.println(cards);
 

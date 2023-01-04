@@ -34,7 +34,7 @@ public class SetServiceImpl implements SetService{
         try {
             return new ResponseEntity<>(setDao.findByCode(code), HttpStatus.OK);
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
 
         return new ResponseEntity<>(new Set(), HttpStatus.INTERNAL_SERVER_ERROR);

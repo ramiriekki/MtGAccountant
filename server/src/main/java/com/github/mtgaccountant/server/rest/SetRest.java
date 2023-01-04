@@ -14,7 +14,7 @@ public interface SetRest {
     @GetMapping(path = "/all")
     public ResponseEntity<List<Set>> getAllSets();
 
-    // Eg. http://localhost:8080/api/sets?code=aer
+    // Eg. http://localhost:8080/api/sets/set?code=aer
     @GetMapping(path = "/set")
     public ResponseEntity<Set> getSet(@RequestParam String code);
 }

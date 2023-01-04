@@ -29,7 +29,7 @@ public class CustomerUserDetailsService implements UserDetailsService{
         log.info("Inside loadUserByUsername {}", username);
 
         userDetails = userDao.findUserByEmail(username);
-        //System.out.println(userDetails);
+        System.out.println(userDetails);
 
         if (!Objects.isNull(userDetails)){
             return new User(userDetails.getEmail(), userDetails.getPassword(), new ArrayList<>());
