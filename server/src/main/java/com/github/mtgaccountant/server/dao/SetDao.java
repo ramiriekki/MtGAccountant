@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.github.mtgaccountant.server.models.Set;
 
 public interface SetDao extends MongoRepository<Set, Integer>{
-    
+    Set findByCode(String code);
 }
