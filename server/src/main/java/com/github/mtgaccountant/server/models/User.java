@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
@@ -12,7 +11,6 @@ import lombok.Data;
 public class User implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String _id;
 
     private String username;

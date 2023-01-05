@@ -19,7 +19,7 @@ public interface CollectionRest {
     public ResponseEntity<Collection> getCollection(@RequestParam String email);
 
     @PatchMapping(path = "/collection")
-    public ResponseEntity<String> updateCollection(@RequestBody(required = true) Map<String, String> requestMap, @RequestParam String email);
+    public ResponseEntity<String> updateCollection(@RequestBody(required = true) Map<String, String[]> requestMap, @RequestParam String email);
 
     // TODO: Delete User that owns the collection too.
     @DeleteMapping(path = "/collection")

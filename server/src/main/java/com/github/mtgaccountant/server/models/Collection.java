@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
-import jakarta.persistence.Id;
-
 import lombok.Data;
 
 // TODO wrapper for cards
@@ -18,7 +16,6 @@ import lombok.Data;
 public class Collection implements Serializable{
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String id;
 
     private UserWrapper user;
