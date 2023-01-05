@@ -283,5 +283,11 @@ public class UserServiceImpl implements UserService{
             emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:- " + user +" \n is disabled by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
         }
     }
+
+    @Override
+    public ResponseEntity<String> deleteUser() {
+        // TODO Delete user.
+        return null;
+    }
     
 }

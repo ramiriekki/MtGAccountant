@@ -29,8 +29,6 @@ import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 @Component
 public class ScheduledTasks {
-	//TODO update collections task (when there are new cards)
-
 	@Autowired
 	MongoTemplate db;
 

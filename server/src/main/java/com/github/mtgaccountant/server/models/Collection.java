@@ -10,7 +10,6 @@ import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 import lombok.Data;
 
-// TODO wrapper for cards
 @Data
 @Document("collections")
 public class Collection implements Serializable{
