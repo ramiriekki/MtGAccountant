@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Data
@@ -28,6 +30,9 @@ public class Card implements Serializable{
     private String[] color_identity;    
 
     private String[] keywords;
+
+    @JsonProperty("set")
+    private String set_code;
 
     private String set_name;
 

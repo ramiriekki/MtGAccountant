@@ -23,6 +23,7 @@ public class CardWrapper {
     private String[] colors;
     private String[] color_identity;    
     private String[] keywords;
+    private String set;
     private String set_name;
     private String set_type;
     private String collector_number;
@@ -35,8 +36,8 @@ public class CardWrapper {
 
     public CardWrapper(String id, String name, String released_at, ImageUri image_uris, String oracle_text,
             String power, String toughness, String[] colors, String[] color_identity, String[] keywords,
-            String set_name, String set_type, String collector_number, String rarity, String flavor_text, String artist,
-            Prices prices, PurchaseUri purchase_uris) {
+            String set, String set_name, String set_type, String collector_number, String rarity,
+            String flavor_text, String artist, Prices prices, PurchaseUri purchase_uris, boolean collected) {
         this.id = id;
         this.name = name;
         this.released_at = released_at;
@@ -47,6 +48,7 @@ public class CardWrapper {
         this.colors = colors;
         this.color_identity = color_identity;
         this.keywords = keywords;
+        this.set = set;
         this.set_name = set_name;
         this.set_type = set_type;
         this.collector_number = collector_number;
@@ -55,6 +57,6 @@ public class CardWrapper {
         this.artist = artist;
         this.prices = prices;
         this.purchase_uris = purchase_uris;
-        this.collected = false;
+        this.collected = collected;
     }
 }
