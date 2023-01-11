@@ -8,8 +8,23 @@ import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { CardsComponent } from './cards/cards.component';
-import { SetsComponent } from './sets/sets.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+import { RegisterComponent } from './register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  text: "Loading...",
+  textColor: "#FFFFFF",
+  textPosition: "center-center",
+  bgsColor: "#7b1fa2",
+  fgsColor: "#7b1fa2",
+  fgsType: SPINNER.circle,
+  fgsSize: 100,
+  hasProgressBar: false
+}
 
 @NgModule({
   declarations: [
@@ -17,14 +32,19 @@ import { HomeComponent } from './home/home.component';
     ToolbarComponent,
     FooterComponent,
     CardsComponent,
-    SetsComponent,
     HomeComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
