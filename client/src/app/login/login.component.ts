@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit{
   }
 
   handleSubmit(){
+    let user
+
     this.ngxService.start()
     let formData = this.loginForm.value
     let data = {
@@ -46,8 +48,13 @@ export class LoginComponent implements OnInit{
       this.ngxService.stop()
       this.dialogRef.close()
       localStorage.setItem('token', response.token) 
-      localStorage.setItem('user', this.getDecodedAccessToken(response.token).user) 
-      this.router.navigate(['/dashboard']) // TODO /dashboard
+      localStorage.setItem('user', this.getDecodedAccessToken(response.token).sub) 
+
+      user = this.getDecodedAccessToken(response.token).sub
+      console.log(user)
+
+      //this.router.navigate(['/dashboard/'], user, {relativeTo: route}) // TODO /dashboard
+      this.router.navigateByUrl(`${user}/dashboard`);
     }, (error) => {
       if(error.error?.message){
         this.responseMessage = error.error?.message

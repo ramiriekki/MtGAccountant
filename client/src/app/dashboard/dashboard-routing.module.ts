@@ -7,7 +7,7 @@ const routes: Routes = [
       [
         // {path: 'collection', component: [component], pathMatch: 'full'},
         // {path: 'account', component: [component]}
-        {path: 'test', component: SetsComponent}
+        {path: 'dashboard', component: SetsComponent}
       ]
   }
 ];
