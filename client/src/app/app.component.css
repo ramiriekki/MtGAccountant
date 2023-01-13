@@ -25,6 +25,17 @@
   color: orange;
 }
 
+.link-cont {
+  position: absolute; 
+  right: 20px;
+}
+
+.link-cont > a{
+  color: orange; 
+  cursor: pointer;
+  padding: 20px;
+}
+
 
 /* ----------------------- Default Styles --------------------- */
 
