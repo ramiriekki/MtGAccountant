@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { UserService } from './services/user.service';
+
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +14,12 @@ import { RegisterComponent } from './register/register.component';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private dialog: MatDialog){}
+  constructor(
+    private dialog: MatDialog,
+    ){}
 
   ngOnInit(): void {
+
   }
 
   handleSignupAction(){
@@ -29,5 +36,13 @@ export class AppComponent implements OnInit{
 
   title = 'client';
   showFiller = false;
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
 
 }
