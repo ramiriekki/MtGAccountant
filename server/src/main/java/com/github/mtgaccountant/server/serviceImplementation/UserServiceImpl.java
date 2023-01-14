@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService{
                 // System.out.println("Is authenticated");
                 if(customerUserDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
                     return new ResponseEntity<String>("{\"token\":\"" + 
-                            jwtUtil.generateToken(customerUserDetailsService.getUserDetails().getUsername(),
+                            jwtUtil.generateToken(customerUserDetailsService.getUserDetails().getEmail(),
                                 customerUserDetailsService.getUserDetails().getRole()) + "\"}", 
                                 HttpStatus.OK);
                 } else {

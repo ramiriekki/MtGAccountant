@@ -46,8 +46,8 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-	// @Scheduled(cron = "0 0 0 ? * *")
-	@Scheduled(cron = "0/30 * * * * *")
+	@Scheduled(cron = "0 0 0 ? * *")
+	//@Scheduled(cron = "0/30 * * * * *")
 	public void getAllCards() {
 		String url = "https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless";
 		Integer page = 1;

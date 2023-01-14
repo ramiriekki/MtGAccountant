@@ -12,7 +12,7 @@ public interface UserDao extends MongoRepository<User, Integer>{
     @Query("{email:'?0'}")
     User findUserByEmail(String email);
     
-    @Query("{ username : '?0' }")
+    @Query("{username:'?0'}")
     User findByUsername(String username);
     
     @Query(value="{role:'user'}", fields="{'id' : 1, 'username' : 1, 'email' : 1, 'status' : 1}")

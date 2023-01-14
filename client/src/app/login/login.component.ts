@@ -53,8 +53,8 @@ export class LoginComponent implements OnInit{
       user = this.getDecodedAccessToken(response.token).sub
       console.log(user)
 
-      //this.router.navigate(['/dashboard/'], user, {relativeTo: route}) // TODO /dashboard
-      this.router.navigateByUrl(`${user}/dashboard`);
+      this.router.navigate(['/dashboard']) // TODO /dashboard
+      //this.router.navigateByUrl(`/dashboard`);
     }, (error) => {
       if(error.error?.message){
         this.responseMessage = error.error?.message
