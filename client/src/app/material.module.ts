@@ -12,6 +12,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSidenavModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatPaginatorModule
   ],
   exports: [
     MatToolbarModule,
@@ -41,7 +44,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }

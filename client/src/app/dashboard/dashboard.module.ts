@@ -6,13 +6,17 @@ import { SetsComponent } from '../sets/sets.component';
 import { DashboardComponent } from './dashboard.component';
 import { MaterialModule } from '../material.module';
 import { SetComponent } from '../set/set.component';
+import { CardsComponent } from '../cards/cards.component';
+import { CardComponent } from '../card/card.component';
 
 
 @NgModule({
   declarations: [
     SetsComponent,
     DashboardComponent,
-    SetComponent
+    SetComponent,
+    CardsComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,

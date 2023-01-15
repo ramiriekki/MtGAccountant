@@ -13,10 +13,12 @@
 
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button color="accent" style="color: black;">
-      Toggle extra text
+    <button [routerLink]="['/dashboard']" mat-raised-button color="accent" style="color: white;" class="side-button">
+      Dashboard
+    </button>
+    <br>
+    <button [routerLink]="['/dashboard/sets']" mat-raised-button color="accent" style="color: white;" class="side-button">
+      Sets
     </button>
   </mat-drawer>
 
