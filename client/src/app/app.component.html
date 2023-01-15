@@ -3,7 +3,7 @@
     <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent">
       ≡
     </button>
-    <span id="title">MtG Accountant</span>
+    <a id="title" [routerLink]="['/dashboard']">MtG Accountant</a>
     <div class="link-cont">
       <a (click)="handleLoginAction()">Login</a>
       <a (click)="handleSignupAction()">Register</a>

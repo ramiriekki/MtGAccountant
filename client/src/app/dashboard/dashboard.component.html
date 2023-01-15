@@ -1,1 +1,45 @@
-<p>dashboard works!</p>
+<router-outlet></router-outlet>
+
+<body *ngIf="isDashboard">
+    <div class="hello-cont">
+        <h1 class="hello">Hello User!</h1>
+    </div>
+
+
+    <br>
+
+    <div class="row">
+        <div class="column">
+            <mat-card color="primary">
+                <div class="card">
+                    <div class="container">
+                        <h1 class="title">Collection</h1>
+                        <p><button class="button" [routerLink]="['/collection']" mat-raised-button color="accent">To My Collection</button></p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="column">
+            <mat-card color="primary">
+                <div class="card">
+                    <div class="container">
+                        <h1 class="title">Sets</h1>
+                        <p><button class="button" [routerLink]="['sets']" mat-raised-button color="accent">To Sets</button></p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="column">
+            <mat-card color="primary">
+                <div class="card">
+                    <div class="container">
+                        <h1 class="title">Search</h1>
+                        <p><button class="button" [routerLink]="['/search']" mat-raised-button color="accent">To Search</button></p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</body>
