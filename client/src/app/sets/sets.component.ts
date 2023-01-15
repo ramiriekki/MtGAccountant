@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { SetsService } from '../services/sets.service';
-import { Set } from '../set';
+import { Set } from '../models/set';
 
 
 @Component({

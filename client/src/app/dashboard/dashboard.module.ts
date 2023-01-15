@@ -5,12 +5,14 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SetsComponent } from '../sets/sets.component';
 import { DashboardComponent } from './dashboard.component';
 import { MaterialModule } from '../material.module';
+import { SetComponent } from '../set/set.component';
 
 
 @NgModule({
   declarations: [
     SetsComponent,
-    DashboardComponent
+    DashboardComponent,
+    SetComponent
   ],
   imports: [
     CommonModule,

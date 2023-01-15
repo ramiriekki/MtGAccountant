@@ -27,7 +27,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatToolbarModule,
