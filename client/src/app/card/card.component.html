@@ -1,1 +1,25 @@
-<p>card works!</p>
+<mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
+<mat-card class="main">
+    <div class="card-main-container">
+        <img src="{{card.image_uris.border_crop}}" alt="">
+        <div class="details">
+            <mat-card>
+                <p class="main-data">Rarity: {{card.rarity}}</p>
+                <p class="main-data">Set: {{card.set_name}}</p>
+                <p class="main-data">Collection number: {{card.collector_number}}</p>
+                <p class="main-data">Price: {{card.prices.eur}} €</p>
+            </mat-card>
+            <div class="details-sub">
+                <div class="sub-data">
+                    sdgfbajksfnjankfnjshdvsjhemvfbmcsjh
+                </div>
+                <mat-card class="oracle-text">
+                    <p>{{card.oracle_text}}</p>
+                </mat-card>
+            </div>
+        </div>
+    </div>    
+    <mat-card class="main">
+        {{card.flavor_text}}
+    </mat-card> 
+</mat-card>

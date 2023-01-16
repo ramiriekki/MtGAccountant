@@ -17,4 +17,8 @@ export class CardsService {
   getAllCards(): Observable<Card[]>{
     return this.httpClient.get<Card[]>(this.url + "/api/cards/all-cards")
   }
+
+  getCard(id:string): Observable<Card>{
+    return this.httpClient.get<Card>(this.url + `/api/cards/card?cardId=${id}`)
+  }
 }

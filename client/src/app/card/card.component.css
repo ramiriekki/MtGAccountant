@@ -1,0 +1,51 @@
+.card-main-container{
+    display: flex;
+    margin-bottom: 15px;
+}
+
+mat-card.main{
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    color: #f57f01;
+}
+
+.details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height:100%;
+}
+
+.details > mat-card{
+    background-color: #f57f01;
+    color: white;
+    margin-left: 15px;
+
+}
+
+p.main-data{
+    font-size: 25px;
+    padding: 5px;
+}
+
+.details-sub{
+    display: flex;
+    height: 100%;
+}
+
+.oracle-text{
+    width: 50%;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    color: #f57f01;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+}
+
+.sub-data{
+    width: 50%;
+    margin-left: 15px;
+    height: 100%;
+}

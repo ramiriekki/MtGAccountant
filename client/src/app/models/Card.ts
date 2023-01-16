@@ -2,7 +2,7 @@ export interface Card{
     id: string;
     name: string;
     released_at:string;
-    image_uris: any;
+    image_uris: ImageUris;
     oracle_text: string;
     power: string;
     toughness: string
@@ -21,4 +21,12 @@ export interface Card{
     prices: any
     purchase_uris: any[]
     collected: boolean
+}
+
+export interface ImageUris{
+    small: string
+    normal: string
+    large: string
+    png: string
+    border_crop: string
 }
