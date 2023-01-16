@@ -11,7 +11,20 @@
             </mat-card>
             <div class="details-sub">
                 <div class="sub-data">
-                    sdgfbajksfnjankfnjshdvsjhemvfbmcsjh
+                    <p>Artist: {{card.artist}}</p>
+                    <p>Released: {{card.released_at}}</p>
+                    
+                    <p>Colors: {{card.colors}}</p>
+                    <p>Color Identity: {{card.color_identity}}</p>
+                    
+                    <br>
+
+                    <p>Prices:</p>
+                    <p>non-foil: {{card.prices.eur}}€</p>
+                    <p>foil: {{card.prices.eur_foil}}€</p>
+                    <p>non-foil: {{card.prices.usd}}$</p>
+                    <p>foil: {{card.prices.usd_foil}}$</p>
+                    <p>tix: {{card.prices.tix}}</p>
                 </div>
                 <mat-card class="oracle-text">
                     <p>{{card.oracle_text}}</p>
@@ -20,6 +33,6 @@
         </div>
     </div>    
     <mat-card class="main">
-        {{card.flavor_text}}
+        <p>{{card.flavor_text}}</p>
     </mat-card> 
 </mat-card>
