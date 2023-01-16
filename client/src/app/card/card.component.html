@@ -14,17 +14,17 @@
                     <p>Artist: {{card.artist}}</p>
                     <p>Released: {{card.released_at}}</p>
                     
-                    <p>Colors: {{card.colors}}</p>
-                    <p>Color Identity: {{card.color_identity}}</p>
+                    <p *ngIf="card.colors[0] != null">Colors: {{card.colors}}</p>
+                    <p *ngIf="card.color_identity[0] != null">Color Identity: {{card.color_identity}}</p>
                     
                     <br>
 
                     <p>Prices:</p>
-                    <p>non-foil: {{card.prices.eur}}€</p>
-                    <p>foil: {{card.prices.eur_foil}}€</p>
-                    <p>non-foil: {{card.prices.usd}}$</p>
-                    <p>foil: {{card.prices.usd_foil}}$</p>
-                    <p>tix: {{card.prices.tix}}</p>
+                    <div class="price-div">non-foil: <p class="price">{{card.prices.eur}}</p>€</div>
+                    <div class="price-div">foil: <p class="price">{{card.prices.eur_foil}}</p>€</div>
+                    <div class="price-div">non-foil: <p class="price">{{card.prices.usd}}</p>$</div>
+                    <div class="price-div">foil: <p class="price">{{card.prices.usd_foil}}</p>$</div>
+                    <div class="price-div">tix: <p class="price">{{card.prices.tix}}</p></div>
                 </div>
                 <mat-card class="oracle-text">
                     <p>{{card.oracle_text}}</p>

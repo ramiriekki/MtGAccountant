@@ -49,8 +49,18 @@ p.main-data{
     width: 50%;
     margin-left: 15px;
     height: 100%;
+    font-size: 15px;
 }
 
 p{
     font-weight: bold;
+}
+
+.price{
+    color: white;
+    padding-left: 5px;
+}
+
+.price-div{
+    display: flex;
 }
