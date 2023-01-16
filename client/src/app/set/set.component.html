@@ -1,5 +1,12 @@
-<div class="sets-container">
-    <div *ngFor="let card of cards">
-        <h3>{{card.name}}</h3>
-    </div>
-  </div>
+<div class="cards-container">
+    <ng-container *ngFor="let card of cards">
+        <mat-card class="card" [routerLink]="['/dashboard/collection/', card.id]">
+            <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
+            <img src="{{card.image_uris.border_crop}}" alt="">
+            <mat-card color="accent" class="info">
+              <h2 style="text-transform: capitalize;">{{card.rarity}}</h2>
+              <h2>Collector Number: {{card.collector_number}}</h2>
+            </mat-card>
+          </mat-card>
+    </ng-container>
+</div>

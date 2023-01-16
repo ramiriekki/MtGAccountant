@@ -1,0 +1,44 @@
+.card{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    flex: 1;
+    min-width: 20%;
+    margin: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+}
+
+.cards-container{
+    display: flex;
+    flex-flow: wrap;
+    margin-right: 12px;
+    margin-top: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+img {
+    margin: 20px;
+    height: 400px;
+    width: auto;  
+    max-width: 100%;
+    max-height: 100%;
+    /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
+    /* filter: invert(100%) */
+  }
+
+p.name{
+    font-size: 15px;
+}
+
+h2{
+    color: white;
+}
+
+.info{
+    width: 90%;
+    background-color: #f57f01;
+
+}

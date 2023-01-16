@@ -4,13 +4,14 @@
     padding-bottom: 5px;
     width: 400px;
     /* box-shadow: 5px 10px; */
-    /* color: white; */
+    color: #f57f01;
 }
 
 .row{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    
 }
 
 .column{
@@ -23,6 +24,7 @@
 
 .hello {
     font-size: 50px;
+    color: #f57f01;
 }
 
 .hello-cont{
@@ -31,4 +33,9 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.mat-card{
+    background-color: transparent;
+    border: 1px solid #f57f01;
 }

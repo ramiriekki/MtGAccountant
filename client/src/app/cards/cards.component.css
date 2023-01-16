@@ -6,7 +6,8 @@
     min-width: 20%;
     margin: 20px;
     cursor: pointer;
-    background-color: #573b1d;
+    background-color: transparent;
+    border: 1px solid #f57f01;
 }
 
 .cards-container{

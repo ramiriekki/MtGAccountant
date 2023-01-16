@@ -6,6 +6,8 @@
     min-width: 20%;
     margin: 20px;
     cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #f57f01;
 }
 
 .sets-container{
@@ -22,7 +24,7 @@ img {
     height: 150px;
     width: 150px;  
     /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
-    /* filter: invert(100%) */
+    filter: invert(100%)
   }
 
 p.name{
