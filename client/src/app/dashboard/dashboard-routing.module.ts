@@ -12,7 +12,8 @@ const routes: Routes = [
         {path: 'sets', component: SetsComponent},
         {path: 'collection', component: CardsComponent},
         {path: 'sets/:set', component: SetComponent},
-        {path: 'collection/:id', component: CardComponent}
+        {path: 'collection/:id', component: CardComponent},
+        {path: 'collection/page/:page', component: CardsComponent},
       ]
   }
 ];

@@ -40,5 +40,23 @@ h2{
 .info{
     width: 90%;
     background-color: #f57f01;
+    display: flex;
+    flex-flow: column nowrap;
 
+}
+
+.add-button{
+    margin-left: auto;
+    width: 100%;
+    background-color:#fb9b34;
+}
+
+.remove-button{
+    margin-left: auto;
+    width: 100%;
+    background-color:#b75e00;
+}
+
+p{
+    color: white;
 }

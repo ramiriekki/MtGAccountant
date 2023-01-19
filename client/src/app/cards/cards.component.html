@@ -1,11 +1,27 @@
 <div class="cards-container">
     <ng-container *ngFor="let card of (cards | slice: lowValue : highValue)">
-        <mat-card class="card" [routerLink]="['/dashboard/collection/', card.id]">
+        <mat-card class="card">
             <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
-            <img src="{{card.image_uris.border_crop}}" alt="">
+            <img src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            
             <mat-card color="accent" class="info">
-              <h2 style="text-transform: capitalize;">{{card.rarity}}</h2>
-              <h2>Collector Number: {{card.collector_number}}</h2>
+              <div>
+                <p style="text-transform: capitalize;">{{card.rarity}}</p>
+                <p>Collector Number: {{card.collector_number}}</p>
+              </div>
+              
+              <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock>
+                <button mat-raised-button style="color: white;" class="remove-button">
+                  remove
+                </button>
+              </ng-template>
+              <ng-template #elseBlock>
+                <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
+                  Add
+                </button>
+              </ng-template>
+
             </mat-card>
           </mat-card>
     </ng-container>

@@ -67,7 +67,7 @@ public class ScheduledTasks {
 			search = response.getBody();
 			cards.addAll(search.getData());
 			
-			System.out.println(page);
+			//System.out.println(page);
 			page++;
 		}
 

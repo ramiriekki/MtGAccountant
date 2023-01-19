@@ -21,7 +21,7 @@ public class CardServiceImpl implements CardService{
     @Override
     public ResponseEntity<List<CardWrapper>> getAllCards() {
         try {
-            System.out.println(cardDao.findAll());
+            //System.out.println(cardDao.findAll());
             
             return new ResponseEntity<>(cardDao.findAll(), HttpStatus.OK);
         } catch (Exception e) {

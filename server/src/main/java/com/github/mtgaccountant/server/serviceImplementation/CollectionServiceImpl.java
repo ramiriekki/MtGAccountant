@@ -53,6 +53,8 @@ public class CollectionServiceImpl implements CollectionService{
         try {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
 
+            System.out.println("User: " + user);
+
             // Check if user email matches param email. If not return unauthorized
             if(!user.getEmail().equals(email)){
                 System.out.println("Email param doesn't match users email.");
@@ -65,7 +67,7 @@ public class CollectionServiceImpl implements CollectionService{
             String[] idList = requestMap.get("id_list");
             String[] removeList = requestMap.get("remove_list");
 
-            //System.out.println(idList[0]);
+            System.out.println(idList[0]);
 
             // Update cards property collected
             for (CollectionCardWrapper card : collection.getCards()){
