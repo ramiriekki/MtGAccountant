@@ -72,6 +72,20 @@ export class CardsComponent implements OnInit {
     this.cardsService.updateCollection([""], [id]);
   }
 
+  removeFromCollection(id: string): void {
+    console.log(id);
+
+    // This is needed for updating the view
+    for (const element of this.collection) {
+      if(element.id == id){
+        element.collected = false
+      }
+    }
+
+    // update to db happens here
+    this.cardsService.updateCollection([id], [""]);
+  }
+
   // used to build a slice of papers relevant at any given time
   public getPaginatorData(event: PageEvent): PageEvent {
     this.router.navigate([`dashboard/collection/page/${event.pageIndex}`])
