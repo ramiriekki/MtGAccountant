@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
+import { Set } from '../models/set';
 import { CardsService } from '../services/cards.service';
 import { SetsService } from '../services/sets.service';
 
@@ -14,19 +15,21 @@ export class SetComponent implements OnInit {
   cards: Card[] = []
   code: any = ""
   collection: CollectionCard[] = []
-
+  sets: Set[] = []
+  set!: Set
 
   constructor(
     private setsService: SetsService,
     private router: Router,
     private cardsService: CardsService
-    ) { 
-      this.code = this.router.url.split('/').pop()
-    }
+  ) { 
+    this.code = this.router.url.split('/').pop()
+  }
 
   ngOnInit(): void {
     this.getCollection()
-    this.getCards()
+    this.getCards() 
+    this.getSetData(this.code)
   }
 
   getCards(): void {
@@ -35,6 +38,21 @@ export class SetComponent implements OnInit {
 
   getCollection(): void {
     this.cardsService.getCollection().subscribe(cards => this.collection = cards)
+  }
+
+  getSetData(code: string){
+    console.log("Get set data");
+    console.log(code);
+    
+    for (const set of this.sets){
+      if (set.code == code){
+        this.set = set
+        console.log(this.set);
+        console.log("found");
+        
+        break
+      }
+    }
   }
 
   // Check if card is in collection. For styling the button
