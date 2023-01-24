@@ -1,5 +1,6 @@
 package com.github.mtgaccountant.server.serviceImplementation;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.github.mtgaccountant.server.dao.CollectionDao;
+import com.github.mtgaccountant.server.dao.SetDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
+import com.github.mtgaccountant.server.models.CollectionCountData;
 import com.github.mtgaccountant.server.service.CollectionService;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
@@ -24,6 +27,9 @@ public class CollectionServiceImpl implements CollectionService{
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    SetDao setDao;
 
     @Autowired
     JwtFilter jwtFilter;
@@ -94,6 +100,59 @@ public class CollectionServiceImpl implements CollectionService{
         }
         
         return MtgAccountantUtils.getResponseEntity("Bad Request.", HttpStatus.BAD_REQUEST);
+    }
+
+    /*
+     * Get users collection with email param. 
+     * Retrieve the cards array from collection and iterate through
+     * -> If cards set code matches code param increase collectedCount
+     * Returns Integer of how many unique cards in collection in a certain set user has aquired.
+     */
+    @Override
+    public ResponseEntity<CollectionCountData> getCollectionSetCount(String email, String code) {
+        UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+        Integer collectedCount = 0;
+        Integer totalCount;
+
+        // System.out.println("Code: "  + code);
+        // System.out.println("email: "  + email);
+
+        if(!user.getEmail().equals(email)){
+            System.out.println("Email param doesn't match users email.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        Collection collection = collectionDao.findByUser(user);  
+        List<CollectionCardWrapper> cards = collection.getCards();
+
+        // Get total cards amount
+        totalCount = setDao.findByCode(code).getCard_count();
+        // response.add(totalCount);
+
+        // Count cards that are collected
+        for (CollectionCardWrapper card : cards) {
+
+            //System.out.println(card.getSet() + " - " + code);
+
+            if (card.getSet().equals(code)){
+                // System.out.println("found");
+                if (card.isCollected() == true){
+                    collectedCount++;
+                }
+            } else {
+                //System.out.println("not found");
+            }
+        }
+
+        // response.add(collectedCount);
+
+        CollectionCountData response = new CollectionCountData();
+        response.setCollected(collectedCount);
+        response.setTotalCount(totalCount);
+
+
+        System.out.println(collectedCount);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
 }

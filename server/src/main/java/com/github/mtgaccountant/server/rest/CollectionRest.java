@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.models.Collection;
+import com.github.mtgaccountant.server.models.CollectionCountData;
 
 @RequestMapping(path = "/api/collections")
 public interface CollectionRest {
@@ -23,4 +24,7 @@ public interface CollectionRest {
 
     @DeleteMapping(path = "/collection")
     public ResponseEntity<String> deleteCollection(@RequestParam String email);
+
+    @GetMapping(path = "/collection/set")
+    public ResponseEntity<CollectionCountData> getCollectionSetCount(@RequestParam String email, @RequestParam String code);
 }

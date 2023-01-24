@@ -119,7 +119,7 @@ public class ScheduledTasks {
 
 			// If not in collections, add to new cards list
 			if(!isInCollection){
-				newCards.add(new CollectionCardWrapper(card.getId(), card.getName(), false));
+				newCards.add(new CollectionCardWrapper(card.getId(), card.getName(), card.getSet(), false));
 			}
 			isInCollection = false;
 		}

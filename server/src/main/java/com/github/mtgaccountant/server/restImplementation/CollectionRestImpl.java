@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mtgaccountant.server.constants.MtgAccountantConstants;
 import com.github.mtgaccountant.server.models.Collection;
+import com.github.mtgaccountant.server.models.CollectionCountData;
 import com.github.mtgaccountant.server.rest.CollectionRest;
 import com.github.mtgaccountant.server.service.CollectionService;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
@@ -45,6 +46,19 @@ public class CollectionRestImpl implements CollectionRest{
     public ResponseEntity<String> deleteCollection(String email) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public ResponseEntity<CollectionCountData> getCollectionSetCount(String email, String code) {
+        System.out.println("test");
+        try {
+            return collectionService.getCollectionSetCount(email, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<CollectionCountData>(new CollectionCountData(), HttpStatus.INTERNAL_SERVER_ERROR);
+    
     }
     
 }

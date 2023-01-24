@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
@@ -17,6 +17,8 @@ export class SetComponent implements OnInit {
   collection: CollectionCard[] = []
   sets: Set[] = []
   set!: Set
+  collectedData!: any
+  progressWidth: number = 0
 
   constructor(
     private setsService: SetsService,
@@ -30,6 +32,8 @@ export class SetComponent implements OnInit {
     this.getCollection()
     this.getCards() 
     this.getSetData(this.code)
+    this.getCollectedCountFromSet(this.code)
+    this.progressWidth = (this.collectedData.collected / this.collectedData.totalCount)*100
   }
 
   getCards(): void {
@@ -41,18 +45,11 @@ export class SetComponent implements OnInit {
   }
 
   getSetData(code: string){
-    console.log("Get set data");
-    console.log(code);
-    
-    for (const set of this.sets){
-      if (set.code == code){
-        this.set = set
-        console.log(this.set);
-        console.log("found");
-        
-        break
-      }
-    }
+    this.setsService.getSetData(code).subscribe(set => this.set = set)
+  }
+
+  async getCollectedCountFromSet(code: string){
+    this.cardsService.getCollectedCountFromSet(code).subscribe(collected => this.collectedData = collected)
   }
 
   // Check if card is in collection. For styling the button
@@ -103,5 +100,4 @@ export class SetComponent implements OnInit {
     // update to db happens here
     this.cardsService.updateCollection([id], [""]);
   }
-
 }

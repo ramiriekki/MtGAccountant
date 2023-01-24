@@ -59,3 +59,75 @@ h2{
 p{
     color: white;
 }
+
+.set{
+    margin: 20px;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+}
+
+.set-name > p{
+    font-size: 35px;
+}
+
+.set-icon{
+    filter: invert(100%)
+}
+
+.set-data{
+    display: flex;
+}
+
+.set-data-card{
+    margin: 20px;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    margin-left: 50px;
+    width: 40%;
+}
+
+.set-progress-card{
+    margin: 20px;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    width: 40%;
+}
+
+.set-data-card > p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f57f01;
+}
+
+.progress{
+    height: 100%;
+}
+
+.progress-bottom{
+    border: 1px solid #f57f01;
+    height: 20px;
+    width: 100%;
+    position:static;
+}
+
+.progress-top{
+    background-color: #f57f01;
+    height: 100%;
+}
+
+.mat-divider {
+    border-top-color:#f57f0163;
+}
+
+.progress-text{
+    margin-top: 15px;
+}
+
+.progress-text > p{
+    text-align: center;
+    color: #f57f01;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+

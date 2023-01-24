@@ -49,4 +49,8 @@ export class CardsService {
       return null
     }
   }
+
+  getCollectedCountFromSet(code: string): Observable<any>{
+    return this.httpClient.get<any>(this.url + `/api/collections/collection/set?email=${localStorage.getItem('user')}&code=${code}`)
+  }
 }

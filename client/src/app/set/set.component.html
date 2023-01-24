@@ -1,6 +1,39 @@
 <div class="set-container">
   <mat-card class="set">
-    <mat-toolbar color="accent"><p class="name">{{set}}<p></mat-toolbar>
+    <mat-toolbar color="accent" class="set-name"><p class="name">{{set.name}}<p></mat-toolbar>
+      <div class="set-data">
+        
+        <img src="{{set.icon_svg_uri}}" alt="" class="set-icon">
+        <mat-card class="set-data-card">
+          <p style="text-transform: uppercase;">{{set.code}}</p>
+          <mat-divider class="divider"></mat-divider><br>
+          <p>{{set.name}}</p>
+          <mat-divider class="divider"></mat-divider><br>
+          <p>{{set.released_at}}</p>
+          <mat-divider class="divider"></mat-divider><br>
+          <p>{{set.set_type}}</p>
+          <mat-divider class="divider"></mat-divider><br>
+          <p>Cards: {{set.card_count}}</p>
+          <mat-divider class="divider"></mat-divider><br>
+          <p>{{set.scryfall_uri}}</p>
+          <mat-divider class="divider"></mat-divider><br>
+        </mat-card>
+        
+        <mat-card class="set-progress-card">
+          <mat-toolbar color="accent" class="set-name"><p class="name">Progress<p></mat-toolbar>
+            <br>
+
+          <div class="progress">
+            <div class="progress-bottom">
+              <div class="progress-top" [style.width.%]="(collectedData.collected / collectedData.totalCount)*100" ></div>
+            </div>
+            <div class="progress-text">
+              <p>{{collectedData.collected}} / {{set.card_count}}</p>
+            </div>
+          </div>          
+        </mat-card>
+      
+      </div>
   </mat-card>
 </div>
 
