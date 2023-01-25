@@ -1,5 +1,6 @@
-import { Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 import { Set } from '../models/set';
@@ -19,11 +20,14 @@ export class SetComponent implements OnInit {
   set!: Set
   collectedData!: any
   progressWidth: number = 0
+  collected: number = 0
 
   constructor(
     private setsService: SetsService,
     private router: Router,
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private ngxService: NgxUiLoaderService,
+    private cdr: ChangeDetectorRef
   ) { 
     this.code = this.router.url.split('/').pop()
   }
@@ -50,6 +54,8 @@ export class SetComponent implements OnInit {
 
   async getCollectedCountFromSet(code: string){
     this.cardsService.getCollectedCountFromSet(code).subscribe(collected => this.collectedData = collected)
+    this.cardsService.getCollectedCountFromSet(code).subscribe(collected => this.collected = collected.collected)
+    this.cardsService.getCollectedCountFromSet(code).subscribe(collected => this.progressWidth = (collected.collected / collected.totalCount)*100)
   }
 
   // Check if card is in collection. For styling the button
@@ -83,8 +89,11 @@ export class SetComponent implements OnInit {
       }
     }
 
+    this.collected++
+
     // update to db happens here
     this.cardsService.updateCollection([""], [id]);
+    this.cdr.detectChanges()
   }
 
   removeFromCollection(id: string): void {
@@ -97,7 +106,13 @@ export class SetComponent implements OnInit {
       }
     }
 
+    this.collected--
+
     // update to db happens here
     this.cardsService.updateCollection([id], [""]);
+  }
+
+  log(): void {
+    console.log(this.collected)
   }
 }

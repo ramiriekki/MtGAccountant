@@ -19,16 +19,18 @@
           <mat-divider class="divider"></mat-divider><br>
         </mat-card>
         
-        <mat-card class="set-progress-card">
+        <mat-card class="set-progress-card" (click)="log()">
           <mat-toolbar color="accent" class="set-name"><p class="name">Progress<p></mat-toolbar>
             <br>
 
           <div class="progress">
-            <div class="progress-bottom">
-              <div class="progress-top" [style.width.%]="(collectedData.collected / collectedData.totalCount)*100" ></div>
-            </div>
+            <!-- <div class="progress-bottom">
+              <div class="progress-top" [style.width.%]="progressWidth" ></div>
+              <div class="progress-top" [ngStyle]="{ width : progressWidth + '%' }" ></div>
+            </div> -->
+            <mat-progress-bar mode="determinate" [value]="progressWidth" class="progress-bar" color="accent"></mat-progress-bar>
             <div class="progress-text">
-              <p>{{collectedData.collected}} / {{set.card_count}}</p>
+              <p>{{collected}} / {{set.card_count}}</p>
             </div>
           </div>          
         </mat-card>

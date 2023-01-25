@@ -71,7 +71,9 @@ p{
 }
 
 .set-icon{
-    filter: invert(100%)
+    filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg) brightness(88%) contrast(103%);
+    width: 350px;
+    height: 350px;
 }
 
 .set-data{
@@ -130,4 +132,6 @@ p{
     font-weight: bold;
 }
 
-
+.progress-bar{
+    height: 20px;
+}

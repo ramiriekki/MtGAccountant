@@ -13,6 +13,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -30,7 +31,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSidenavModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressBarModule
   ],
   exports: [
     MatToolbarModule,
@@ -45,7 +47,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSidenavModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule { }
