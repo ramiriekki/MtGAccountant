@@ -24,5 +24,9 @@ export class SetsService {
   getSetData(code: string): Observable<Set>{
     return this.httpClient.get<Set>(this.url + `/api/sets/set?code=${code}`)
   }
+
+  getSetCodes(): Observable<string[]>{
+    return this.httpClient.get<any[any]>(this.url + `/api/sets/codes`)
+  }
 }
 

@@ -8,6 +8,9 @@ import { MaterialModule } from '../material.module';
 import { SetComponent } from '../set/set.component';
 import { CardsComponent } from '../cards/cards.component';
 import { CardComponent } from '../card/card.component';
+import { SearchComponent } from '../search/search.component';
+import { ResultsComponent } from '../results/results.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,13 +19,16 @@ import { CardComponent } from '../card/card.component';
     DashboardComponent,
     SetComponent,
     CardsComponent,
-    CardComponent
+    CardComponent,
+    SearchComponent,
+    ResultsComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    MaterialModule
-
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DashboardModule { }

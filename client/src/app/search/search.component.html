@@ -1,0 +1,72 @@
+<div class="search-container">
+    <mat-card class="search-card">
+        <mat-toolbar class="page-title" color="accent"><p class="page-title">Search</p></mat-toolbar>
+
+        <mat-card class="form-card">
+
+        <div class="form-container">
+            <form (ngSubmit)="onSubmit()" [formGroup]="parentForm">
+
+                <div class="form-group">
+                    <mat-form-field appearance="fill" color="primary" [formGroup]="parentForm">
+                        <mat-label>Fill form field</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="name">
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                        <mat-hint>Hint</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <mat-button-toggle-group name="rarities" aria-label="Rarities" multiple formControlName="rarities">
+                        <mat-button-toggle value="common">Common</mat-button-toggle>
+                        <mat-button-toggle value="uncommon">Uncommon</mat-button-toggle>
+                        <mat-button-toggle value="rare">Rare</mat-button-toggle>
+                        <mat-button-toggle value="mythic">Mythic</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <div class="form-group">
+                    <mat-button-toggle-group name="setType" aria-label="Set Type" multiple formControlName="setTypes">
+                        <mat-button-toggle value="expansion">Expansion</mat-button-toggle>
+                        <mat-button-toggle value="core">Core</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <div class="form-group">
+                    <mat-slider formControlName="minPrice" showTickMarks [min]="0" [max]="1000"></mat-slider>
+
+                </div>
+
+                <div class="form-group">
+                    <mat-slider formControlName="maxPrice" showTickMarks [min]="0" [max]="1000"></mat-slider>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sets</mat-label>
+                        <mat-select multiple formControlName="sets">
+                        <mat-option *ngFor="let set of sets" [value]="set.code">{{set.code}} - {{set.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <mat-button-toggle-group name="owned" aria-label="Collection" formControlName="owned">
+                        <mat-button-toggle value="collected">In Collection</mat-button-toggle>
+                        <mat-button-toggle value="others">Not In Collection</mat-button-toggle>
+                        <mat-button-toggle value="all">All</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <button class="button" type="submit" mat-raised-button color="accent">Submit</button>
+                <!-- <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button> -->
+           
+            </form>
+        </div>
+    </mat-card>
+    </mat-card>
+</div>
+
+<div class="result-container" *ngIf="submitted">
+    <app-results [parentForm]="parentForm"></app-results>
+</div>

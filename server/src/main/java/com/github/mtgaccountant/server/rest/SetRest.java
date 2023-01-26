@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.models.Set;
+import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 
 @RequestMapping(path = "/api/sets")
 public interface SetRest {
@@ -17,4 +18,7 @@ public interface SetRest {
     // Eg. http://localhost:8080/api/sets/set?code=aer
     @GetMapping(path = "/set")
     public ResponseEntity<Set> getSet(@RequestParam String code);
+
+    @GetMapping(path = "/codes")
+    public ResponseEntity<List<SetCodesWrapper>> getSetCodes();
 }

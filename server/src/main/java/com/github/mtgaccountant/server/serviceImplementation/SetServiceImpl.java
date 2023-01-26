@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.mtgaccountant.server.dao.SetDao;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.service.SetService;
+import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 
 @Service
 public class SetServiceImpl implements SetService{
@@ -38,6 +39,28 @@ public class SetServiceImpl implements SetService{
         }
 
         return new ResponseEntity<>(new Set(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<SetCodesWrapper>> getSetCodes() {
+        try {
+            // List<Set> sets = setDao.findAll();
+            // List<String> codes = new ArrayList<>();
+
+            List<SetCodesWrapper> sets = setDao.findAllSetCodesWrappers();
+
+            // for (Set set : sets) {
+            //     codes.add(set.getCode());
+            // }
+
+            // System.out.println(codes);
+
+            return new ResponseEntity<>(sets, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }

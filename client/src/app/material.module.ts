@@ -14,6 +14,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
 
 
 
@@ -32,7 +37,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatSnackBarModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonToggleModule,
+    MatSliderModule,
+    MatCheckboxModule
   ],
   exports: [
     MatToolbarModule,
@@ -48,7 +56,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatSnackBarModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonToggleModule,
+    MatSliderModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

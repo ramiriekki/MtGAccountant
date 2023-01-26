@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.rest.SetRest;
 import com.github.mtgaccountant.server.service.SetService;
+import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 
 @RestController
 public class SetRestImpl implements SetRest{
@@ -38,6 +39,17 @@ public class SetRestImpl implements SetRest{
         }
 
         return new ResponseEntity<Set>(new Set(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<SetCodesWrapper>> getSetCodes() {
+        try {
+            return setService.getSetCodes();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return new ResponseEntity<List<SetCodesWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }
