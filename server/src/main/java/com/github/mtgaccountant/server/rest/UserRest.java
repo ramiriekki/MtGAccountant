@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
@@ -38,4 +39,7 @@ public interface UserRest {
 
     @DeleteMapping(path = "/delete")
     ResponseEntity<String> deleteUser();
+
+    @GetMapping(path = "/user")
+    public ResponseEntity<UserWrapper> getUser(@RequestParam String email);
 }

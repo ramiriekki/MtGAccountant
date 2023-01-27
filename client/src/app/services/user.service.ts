@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,5 +25,9 @@ export class UserService {
 
   checkToken(){
     return this.httpClient.get(this.url + "/user/checkToken")
+  }
+
+  getUser(): Observable<any>{
+    return this.httpClient.get<any>(this.url + `/user/user?email=${localStorage.getItem('user')}`)
   }
 }

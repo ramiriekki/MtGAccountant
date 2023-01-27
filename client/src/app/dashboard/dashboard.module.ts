@@ -11,6 +11,7 @@ import { CardComponent } from '../card/card.component';
 import { SearchComponent } from '../search/search.component';
 import { ResultsComponent } from '../results/results.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from '../profile/profile.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardsComponent,
     CardComponent,
     SearchComponent,
-    ResultsComponent
+    ResultsComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

@@ -289,5 +289,16 @@ public class UserServiceImpl implements UserService{
         // TODO Delete user.
         return null;
     }
+
+    @Override
+    public ResponseEntity<UserWrapper> getUser(String email) {
+        try {
+            return new ResponseEntity<>(userDao.findUser(email), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(new UserWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }

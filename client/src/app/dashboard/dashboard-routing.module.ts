@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CardComponent } from '../card/card.component';
 import { CardsComponent } from '../cards/cards.component';
+import { ProfileComponent } from '../profile/profile.component';
 import { SearchComponent } from '../search/search.component';
 import { SetComponent } from '../set/set.component';
 import { SetsComponent } from '../sets/sets.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
         {path: 'sets', component: SetsComponent},
         {path: 'collection', component: CardsComponent},
         {path: 'search', component: SearchComponent},
+        {path: 'profile', component: ProfileComponent},
         {path: 'sets/:set', component: SetComponent},
         {path: 'collection/:id', component: CardComponent},
         {path: 'collection/page/:page', component: CardsComponent},

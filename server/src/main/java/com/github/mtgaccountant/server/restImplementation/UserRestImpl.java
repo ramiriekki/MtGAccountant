@@ -109,5 +109,16 @@ public class UserRestImpl implements UserRest{
 
         return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<UserWrapper> getUser(String email) {
+        try {
+            return userService.getUser(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<UserWrapper>(new UserWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }
