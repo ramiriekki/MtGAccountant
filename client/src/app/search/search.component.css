@@ -6,9 +6,116 @@
 
 .form-card {
     margin: 20px;
-    background-color: white;
+    background-color: transparent;
     border: 1px solid #f57f01;
 }
 
+.table-card {
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
 
+table{
+  width: 100%;
+  color: white;
+}
 
+table > * {
+  color: white;
+}
+
+.result-card {
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
+.row{
+  background-color: #f57f01;
+}
+
+.mat-cell {
+  color: white;
+  background-color: transparent;
+}
+
+.mat-button-toggle-checked {
+  background-color: #c66600 !important;
+}
+
+.mat-button-toggle {
+  color: white !important;
+  background-color: #f57f01;
+  width: 150px;
+}
+
+.mat-form-field{
+  width: 400px;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f57f01c1;
+}
+
+::ng-deep input.mat-input-element {
+  color: white !important;
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+}
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 8px;
+  border-radius: 8px
+}
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+  background-color: #f57f01a1;
+
+}
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: #f57f01;
+  height: 100%;
+}
+::ng-deep .mat-accent .mat-slider-thumb {
+  height: 30px;
+  width: 30px;
+  bottom: -20px;
+  right: -20px;
+}
+::ng-deep .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: #f57f01;
+}
+
+mat-slider{
+  width: 500px;
+}
+
+p{
+  color: #f57f01;
+  font-weight: bold;
+}
+
+.mat-divider {
+  border-top-color: #f57f0174;
+}
+
+.page-title{
+  color: white;
+}
+
+.button {
+  width: 100%;
+  height: 60px;
+}
