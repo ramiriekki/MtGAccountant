@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserService } from './services/user.service';
@@ -44,6 +45,12 @@ export class AppComponent implements OnInit{
     const dialogConfig = new MatDialogConfig()
     dialogConfig.width = "550px"
     this.dialog.open(RegisterComponent, dialogConfig)
+  }
+
+  handleForgotPasswordAction(){
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.width = "550px"
+    this.dialog.open(ForgotPasswordComponent, dialogConfig)
   }
 
   handleLoginAction(){

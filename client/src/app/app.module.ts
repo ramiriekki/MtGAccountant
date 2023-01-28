@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorInterceptor } from './interceptors/token-interceptor.interceptor';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: "Loading...",
@@ -36,6 +37,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     LoginComponent,
     RegisterComponent,
     ConfirmationComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
