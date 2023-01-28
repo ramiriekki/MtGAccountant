@@ -1,9 +1,11 @@
+
 .card{
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     flex: 1;
-    min-width: 20%;
+    min-width: 300px;
+    max-width: 400px;
     margin: 20px;
     cursor: pointer;
     background-color: transparent;
@@ -17,12 +19,14 @@
     margin-top: 12px;
     flex: 1;
     min-width: 0;
+    justify-content: center;
+    align-items: center;
 }
 
 img {
     margin: 20px;
-    height: 400px;
-    width: auto;  
+    height: auto;
+    width: auto;
     max-width: 100%;
     max-height: 100%;
     /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
