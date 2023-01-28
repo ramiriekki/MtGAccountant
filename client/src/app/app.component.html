@@ -8,6 +8,7 @@
       <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
       <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>
       <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">Forgot Password?</a>
+      <a *ngIf="this.isAuthenticated" (click)="handleLogoutAction()">Logout</a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

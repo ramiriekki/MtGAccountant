@@ -16,3 +16,26 @@ mat-hint {
     display: flex;
     flex-direction: column;
 }
+::ng-deep mat-dialog-container {
+  background-color: #262626 !important;
+  color: #f57f01 !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white !important;
+}
+
+::ng-deep input.mat-input-element {
+  color: white !important;
+}
+
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-label {
+  color: white !important;
+}
+
+

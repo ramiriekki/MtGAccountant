@@ -19,10 +19,6 @@
   width: 250px;
 }
 
-::ng-deep mat-drawer-inner-container{
-
-}
-
 #menu-button {
   margin-right: 20px;
 }

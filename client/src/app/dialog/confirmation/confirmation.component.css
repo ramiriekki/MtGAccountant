@@ -8,3 +8,10 @@
   margin-bottom: 10px;
   width: auto;
 }
+
+::ng-deep mat-dialog-container {
+  background-color: #262626 !important;
+  color: #f57f01 !important;
+}
+
+
