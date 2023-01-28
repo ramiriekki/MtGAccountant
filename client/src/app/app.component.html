@@ -5,9 +5,9 @@
     </button>
     <a id="title" [routerLink]="['/dashboard']">MtG Accountant</a>
     <div class="link-cont">
-      <a (click)="handleLoginAction()">Login</a>
-      <a (click)="handleSignupAction()">Register</a>
-      <a (click)="handleForgotPasswordAction()">Forgot Password?</a>
+      <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
+      <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>
+      <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">Forgot Password?</a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

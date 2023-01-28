@@ -47,14 +47,14 @@ export class LoginComponent implements OnInit{
     this.userService.login(data).subscribe((response:any) => {
       this.ngxService.stop()
       this.dialogRef.close()
-      localStorage.setItem('token', response.token) 
-      localStorage.setItem('user', this.getDecodedAccessToken(response.token).sub) 
+      localStorage.setItem('token', response.token)
+      localStorage.setItem('user', this.getDecodedAccessToken(response.token).sub)
 
       user = this.getDecodedAccessToken(response.token).sub
       console.log(user)
 
-      this.router.navigate(['/dashboard']) // TODO /dashboard
-      //this.router.navigateByUrl(`/dashboard`);
+      this.router.navigate(['/dashboard'])
+      window.location.reload();
     }, (error) => {
       if(error.error?.message){
         this.responseMessage = error.error?.message

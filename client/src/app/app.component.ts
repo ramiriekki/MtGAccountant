@@ -5,6 +5,7 @@ import { ConfirmationComponent } from './dialog/confirmation/confirmation.compon
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 
 // import jwt_decode from 'jwt-decode';
@@ -16,12 +17,13 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit{
   role: any
-  @Output() signChange = new EventEmitter<boolean>();
+  isAuthenticated: boolean = false
 
   constructor(
     private dialog: MatDialog,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
     ){}
 
   ngOnInit(): void {
@@ -33,11 +35,12 @@ export class AppComponent implements OnInit{
       console.log(error);
     })
 
-    if (localStorage.getItem('user')){
-      this.signChange.emit(true);
-    } else {
-      this.signChange.emit(false);
-    }
+    this.isLoggedIn()
+
+    window.addEventListener('storage', function(e) {
+      console.log('event from localstorage')
+      // any change/trigger in local storage will be catch here
+  });
   }
 
   // Create dialog windows
@@ -70,7 +73,12 @@ export class AppComponent implements OnInit{
       dialogRef.close()
       localStorage.clear()
       this.router.navigate(['/'])
+      window.location.reload();
     })
+  }
+
+  isLoggedIn() {
+    this.isAuthenticated = this.authService.isAuthenticated()
   }
 
   title = 'client';
