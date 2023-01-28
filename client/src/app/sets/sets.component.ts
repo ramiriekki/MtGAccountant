@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { SetsService } from '../services/sets.service';
 import { Set } from '../models/set';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -11,9 +12,13 @@ import { Set } from '../models/set';
   styleUrls: ['./sets.component.css']
 })
 export class SetsComponent implements OnInit{
+  parentForm!: FormGroup
   sets: Set[] = []
+  submittedValue: string = "";
+
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private setsService: SetsService
     ){
@@ -21,6 +26,11 @@ export class SetsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
+    // Parent group init
+    this.parentForm = this.formBuilder.group({
+      type: new FormControl()
+    })
       // this.test = this.setsService.getSets()
       // console.log(this.test);
       this.getAllSets()
@@ -29,4 +39,10 @@ export class SetsComponent implements OnInit{
   getAllSets(): void {
     this.setsService.getSets().subscribe(sets => this.sets = sets)
   }
+
+  onSubmit(value: string) {
+    console.log(value);
+    this.submittedValue = value
+  }
+
 }
