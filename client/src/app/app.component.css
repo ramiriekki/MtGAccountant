@@ -16,6 +16,10 @@
 .example-sidenav {
   padding: 20px;
   background-color: rgb(23, 23, 23);
+  width: 250px;
+}
+
+::ng-deep mat-drawer-inner-container{
 
 }
 
@@ -28,17 +32,25 @@
 }
 
 .link-cont {
-  position: absolute; 
+  position: absolute;
   right: 20px;
 }
 
 .link-cont > a{
-  color: orange; 
+  color: orange;
   cursor: pointer;
   padding: 20px;
 }
 
 .side-button{
+  width: 85%;
+  margin-top: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-left: 7%;
+}
+
+.side-button-dash{
   width: 100%;
   margin-top: 25px;
   padding-left: 50px;

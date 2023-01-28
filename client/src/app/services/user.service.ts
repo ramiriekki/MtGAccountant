@@ -30,4 +30,10 @@ export class UserService {
   getUser(): Observable<any>{
     return this.httpClient.get<any>(this.url + `/user/user?email=${localStorage.getItem('user')}`)
   }
+
+  changePassword(data: any){
+    return this.httpClient.post(this.url + "/user/changePassword", data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    })
+  }
 }

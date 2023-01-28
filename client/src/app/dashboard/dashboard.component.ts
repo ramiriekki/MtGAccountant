@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,21 +9,24 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   isDashboard!: boolean
+  user: any
 
-  constructor(private router: Router) { 
+  constructor(
+    private router: Router,
+    private userService: UserService
+    ) {
     router.events.subscribe((val) => {
       // console.log(this.isDashboard);
-      
+
       this.isDashboard = this.isAtDashboard()
     })
-
-    
   }
 
   ngOnInit(): void {
     // console.log(this.router.url);
     // console.log(this.isAtDashboard());
     this.isDashboard = this.isAtDashboard()
+    this.getUser()
   }
 
   private isAtDashboard(): boolean{
@@ -30,9 +34,13 @@ export class DashboardComponent implements OnInit {
       return true
     } else {
       // console.log("is not dash");
-      
+
       return false
     }
+  }
+
+  getUser(): void{
+    this.userService.getUser().subscribe(user => this.user = user)
   }
 
 }

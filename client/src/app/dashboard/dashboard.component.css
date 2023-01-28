@@ -11,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
+
 }
 
 .column{
@@ -25,6 +25,7 @@
 .hello {
     font-size: 50px;
     color: #f57f01;
+    text-transform: capitalize;
 }
 
 .hello-cont{

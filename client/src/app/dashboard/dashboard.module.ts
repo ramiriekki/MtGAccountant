@@ -12,6 +12,7 @@ import { SearchComponent } from '../search/search.component';
 import { ResultsComponent } from '../results/results.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from '../profile/profile.component';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ProfileComponent } from '../profile/profile.component';
     CardComponent,
     SearchComponent,
     ResultsComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,

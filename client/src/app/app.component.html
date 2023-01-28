@@ -13,7 +13,7 @@
 
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <button [routerLink]="['/dashboard']" mat-raised-button color="accent" style="color: white;" class="side-button">
+    <button [routerLink]="['/dashboard']" mat-raised-button color="accent" style="color: white;" class="side-button-dash">
       Dashboard
     </button>
     <br>
@@ -29,6 +29,10 @@
     </button>
     <button [routerLink]="['/dashboard/search']" mat-raised-button color="accent" style="color: white;" class="side-button">
       Search
+    </button>
+    <br>
+    <button mat-raised-button color="accent" style="color: white;" class="side-button" (click)="handleLogoutAction()">
+      Logout
     </button>
   </mat-drawer>
 
