@@ -17,7 +17,7 @@ mat-hint {
     flex-direction: column;
 }
 ::ng-deep mat-dialog-container {
-  background-color: #262626 !important;
+  background-color: #343434 !important;
   color: #f57f01 !important;
 }
 

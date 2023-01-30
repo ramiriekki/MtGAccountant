@@ -9,6 +9,10 @@
   color: white;
 }
 
+.data-title {
+  font-weight: bold;
+}
+
 .info{
   margin: 20px;
   background-color: transparent;
