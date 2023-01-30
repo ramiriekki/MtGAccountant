@@ -1,9 +1,12 @@
 <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
 <mat-card class="main">
     <div class="card-main-container">
-        <img src="{{card.image_uris.border_crop}}" alt="">
+        <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="">
+        <ng-template #elsePart>
+          <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+        </ng-template>
         <div class="details">
-            <mat-card>
+            <mat-card (click)="debug()">
                 <p class="main-data">Rarity: {{card.rarity}}</p>
                 <p class="main-data">Set: {{card.set_name}}</p>
                 <p class="main-data">Collection number: {{card.collector_number}}</p>
@@ -13,10 +16,10 @@
                 <div class="sub-data">
                     <p>Artist: {{card.artist}}</p>
                     <p>Released: {{card.released_at}}</p>
-                    
-                    <p *ngIf="card.colors[0] != null">Colors: {{card.colors}}</p>
+
+                    <p *ngIf="card.colors != null">Colors: {{card.colors}}</p>
                     <p *ngIf="card.color_identity[0] != null">Color Identity: {{card.color_identity}}</p>
-                    
+
                     <br>
 
                     <p>Prices:</p>
@@ -31,8 +34,8 @@
                 </mat-card>
             </div>
         </div>
-    </div>    
+    </div>
     <mat-card class="main">
         <p>{{card.flavor_text}}</p>
-    </mat-card> 
+    </mat-card>
 </mat-card>

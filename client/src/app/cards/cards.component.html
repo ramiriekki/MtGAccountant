@@ -2,7 +2,10 @@
     <ng-container *ngFor="let card of (cards | slice: lowValue : highValue)">
         <mat-card class="card">
             <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
-            <img src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            <ng-template #elsePart>
+              <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            </ng-template>
 
             <mat-card color="accent" class="info">
               <div>

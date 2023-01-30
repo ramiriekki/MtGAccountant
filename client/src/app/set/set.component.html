@@ -2,7 +2,7 @@
   <mat-card class="set">
     <mat-toolbar color="accent" class="set-name"><p class="name">{{set.name}}<p></mat-toolbar>
       <div class="set-data">
-        
+
         <img src="{{set.icon_svg_uri}}" alt="" class="set-icon">
         <mat-card class="set-data-card">
           <p style="text-transform: uppercase;">{{set.code}}</p>
@@ -18,7 +18,7 @@
           <p>{{set.scryfall_uri}}</p>
           <mat-divider class="divider"></mat-divider><br>
         </mat-card>
-        
+
         <mat-card class="set-progress-card" (click)="log()">
           <mat-toolbar color="accent" class="set-name"><p class="name">Progress<p></mat-toolbar>
             <br>
@@ -32,9 +32,9 @@
             <div class="progress-text">
               <p>{{collected}} / {{set.card_count}}</p>
             </div>
-          </div>          
+          </div>
         </mat-card>
-      
+
       </div>
   </mat-card>
 </div>
@@ -43,14 +43,17 @@
   <ng-container *ngFor="let card of cards">
       <mat-card class="card">
           <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
-          <img src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
-          
+          <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+          <ng-template #elsePart>
+            <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+          </ng-template>
+
           <mat-card color="accent" class="info">
             <div>
               <p style="text-transform: capitalize;">{{card.rarity}}</p>
               <p>Collector Number: {{card.collector_number}}</p>
             </div>
-            
+
             <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
             <ng-template #thenBlock>
               <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">

@@ -1,3 +1,5 @@
+import { CardFaces } from "./CardFaces";
+
 export interface Card{
     id: string;
     name: string;
@@ -11,6 +13,7 @@ export interface Card{
     colors: string[]
     color_identity: string[]
     keywords: []
+    card_faces: CardFaces[];
     set: string
     set_name: string
     set_type: string
