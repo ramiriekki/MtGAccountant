@@ -4,6 +4,7 @@ import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 import { CardsService } from '../services/cards.service';
 import { Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-cards',
@@ -20,6 +21,7 @@ export class CardsComponent implements OnInit {
   currentPage: number = 0;
 
   constructor(
+    private ngxService: NgxUiLoaderService,
     private router: Router,
     private cardsService: CardsService
   ) { }
@@ -30,7 +32,9 @@ export class CardsComponent implements OnInit {
   }
 
   getAllCards(): void {
+    this.ngxService.start()
     this.cardsService.getAllCards().subscribe(cards => this.cards = cards)
+    this.ngxService.stop()
   }
 
   getCollection(): void {
@@ -44,7 +48,7 @@ export class CardsComponent implements OnInit {
     for (const element of this.collection) {
       if(element.id == id){
         //console.log(element.id, element.collected);
-        
+
         if(element.collected == true){
           isCollected = true
           break

@@ -18,6 +18,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonToggleModule,
     MatSliderModule,
     MatCheckboxModule,
-    MatTableModule
+    MatTableModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatToolbarModule,
@@ -58,7 +60,8 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonToggleModule,
     MatSliderModule,
     MatCheckboxModule,
-    MatTableModule
+    MatTableModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

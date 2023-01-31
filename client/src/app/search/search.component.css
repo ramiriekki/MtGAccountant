@@ -68,7 +68,7 @@ table > * {
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-  background-color: #f57f01c1;
+  background-color: #f57f01c1 !important;
 }
 
 ::ng-deep input.mat-input-element {
