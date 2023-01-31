@@ -51,6 +51,17 @@
                   </div>
               </div>
           </mat-card>
-      </div>
+        </div>
+
+        <div class="column"  *ngIf="isAdmin()">
+          <mat-card color="primary">
+              <div class="card">
+                  <div class="container">
+                      <h1 class="title">Admin Tools</h1>
+                      <p><button class="button" [routerLink]="['admin-board']" mat-raised-button color="accent">To Admin Board</button></p>
+                  </div>
+              </div>
+          </mat-card>
+        </div>
     </div>
 </body>

@@ -10,6 +10,7 @@ import { UserService } from '../services/user.service';
 export class DashboardComponent implements OnInit {
   isDashboard!: boolean
   user: any
+  role!: string | null
 
   constructor(
     private router: Router,
@@ -27,6 +28,7 @@ export class DashboardComponent implements OnInit {
     // console.log(this.isAtDashboard());
     this.isDashboard = this.isAtDashboard()
     this.getUser()
+    this.role = localStorage.getItem('role')
   }
 
   private isAtDashboard(): boolean{
@@ -41,6 +43,14 @@ export class DashboardComponent implements OnInit {
 
   getUser(): void{
     this.userService.getUser().subscribe(user => this.user = user)
+  }
+
+  isAdmin(): boolean {
+    if (this.user.role === "admin") {
+      return true;
+    } else {
+      return false
+    }
   }
 
 }

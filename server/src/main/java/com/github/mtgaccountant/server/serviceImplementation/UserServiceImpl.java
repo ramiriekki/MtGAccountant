@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService{
                                 customerUserDetailsService.getUserDetails().getRole()) + "\"}", 
                                 HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<String>("{\"message\":\"" + "Wait for admin approval." + "\"}", 
+                    return new ResponseEntity<String>("{\"message\":\"" + "Account disabled by admin." + "\"}", 
                         HttpStatus.BAD_REQUEST);
                 }
             }
@@ -190,19 +190,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public ResponseEntity<String> update(Map<String, String> requestMap) {
         try {
+            System.out.println("wgasdfhg");
             if (jwtFilter.isAdmin()){
-                Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
+                // TODO id is not Integer -> change to String!!!
+                User optional = userDao.findUserByEmail(requestMap.get("email"));
+                System.out.println(optional.getEmail());
 
-                if(!optional.isEmpty()){
-                    //userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
-                    optional.get().setStatus(requestMap.get("status"));
+                optional.setStatus(requestMap.get("status"));
 
-                    sendMailToAllAdmins(requestMap.get("status"), optional.get().getEmail(), userDao.findAllAdmins());
-
-                    return MtgAccountantUtils.getResponseEntity("User status updated succesfully", HttpStatus.OK);
-                } else {
-                    MtgAccountantUtils.getResponseEntity("User id doesn't exist", HttpStatus.OK);
-                }
+                userDao.save(optional);
+                return MtgAccountantUtils.getResponseEntity("User status updated", HttpStatus.OK);
             } else {
                 return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }

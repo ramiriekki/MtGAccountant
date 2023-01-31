@@ -13,6 +13,7 @@ import { ResultsComponent } from '../results/results.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from '../profile/profile.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { AdminComponent } from '../admin/admin.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
     ResultsComponent,
     ProfileComponent,
     ChangePasswordComponent,
+    AdminComponent,
   ],
   imports: [
     CommonModule,

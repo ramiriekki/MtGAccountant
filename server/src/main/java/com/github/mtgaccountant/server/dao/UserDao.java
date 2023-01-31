@@ -15,10 +15,10 @@ public interface UserDao extends MongoRepository<User, Integer>{
     @Query("{username:'?0'}")
     User findByUsername(String username);
     
-    @Query(value="{role:'user'}", fields="{'id' : 1, 'username' : 1, 'email' : 1, 'status' : 1}")
+    @Query(value="{}", fields="{'id' : 1, 'username' : 1, 'email' : 1, 'status' : 1, 'role' : 1}")
     List<UserWrapper> findAllUsers();
     
-    @Query(value="{email:'?0'}", fields="{'id' : 1, 'username' : 1, 'email' : 1, 'status' : 1}")
+    @Query(value="{email:'?0'}", fields="{'id' : 1, 'username' : 1, 'email' : 1, 'status' : 1, 'role' : 1}")
     UserWrapper findUser(String email);
 
     @Query(value="{role:'admin'}", fields="{'email' : 1}")

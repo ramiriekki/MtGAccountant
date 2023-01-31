@@ -1,0 +1,55 @@
+<div class="container">
+
+  <div class="admin-guide">
+  </div>
+  <mat-card class="guide-card">
+    <p>
+      Here you can change the status of users. <br>
+      false = Account disabled by admin <br>
+      true = Account active
+    </p>
+  </mat-card>
+
+  <h1>User List</h1>
+  <mat-card class="users">
+
+    <table mat-table [dataSource]="users" class="mat-elevation-z8" color="primary">
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> ID </th>
+        <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="username">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Username </th>
+        <td mat-cell [style.background-color]="'#262626'" *matCellDef="let element">{{element.username}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Email </th>
+        <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Status </th>
+        <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.status}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef>  Role </th>
+        <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.role}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Actions </th>
+        <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">
+          <button mat-raised-button color="accent" style="width: 100%; height: 30px;" (click)="changeStatus(element.email, element.status)">Change Status</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr [ngStyle]="{ 'border-left-color': 'white'}" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>
