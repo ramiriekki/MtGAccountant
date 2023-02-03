@@ -28,13 +28,13 @@ export class SetComponent implements OnInit {
     private cardsService: CardsService,
     private ngxService: NgxUiLoaderService,
     private cdr: ChangeDetectorRef
-  ) { 
+  ) {
     this.code = this.router.url.split('/').pop()
   }
 
   ngOnInit(): void {
     this.getCollection()
-    this.getCards() 
+    this.getCards()
     this.getSetData(this.code)
     this.getCollectedCountFromSet(this.code)
     this.progressWidth = (this.collectedData.collected / this.collectedData.totalCount)*100
@@ -65,7 +65,7 @@ export class SetComponent implements OnInit {
     for (const element of this.collection) {
       if(element.id == id){
         //console.log(element.id, element.collected);
-        
+
         if(element.collected == true){
           isCollected = true
           break
@@ -90,6 +90,7 @@ export class SetComponent implements OnInit {
     }
 
     this.collected++
+    this.progressWidth = (this.collected / this.set.card_count) * 100
 
     // update to db happens here
     this.cardsService.updateCollection([""], [id]);
@@ -107,6 +108,7 @@ export class SetComponent implements OnInit {
     }
 
     this.collected--
+    this.progressWidth = (this.collected / this.set.card_count) * 100
 
     // update to db happens here
     this.cardsService.updateCollection([id], [""]);

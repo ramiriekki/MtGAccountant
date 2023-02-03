@@ -113,7 +113,7 @@
 
         <ng-container matColumnDef="prices">
           <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef>  Prices </th>
-          <td  [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.prices.eur}}</td>
+          <td  [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.prices.eur}} €</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
