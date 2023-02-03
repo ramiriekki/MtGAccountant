@@ -41,7 +41,9 @@ export class SetComponent implements OnInit {
   }
 
   getCards(): void {
+    this.ngxService.start()
     this.setsService.getSet(this.code).subscribe(cards => this.cards = cards)
+    this.ngxService.stop()
   }
 
   getCollection(): void {

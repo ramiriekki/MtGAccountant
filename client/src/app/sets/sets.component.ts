@@ -4,6 +4,7 @@ import { filter } from 'rxjs';
 import { SetsService } from '../services/sets.service';
 import { Set } from '../models/set';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class SetsComponent implements OnInit{
 
 
   constructor(
+    private ngxService: NgxUiLoaderService,
     private formBuilder: FormBuilder,
     private router: Router,
     private setsService: SetsService
@@ -37,7 +39,9 @@ export class SetsComponent implements OnInit{
   }
 
   getAllSets(): void {
+    this.ngxService.start()
     this.setsService.getSets().subscribe(sets => this.sets = sets)
+    this.ngxService.stop()
   }
 
   onSubmit(value: string) {

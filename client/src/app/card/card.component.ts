@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from '../models/Card';
 import { CardsService } from '../services/cards.service';
 
@@ -12,6 +13,7 @@ export class CardComponent implements OnInit {
   card!: Card
 
   constructor(
+    private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute,
     private cardsService: CardsService
     ) { }
@@ -22,8 +24,10 @@ export class CardComponent implements OnInit {
     }
 
     getCard(): void{
+      this.ngxService.start()
       const id = String(this.route.snapshot.paramMap.get('id'))
       this.cardsService.getCard(id).subscribe(card => this.card = card)
+      this.ngxService.stop()
     }
 
   debug(): void {
