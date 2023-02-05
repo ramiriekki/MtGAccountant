@@ -46,9 +46,15 @@ export class DashboardComponent implements OnInit {
   }
 
   isAdmin(): boolean {
+    console.log(this.user.role);
+
     if (this.user.role === "admin") {
+      console.log("Is admin.");
+
       return true;
     } else {
+      console.log("is not admin");
+
       return false
     }
   }

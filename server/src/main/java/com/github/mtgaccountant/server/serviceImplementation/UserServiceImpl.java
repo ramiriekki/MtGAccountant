@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -192,7 +191,6 @@ public class UserServiceImpl implements UserService{
         try {
             System.out.println("wgasdfhg");
             if (jwtFilter.isAdmin()){
-                // TODO id is not Integer -> change to String!!!
                 User optional = userDao.findUserByEmail(requestMap.get("email"));
                 System.out.println(optional.getEmail());
 
@@ -271,15 +269,15 @@ public class UserServiceImpl implements UserService{
         return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private void sendMailToAllAdmins(String status, String user, List<String> allAdmins) {
-        allAdmins.remove(jwtFilter.getCurrentUser());
+    // private void sendMailToAllAdmins(String status, String user, List<String> allAdmins) {
+    //     allAdmins.remove(jwtFilter.getCurrentUser());
 
-        if(status != null && status.equalsIgnoreCase("true")) {
-            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved", "USER:- " + user +" \n is approved by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
-        } else {
-            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:- " + user +" \n is disabled by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
-        }
-    }
+    //     if(status != null && status.equalsIgnoreCase("true")) {
+    //         emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved", "USER:- " + user +" \n is approved by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
+    //     } else {
+    //         emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:- " + user +" \n is disabled by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
+    //     }
+    // }
 
     @Override
     public ResponseEntity<String> deleteUser() {

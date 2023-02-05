@@ -19,6 +19,7 @@ import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
+// BUG user can either modify collection or see the admin board 
 @Service
 public class CollectionServiceImpl implements CollectionService{
 
@@ -45,6 +46,8 @@ public class CollectionServiceImpl implements CollectionService{
                 System.out.println("Email param doesn't match users email.");
                 return new ResponseEntity<>(new Collection(), HttpStatus.UNAUTHORIZED);
             }
+
+            System.out.println(collectionDao.findByUser(user));
 
             return new ResponseEntity<>(collectionDao.findByUser(user), HttpStatus.OK);
         } catch (Exception e) {

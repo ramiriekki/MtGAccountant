@@ -85,3 +85,6 @@ export class SearchComponent implements OnInit {
   }
 
 }
+
+
+// TODO When hovering over card in results, show cards image

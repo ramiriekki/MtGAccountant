@@ -49,7 +49,6 @@ public class SearchServiceImpl implements SearchService{
 
                 //System.out.println("testCards: " + testCards.size());
                 
-                // TODO Possible fix... instead of adding found cards, remove them instead from the cards List?
                 // Rarities
                 if (searchData.getRarities() != null && searchData.getRarities().length != 0){
 

@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard.component';
 const routes: Routes = [
   {path: '', component: DashboardComponent, children:
       [
+        //{path: '', redirectTo: '/home', pathMatch: 'full'},
         {path: 'sets', component: SetsComponent},
         {path: 'collection', component: CardsComponent},
         {path: 'search', component: SearchComponent},

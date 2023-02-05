@@ -1,4 +1,4 @@
-<mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
+<mat-toolbar color="accent" style="margin-top: 15px;"><p class="name">{{card.name}}<p></mat-toolbar>
 <mat-card class="main">
     <div class="card-main-container">
         <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="">

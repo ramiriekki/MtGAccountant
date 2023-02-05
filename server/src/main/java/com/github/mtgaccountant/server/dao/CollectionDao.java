@@ -10,6 +10,7 @@ import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 public interface CollectionDao extends MongoRepository<Collection, Integer>{
+    @Query(value = "{email : '?0'}")
     Collection findByUser(UserWrapper user);
 
     @Query(value="{email:'?0'}", fields="{'cards' : 1}")
