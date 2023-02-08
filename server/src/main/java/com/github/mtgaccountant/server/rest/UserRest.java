@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/api/user")
 public interface UserRest {
     
     @PostMapping(path = "/signup")
