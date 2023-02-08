@@ -59,6 +59,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     EmailUtils emailUtils;
 
+    // private User user;
+
     /*
      * Create a new user and collection to database if user doesn't already
      * exist.
@@ -79,6 +81,7 @@ public class UserServiceImpl implements UserService{
                     
                     collection.setCards(cardDao.findAllCollectionCards());
                     collection.setUser(collectionUser);
+                    collection.setFinderID(collectionUser.getUsername() + collectionUser.getEmail());
 
                     collectionDao.save(collection);     // Save user specific collection to database
                     

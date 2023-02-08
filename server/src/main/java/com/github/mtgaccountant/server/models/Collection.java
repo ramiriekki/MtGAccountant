@@ -17,6 +17,8 @@ public class Collection implements Serializable{
 
     private String id;
 
+    private String finderID;
+
     private UserWrapper user;
 
     private List<CollectionCardWrapper> cards;

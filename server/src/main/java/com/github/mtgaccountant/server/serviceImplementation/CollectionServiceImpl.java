@@ -47,9 +47,9 @@ public class CollectionServiceImpl implements CollectionService{
                 return new ResponseEntity<>(new Collection(), HttpStatus.UNAUTHORIZED);
             }
 
-            System.out.println(collectionDao.findByUser(user));
+            //System.out.println(collectionDao.findByUser(user));
 
-            return new ResponseEntity<>(collectionDao.findByUser(user), HttpStatus.OK);
+            return new ResponseEntity<>(collectionDao.findByFinderID(user.getUsername() + user.getEmail()), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,7 +72,7 @@ public class CollectionServiceImpl implements CollectionService{
             
             // Get users collection from database.
             // Get lists from request (cards to be added and cards to be removed) 
-            Collection collection = collectionDao.findByUser(user);
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); // TODO generate unique id
             String[] idList = requestMap.get("id_list");
             String[] removeList = requestMap.get("remove_list");
 
@@ -125,7 +125,7 @@ public class CollectionServiceImpl implements CollectionService{
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        Collection collection = collectionDao.findByUser(user);  
+        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());  
         List<CollectionCardWrapper> cards = collection.getCards();
 
         // Get total cards amount
