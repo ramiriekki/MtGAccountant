@@ -1,0 +1,36 @@
+<div class="cards-container">
+    <ng-container *ngFor="let card of (cards | slice: lowValue : highValue)">
+        <mat-card class="card">
+            <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
+            <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            <ng-template #elsePart>
+              <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            </ng-template>
+
+            <mat-card color="accent" class="info">
+              <div>
+                <p style="text-transform: capitalize;">{{card.rarity}}</p>
+                <p>Collector Number: {{card.collector_number}}</p>
+              </div>
+
+              <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock>
+                <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">
+                  remove
+                </button>
+              </ng-template>
+              <ng-template #elseBlock>
+                <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
+                  Add
+                </button>
+              </ng-template>
+
+            </mat-card>
+          </mat-card>
+    </ng-container>
+</div>
+
+<mat-paginator [length]="cards.length" pageSize=20
+               (page)="getPaginatorData($event)" [pageSizeOptions]="[20, 40]"
+               showFirstLastButtons="false" style="background-color: #f57f01; color: white;">
+</mat-paginator>

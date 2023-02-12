@@ -1,0 +1,50 @@
+<mat-toolbar color="primary" class="toolbar">
+  <mat-toolbar-row>
+    <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent">
+      ≡
+    </button>
+    <a id="title" [routerLink]="['/dashboard']">MtG Accountant</a>
+    <div class="link-cont">
+      <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
+      <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>
+      <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">Forgot Password?</a>
+      <a *ngIf="this.isAuthenticated" (click)="handleLogoutAction()">Logout</a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <button [routerLink]="['/dashboard']" mat-raised-button color="accent" style="color: white;" class="side-button-dash">
+      Dashboard
+    </button>
+    <br>
+    <button [routerLink]="['/dashboard/collection/page/0']" mat-raised-button color="accent" style="color: white;" class="side-button">
+      My Collection
+    </button>
+    <br>
+    <button [routerLink]="['/dashboard/sets']" mat-raised-button color="accent" style="color: white;" class="side-button">
+      Sets
+    </button>
+    <button [routerLink]="['/dashboard/profile']" mat-raised-button color="accent" style="color: white;" class="side-button">
+      Profile
+    </button>
+    <button [routerLink]="['/dashboard/search']" mat-raised-button color="accent" style="color: white;" class="side-button">
+      Search
+    </button>
+    <br>
+    <button mat-raised-button color="accent" style="color: white;" class="side-button" (click)="handleLogoutAction()">
+      Logout
+    </button>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+
+    <router-outlet></router-outlet>
+    <ngx-ui-loader></ngx-ui-loader>
+  </div>
+
+</mat-drawer-container>
+
+<app-footer></app-footer>
+

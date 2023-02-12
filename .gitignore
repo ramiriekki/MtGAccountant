@@ -1,2 +1,5 @@
+.vscode
+.env
+.history
 node_modules
 config

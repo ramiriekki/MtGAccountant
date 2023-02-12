@@ -1,0 +1,37 @@
+.profile-card {
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
+.title {
+  font-size: 25px !important;
+  color: white;
+}
+
+.data-title {
+  font-weight: bold;
+}
+
+.info{
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
+p{
+  color: #f57f01;
+  font-weight: bold;
+}
+
+.sub{
+  color: white;
+}
+
+.data-title{
+  color: #f57f01;
+}
+
+.mat-divider {
+  border-top-color: #f57f0174;
+}

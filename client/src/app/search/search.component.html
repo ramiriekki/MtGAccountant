@@ -1,0 +1,125 @@
+<div class="search-container">
+    <mat-card class="search-card">
+        <mat-toolbar class="page-title" color="accent"><p class="page-title">Search</p></mat-toolbar>
+
+        <mat-card class="form-card">
+
+        <div class="form-container">
+            <form (ngSubmit)="onSubmit()" [formGroup]="parentForm">
+
+              <p>Card name:</p>
+                <div class="form-group">
+                    <mat-form-field appearance="fill" color="primary" [formGroup]="parentForm">
+                        <mat-label>Card name</mat-label>
+                        <input matInput placeholder="Placeholder" formControlName="name">
+                    </mat-form-field>
+                </div>
+
+                <!-- <mat-divider color="accent"></mat-divider><br> -->
+
+                <p>Rarity:</p>
+                <div class="form-group">
+                    <mat-button-toggle-group name="rarities" aria-label="Rarities" multiple formControlName="rarities">
+                        <mat-button-toggle [style.background-color]="'#f57f01'" value="common">Common</mat-button-toggle>
+                        <mat-button-toggle value="uncommon">Uncommon</mat-button-toggle>
+                        <mat-button-toggle value="rare">Rare</mat-button-toggle>
+                        <mat-button-toggle value="mythic">Mythic</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <br><p>Set type:</p>
+                <div class="form-group">
+                    <mat-button-toggle-group name="setType" aria-label="Set Type" multiple formControlName="setTypes">
+                        <mat-button-toggle value="expansion">Expansion</mat-button-toggle>
+                        <mat-button-toggle value="core">Core</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div><br><br>
+
+                <!-- <br><mat-divider color="accent"></mat-divider><br> -->
+
+                <p>Minimum price:</p><br>
+                <div class="form-group">
+                    <mat-slider displayValue thumbLabel formControlName="minPrice" min="0" max="1000" step="1"></mat-slider>
+                </div>
+
+
+                <p>Maximum price:</p><br>
+                <div class="form-group">
+                    <mat-slider displayValue thumbLabel formControlName="maxPrice" min="0" max="1000" step="1"></mat-slider>
+                </div>
+
+                <!-- <br><mat-divider color="accent"></mat-divider><br> -->
+
+                <p>Include sets:</p>
+                <div class="form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sets</mat-label>
+                        <mat-select multiple formControlName="sets">
+                        <mat-option *ngFor="let set of sets" [value]="set.code">{{set.code}} - {{set.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- <div class="form-group">
+                    <mat-button-toggle-group name="owned" aria-label="Collection" formControlName="owned">
+                        <mat-button-toggle value="collected">In Collection</mat-button-toggle>
+                        <mat-button-toggle value="others">Not In Collection</mat-button-toggle>
+                        <mat-button-toggle value="all">All</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div> -->
+
+                <button class="button" type="submit" mat-raised-button color="accent">Search</button>
+                <!-- <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button> -->
+            </form>
+        </div>
+    </mat-card>
+    <div class="result-container" *ngIf="submitted">
+
+        <mat-toolbar class="page-title" color="accent"><p class="result-title">Results</p></mat-toolbar>
+        <mat-card class="table-card">
+
+          <table mat-table [dataSource]="response" class="mat-elevation-z8" color="primary">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+              <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Name </th>
+              <td [style.background-color]="'#262626'" [style.cursor]="'pointer'" mat-cell *matCellDef="let element"  (click)="goToCard(element.name)"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="set">
+              <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Set </th>
+              <td mat-cell [style.background-color]="'#262626'" *matCellDef="let element">{{element.set_name}} {{element.set}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="set_type">
+              <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Set Type </th>
+              <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.set_type}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="collector_number">
+              <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Collector Number </th>
+              <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.collector_number}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="rarity">
+              <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef>  Rarity </th>
+              <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.rarity}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="prices">
+              <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef>  Prices </th>
+              <td  [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.prices.eur}} €</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card>
+
+    </div>
+    </mat-card>
+
+
+</div>
+

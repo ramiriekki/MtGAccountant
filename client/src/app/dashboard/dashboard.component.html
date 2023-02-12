@@ -1,0 +1,67 @@
+<router-outlet></router-outlet>
+
+<body *ngIf="isDashboard">
+    <div class="hello-cont">
+        <h1 class="hello">Hello {{user.username}}!</h1>
+    </div>
+
+
+    <br>
+
+    <div class="row">
+        <div class="column">
+            <mat-card color="primary" class="test">
+                <div class="card">
+                    <div class="container">
+                        <h1 class="title">Collection</h1>
+                        <p><button class="button" [routerLink]="['collection/page/0']" mat-raised-button color="accent">To My Collection</button></p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="column">
+            <mat-card color="primary">
+                <div class="card">
+                    <div class="container">
+                        <h1 class="title">Sets</h1>
+                        <p><button class="button" [routerLink]="['sets']" mat-raised-button color="accent">To Sets</button></p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="column">
+            <mat-card color="primary">
+                <div class="card">
+                    <div class="container">
+                        <h1 class="title">Search</h1>
+                        <p><button class="button" [routerLink]="['search']" mat-raised-button color="accent">To Search</button></p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="column">
+          <mat-card color="primary">
+              <div class="card">
+                  <div class="container">
+                      <h1 class="title">Profile</h1>
+                      <p><button class="button" [routerLink]="['profile']" mat-raised-button color="accent">Profile</button></p>
+                  </div>
+              </div>
+          </mat-card>
+        </div>
+
+        <div class="column"  *ngIf="isAdmin()">
+          <mat-card color="primary">
+              <div class="card">
+                  <div class="container">
+                      <h1 class="title">Admin Tools</h1>
+                      <p><button class="button" [routerLink]="['admin-board']" mat-raised-button color="accent">To Admin Board</button></p>
+                  </div>
+              </div>
+          </mat-card>
+        </div>
+    </div>
+</body>

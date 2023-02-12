@@ -1,0 +1,42 @@
+.card{
+    /* background-color: #aaaaaa; */
+    padding: 10px;
+    padding-bottom: 5px;
+    width: 400px;
+    /* box-shadow: 5px 10px; */
+    color: #f57f01;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.column{
+    padding: 10px;
+}
+
+.button {
+    width: 100%;
+}
+
+.hello {
+    font-size: 50px;
+    color: #f57f01;
+    text-transform: capitalize;
+}
+
+.hello-cont{
+    margin-top: 35px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-card{
+    background-color: transparent;
+    border: 1px solid #f57f01;
+}
