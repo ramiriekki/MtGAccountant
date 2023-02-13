@@ -1,65 +1,69 @@
 # MtG Accountant
 
 ## About
-Made as a school project. Goal was to use and combine the technolgies taught at school (Node.js, express, SQL, API) to make a web-application. There were a lot of things that we hadn't gone through yet at school so there most likely will be some bad practices / usages as i had to try to figure them out myself.
+Originally made as a research project for school and further continued as my thesis work. <br>
+The project itself is a web-application that works as an accountant service for Magic the Gathering-card series. The main motivation for the project was that the existing apps that do the same thing didn't have all the functionality that I wanted/needed or they had a lot of unnecessary functionalities. This app is supposed to focus on collector point of view.<br><br>
+Current version has all the basic functionalities working.  
+## Example views
+### Profile
 
-The application is for keeping track of what Magic the Gathering cards the user owns. There are multiple views. My-collection for showing the whole MtG collection (only expansion and core). Set views show different sets data and when clicked shows all cards from that set. Single card-view will show more detailed information about a specific card.
+![single card view](/images/dashboard.png)
+### Home & dialog
 
-Search function lets user search cards by a combination of name, rarity, price and set.
+![login view](/images/dialog.png)
 
-## Different endpoint views
-### home/login
+### Collection
 
-![login view](/images/MtGAcc_login.png)
-
-### collections/my-collection
-
-![my-collection view](/images/MtGAcc_mycollection.png)
+![my-collection view](/images/collection.png)
 
 
-### collections/sets
+### Sets list
 
-![sets view](/images/MtGAcc_sets.png)
+![sets view](/images/sets.png)
 
-### collections/sets/:set
+### Set
 
-![set cards view](/images/MtGAcc_sets_cards.png)
+![set cards view](/images/set.png)
 
-### collections/my-collection/:card
+### Single card view
 
-![single card view](/images/MtGAcc_singlecard.png)
+![single card view](/images/single_card.png)
 
-### collections/search
+### Search & results
 Search:
-![single card view](/images/MtGAcc_search.png)
+![single card view](/images/search.png)
 Results:
-![single card view](/images/MtGAcc_searchresults.png)
+![single card view](/images/results.png)
 
-## Using
-### Clone with:
+### Profile
+![single card view](/images/profile.png)
 
-    git clone https://github.com/ramiriekki/MtGAccountant.git
+## Setting up the environment
+### <ins>Client</ins>
+Navigate to client folder and install npm dependencies
+``` bash
+cd ~/client
+npm install
+```
+Run the client
+``` bash
+ng serve
+```
+Client uses the Angulars default port: 4200
 
-### Npm dependecies
+### <ins>Server</ins>
+Navigate to server folder
+``` bash
+cd ~/server
+```
 
-    npm install
+Create a <code>.env</code> file on projects root level and add following properties:
 
-### Config folder
+```
+MAIL_USER=[user]
+MAIL_PASSWORD=[email password]
 
-    mkdir config
-    cd config
-    touch dev.env
-
-### dev.env
-add these options
-
-    ADMIN_PASSWORD=[MySQL password]
-    SESSION_SECRET=[session secret]
-    DB_PORT=[database port]
-    DB_USER=[database user]
-    DB_DATABASE=[database]
-    DB_HOST=[database host]
-    PORT=[application port]
-
-### SQL
-SQL table structures included in the files
+MONGO_USERNAME=[MongoDB username]
+MONGO_PASSWORD=[MongoDB password]
+MONGO_CLUSTER=[MongoDB cluster]
+```
