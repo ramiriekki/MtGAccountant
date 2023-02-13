@@ -1,0 +1,22 @@
+version: '3'
+services:
+  client:
+    build: ./client 
+    ports: 
+      - "4200:4200" 
+    container_name: mtgacc-client
+    restart: always 
+    links:
+      - server
+
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    container_name: mtgacc-server
+    restart: always
+    env_file:
+      - server/.env
+
+# docker-compose build
+# docker-compose up -d
