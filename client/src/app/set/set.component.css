@@ -19,6 +19,15 @@
     min-width: 0;
 }
 
+.cards-container-child{
+  display: flex;
+  flex-flow: wrap;
+  margin-right: 12px;
+  margin-top: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
 img {
     margin: 20px;
     height: 400px;
@@ -138,4 +147,7 @@ p{
 
 .child-set-cont {
   margin-bottom: 20px;
+  display: flex;
+  height: auto;
+  width: 100%;
 }
