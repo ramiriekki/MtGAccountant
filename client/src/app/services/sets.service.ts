@@ -18,6 +18,7 @@ export class SetsService {
   }
 
   getSet(code: string): Observable<Card[]>{
+    console.log(code)
     return this.httpClient.get<Card[]>(this.url + `/api/cards/set?code=${code}`)
   }
 

@@ -24,6 +24,7 @@ export class SetComponent implements OnInit {
   collected: number = 0
   childSets: Set[] = []
   childSetCards: ChildCards[] = []
+  codes: string[] = []
 
   constructor(
     private setsService: SetsService,
@@ -58,14 +59,13 @@ export class SetComponent implements OnInit {
     this.setsService.getSetData(code).subscribe(set => this.set = set)
   }
 
-  getChildSets(code: string): void {
+  async getChildSets(code: string): Promise<void> {
     this.setsService.getChildSets(code).subscribe(sets => this.childSets = sets)
-  }
-
-  getChildSetCards(codes: string[]) {
-    codes.forEach(code => {
-      this.setsService.getSet(code).subscribe(cards => this.childSetCards.push(new ChildCards(code, cards)))
-    });
+    this.setsService.getChildSets(code).subscribe(sets => sets.forEach(set => {
+      this.codes.push(set.code)
+      //console.log("code: " + set.code);
+      this.setsService.getSet(set.code).subscribe(cards => this.childSetCards.push(new ChildCards(set.code, cards)))
+    }))
   }
 
   async getCollectedCountFromSet(code: string){
@@ -131,7 +131,8 @@ export class SetComponent implements OnInit {
   }
 
   log(): void {
-    console.log(this.childSets)
-    this.setsService.getChildSets("bro").subscribe(sets => this.childSets = sets)
+    // console.log(this.codes)
+    // console.log(this.childSetCards)
+    //this.setsService.getChildSets("bro").subscribe(sets => this.childSets = sets)
   }
 }
