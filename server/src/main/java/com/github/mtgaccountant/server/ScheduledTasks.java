@@ -47,9 +47,9 @@ public class ScheduledTasks {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	@Scheduled(cron = "0 0 0 ? * *")
-	//@Scheduled(cron = "0/30 * * * * *")
+	// @Scheduled(cron = "0/30 * * * * *")
 	public void getAllCards() {
-		String url = "https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless";
+		String url = "https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released";
 		Integer page = 1;
 		List<CardWrapper> cards = new ArrayList<>();
 		
@@ -61,13 +61,15 @@ public class ScheduledTasks {
 		//System.out.println(search.getData());
 		
 		// Paginate trough all pages
-		while(search.isHas_more() && !page.equals(4)){
-			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
+		while(search.isHas_more() && !page.equals(20)){
+			// https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released
+			// url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
+			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released&page={0}", page.toString()) ;
 			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
 			search = response.getBody();
 			cards.addAll(search.getData());
 			
-			//System.out.println(page);
+			System.out.println(page);
 			page++;
 		}
 
