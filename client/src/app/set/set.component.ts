@@ -132,7 +132,7 @@ export class SetComponent implements OnInit {
 
   log(): void {
     // console.log(this.codes)
-    // console.log(this.childSetCards)
+    console.log(this.childSetCards)
     //this.setsService.getChildSets("bro").subscribe(sets => this.childSets = sets)
   }
 }
