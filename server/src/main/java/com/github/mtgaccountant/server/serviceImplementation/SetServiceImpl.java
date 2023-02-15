@@ -62,5 +62,18 @@ public class SetServiceImpl implements SetService{
 
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<List<Set>> getChildSets(String code) {
+        try {
+            List<Set> childSets = setDao.findByParentSetCode(code);
+
+            return new ResponseEntity<List<Set>>(childSets, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }

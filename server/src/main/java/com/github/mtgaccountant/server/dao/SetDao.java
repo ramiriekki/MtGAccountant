@@ -11,6 +11,9 @@ import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 public interface SetDao extends MongoRepository<Set, Integer>{
     Set findByCode(String code);
 
+    @Query("{parent_set_code:'?0'}")
+    List<Set> findByParentSetCode(String code);
+
     @Query(value="{set_type: { $in: [ 'core', 'expansion'] }}", fields="{'code' : 1, 'name' : 1}")
     List<SetCodesWrapper> findAllSetCodesWrappers();
 }

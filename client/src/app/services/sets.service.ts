@@ -18,6 +18,7 @@ export class SetsService {
   }
 
   getSet(code: string): Observable<Card[]>{
+    console.log(code)
     return this.httpClient.get<Card[]>(this.url + `/api/cards/set?code=${code}`)
   }
 
@@ -27,6 +28,12 @@ export class SetsService {
 
   getSetCodes(): Observable<string[]>{
     return this.httpClient.get<any[any]>(this.url + `/api/sets/codes`)
+  }
+
+  getChildSets(code: string): Observable<Set[]> {
+    console.log(code);
+
+    return this.httpClient.get<Set[]>(this.url + `/api/sets/child-sets?code=${code}`) // TODO: Create endpoint
   }
 }
 

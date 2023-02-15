@@ -21,4 +21,7 @@ public interface SetRest {
 
     @GetMapping(path = "/codes")
     public ResponseEntity<List<SetCodesWrapper>> getSetCodes();
+
+    @GetMapping(path = "/child-sets")
+    public ResponseEntity<List<Set>> getChildSets(@RequestParam String code);
 }

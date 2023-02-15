@@ -11,4 +11,5 @@ public interface SetService {
     ResponseEntity<List<Set>> getAll();
     ResponseEntity<Set> getSet(String code);
     ResponseEntity<List<SetCodesWrapper>> getSetCodes();
+    ResponseEntity<List<Set>> getChildSets(String code);
 }
