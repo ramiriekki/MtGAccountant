@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from '../models/Card';
+import { ChildCards } from '../models/ChildCards';
 import { CollectionCard } from '../models/CollectionCard';
 import { Set } from '../models/set';
 import { CardsService } from '../services/cards.service';
@@ -21,6 +22,8 @@ export class SetComponent implements OnInit {
   collectedData!: any
   progressWidth: number = 0
   collected: number = 0
+  childSets: Set[] = []
+  childSetCards: ChildCards[] = []
 
   constructor(
     private setsService: SetsService,
@@ -33,6 +36,7 @@ export class SetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getChildSets(this.code)
     this.getCollection()
     this.getCards()
     this.getSetData(this.code)
@@ -52,6 +56,16 @@ export class SetComponent implements OnInit {
 
   getSetData(code: string){
     this.setsService.getSetData(code).subscribe(set => this.set = set)
+  }
+
+  getChildSets(code: string): void {
+    this.setsService.getChildSets(code).subscribe(sets => this.childSets = sets)
+  }
+
+  getChildSetCards(codes: string[]) {
+    codes.forEach(code => {
+      this.setsService.getSet(code).subscribe(cards => this.childSetCards.push(new ChildCards(code, cards)))
+    });
   }
 
   async getCollectedCountFromSet(code: string){
@@ -117,6 +131,7 @@ export class SetComponent implements OnInit {
   }
 
   log(): void {
-    console.log(this.collected)
+    console.log(this.childSets)
+    this.setsService.getChildSets("bro").subscribe(sets => this.childSets = sets)
   }
 }
