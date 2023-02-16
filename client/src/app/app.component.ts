@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { Location } from '@angular/common'
 
 // import jwt_decode from 'jwt-decode';
 
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit{
     private dialog: MatDialog,
     private userService: UserService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location
     ){}
 
   ngOnInit(): void {
@@ -41,6 +43,14 @@ export class AppComponent implements OnInit{
       console.log('event from localstorage')
       // any change/trigger in local storage will be catch here
   });
+  }
+
+  back(): void {
+    // console.log(this.router.url);
+
+    if (this.router.url != "/dashboard") {
+      this.location.back()
+    }
   }
 
   // Create dialog windows
