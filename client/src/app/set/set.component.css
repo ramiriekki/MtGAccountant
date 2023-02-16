@@ -19,10 +19,19 @@
     min-width: 0;
 }
 
+.cards-container-child{
+  display: flex;
+  flex-flow: wrap;
+  margin-right: 12px;
+  margin-top: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
 img {
     margin: 20px;
     height: 400px;
-    width: auto;  
+    width: auto;
     max-width: 100%;
     max-height: 100%;
     /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
@@ -134,4 +143,11 @@ p{
 
 .progress-bar{
     height: 20px;
+}
+
+.child-set-cont {
+  margin-bottom: 20px;
+  display: flex;
+  height: auto;
+  width: 100%;
 }

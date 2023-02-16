@@ -1,0 +1,11 @@
+<div class="arrow-cont" [style.display]="hideUp ? 'none':'block'" (click)="scrollToTop()">
+  <span class="arrow-circle" id="up">
+    <mat-icon color="accent">arrow_upward</mat-icon>
+  </span>
+</div>
+
+<div class="arrow-cont" [style.display]="hideDown ? 'none':'block'" (click)="scrollToBottom()">
+  <span class="arrow-circle" id="down">
+    <mat-icon color="accent">arrow_downward</mat-icon>
+  </span>
+</div>

@@ -10,7 +10,7 @@
 
 <div class="sets-container" *ngIf="submittedValue == 'all' || submittedValue == ''">
   <ng-container *ngFor="let set of sets">
-    <mat-card *ngIf="set.set_type == 'expansion' || set.set_type == 'core'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
+    <mat-card *ngIf="!set.parent_set_code" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
       <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
       <img src="{{set.icon_svg_uri}}" alt="">
       <mat-card color="accent" class="info">
