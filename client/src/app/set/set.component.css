@@ -69,6 +69,11 @@ p{
     color: white;
 }
 
+.scryfall-link {
+  color: #f57f01;
+  text-decoration: none;
+}
+
 .set{
     margin: 20px;
     background-color: transparent;
