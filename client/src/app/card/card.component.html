@@ -1,10 +1,11 @@
 <mat-toolbar color="accent" style="margin-top: 15px;"><p class="name">{{card.name}}<p></mat-toolbar>
 <mat-card class="main">
     <div class="card-main-container">
-        <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="">
-        <ng-template #elsePart>
-          <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
-        </ng-template>
+      <div class="image-container">
+        <img [src]="image" alt="">
+        <button class="change-image-button" mat-raised-button type="button" color="accent" (click)="changeCardFace(image)">Swap Face</button>
+      </div>
+
         <div class="details">
             <mat-card (click)="debug()">
                 <p class="main-data">Rarity: {{card.rarity}}</p>
@@ -22,14 +23,19 @@
 
                     <br>
 
-                    <p>Prices:</p>
+                    <div class="data-div" *ngIf="card.power">Power: <p>{{card.power}}</p></div>
+                    <div class="data-div" *ngIf="card.toughness">Toughness: <p>{{card.toughness}}</p></div>
+
                     <div class="prices">
+                      <mat-toolbar color="accent" style="margin-bottom: 20px;"><p class="name">Prices<p></mat-toolbar>
                       <div class="price-div">non-foil: <p class="price">{{card.prices.eur}}&nbsp;</p> €</div>
                       <div class="price-div">foil: <p class="price">{{card.prices.eur_foil}}&nbsp;</p> €</div>
                       <div class="price-div">non-foil: <p class="price">{{card.prices.usd}}&nbsp;</p> $</div>
                       <div class="price-div">foil: <p class="price">{{card.prices.usd_foil}}&nbsp;</p> $</div>
                       <div class="price-div">tix: <p class="price">{{card.prices.tix}}</p></div>
+                      <button class="buy-button" mat-raised-button type="button" color="accent" (click)="goToLink(card.purchase_uris.cardmarket)">Cardmarket</button>
                     </div>
+
                 </div>
                 <mat-card class="oracle-text">
                     <p>{{card.oracle_text}}</p>

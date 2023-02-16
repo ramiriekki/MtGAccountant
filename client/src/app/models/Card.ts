@@ -1,4 +1,5 @@
 import { CardFaces } from "./CardFaces";
+import { PurchaseUris } from "./PurchaseUris";
 
 export interface Card{
     id: string;
@@ -22,7 +23,7 @@ export interface Card{
     flavor_text: string
     artist: string
     prices: Prices
-    purchase_uris: any[]
+    purchase_uris: PurchaseUris
     collected: boolean
 }
 
