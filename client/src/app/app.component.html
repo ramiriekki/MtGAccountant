@@ -1,5 +1,8 @@
 <mat-toolbar color="primary" class="toolbar">
   <mat-toolbar-row>
+    <button id="back-button" type="button" mat-raised-button (click)="back()" color="accent">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
     <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent">
       ≡
     </button>
