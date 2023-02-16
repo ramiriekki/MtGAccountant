@@ -1,0 +1,39 @@
+.arrow-circle {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #f57f01;
+  cursor: pointer;
+}
+
+#up:hover {
+  background-color: rgb(69, 69, 69);
+  transition: 1s;
+}
+
+#down:hover{
+  background-color: rgb(69, 69, 69);
+  transition: 1s;
+}
+
+#up {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background-color: black;
+}
+
+#down {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  background-color: black;
+}
+
+/* .arrow-cont {
+  position: relative;
+} */
