@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from '../profile/profile.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { AdminComponent } from '../admin/admin.component';
+import { QuickMoveComponent } from '../shared/quick-move/quick-move.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AdminComponent } from '../admin/admin.component';
     ProfileComponent,
     ChangePasswordComponent,
     AdminComponent,
+    QuickMoveComponent,
   ],
   imports: [
     CommonModule,
