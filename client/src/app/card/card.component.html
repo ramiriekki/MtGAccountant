@@ -23,8 +23,8 @@
 
                     <br>
 
-                    <div class="data-div" *ngIf="card.power">Power: <p>{{card.power}}</p></div>
-                    <div class="data-div" *ngIf="card.toughness">Toughness: <p>{{card.toughness}}</p></div>
+                    <div class="data-div">Power: <p>{{power}}</p></div>
+                    <div class="data-div">Toughness: <p>{{toughness}}</p></div>
 
                     <div class="prices">
                       <mat-toolbar color="accent" style="margin-bottom: 20px;"><p class="name">Prices<p></mat-toolbar>
@@ -38,12 +38,12 @@
 
                 </div>
                 <mat-card class="oracle-text">
-                    <p>{{card.oracle_text}}</p>
+                    <p>{{oracle}}</p>
                 </mat-card>
             </div>
         </div>
     </div>
     <mat-card class="main">
-        <p>{{card.flavor_text}}</p>
+        <p>{{flavor}}</p>
     </mat-card>
 </mat-card>
