@@ -6,7 +6,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./quick-move.component.css']
 })
 export class QuickMoveComponent implements OnInit {
-  hideUp: boolean = false
+  hideUp: boolean = true
   hideDown: boolean = false
   limit!: number
 
