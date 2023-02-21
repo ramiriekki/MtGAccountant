@@ -41,9 +41,23 @@
                     </div>
 
                 </div>
-                <mat-card class="oracle-text">
-                    <p>{{oracle}}</p>
-                </mat-card>
+                <div class="oracle-button">
+                  <mat-card class="oracle-text">
+                      <p>{{oracle}}</p>
+                  </mat-card>
+
+                  <div *ngIf="isOwned(card.id) === true; then thenBlock else elseBlock"></div>
+                  <ng-template #thenBlock>
+                    <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">
+                      remove
+                    </button>
+                  </ng-template>
+                  <ng-template #elseBlock>
+                    <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
+                      Add
+                    </button>
+                  </ng-template>
+                </div>
             </div>
         </div>
     </div>
