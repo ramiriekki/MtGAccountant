@@ -1,0 +1,12 @@
+<div class="sort-container">
+    <mat-button-toggle-group class="toggle-group" name="type" aria-label="Set Type">
+      <mat-button-toggle class="toggle" value="nameAZ" (click)="setSortValue(values[0])">Name A-Z</mat-button-toggle>
+      <mat-button-toggle class="toggle" value="nameZA" (click)="setSortValue(values[1])">Name Z-A</mat-button-toggle>
+
+      <mat-button-toggle class="toggle" (click)="setSortValue(values[2])">Collector Number Asc</mat-button-toggle>
+      <mat-button-toggle class="toggle" (click)="setSortValue(values[3])">Collector Number Dec</mat-button-toggle>
+
+      <mat-button-toggle class="toggle" (click)="setSortValue(values[4])">Rarity Asc</mat-button-toggle>
+      <mat-button-toggle class="toggle" (click)="setSortValue(values[5])">Rarity Dec</mat-button-toggle>
+    </mat-button-toggle-group>
+</div>

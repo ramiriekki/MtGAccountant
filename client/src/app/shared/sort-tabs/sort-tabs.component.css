@@ -1,0 +1,24 @@
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.toggle-group {
+  width: 100%;
+}
+
+.toggle {
+  width: 100%;
+}
+
+.mat-button-toggle-checked {
+  background-color: #c66600 !important;
+}
+
+.mat-button-toggle {
+  color: white !important;
+  background-color: #f57f01;
+  font-weight: bold;
+}

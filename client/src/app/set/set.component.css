@@ -156,3 +156,12 @@ p{
   height: auto;
   width: 100%;
 }
+
+.sort-tabs {
+  margin: 20px;
+}
+
+h2{
+  text-align: center;
+  color: #f57f01;
+}
