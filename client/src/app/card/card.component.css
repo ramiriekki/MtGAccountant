@@ -54,6 +54,8 @@ p.main-data{
     margin-left: 15px;
     height: 100%;
     font-size: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 p{
@@ -86,3 +88,45 @@ p{
   padding: 20px;
   margin-right: 20px;
 }
+
+.main-data-container {
+  display: flex;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.main-data-subcont {
+  margin-top: 15px !important;
+  width: 90%;
+}
+
+.collected {
+  background-color: greenyellow;
+  width: 10%;
+  height: 100%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-collected {
+  background-color: rgb(197, 48, 48);
+  width: 10%;
+  height: 100%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  transform: scale(2);
+}
+
+.data-div-cont {
+  height: 50%;
+}
+
+

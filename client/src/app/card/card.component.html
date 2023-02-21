@@ -7,24 +7,28 @@
       </div>
 
         <div class="details">
-            <mat-card (click)="debug()">
+            <mat-card class="main-data-container">
+              <div class="main-data-subcont">
                 <p class="main-data">Rarity: {{card.rarity}}</p>
                 <p class="main-data">Set: {{card.set_name}}</p>
                 <p class="main-data">Collection number: {{card.collector_number}}</p>
                 <p class="main-data">Price: {{card.prices.eur}} €</p>
+              </div>
+              <div class="collected" *ngIf="isOwned(card.id)"><mat-icon color="primary" class="icon">check_circle</mat-icon></div>
+              <div class="not-collected" *ngIf="!isOwned(card.id)"><mat-icon color="primary" class="icon">highlight_off</mat-icon></div>
             </mat-card>
             <div class="details-sub">
                 <div class="sub-data">
-                    <div class="data-div">Artist: <p>{{card.artist}}</p></div>
-                    <div class="data-div">Released: <p>{{card.released_at}}</p></div>
+                    <div class="data-div-cont">
+                      <div class="data-div">Artist: <p>{{card.artist}}</p></div>
+                      <div class="data-div">Released: <p>{{card.released_at}}</p></div>
 
-                    <div class="color-div" *ngIf="card.colors != null">Colors: <p>{{card.colors}}</p></div>
-                    <div class="color-div" *ngIf="card.color_identity[0] != null">Color Identity: <p>{{card.color_identity}}</p></div>
+                      <div class="color-div" *ngIf="card.colors != null">Colors: <p>{{card.colors}}</p></div>
+                      <div class="color-div" *ngIf="card.color_identity[0] != null">Color Identity: <p>{{card.color_identity}}</p></div>
 
-                    <br>
-
-                    <div class="data-div">Power: <p>{{power}}</p></div>
-                    <div class="data-div">Toughness: <p>{{toughness}}</p></div>
+                      <div class="data-div" *ngIf="power">Power: <p>{{power}}</p></div>
+                      <div class="data-div" *ngIf="toughness">Toughness: <p>{{toughness}}</p></div>
+                    </div>
 
                     <div class="prices">
                       <mat-toolbar color="accent" style="margin-bottom: 20px;"><p class="name">Prices<p></mat-toolbar>
