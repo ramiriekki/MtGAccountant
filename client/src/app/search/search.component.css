@@ -153,3 +153,21 @@ p{
   width: 100%;
   height: 60px;
 }
+
+.collected-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: greenyellow;
+  border: 3px solid green;
+  margin-left: 80%;
+}
+
+.notcollected-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgb(255, 82, 82);
+  border: 3px solid red;
+  margin-left: 80%;
+}
