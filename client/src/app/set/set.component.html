@@ -39,18 +39,22 @@
   </mat-card>
 </div>
 
-<h2>Quick move to set:</h2>
+<div class="options-container">
+  <mat-card class="options">
+    <h2>Quick move to set:</h2>
 
-<div class="button-group">
-  <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets">
-    {{child.name}}
-  </button>
-</div>
+    <div class="button-group">
+      <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets">
+        {{child.name}}
+      </button>
+    </div>
 
-<h2>Sort Cards</h2>
+    <h2>Sort Cards</h2>
 
-<div class="sort-tabs">
-  <app-sort-tabs></app-sort-tabs>
+    <div class="sort-tabs">
+      <app-sort-tabs></app-sort-tabs>
+    </div>
+  </mat-card>
 </div>
 
 <div class="cards-container">
