@@ -185,3 +185,14 @@ h2{
   margin: 10px;
   width: 24%;
 }
+
+.prog-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prog-button-group > *{
+  margin: 20px;
+  width: 50%;
+}
