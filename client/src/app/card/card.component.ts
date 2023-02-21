@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from '../models/Card';
+import { CollectionCard } from '../models/CollectionCard';
 import { CardsService } from '../services/cards.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class CardComponent implements OnInit {
   oracle!: string
   power!: string
   toughness!: string
+  collection!: CollectionCard[]
 
   constructor(
     private ngxService: NgxUiLoaderService,
@@ -25,7 +27,7 @@ export class CardComponent implements OnInit {
 
     ngOnInit(): void {
       this.getCard()
-      console.log(this.getCard());
+      this.getCollection()
     }
 
     getCard(): void{
@@ -38,6 +40,10 @@ export class CardComponent implements OnInit {
       this.cardsService.getCard(id).subscribe(card => card.power ? this.power = card.power : this.power = card.card_faces[0].power)
       this.cardsService.getCard(id).subscribe(card => card.toughness ? this.toughness = card.toughness : this.toughness = card.card_faces[0].toughness)
       this.ngxService.stop()
+    }
+
+    getCollection(): void {
+      this.cardsService.getCollection().subscribe(collection => this.collection = collection)
     }
 
   debug(): void {
@@ -61,6 +67,23 @@ export class CardComponent implements OnInit {
         this.toughness = face.toughness
       }
     });
+  }
+
+  isOwned(id: string): boolean {
+    let isOwned: boolean = false
+
+    //console.log(id);
+
+    this.collection.forEach(card => {
+      if (card.id === id && card.collected === true) {
+        console.log("found");
+        isOwned = true
+      } else if (card.id === id && card.collected === false) {
+        isOwned = false
+      }
+    });
+
+    return isOwned
   }
 
 }
