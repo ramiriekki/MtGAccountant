@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 import { CardsService } from '../services/cards.service';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { SortCardsService } from '../services/sort-cards.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit, OnDestroy {
+  protected _unsubscribe$: Subject<void> = new Subject();
+
   lowValue: number = 0;
   highValue: number = 20;
 
@@ -20,13 +24,43 @@ export class CardsComponent implements OnInit {
 
   currentPage: number = 0;
 
+  sortValue!: string
+
   constructor(
     private ngxService: NgxUiLoaderService,
     private router: Router,
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private SortCardsService: SortCardsService
   ) { }
 
+  ngOnDestroy(): void {
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
+  }
+
   ngOnInit(): void {
+    this.SortCardsService.onTypeChange$
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((value) => {
+        this.sortValue = value
+        console.log(this.sortValue)
+        if (this.sortValue == "nameAZ") {
+          this.SortCardsService.sortByNameAZ(this.cards);
+        } else if (this.sortValue == "nameZA"){
+          this.SortCardsService.sortByNameZA(this.cards)
+        } else if (this.sortValue == "collectorNumberAsc") {
+          console.log("asc")
+          this.SortCardsService.sortByCollectorNumberAsc(this.cards)
+        } else if (this.sortValue == "collectorNumberDec") {
+          console.log("dec")
+          this.SortCardsService.sortByCollectorNumberDec(this.cards)
+        } else if (this.sortValue == "rarityUp"){
+          this.SortCardsService.sortByRarityAsc(this.cards)
+        } else if (this.sortValue == "rarityDown") {
+          this.SortCardsService.sortByRarityDec(this.cards)
+        }
+      })
+
     this.getCollection()
     this.getAllCards()
   }

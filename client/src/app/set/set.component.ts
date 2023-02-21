@@ -1,19 +1,24 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subject, takeUntil } from 'rxjs';
 import { Card } from '../models/Card';
 import { ChildCards } from '../models/ChildCards';
 import { CollectionCard } from '../models/CollectionCard';
 import { Set } from '../models/set';
 import { CardsService } from '../services/cards.service';
 import { SetsService } from '../services/sets.service';
+import { SortCardsService } from '../services/sort-cards.service';
 
 @Component({
   selector: 'app-set',
   templateUrl: './set.component.html',
   styleUrls: ['./set.component.css']
 })
-export class SetComponent implements OnInit {
+export class SetComponent implements OnInit, OnDestroy {
+  protected _unsubscribe$: Subject<void> = new Subject();
+
+
   cards: Card[] = []
   code: any = ""
   collection: CollectionCard[] = []
@@ -25,18 +30,47 @@ export class SetComponent implements OnInit {
   childSets: Set[] = []
   childSetCards: ChildCards[] = []
   codes: string[] = []
+  sortValue!: string
 
   constructor(
     private setsService: SetsService,
     private router: Router,
     private cardsService: CardsService,
     private ngxService: NgxUiLoaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private SortCardsService: SortCardsService
   ) {
     this.code = this.router.url.split('/').pop()
   }
 
+  ngOnDestroy(): void {
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
+  }
+
   ngOnInit(): void {
+    this.SortCardsService.onTypeChange$
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((value) => {
+        this.sortValue = value
+        console.log(this.sortValue)
+        if (this.sortValue == "nameAZ") {
+          this.SortCardsService.sortByNameAZ(this.cards);
+        } else if (this.sortValue == "nameZA"){
+          this.SortCardsService.sortByNameZA(this.cards)
+        } else if (this.sortValue == "collectorNumberAsc") {
+          console.log("asc")
+          this.SortCardsService.sortByCollectorNumberAsc(this.cards)
+        } else if (this.sortValue == "collectorNumberDec") {
+          console.log("dec")
+          this.SortCardsService.sortByCollectorNumberDec(this.cards)
+        } else if (this.sortValue == "rarityUp"){
+          this.SortCardsService.sortByRarityAsc(this.cards)
+        } else if (this.sortValue == "rarityDown") {
+          this.SortCardsService.sortByRarityDec(this.cards)
+        }
+      })
+
     this.getChildSets(this.code)
     this.getCollection()
     this.getCards()

@@ -15,6 +15,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { AdminComponent } from '../admin/admin.component';
 import { QuickMoveComponent } from '../shared/quick-move/quick-move.component';
+import { SortTabsComponent } from '../shared/sort-tabs/sort-tabs.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { QuickMoveComponent } from '../shared/quick-move/quick-move.component';
     ChangePasswordComponent,
     AdminComponent,
     QuickMoveComponent,
+    SortTabsComponent,
   ],
   imports: [
     CommonModule,
