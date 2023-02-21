@@ -105,11 +105,12 @@ public class ScheduledTasks {
 
 	// Update collections when there are new cards
 	@Scheduled(cron = "0 0 1 ? * *")
+	// @Scheduled(cron = "0/30 * * * * *")
 	public void updateCollectionCards(){
 		// Use the user "update" to find all new cards by comparing
-		UserWrapper user = userDao.findUser("update");
+		UserWrapper user = userDao.findUser("update@update.com");
 		List<CardWrapper> dbCards = cardDao.findAll();	// Get all cards fetched to database
-		Collection collectionCards = collectionDao.findByUser(user);	// Find the "update"- users cards
+		Collection collectionCards = collectionDao.findByFinderID(user.getUsername() + user.getEmail());	// Find the "update"- users cards
 		Boolean isInCollection = false;
 
 		List<CollectionCardWrapper> newCards = new ArrayList<>();

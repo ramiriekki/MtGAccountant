@@ -176,6 +176,52 @@ export class SetComponent implements OnInit, OnDestroy {
     // this.router.navigate([], { fragment: code });
   }
 
+  addAllToCollection(): void {
+    let ids: string[] = []
+
+    this.cards.forEach(card => {
+      ids.push(card.id)
+    });
+
+    for (const element of this.collection) {
+      ids.forEach(id => {
+        if(element.id == id){
+          element.collected = true
+        }
+      });
+    }
+
+    this.progressWidth = 100
+
+
+    // update to db happens here
+    this.cardsService.updateCollection([""], ids);
+    this.cdr.detectChanges()
+  }
+
+  removeAllFromCollection(): void {
+    let ids: string[] = []
+
+    this.cards.forEach(card => {
+      ids.push(card.id)
+    });
+
+    for (const element of this.collection) {
+      ids.forEach(id => {
+        if(element.id == id){
+          element.collected = false
+        }
+      });
+    }
+
+    this.progressWidth = 0
+
+
+    // update to db happens here
+    this.cardsService.updateCollection(ids, [""]);
+    this.cdr.detectChanges()
+  }
+
   log(): void {
     // console.log(this.codes)
     console.log(this.childSetCards)
