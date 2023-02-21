@@ -196,3 +196,32 @@ h2{
   margin: 20px;
   width: 50%;
 }
+
+.collected-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: greenyellow;
+  position: absolute;
+  right: 35px;
+  border: 3px solid green;
+}
+
+.notcollected-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgb(255, 82, 82);
+  position: absolute;
+  right: 35px;
+  border: 3px solid red;
+}
+
+.spacer {
+  width: 40%;
+}
+
+.card-header {
+  /* display: flex;
+  flex-direction: row; */
+}
