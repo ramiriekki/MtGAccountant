@@ -80,6 +80,12 @@ p{
     border: 1px solid #f57f01;
 }
 
+.options {
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
 .set-name > p{
     font-size: 35px;
 }
@@ -164,4 +170,18 @@ p{
 h2{
   text-align: center;
   color: #f57f01;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button-group > * {
+  margin: 10px;
+  width: 24%;
 }

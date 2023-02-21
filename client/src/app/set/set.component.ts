@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -33,6 +34,7 @@ export class SetComponent implements OnInit, OnDestroy {
   sortValue!: string
 
   constructor(
+    private scroller: ViewportScroller,
     private setsService: SetsService,
     private router: Router,
     private cardsService: CardsService,
@@ -162,6 +164,16 @@ export class SetComponent implements OnInit, OnDestroy {
 
     // update to db happens here
     this.cardsService.updateCollection([id], [""]);
+  }
+
+  moveToSubSet(code: string): void {
+    this.scroller.scrollToAnchor(code);
+    // document.getElementById(code).scrollIntoView({
+    //   behavior: "smooth",
+    //   block: "start",
+    //   inline: "nearest"
+    // });
+    // this.router.navigate([], { fragment: code });
   }
 
   log(): void {

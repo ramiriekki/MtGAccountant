@@ -39,10 +39,22 @@
   </mat-card>
 </div>
 
-<h2>Sort Cards</h2>
+<div class="options-container">
+  <mat-card class="options">
+    <h2>Quick move to set:</h2>
 
-<div class="sort-tabs">
-  <app-sort-tabs></app-sort-tabs>
+    <div class="button-group">
+      <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets">
+        {{child.name}}
+      </button>
+    </div>
+
+    <h2>Sort Cards</h2>
+
+    <div class="sort-tabs">
+      <app-sort-tabs></app-sort-tabs>
+    </div>
+  </mat-card>
 </div>
 
 <div class="cards-container">
@@ -79,8 +91,8 @@
 
 
 
-<div  *ngFor="let child of childSets">
-  <mat-toolbar color="accent" class="set-name"><p class="name">{{child.name}}<p></mat-toolbar>
+<div *ngFor="let child of childSets">
+  <mat-toolbar color="accent" class="set-name"><p class="name" [attr.id]="child.code">{{child.name}}<p></mat-toolbar>
   <ng-container *ngFor="let set of childSetCards">
     <div class="cards-container-child" *ngIf="child.code == set.code">
         <ng-container *ngFor="let card of set.cards">
