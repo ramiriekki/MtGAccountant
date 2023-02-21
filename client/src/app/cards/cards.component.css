@@ -64,3 +64,13 @@ h2{
 p{
     color: white;
 }
+
+.sort-tabs {
+  margin: 20px;
+}
+
+h2{
+  text-align: center;
+  color: #f57f01;
+  margin-top: 50px;
+}
