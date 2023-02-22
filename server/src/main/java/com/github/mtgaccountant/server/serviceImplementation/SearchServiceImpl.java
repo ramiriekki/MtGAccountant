@@ -146,7 +146,9 @@ public class SearchServiceImpl implements SearchService{
             card.getSet_type(),
             card.getCollector_number(),
             card.getRarity(),
-            card.getPrices()
+            card.getPrices(),
+            card.getImage_uris(),
+            card.getCard_faces()
             );
 
         return newCard;
