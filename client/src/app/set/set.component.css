@@ -3,7 +3,8 @@
     flex-flow: column nowrap;
     align-items: center;
     flex: 1;
-    min-width: 20%;
+    min-width: 300px;
+    max-width: 400px;
     margin: 20px;
     cursor: pointer;
     background-color: transparent;
@@ -30,7 +31,7 @@
 
 img {
     margin: 20px;
-    height: 400px;
+    height: auto;
     width: auto;
     max-width: 100%;
     max-height: 100%;
@@ -228,4 +229,9 @@ h2{
 
 .card-data > p {
   font-weight: bolder;
+}
+
+.card:hover {
+  background-color: #ce710070;
+  transition: 500ms;
 }

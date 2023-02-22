@@ -103,3 +103,8 @@ img {
   margin-bottom: 5px !important;
   margin-top: 5px !important;
 }
+
+.card:hover {
+  background-color: #ce710070;
+  transition: 500ms;
+}
