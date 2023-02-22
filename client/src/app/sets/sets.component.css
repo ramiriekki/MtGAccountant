@@ -64,3 +64,12 @@ h2{
   background-color: #f57f01;
   font-weight: bold;
 }
+
+.set-card:hover {
+    background-color: #ce710070;
+    transition: 500ms;
+}
+
+.set-card:hover > img{
+  filter: invert(0%) ;
+}
