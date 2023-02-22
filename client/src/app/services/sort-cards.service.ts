@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Card } from '../models/Card';
+import { CollectionCard } from '../models/CollectionCard';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,32 @@ export class SortCardsService {
 
   sortByPriceDec(cards: Card[]): Card[]{
     return cards.sort((a, b) => (Number(a.prices.eur) > Number(b.prices.eur) ? -1 : 1));
+  }
+
+  sortByCollected(cards: Card[], collection: CollectionCard[]): Card[]{
+
+    cards.forEach(card => {
+      collection.forEach(collectionCard => {
+        if (collectionCard.id === card.id && collectionCard.collected === true) {
+          card.collected = true
+        }
+      });
+    });
+
+    return cards.sort((a, b) => Number(b.collected) - Number(a.collected));
+  }
+
+  sortByNotCollected(cards: Card[], collection: CollectionCard[]): Card[]{
+
+    cards.forEach(card => {
+      collection.forEach(collectionCard => {
+        if (collectionCard.id === card.id && collectionCard.collected === true) {
+          card.collected = true
+        }
+      });
+    });
+
+    return cards.sort((a, b) => Number(a.collected) - Number(b.collected));
   }
 
   setSortValue(value: string): void {

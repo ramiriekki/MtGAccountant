@@ -55,6 +55,8 @@ export class SetComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((value) => {
         this.sortValue = value
+        console.log(this.sortValue);
+
         if (this.sortValue == "nameAZ") {
           this.SortCardsService.sortByNameAZ(this.cards);
         } else if (this.sortValue == "nameZA"){
@@ -71,6 +73,10 @@ export class SetComponent implements OnInit, OnDestroy {
           this.SortCardsService.sortByPriceAsc(this.cards)
         } else if (this.sortValue == "priceDec") {
           this.SortCardsService.sortByPriceDec(this.cards)
+        } else if (this.sortValue == "collected") {
+          this.SortCardsService.sortByCollected(this.cards, this.collection)
+        } else if (this.sortValue == "notCollected") {
+          this.SortCardsService.sortByNotCollected(this.cards, this.collection)
         }
       })
 
