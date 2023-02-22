@@ -71,15 +71,17 @@
             <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
             <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
           </mat-toolbar>
-          <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+          <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
           <ng-template #elsePart>
-            <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
           </ng-template>
 
           <mat-card color="accent" class="info">
-            <div>
+            <div class="card-data">
               <p style="text-transform: capitalize;">{{card.rarity}}</p>
               <p>Collector Number: {{card.collector_number}}</p>
+              <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
+              <p *ngIf="!card.prices.eur">0 €</p>
             </div>
 
             <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
@@ -118,9 +120,11 @@
             </ng-template>
 
             <mat-card color="accent" class="info">
-              <div>
+              <div class="card-data">
                 <p style="text-transform: capitalize;">{{card.rarity}}</p>
                 <p>Collector Number: {{card.collector_number}}</p>
+                <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
+                <p *ngIf="!card.prices.eur">0 €</p>
               </div>
 
               <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>

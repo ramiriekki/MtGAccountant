@@ -55,21 +55,22 @@ export class SetComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((value) => {
         this.sortValue = value
-        console.log(this.sortValue)
         if (this.sortValue == "nameAZ") {
           this.SortCardsService.sortByNameAZ(this.cards);
         } else if (this.sortValue == "nameZA"){
           this.SortCardsService.sortByNameZA(this.cards)
         } else if (this.sortValue == "collectorNumberAsc") {
-          console.log("asc")
           this.SortCardsService.sortByCollectorNumberAsc(this.cards)
         } else if (this.sortValue == "collectorNumberDec") {
-          console.log("dec")
           this.SortCardsService.sortByCollectorNumberDec(this.cards)
         } else if (this.sortValue == "rarityUp"){
           this.SortCardsService.sortByRarityAsc(this.cards)
         } else if (this.sortValue == "rarityDown") {
           this.SortCardsService.sortByRarityDec(this.cards)
+        } else if (this.sortValue == "priceAsc") {
+          this.SortCardsService.sortByPriceAsc(this.cards)
+        } else if (this.sortValue == "priceDec") {
+          this.SortCardsService.sortByPriceDec(this.cards)
         }
       })
 

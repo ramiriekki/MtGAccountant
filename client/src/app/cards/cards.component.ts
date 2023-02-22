@@ -58,6 +58,10 @@ export class CardsComponent implements OnInit, OnDestroy {
           this.SortCardsService.sortByRarityAsc(this.cards)
         } else if (this.sortValue == "rarityDown") {
           this.SortCardsService.sortByRarityDec(this.cards)
+        } else if (this.sortValue == "priceAsc") {
+          this.SortCardsService.sortByPriceAsc(this.cards)
+        } else if (this.sortValue == "priceDec") {
+          this.SortCardsService.sortByPriceDec(this.cards)
         }
       })
 

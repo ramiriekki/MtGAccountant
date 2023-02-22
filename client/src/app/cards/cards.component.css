@@ -37,6 +37,10 @@ p.name{
     font-size: 15px;
 }
 
+p {
+  font-weight: bolder;
+}
+
 h2{
     color: white;
 }
@@ -95,3 +99,7 @@ h2{
   border: 3px solid red;
 }
 
+img {
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+}

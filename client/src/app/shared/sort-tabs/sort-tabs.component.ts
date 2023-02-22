@@ -14,7 +14,9 @@ export class SortTabsComponent implements OnInit {
     "collectorNumberAsc",
     "collectorNumberDec",
     "rarityUp",
-    "rarityDown"
+    "rarityDown",
+    "priceAsc",
+    "priceDec"
   ]
 
   constructor(private sortCardsService: SortCardsService) { }

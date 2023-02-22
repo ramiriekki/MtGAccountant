@@ -44,6 +44,14 @@ export class SortCardsService {
     return cards.sort((a, b) => this.rarityOrder.indexOf(b.rarity) - this.rarityOrder.indexOf(a.rarity));
   }
 
+  sortByPriceAsc(cards: Card[]): Card[]{
+    return cards.sort((a, b) => (Number(a.prices.eur) < Number(b.prices.eur) ? -1 : 1));
+  }
+
+  sortByPriceDec(cards: Card[]): Card[]{
+    return cards.sort((a, b) => (Number(a.prices.eur) > Number(b.prices.eur) ? -1 : 1));
+  }
+
   setSortValue(value: string): void {
     this.sortType = value
     this.onTypeChange$.next(this.sortType)
