@@ -7,7 +7,7 @@
 <div class="cards-container">
     <ng-container *ngFor="let card of (cards | slice: lowValue : highValue)">
         <mat-card class="card">
-            <mat-toolbar color="accent">
+            <mat-toolbar color="accent" class="name-tool">
               <p class="name">{{card.name}}<p>
               <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
               <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
@@ -21,6 +21,8 @@
               <div>
                 <p style="text-transform: capitalize;">{{card.rarity}}</p>
                 <p>Collector Number: {{card.collector_number}}</p>
+                <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
+                <p *ngIf="!card.prices.eur">0 €</p>
               </div>
 
               <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
