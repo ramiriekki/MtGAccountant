@@ -9,6 +9,10 @@ mat-card.main{
     color: #f57f01;
 }
 
+.buy-button, .change-image-button {
+  width: 100%;
+}
+
 .details{
     display: flex;
     flex-direction: column;
@@ -35,7 +39,6 @@ p.main-data{
 }
 
 .oracle-text{
-    width: 50%;
     background-color: transparent;
     border: 1px solid #f57f01;
     color: #f57f01;
@@ -43,6 +46,9 @@ p.main-data{
     justify-content: center;
     display: flex;
     font-weight: bold;
+    height: 90%;
+    width: 100%;
+    margin-right: 20px;
 }
 
 .sub-data{
@@ -50,6 +56,8 @@ p.main-data{
     margin-left: 15px;
     height: 100%;
     font-size: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 p{
@@ -81,4 +89,71 @@ p{
   border: 1px solid #f57f01;
   padding: 20px;
   margin-right: 20px;
+}
+
+.main-data-container {
+  display: flex;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.main-data-subcont {
+  margin-top: 15px !important;
+  width: 90%;
+}
+
+.collected {
+  background-color: greenyellow;
+  width: 10%;
+  height: 100%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-collected {
+  background-color: rgb(197, 48, 48);
+  width: 10%;
+  height: 100%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  transform: scale(2);
+}
+
+.data-div-cont {
+  height: 50%;
+}
+
+.oracle-button {
+  display: flex;
+  flex-direction: column;
+  padding-right: 35px;
+}
+
+.add-button{
+  margin-top: 20px;
+  margin-left: auto;
+  width: 100%;
+  background-color:#fb9b34;
+  width: 100%;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.remove-button{
+  margin-top: 20px;
+  margin-left: auto;
+  width: 100%;
+  background-color:#b75e00;
+  width: 100%;
+  margin-right: 20px;
+  margin-left: 20px;
+
 }

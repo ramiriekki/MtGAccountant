@@ -15,7 +15,7 @@
           <mat-divider class="divider"></mat-divider><br>
           <p>Cards: {{set.card_count}}</p>
           <mat-divider class="divider"></mat-divider><br>
-          <p>{{set.scryfall_uri}}</p>
+          <p><a class="scryfall-link" href="{{set.scryfall_uri}}" target="_blank" rel="noopener noreferrer">{{set.scryfall_uri}}</a></p>
           <mat-divider class="divider"></mat-divider><br>
         </mat-card>
 
@@ -24,13 +24,17 @@
             <br>
 
           <div class="progress">
-            <!-- <div class="progress-bottom">
-              <div class="progress-top" [style.width.%]="progressWidth" ></div>
-              <div class="progress-top" [ngStyle]="{ width : progressWidth + '%' }" ></div>
-            </div> -->
             <mat-progress-bar mode="determinate" [value]="progressWidth" class="progress-bar" color="accent"></mat-progress-bar>
             <div class="progress-text">
               <p>{{collected}} / {{set.card_count}}</p>
+            </div>
+            <div class="prog-button-group">
+              <button mat-raised-button color="accent" style="color: white;" (click)="addAllToCollection()">
+                Add all
+              </button>
+              <button mat-raised-button color="accent" style="color: white;" (click)="removeAllFromCollection()">
+                Remove all
+              </button>
             </div>
           </div>
         </mat-card>
@@ -39,19 +43,45 @@
   </mat-card>
 </div>
 
+<div class="options-container">
+  <mat-card class="options">
+    <h2>Quick move to set:</h2>
+
+    <div class="button-group">
+      <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets">
+        {{child.name}}
+      </button>
+    </div>
+
+    <h2>Sort Cards</h2>
+
+    <div class="sort-tabs">
+      <app-sort-tabs></app-sort-tabs>
+    </div>
+  </mat-card>
+</div>
+
 <div class="cards-container">
   <ng-container *ngFor="let card of cards">
       <mat-card class="card">
-          <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
-          <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+          <mat-toolbar color="accent" class="card-header">
+            <p class="name">
+              {{card.name}}
+            <p>
+            <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
+            <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
+          </mat-toolbar>
+          <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
           <ng-template #elsePart>
-            <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
           </ng-template>
 
           <mat-card color="accent" class="info">
-            <div>
+            <div class="card-data">
               <p style="text-transform: capitalize;">{{card.rarity}}</p>
               <p>Collector Number: {{card.collector_number}}</p>
+              <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
+              <p *ngIf="!card.prices.eur">0 €</p>
             </div>
 
             <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
@@ -73,22 +103,28 @@
 
 
 
-<div  *ngFor="let child of childSets">
-  <mat-toolbar color="accent" class="set-name"><p class="name">{{child.name}}<p></mat-toolbar>
+<div *ngFor="let child of childSets">
+  <mat-toolbar color="accent" class="set-name"><p class="name" [attr.id]="child.code">{{child.name}}<p></mat-toolbar>
   <ng-container *ngFor="let set of childSetCards">
     <div class="cards-container-child" *ngIf="child.code == set.code">
         <ng-container *ngFor="let card of set.cards">
           <mat-card class="card">
-            <mat-toolbar color="accent"><p class="name">{{card.name}}<p></mat-toolbar>
+            <mat-toolbar color="accent">
+              <p class="name">{{card.name}}<p>
+                <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
+                <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
+            </mat-toolbar>
             <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
             <ng-template #elsePart>
               <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
             </ng-template>
 
             <mat-card color="accent" class="info">
-              <div>
+              <div class="card-data">
                 <p style="text-transform: capitalize;">{{card.rarity}}</p>
                 <p>Collector Number: {{card.collector_number}}</p>
+                <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
+                <p *ngIf="!card.prices.eur">0 €</p>
               </div>
 
               <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>

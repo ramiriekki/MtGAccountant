@@ -1,43 +1,67 @@
 <mat-toolbar color="accent" style="margin-top: 15px;"><p class="name">{{card.name}}<p></mat-toolbar>
 <mat-card class="main">
     <div class="card-main-container">
-        <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="">
-        <ng-template #elsePart>
-          <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
-        </ng-template>
+      <div class="image-container">
+        <img [src]="image" alt="">
+        <button class="change-image-button" mat-raised-button type="button" color="accent" (click)="changeCardFace(image)">Swap Face</button>
+      </div>
+
         <div class="details">
-            <mat-card (click)="debug()">
+            <mat-card class="main-data-container">
+              <div class="main-data-subcont">
                 <p class="main-data">Rarity: {{card.rarity}}</p>
                 <p class="main-data">Set: {{card.set_name}}</p>
                 <p class="main-data">Collection number: {{card.collector_number}}</p>
                 <p class="main-data">Price: {{card.prices.eur}} €</p>
+              </div>
+              <div class="collected" *ngIf="isOwned(card.id)"><mat-icon color="primary" class="icon">check_circle</mat-icon></div>
+              <div class="not-collected" *ngIf="!isOwned(card.id)"><mat-icon color="primary" class="icon">highlight_off</mat-icon></div>
             </mat-card>
             <div class="details-sub">
                 <div class="sub-data">
-                    <div class="data-div">Artist: <p>{{card.artist}}</p></div>
-                    <div class="data-div">Released: <p>{{card.released_at}}</p></div>
+                    <div class="data-div-cont">
+                      <div class="data-div">Artist: <p>{{card.artist}}</p></div>
+                      <div class="data-div">Released: <p>{{card.released_at}}</p></div>
 
-                    <div class="color-div" *ngIf="card.colors != null">Colors: <p>{{card.colors}}</p></div>
-                    <div class="color-div" *ngIf="card.color_identity[0] != null">Color Identity: <p>{{card.color_identity}}</p></div>
+                      <div class="color-div" *ngIf="card.colors != null">Colors: <p>{{card.colors}}</p></div>
+                      <div class="color-div" *ngIf="card.color_identity[0] != null">Color Identity: <p>{{card.color_identity}}</p></div>
 
-                    <br>
+                      <div class="data-div" *ngIf="power">Power: <p>{{power}}</p></div>
+                      <div class="data-div" *ngIf="toughness">Toughness: <p>{{toughness}}</p></div>
+                    </div>
 
-                    <p>Prices:</p>
                     <div class="prices">
+                      <mat-toolbar color="accent" style="margin-bottom: 20px;"><p class="name">Prices<p></mat-toolbar>
                       <div class="price-div">non-foil: <p class="price">{{card.prices.eur}}&nbsp;</p> €</div>
                       <div class="price-div">foil: <p class="price">{{card.prices.eur_foil}}&nbsp;</p> €</div>
                       <div class="price-div">non-foil: <p class="price">{{card.prices.usd}}&nbsp;</p> $</div>
                       <div class="price-div">foil: <p class="price">{{card.prices.usd_foil}}&nbsp;</p> $</div>
                       <div class="price-div">tix: <p class="price">{{card.prices.tix}}</p></div>
+                      <button class="buy-button" mat-raised-button type="button" color="accent" (click)="goToLink(card.purchase_uris.cardmarket)">Cardmarket</button>
                     </div>
+
                 </div>
-                <mat-card class="oracle-text">
-                    <p>{{card.oracle_text}}</p>
-                </mat-card>
+                <div class="oracle-button">
+                  <mat-card class="oracle-text">
+                      <p>{{oracle}}</p>
+                  </mat-card>
+
+                  <div *ngIf="isOwned(card.id) === true; then thenBlock else elseBlock"></div>
+                  <ng-template #thenBlock>
+                    <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">
+                      remove
+                    </button>
+                  </ng-template>
+                  <ng-template #elseBlock>
+                    <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
+                      Add
+                    </button>
+                  </ng-template>
+                </div>
             </div>
         </div>
     </div>
     <mat-card class="main">
-        <p>{{card.flavor_text}}</p>
+        <p>{{flavor}}</p>
     </mat-card>
 </mat-card>

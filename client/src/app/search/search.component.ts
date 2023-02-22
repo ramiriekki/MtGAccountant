@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from '../models/Card';
+import { CollectionCard } from '../models/CollectionCard';
 import { Search } from '../models/Search';
 import { CardsService } from '../services/cards.service';
 import { SearchService } from '../services/search.service';
@@ -14,13 +15,14 @@ import { SetsService } from '../services/sets.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'set', 'set_type', 'collector_number', 'rarity', 'prices'];
+  displayedColumns: string[] = ['name', 'set', 'set_code', 'set_type', 'collector_number', 'rarity', 'prices', 'owned'];
   parentForm!: FormGroup
   submitted: boolean = false;
   model = new Search();
   sets!: any[any]
   response: any
   cards: Card[] = []
+  collection!: CollectionCard[];
 
   rarities = ['common', 'uncommon',
             'rare', 'mythic'];
@@ -49,6 +51,7 @@ export class SearchComponent implements OnInit {
     })
     this.getSetCodes()
     this.getCards()
+    this.getCollection()
   }
 
   getSetCodes(): void {
@@ -57,6 +60,10 @@ export class SearchComponent implements OnInit {
 
   getCards(): void {
     this.cardsService.getAllCards().subscribe(cards => this.cards = cards)
+  }
+
+  getCollection(): void {
+    this.cardsService.getCollection().subscribe(collection => this.collection = collection)
   }
 
   onSubmit() {
@@ -82,6 +89,23 @@ export class SearchComponent implements OnInit {
         this.router.navigate(['/dashboard/collection/', card.id])
       }
     });
+  }
+
+  isOwned(id: string): boolean {
+    let isOwned: boolean = false
+
+    //console.log(id);
+
+    this.collection.forEach(card => {
+      if (card.name === id && card.collected === true) {
+        console.log("found");
+        isOwned = true
+      } else if (card.name === id && card.collected === false) {
+        isOwned = false
+      }
+    });
+
+    return isOwned
   }
 
 }

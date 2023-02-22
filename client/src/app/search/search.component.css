@@ -89,7 +89,7 @@ table tr > * {
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-  background-color: #f57f01c1 !important;
+  background-color: #f57f01 !important;
 }
 
 ::ng-deep input.mat-input-element {
@@ -115,7 +115,7 @@ table tr > * {
 ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-background,
 .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
   height: 100%;
-  background-color: #f57f01a1;
+  background-color: #f57f01;
 
 }
 ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
@@ -153,3 +153,52 @@ p{
   width: 100%;
   height: 60px;
 }
+
+.collected-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: greenyellow;
+  border: 3px solid green;
+  margin-left: 80%;
+}
+
+.notcollected-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgb(255, 82, 82);
+  border: 3px solid red;
+  margin-left: 80%;
+}
+
+.preview-image {
+  display: none;
+}
+
+.name-td:hover #hover-image {
+  position: absolute;
+  left: 200px;
+  display: block;
+}
+
+td {
+  font-weight: bolder;
+}
+
+.name-td:hover {
+  color: #f57f01;
+}
+
+#hover-image {
+  display: none;
+  height: 400px;
+  width: auto;
+}
+
+/* #hover-content {
+  display:none;
+}
+#parent:hover #hover-content {
+  display:block;
+} */

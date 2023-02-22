@@ -1,19 +1,25 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subject, takeUntil } from 'rxjs';
 import { Card } from '../models/Card';
 import { ChildCards } from '../models/ChildCards';
 import { CollectionCard } from '../models/CollectionCard';
 import { Set } from '../models/set';
 import { CardsService } from '../services/cards.service';
 import { SetsService } from '../services/sets.service';
+import { SortCardsService } from '../services/sort-cards.service';
 
 @Component({
   selector: 'app-set',
   templateUrl: './set.component.html',
   styleUrls: ['./set.component.css']
 })
-export class SetComponent implements OnInit {
+export class SetComponent implements OnInit, OnDestroy {
+  protected _unsubscribe$: Subject<void> = new Subject();
+
+
   cards: Card[] = []
   code: any = ""
   collection: CollectionCard[] = []
@@ -25,18 +31,55 @@ export class SetComponent implements OnInit {
   childSets: Set[] = []
   childSetCards: ChildCards[] = []
   codes: string[] = []
+  sortValue!: string
 
   constructor(
+    private scroller: ViewportScroller,
     private setsService: SetsService,
     private router: Router,
     private cardsService: CardsService,
     private ngxService: NgxUiLoaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private SortCardsService: SortCardsService
   ) {
     this.code = this.router.url.split('/').pop()
   }
 
+  ngOnDestroy(): void {
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
+  }
+
   ngOnInit(): void {
+    this.SortCardsService.onTypeChange$
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((value) => {
+        this.sortValue = value
+        console.log(this.sortValue);
+
+        if (this.sortValue == "nameAZ") {
+          this.SortCardsService.sortByNameAZ(this.cards);
+        } else if (this.sortValue == "nameZA"){
+          this.SortCardsService.sortByNameZA(this.cards)
+        } else if (this.sortValue == "collectorNumberAsc") {
+          this.SortCardsService.sortByCollectorNumberAsc(this.cards)
+        } else if (this.sortValue == "collectorNumberDec") {
+          this.SortCardsService.sortByCollectorNumberDec(this.cards)
+        } else if (this.sortValue == "rarityUp"){
+          this.SortCardsService.sortByRarityAsc(this.cards)
+        } else if (this.sortValue == "rarityDown") {
+          this.SortCardsService.sortByRarityDec(this.cards)
+        } else if (this.sortValue == "priceAsc") {
+          this.SortCardsService.sortByPriceAsc(this.cards)
+        } else if (this.sortValue == "priceDec") {
+          this.SortCardsService.sortByPriceDec(this.cards)
+        } else if (this.sortValue == "collected") {
+          this.SortCardsService.sortByCollected(this.cards, this.collection)
+        } else if (this.sortValue == "notCollected") {
+          this.SortCardsService.sortByNotCollected(this.cards, this.collection)
+        }
+      })
+
     this.getChildSets(this.code)
     this.getCollection()
     this.getCards()
@@ -128,6 +171,62 @@ export class SetComponent implements OnInit {
 
     // update to db happens here
     this.cardsService.updateCollection([id], [""]);
+  }
+
+  moveToSubSet(code: string): void {
+    this.scroller.scrollToAnchor(code);
+    // document.getElementById(code).scrollIntoView({
+    //   behavior: "smooth",
+    //   block: "start",
+    //   inline: "nearest"
+    // });
+    // this.router.navigate([], { fragment: code });
+  }
+
+  addAllToCollection(): void {
+    let ids: string[] = []
+
+    this.cards.forEach(card => {
+      ids.push(card.id)
+    });
+
+    for (const element of this.collection) {
+      ids.forEach(id => {
+        if(element.id == id){
+          element.collected = true
+        }
+      });
+    }
+
+    this.progressWidth = 100
+
+
+    // update to db happens here
+    this.cardsService.updateCollection([""], ids);
+    this.cdr.detectChanges()
+  }
+
+  removeAllFromCollection(): void {
+    let ids: string[] = []
+
+    this.cards.forEach(card => {
+      ids.push(card.id)
+    });
+
+    for (const element of this.collection) {
+      ids.forEach(id => {
+        if(element.id == id){
+          element.collected = false
+        }
+      });
+    }
+
+    this.progressWidth = 0
+
+
+    // update to db happens here
+    this.cardsService.updateCollection(ids, [""]);
+    this.cdr.detectChanges()
   }
 
   log(): void {

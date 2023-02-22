@@ -48,8 +48,9 @@ public class ScheduledTasks {
 
 	@Scheduled(cron = "0 0 0 ? * *")
 	// @Scheduled(cron = "0/30 * * * * *")
-	public void getAllCards() {
+	public void getAllCards() { 
 		String url = "https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released";
+		//String url = "https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints";
 		Integer page = 1;
 		List<CardWrapper> cards = new ArrayList<>();
 		
@@ -64,6 +65,8 @@ public class ScheduledTasks {
 		while(search.isHas_more() && !page.equals(20)){
 			// https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released
 			// url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
+			// url = MessageFormat.format("https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints&page={0}", page.toString()) ;
+			
 			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released&page={0}", page.toString()) ;
 			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
 			search = response.getBody();
@@ -102,11 +105,12 @@ public class ScheduledTasks {
 
 	// Update collections when there are new cards
 	@Scheduled(cron = "0 0 1 ? * *")
+	// @Scheduled(cron = "0/30 * * * * *")
 	public void updateCollectionCards(){
 		// Use the user "update" to find all new cards by comparing
-		UserWrapper user = userDao.findUser("update");
+		UserWrapper user = userDao.findUser("update@update.com");
 		List<CardWrapper> dbCards = cardDao.findAll();	// Get all cards fetched to database
-		Collection collectionCards = collectionDao.findByUser(user);	// Find the "update"- users cards
+		Collection collectionCards = collectionDao.findByFinderID(user.getUsername() + user.getEmail());	// Find the "update"- users cards
 		Boolean isInCollection = false;
 
 		List<CollectionCardWrapper> newCards = new ArrayList<>();
