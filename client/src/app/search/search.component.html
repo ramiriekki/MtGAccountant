@@ -83,7 +83,11 @@
             <!-- Position Column -->
             <ng-container matColumnDef="name">
               <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Name </th>
-              <td [style.background-color]="'#262626'" [style.cursor]="'pointer'" mat-cell *matCellDef="let element"  (click)="goToCard(element.name)"> {{element.name}} </td>
+              <td [style.background-color]="'#262626'" [style.cursor]="'pointer'" mat-cell *matCellDef="let element"  (click)="goToCard(element.name)" class="name-td">
+                 {{element.name}}
+                 <img id="hover-image" *ngIf="element.image_uris != null" src="{{element.image_uris.png}}">
+                 <img id="hover-image" *ngIf="element.image_uris == null" src="{{element.card_faces[0].image_uris.png}}">
+              </td>
             </ng-container>
 
             <!-- Weight Column -->
