@@ -110,7 +110,9 @@
         <ng-container *ngFor="let card of set.cards">
           <mat-card class="card">
             <mat-toolbar color="accent">
-              <p class="name">{{card.name}}<p>
+              <div class="test">
+                <p class="name">{{card.name}}<p>
+              </div>
                 <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
                 <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
             </mat-toolbar>
