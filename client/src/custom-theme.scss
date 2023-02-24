@@ -23,7 +23,7 @@ $custom-palette: (
   A100: #ffe1b3,
   A200: #ffce81,
   A400: #f57f01,
-  A700: #f57f0161,
+  A700: #db4302,
   contrast: (
     50: rgba(black, 0.87),
     100: rgba(black, 0.87),
@@ -47,6 +47,7 @@ $custom-palette: (
 // hue. Available color palettes: https://material.io/design/color/
 $client-primary: mat.define-palette($custom-palette, 900);
 $client-accent: mat.define-palette($custom-palette, A400);
+$client-progress: mat.define-palette($custom-palette, A700);
 
 // The warn palette is optional (defaults to red).
 $client-warn: mat.define-palette(mat.$red-palette);
@@ -61,8 +62,17 @@ $client-theme: mat.define-light-theme((
   )
 ));
 
+$progress-theme: mat.define-light-theme((
+  color: (
+    primary: $client-primary,
+    accent: $client-progress,
+    warn: $client-warn,
+  )
+));
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($client-theme);
+@include mat.progress-bar-theme($progress-theme);
 

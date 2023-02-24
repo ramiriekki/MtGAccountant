@@ -1,5 +1,6 @@
 package com.github.mtgaccountant.server.serviceImplementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.CollectionCountData;
+import com.github.mtgaccountant.server.models.Set;
+import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.service.CollectionService;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
@@ -158,6 +161,50 @@ public class CollectionServiceImpl implements CollectionService{
 
         System.out.println(collectedCount);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(String email) {
+        UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+        List<Set> sets;
+        List<SetsProgress> progressList = new ArrayList<>();
+
+        if(!user.getEmail().equals(email)){
+            System.out.println("Email param doesn't match users email.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());  
+        List<CollectionCardWrapper> cards = collection.getCards();
+        sets = setDao.findAll();
+
+        for (Set set : sets) {
+            progressList.add(new SetsProgress(set.getCode(), set.getCard_count(), 0));
+        }
+
+        for (SetsProgress setsProgress : progressList) {
+            Integer collectedCount = 0;
+            for (CollectionCardWrapper card : cards) {
+
+                if (card.getSet().equals(setsProgress.getCode())){
+                    if (card.isCollected() == true){
+                        //System.out.println("collected++");
+                        collectedCount++;
+                    }
+                } 
+            }
+
+            //System.out.println(setsProgress.getCode() + " - " + collectedCount);
+            
+            if (setsProgress.getTotalCount() != 0) {
+                //System.out.println("Set:" + setsProgress.getCode() + " - Collected: " +  collectedCount + " - Total: " + setsProgress.getTotalCount());
+                Float progress = (collectedCount.floatValue() / setsProgress.getTotalCount().floatValue())*100;
+                //System.out.println("Progress: " + progress.intValue());
+                setsProgress.setProgress(progress.intValue());
+            }
+        }
+
+        return new ResponseEntity<>(progressList, HttpStatus.OK);
     }
     
 }
