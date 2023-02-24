@@ -14,6 +14,7 @@
       <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
       <img src="{{set.icon_svg_uri}}" alt="">
       <mat-card color="accent" class="info">
+        <mat-progress-bar mode="determinate" value="{{getProgressValue(set.code)}}" class="progress-bar" color="accent"></mat-progress-bar>
         <h2 style="text-transform: capitalize;">{{set.set_type}}</h2>
         <h2>Cards: {{set.card_count}}</h2>
       </mat-card>
