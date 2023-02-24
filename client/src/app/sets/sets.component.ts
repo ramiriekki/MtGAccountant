@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { SetsService } from '../services/sets.service';
@@ -6,17 +6,20 @@ import { Set } from '../models/set';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { CardsService } from '../services/cards.service';
+import { CollectionPercentages } from '../models/CollectionPercentages';
 
 
 @Component({
   selector: 'app-sets',
   templateUrl: './sets.component.html',
-  styleUrls: ['./sets.component.css']
+  styleUrls: ['./sets.component.css'],
+  //encapsulation: ViewEncapsulation.None,
 })
 export class SetsComponent implements OnInit{
   parentForm!: FormGroup
   sets: Set[] = []
   submittedValue: string = "";
+  collectionPercentages: CollectionPercentages[] = []
 
 
   constructor(
@@ -38,12 +41,15 @@ export class SetsComponent implements OnInit{
       // this.test = this.setsService.getSets()
       // console.log(this.test);
       this.getAllSets()
+      this.getCollectionPercentages()
   }
 
   getAllSets(): void {
-    this.ngxService.start()
     this.setsService.getSets().subscribe(sets => this.sets = sets)
-    this.ngxService.stop()
+  }
+
+  getCollectionPercentages(): void {
+    this.cardsService.getCollectionPercentages().subscribe(percentages => this.collectionPercentages = percentages)
   }
 
   onSubmit(value: string) {
@@ -53,10 +59,14 @@ export class SetsComponent implements OnInit{
 
   getProgressValue(code: string): any {
     let progressWidth: any
-    console.log("here");
 
-    //return this.cardsService.getCollectedCountFromSet(code).subscribe(collected => (collected.collected / collected.totalCount)*100)
-    //return progressWidth
+    this.collectionPercentages.forEach(set => {
+      if (set.code === code) {
+        progressWidth = set.progress
+      }
+    });
+
+    return progressWidth
   }
 
 }

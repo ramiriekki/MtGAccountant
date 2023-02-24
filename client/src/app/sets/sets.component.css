@@ -37,9 +37,11 @@ h2{
 }
 
 .info{
-    width: 90%;
+    width: 100%;
     background-color: #f57f01;
-
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .filter-container {
@@ -73,3 +75,18 @@ h2{
 .set-card:hover > img{
   filter: invert(0%) ;
 }
+
+.progress-bar {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  height: 15px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.info > h2 {
+  margin-top: 10px;
+  margin-left: 25px;
+}
+

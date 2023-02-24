@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Card } from '../models/Card';
 import { Collection } from '../models/Collection';
 import { CollectionCard } from '../models/CollectionCard';
+import { CollectionPercentages } from '../models/CollectionPercentages';
 import { UpdateData } from '../models/UpdateData';
 
 @Injectable({
@@ -30,15 +31,19 @@ export class CardsService {
     return this.httpClient.get<Card>(this.url + `/api/cards/card?cardId=${id}`)
   }
 
+  getCollectionPercentages(): Observable<CollectionPercentages[]> {
+    return this.httpClient.get<CollectionPercentages[]>(this.url + `/api/collections/collection/sets-progress?email=${localStorage.getItem('user')}`)
+  }
+
   updateCollection(removeArr: string[], addArr: any[]){
     //let data: UpdateData
-    
+
     const data = { id_list: addArr, remove_list: removeArr};
 
     // console.log(localStorage.getItem('user'));
     console.log(data);
     console.log(this.url + `/api/collections/collection?email=${localStorage.getItem('user')}`);
-    
+
     try {
       // TODO check server side api/collections/collection?email=test.test@gmail.com
       return this.httpClient.post(this.url + `/api/collections/collection?email=${localStorage.getItem('user')}`, data, {
