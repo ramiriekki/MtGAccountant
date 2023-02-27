@@ -73,14 +73,14 @@ public class CollectionRestImpl implements CollectionRest{
     }
 
     @Override
-    public ResponseEntity<String> getCollectionValue(String email) {
+    public ResponseEntity<Double> getCollectionValue(String email) {
         try {
             return collectionService.getCollectionValue(email);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<Double>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }

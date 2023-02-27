@@ -35,6 +35,10 @@ export class CardsService {
     return this.httpClient.get<CollectionPercentages[]>(this.url + `/api/collections/collection/sets-progress?email=${localStorage.getItem('user')}`)
   }
 
+  getCollectionValue(): Observable<number> {
+    return this.httpClient.get<number>(this.url + `/api/collections/collection/value?email=${localStorage.getItem('user')}`)
+  }
+
   updateCollection(removeArr: string[], addArr: any[]){
     //let data: UpdateData
 

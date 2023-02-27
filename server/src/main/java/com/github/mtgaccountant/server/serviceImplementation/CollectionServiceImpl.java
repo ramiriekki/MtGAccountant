@@ -213,7 +213,7 @@ public class CollectionServiceImpl implements CollectionService{
     }
 
     @Override
-    public ResponseEntity<String> getCollectionValue(String email) {
+    public ResponseEntity<Double> getCollectionValue(String email) {
         try {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
             List<CardWrapper> cards = cardDao.findAll();
@@ -240,11 +240,13 @@ public class CollectionServiceImpl implements CollectionService{
 
             System.out.println(collectionValue);
 
-            return new ResponseEntity<>(String.format("%.2f", collectionValue), HttpStatus.OK);
+            //String result = String.format("%.2f", collectionValue);
+
+            return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
     }
     
 }

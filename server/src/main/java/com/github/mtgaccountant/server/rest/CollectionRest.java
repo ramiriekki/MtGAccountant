@@ -34,5 +34,5 @@ public interface CollectionRest {
     public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(@RequestParam String email);
 
     @GetMapping(path = "/collection/value")
-    public ResponseEntity<String> getCollectionValue(@RequestParam String email);
+    public ResponseEntity<Double> getCollectionValue(@RequestParam String email);
 }
