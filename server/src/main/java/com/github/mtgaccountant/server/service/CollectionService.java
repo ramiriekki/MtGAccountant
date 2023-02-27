@@ -17,4 +17,6 @@ public interface CollectionService {
     ResponseEntity<CollectionCountData> getCollectionSetCount(String email, String code);
 
     ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(String email);
+
+    ResponseEntity<String> getCollectionValue(String email);
 }

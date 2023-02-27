@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.github.mtgaccountant.server.dao.CardDao;
 import com.github.mtgaccountant.server.dao.CollectionDao;
 import com.github.mtgaccountant.server.dao.SetDao;
 import com.github.mtgaccountant.server.dao.UserDao;
@@ -19,6 +20,7 @@ import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.service.CollectionService;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
@@ -28,6 +30,9 @@ public class CollectionServiceImpl implements CollectionService{
 
     @Autowired
     CollectionDao collectionDao;
+
+    @Autowired
+    CardDao cardDao;
 
     @Autowired
     UserDao userDao;
@@ -205,6 +210,41 @@ public class CollectionServiceImpl implements CollectionService{
         }
 
         return new ResponseEntity<>(progressList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> getCollectionValue(String email) {
+        try {
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+            List<CardWrapper> cards = cardDao.findAll();
+            double collectionValue = 0;
+
+            // Check if user email matches param email. If not return unauthorized
+            if(!user.getEmail().equals(email)){
+                System.out.println("Email param doesn't match users email.");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            
+            // Get users collection from database.
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
+
+            for (CollectionCardWrapper card : collection.getCards()) {
+                for (CardWrapper cardWrapper : cards) {
+                    if (cardWrapper.getId().equals(card.getId())){
+                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null){
+                            collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur()) ;
+                        }
+                    }
+                }
+            }
+
+            System.out.println(collectionValue);
+
+            return new ResponseEntity<>(String.format("%.2f", collectionValue), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
     }
     
 }

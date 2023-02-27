@@ -71,5 +71,16 @@ public class CollectionRestImpl implements CollectionRest{
         return new ResponseEntity<List<SetsProgress>>(HttpStatus.INTERNAL_SERVER_ERROR);
     
     }
+
+    @Override
+    public ResponseEntity<String> getCollectionValue(String email) {
+        try {
+            return collectionService.getCollectionValue(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }
