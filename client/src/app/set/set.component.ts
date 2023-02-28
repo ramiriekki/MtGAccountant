@@ -32,6 +32,7 @@ export class SetComponent implements OnInit, OnDestroy {
   childSetCards: ChildCards[] = []
   codes: string[] = []
   sortValue!: string
+  wholeSetValue: number = 0;
 
   constructor(
     private scroller: ViewportScroller,
@@ -81,6 +82,7 @@ export class SetComponent implements OnInit, OnDestroy {
       })
 
     this.getChildSets(this.code)
+    this.getSetValue(this.code)
     this.getCollection()
     this.getCards()
     this.getSetData(this.code)
@@ -100,6 +102,10 @@ export class SetComponent implements OnInit, OnDestroy {
 
   getSetData(code: string){
     this.setsService.getSetData(code).subscribe(set => this.set = set)
+  }
+
+  getSetValue(code: string) {
+    this.setsService.getSetValue(code).subscribe(value => this.wholeSetValue = +value.toFixed(2))
   }
 
   async getChildSets(code: string): Promise<void> {
