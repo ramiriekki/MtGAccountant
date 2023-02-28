@@ -15,6 +15,7 @@ import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.rest.CollectionRest;
 import com.github.mtgaccountant.server.service.CollectionService;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @RestController
 public class CollectionRestImpl implements CollectionRest{
@@ -81,6 +82,17 @@ public class CollectionRestImpl implements CollectionRest{
         }
 
         return new ResponseEntity<Double>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<CardWrapper> getMostValuableCard(String email) {
+        try {
+            return collectionService.getMostValuableCard(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<CardWrapper>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }
