@@ -24,4 +24,7 @@ public interface SetRest {
 
     @GetMapping(path = "/child-sets")
     public ResponseEntity<List<Set>> getChildSets(@RequestParam String code);
+
+    @GetMapping(path = "/set/value")
+    public ResponseEntity<Double> getsetValue(@RequestParam String code, @RequestParam String email);
 }
