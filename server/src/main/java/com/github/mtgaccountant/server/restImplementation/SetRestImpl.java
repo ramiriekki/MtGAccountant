@@ -63,5 +63,17 @@ public class SetRestImpl implements SetRest{
 
         return new ResponseEntity<List<Set>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<Double> getsetValue(String code, String email) {
+        try {
+            System.out.println("Request received");
+            return setService.getSetValue(code, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<Double>(0.0, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }

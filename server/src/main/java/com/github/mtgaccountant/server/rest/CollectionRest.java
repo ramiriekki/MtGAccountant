@@ -32,4 +32,7 @@ public interface CollectionRest {
 
     @GetMapping(path = "/collection/sets-progress")
     public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(@RequestParam String email);
+
+    @GetMapping(path = "/collection/value")
+    public ResponseEntity<Double> getCollectionValue(@RequestParam String email);
 }

@@ -18,6 +18,7 @@ export class CardsComponent implements OnInit, OnDestroy {
 
   lowValue: number = 0;
   highValue: number = 20;
+  collectionValue: number = 0;
 
   cards: Card[] = []
   collection: CollectionCard[] = []
@@ -71,6 +72,7 @@ export class CardsComponent implements OnInit, OnDestroy {
 
     this.getCollection()
     this.getAllCards()
+    this.getCollectionValue()
   }
 
   getAllCards(): void {
@@ -81,6 +83,10 @@ export class CardsComponent implements OnInit, OnDestroy {
 
   getCollection(): void {
     this.cardsService.getCollection().subscribe(cards => this.collection = cards)
+  }
+
+  getCollectionValue(): void {
+    this.cardsService.getCollectionValue().subscribe(value => this.collectionValue = +value.toFixed(2))
   }
 
   // Check if card is in collection. For styling the button

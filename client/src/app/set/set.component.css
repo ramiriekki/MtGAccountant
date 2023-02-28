@@ -244,3 +244,9 @@ h2{
   display: flex;
   width: 100%;
 }
+
+.value {
+  font-weight: bold;
+  font-size: xx-large;
+  color: #f57f01;
+}

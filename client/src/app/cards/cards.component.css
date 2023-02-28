@@ -108,3 +108,16 @@ img {
   background-color: #ce710070;
   transition: 500ms;
 }
+
+.value-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.value {
+  font-weight: bold;
+  font-size: xx-large;
+  color: #f57f01;
+}
