@@ -81,13 +81,9 @@ public class CollectionServiceImpl implements CollectionService{
             
             // Get users collection from database.
             // Get lists from request (cards to be added and cards to be removed) 
-            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); // TODO generate unique id
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); 
             String[] idList = requestMap.get("id_list");
             String[] removeList = requestMap.get("remove_list");
-
-            // for (String id : idList) {
-            //     System.out.println(id);
-            // }
 
             // Update cards property collected
             for (CollectionCardWrapper card : collection.getCards()){
@@ -199,13 +195,9 @@ public class CollectionServiceImpl implements CollectionService{
                     }
                 } 
             }
-
-            //System.out.println(setsProgress.getCode() + " - " + collectedCount);
             
             if (setsProgress.getTotalCount() != 0) {
-                //System.out.println("Set:" + setsProgress.getCode() + " - Collected: " +  collectedCount + " - Total: " + setsProgress.getTotalCount());
                 Float progress = (collectedCount.floatValue() / setsProgress.getTotalCount().floatValue())*100;
-                //System.out.println("Progress: " + progress.intValue());
                 setsProgress.setProgress(progress.intValue());
             }
         }
@@ -238,10 +230,6 @@ public class CollectionServiceImpl implements CollectionService{
                     }
                 }
             }
-
-            System.out.println(collectionValue);
-
-            //String result = String.format("%.2f", collectionValue);
 
             return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
         } catch (Exception e) {
@@ -282,8 +270,6 @@ public class CollectionServiceImpl implements CollectionService{
                     }
                 }
             }
-
-            System.out.println(mostValuable);
 
             return new ResponseEntity<CardWrapper>(mostValuable, HttpStatus.OK);
         } catch (Exception e) {

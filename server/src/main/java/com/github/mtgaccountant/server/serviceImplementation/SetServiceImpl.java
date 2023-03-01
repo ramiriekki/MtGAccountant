@@ -142,8 +142,6 @@ public class SetServiceImpl implements SetService{
                 }
             }
 
-            System.out.println(collectionValue);
-
             return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

@@ -56,7 +56,6 @@ public class SetRestImpl implements SetRest{
     @Override
     public ResponseEntity<List<Set>> getChildSets(String code) {
         try {
-            System.out.println("Request received");
             return setService.getChildSets(code);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +67,6 @@ public class SetRestImpl implements SetRest{
     @Override
     public ResponseEntity<Double> getsetValue(String code, String email) {
         try {
-            System.out.println("Request received");
             return setService.getSetValue(code, email);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +78,6 @@ public class SetRestImpl implements SetRest{
     @Override
     public ResponseEntity<List<CardWrapper>> getTopCards(String code, String email) {
         try {
-            System.out.println("Request received");
             return setService.getTopCards(code, email);
         } catch (Exception e) {
             e.printStackTrace();
