@@ -18,8 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import lombok.RequiredArgsConstructor;
 
-
-
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity

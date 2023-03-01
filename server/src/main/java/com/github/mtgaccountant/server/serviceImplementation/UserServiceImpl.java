@@ -59,16 +59,12 @@ public class UserServiceImpl implements UserService{
     @Autowired
     EmailUtils emailUtils;
 
-    // private User user;
-
     /*
      * Create a new user and collection to database if user doesn't already
      * exist.
      */
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
-        log.info("Inside signup {}", requestMap);
-
         try{
             if(validateSignUpMap(requestMap)){
                 User user = userDao.findUserByEmail(requestMap.get("email"));
@@ -95,7 +91,6 @@ public class UserServiceImpl implements UserService{
         } catch (Exception e){
             e.printStackTrace();
         }
-
         return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -130,11 +125,7 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public ResponseEntity<String> login(Map<String, String> requestMap) {
-        log.info("Inside login.");
-
         try {
-            System.out.println("Authenticate");
-
             Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
             );
@@ -151,11 +142,9 @@ public class UserServiceImpl implements UserService{
                         HttpStatus.BAD_REQUEST);
                 }
             }
-
         } catch (Exception e) {
             log.error("{}", e);
         }
-
         return new ResponseEntity<String>("{\"message\":\"" + "Bad Credentials." + "\"}", 
                         HttpStatus.BAD_REQUEST);
     }
@@ -165,11 +154,8 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
-        // System.out.println("Inside getAllUsers");
-
         try {
             if(jwtFilter.isAdmin()){
-                //System.out.println(userDao.findAllUsers());
                 return new ResponseEntity<>(userDao.findAllUsers(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
@@ -227,9 +213,6 @@ public class UserServiceImpl implements UserService{
                 String oldPassword = requestMap.get("oldPassword");
                 String dbPassword = userObj.getPassword();
 
-                // System.out.println(oldPassword);
-                // System.out.println(dbPassword);
-
                 // If passwords match -> set new
                 if (passwordEncoder.matches(oldPassword, dbPassword)){
                     String encodedPassword = new BCryptPasswordEncoder().encode(requestMap.get("newPassword"));
@@ -239,8 +222,6 @@ public class UserServiceImpl implements UserService{
 
                     return MtgAccountantUtils.getResponseEntity("Password updated succesfully.", HttpStatus.OK);
                 }
-
-                
                 return MtgAccountantUtils.getResponseEntity("Incorrect old password.", HttpStatus.BAD_REQUEST);
             }
 
@@ -268,7 +249,6 @@ public class UserServiceImpl implements UserService{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -295,7 +275,6 @@ public class UserServiceImpl implements UserService{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return new ResponseEntity<>(new UserWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     

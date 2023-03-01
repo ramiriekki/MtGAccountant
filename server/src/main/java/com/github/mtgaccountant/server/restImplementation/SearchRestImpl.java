@@ -22,23 +22,10 @@ public class SearchRestImpl implements SearchRest{
     @Override
     public ResponseEntity<List<CardSearchWrapper>> getSearch(ClientSearch clientSearch) {
         try {
-                System.out.println("here");
                 return searchService.searchCards(clientSearch);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return new ResponseEntity<List<CardSearchWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-    // @Override
-    // public ResponseEntity<List<CardSearchWrapper>> getSearch(String name, String rarities, String setTypes, String minPrice,
-    //         String maxPrice, String sets, String owned) {
-    //             try {
-    //                 return cardService.getSetCards(name, rarities, setTypes, );
-    //             } catch (Exception e) {
-    //                 e.printStackTrace();
-    //             }
-    //             return new ResponseEntity<List<CardSearchWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    
 }

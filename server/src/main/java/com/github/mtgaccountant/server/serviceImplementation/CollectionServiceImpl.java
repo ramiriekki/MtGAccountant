@@ -16,6 +16,7 @@ import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.CollectionCountData;
+import com.github.mtgaccountant.server.models.Prices;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.service.CollectionService;
@@ -80,13 +81,9 @@ public class CollectionServiceImpl implements CollectionService{
             
             // Get users collection from database.
             // Get lists from request (cards to be added and cards to be removed) 
-            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); // TODO generate unique id
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); 
             String[] idList = requestMap.get("id_list");
             String[] removeList = requestMap.get("remove_list");
-
-            // for (String id : idList) {
-            //     System.out.println(id);
-            // }
 
             // Update cards property collected
             for (CollectionCardWrapper card : collection.getCards()){
@@ -198,13 +195,9 @@ public class CollectionServiceImpl implements CollectionService{
                     }
                 } 
             }
-
-            //System.out.println(setsProgress.getCode() + " - " + collectedCount);
             
             if (setsProgress.getTotalCount() != 0) {
-                //System.out.println("Set:" + setsProgress.getCode() + " - Collected: " +  collectedCount + " - Total: " + setsProgress.getTotalCount());
                 Float progress = (collectedCount.floatValue() / setsProgress.getTotalCount().floatValue())*100;
-                //System.out.println("Progress: " + progress.intValue());
                 setsProgress.setProgress(progress.intValue());
             }
         }
@@ -238,15 +231,52 @@ public class CollectionServiceImpl implements CollectionService{
                 }
             }
 
-            System.out.println(collectionValue);
-
-            //String result = String.format("%.2f", collectionValue);
-
             return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<CardWrapper> getMostValuableCard(String email) {
+        try {
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+            List<CardWrapper> cards = cardDao.findAll();
+            CardWrapper mostValuable = new CardWrapper();
+            Prices defaultPrices = new Prices("0","0","0","0","0");
+            mostValuable.setPrices(defaultPrices);
+
+            // Check if user email matches param email. If not return unauthorized
+            if(!user.getEmail().equals(email)){
+                System.out.println("Email param doesn't match users email.");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            
+            // Get users collection from database.
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
+
+            for (CollectionCardWrapper card : collection.getCards()) {
+                if (card.isCollected()) {
+                    for (CardWrapper cardWrapper : cards) {
+                        if (card.getId().equals(cardWrapper.getId())) {
+                            //System.out.println(card.getName());
+                            if (cardWrapper.getPrices().getEur() != null){
+                                if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
+                                    mostValuable = cardWrapper;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return new ResponseEntity<CardWrapper>(mostValuable, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<CardWrapper>(HttpStatus.BAD_REQUEST);
     }
     
 }

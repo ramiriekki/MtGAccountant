@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.github.mtgaccountant.server.dao.UserDao;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class CustomerUserDetailsService implements UserDetailsService{
 
@@ -25,10 +22,7 @@ public class CustomerUserDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("Inside loadUserByUsername {}", username);
-
         userDetails = userDao.findUserByEmail(username);
-        System.out.println(userDetails);
 
         if (!Objects.isNull(userDetails)){
             return new User(userDetails.getEmail(), userDetails.getPassword(), new ArrayList<>());

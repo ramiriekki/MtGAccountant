@@ -11,6 +11,22 @@
     border: 1px solid #f57f01;
 }
 
+.carousel-card {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
+.valuable {
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
+.valuable-container {
+    width: 100%;
+}
+
 .cards-container{
     display: flex;
     flex-flow: wrap;
@@ -35,9 +51,13 @@ img {
     width: auto;
     max-width: 100%;
     max-height: 100%;
-    /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
-    /* filter: invert(100%) */
   }
+
+.carousel-img {
+  height: auto;
+  width: 100%;
+  margin: 0;
+}
 
 p.name{
     font-size: 18px;
@@ -56,6 +76,13 @@ h2{
     background-color: #f57f01;
     display: flex;
     flex-flow: column nowrap;
+}
+
+.carousel-info {
+  width: 100%;
+  background-color: #f57f01;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .add-button{

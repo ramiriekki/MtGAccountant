@@ -1,7 +1,9 @@
 package com.github.mtgaccountant.server.serviceImplementation;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -140,13 +142,57 @@ public class SetServiceImpl implements SetService{
                 }
             }
 
-            System.out.println(collectionValue);
-
             return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<List<CardWrapper>> getTopCards(String code, String email) {
+        try {
+            List<CardWrapper> cards = cardDao.findSetCards(code);
+            List<CardWrapper> childSetCards = new ArrayList<>();
+            List<CardWrapper> removeCards = new ArrayList<>();
+            List<CardWrapper> returnCards = new ArrayList<>();
+            List<Set> childSets = setDao.findByParentSetCode(code); // Double.compare(x.doubleValue(), y.doubleValue());
+            Comparator<CardWrapper> priceComparator = (c1, c2) -> Double.compare(Double.parseDouble(c1.getPrices().getEur()), Double.parseDouble(c2.getPrices().getEur()));
+
+            for (Set set : childSets) {
+                List<CardWrapper> setCards = cardDao.findSetCards(set.getCode());
+                childSetCards.addAll(setCards);
+            }
+            cards.addAll(childSetCards); // Get all cards to one list
+
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+
+            if(!user.getEmail().equals(email)){
+                System.out.println("Email param doesn't match users email.");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
+
+            // Get the cards that are not in users collection and remove them
+            for (CardWrapper card : cards) {
+                for (CollectionCardWrapper collectionCard : collection.getCards()) {
+                    if (!collectionCard.isCollected() && collectionCard.getId().equals(card.getId())) {
+                        removeCards.add(card);
+                    }
+                }
+            }
+            cards.removeAll(removeCards);      
+            
+            // Sort the remaining cards and return top 5 cards
+            cards.stream().filter(c -> Objects.nonNull(c.getPrices().getEur())).sorted(priceComparator.reversed()).limit(5).forEach(returnCards::add);
+            
+            return new ResponseEntity<List<CardWrapper>>(returnCards, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return new ResponseEntity<List<CardWrapper>>(HttpStatus.BAD_REQUEST);
     }
     
 }
