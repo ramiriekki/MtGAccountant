@@ -11,6 +11,18 @@
     border: 1px solid #f57f01;
 }
 
+.valuable {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  margin: 20px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
 .cards-container{
     display: flex;
     flex-flow: wrap;

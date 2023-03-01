@@ -45,6 +45,19 @@
   </mat-card>
 </div>
 
+<div class="valuable-container">
+  <mat-card class="valuable">
+    <mat-toolbar color="accent" class="card-header">
+      Most valuable card collected in set:
+    </mat-toolbar>
+    <p-carousel [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+      <!-- <ng-template let-car pTemplate="item">
+          Content to display
+      </ng-template> -->
+    </p-carousel>
+  </mat-card>
+</div>
+
 <div class="options-container">
   <mat-card class="options">
     <h2>Quick move to set:</h2>

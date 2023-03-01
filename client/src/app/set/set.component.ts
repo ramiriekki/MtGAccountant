@@ -19,7 +19,6 @@ import { SortCardsService } from '../services/sort-cards.service';
 export class SetComponent implements OnInit, OnDestroy {
   protected _unsubscribe$: Subject<void> = new Subject();
 
-
   cards: Card[] = []
   code: any = ""
   collection: CollectionCard[] = []
@@ -33,6 +32,8 @@ export class SetComponent implements OnInit, OnDestroy {
   codes: string[] = []
   sortValue!: string
   wholeSetValue: number = 0;
+  responsiveOptions: any[] = []
+  topCards: Card[] = []
 
   constructor(
     private scroller: ViewportScroller,
@@ -43,6 +44,23 @@ export class SetComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private SortCardsService: SortCardsService
   ) {
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 3
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 2
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
     this.code = this.router.url.split('/').pop()
   }
 
@@ -237,7 +255,7 @@ export class SetComponent implements OnInit, OnDestroy {
 
   log(): void {
     // console.log(this.codes)
-    console.log(this.childSetCards)
+    console.log(this.topCards)
     //this.setsService.getChildSets("bro").subscribe(sets => this.childSets = sets)
   }
 }
