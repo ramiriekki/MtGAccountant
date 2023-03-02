@@ -59,8 +59,6 @@ public class ScheduledTasks {
 		Search search = response.getBody();
 		cards.addAll(search.getData());
 		
-		//System.out.println(search.getData());
-		
 		// Paginate trough all pages
 		while(search.isHas_more() && !page.equals(20)){
 			// https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released
@@ -78,8 +76,6 @@ public class ScheduledTasks {
 
 		//TODO Get the data on the last page
 		
-		//	System.out.println(cards);
-		
 		cardDao.saveAll(cards);
 
 		System.out.println("Cards fetched from Scryfall API " + dateFormat.format(new Date()));
@@ -95,9 +91,6 @@ public class ScheduledTasks {
 		ResponseEntity<SetSearch> response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<SetSearch>(){});
 		SetSearch search = response.getBody();
 		sets.addAll(search.getData());
-		
-		//System.out.println(sets);
-		
 		setDao.saveAll(sets);
 
 		System.out.println("Sets fetched from Scryfall API " + dateFormat.format(new Date()));
@@ -129,8 +122,6 @@ public class ScheduledTasks {
 			}
 			isInCollection = false;
 		}
-
-		// System.out.println(newCards);
 
 		List<Collection> collections = collectionDao.findAll();
 

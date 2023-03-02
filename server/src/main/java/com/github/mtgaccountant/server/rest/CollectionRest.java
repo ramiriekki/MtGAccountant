@@ -1,5 +1,6 @@
 package com.github.mtgaccountant.server.rest;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.CollectionCountData;
+import com.github.mtgaccountant.server.models.SetsProgress;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @RequestMapping(path = "/api/collections")
 public interface CollectionRest {
@@ -27,4 +30,13 @@ public interface CollectionRest {
 
     @GetMapping(path = "/collection/set")
     public ResponseEntity<CollectionCountData> getCollectionSetCount(@RequestParam String email, @RequestParam String code);
+
+    @GetMapping(path = "/collection/sets-progress")
+    public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(@RequestParam String email);
+
+    @GetMapping(path = "/collection/value")
+    public ResponseEntity<Double> getCollectionValue(@RequestParam String email);
+
+    @GetMapping(path = "/collection/most-valuable")
+    public ResponseEntity<CardWrapper> getMostValuableCard(@RequestParam String email);
 }

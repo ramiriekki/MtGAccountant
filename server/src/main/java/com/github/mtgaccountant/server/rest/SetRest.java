@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.models.Set;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 
 @RequestMapping(path = "/api/sets")
@@ -24,4 +25,10 @@ public interface SetRest {
 
     @GetMapping(path = "/child-sets")
     public ResponseEntity<List<Set>> getChildSets(@RequestParam String code);
+
+    @GetMapping(path = "/set/value")
+    public ResponseEntity<Double> getsetValue(@RequestParam String code, @RequestParam String email);
+
+    @GetMapping(path = "/set/top-cards")
+    public ResponseEntity<List<CardWrapper>> getTopCards(@RequestParam String code, @RequestParam String email);
 }

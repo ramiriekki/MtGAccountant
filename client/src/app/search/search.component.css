@@ -41,7 +41,11 @@ table > * {
 
 table tr > * {
   border-bottom: 1px solid #f57f015d;
- }
+}
+
+table tr:hover > *{
+  background-color: #814300 !important;
+}
 
 .result-card {
   margin: 20px;
@@ -187,7 +191,7 @@ td {
 }
 
 .name-td:hover {
-  color: #f57f01;
+  color: #ff8400;
 }
 
 #hover-image {
@@ -195,10 +199,3 @@ td {
   height: 400px;
   width: auto;
 }
-
-/* #hover-content {
-  display:none;
-}
-#parent:hover #hover-content {
-  display:block;
-} */

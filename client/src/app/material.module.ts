@@ -19,6 +19,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {CarouselModule} from 'primeng/carousel';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSliderModule,
     MatCheckboxModule,
     MatTableModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    CarouselModule
   ],
   exports: [
     MatToolbarModule,
@@ -61,7 +63,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatSliderModule,
     MatCheckboxModule,
     MatTableModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    CarouselModule
   ]
 })
 export class MaterialModule { }

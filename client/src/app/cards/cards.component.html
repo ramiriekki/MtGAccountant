@@ -1,3 +1,37 @@
+
+<mat-card class="head-card">
+  <mat-toolbar color="accent" class="name-tool">
+    Collection Data
+  </mat-toolbar>
+  <div class="head-cont">
+    <mat-card class="most-valuable-card">
+      <mat-toolbar color="accent" class="name-tool">
+        Most valuable card in collection: {{mostValuableCard.name}}
+      </mat-toolbar>
+      <div class="most-valuable">
+        <div class="valuable-img">
+          <img class="valuable-card" src="{{mostValuableCard.image_uris.border_crop}}" alt="">
+        </div>
+        <div class="most-valuable-data">
+          <mat-card class="most-valuable-data-card">
+            <p class="most-valuable-data-row">{{mostValuableCard.set_name}}</p>
+            <p class="most-valuable-data-row">{{mostValuableCard.released_at}}</p>
+            <p class="most-valuable-data-row">{{mostValuableCard.prices.eur}} €</p>
+          </mat-card>
+          <!-- <p class="most-valuable-data">{{}}</p>
+          <p class="most-valuable-data">{{}}</p>
+          <p class="most-valuable-data">{{}}</p> -->
+        </div>
+      </div>
+    </mat-card>
+    <div class="value-cont">
+      <h2>Collection Value</h2>
+      <h3 class="value">{{collectionValue}} €</h3>
+    </div>
+  </div>
+</mat-card>
+
+
 <h2>Sort Cards</h2>
 
 <div class="sort-tabs">

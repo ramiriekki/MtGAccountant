@@ -35,5 +35,13 @@ export class SetsService {
 
     return this.httpClient.get<Set[]>(this.url + `/api/sets/child-sets?code=${code}`) // TODO: Create endpoint
   }
+
+  getSetValue(code: string): Observable<number> {
+    return this.httpClient.get<number>(this.url + `/api/sets/set/value?code=${code}&email=${localStorage.getItem('user')}`)
+  }
+
+  getMostValuableCards(code: string): Observable<Card[]> {
+    return this.httpClient.get<Card[]>(this.url + `/api/sets/set/top-cards?code=${code}&email=${localStorage.getItem('user')}`)
+  }
 }
 

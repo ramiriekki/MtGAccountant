@@ -3,11 +3,30 @@
     flex-flow: column nowrap;
     align-items: center;
     flex: 1;
-    min-width: 20%;
+    min-width: 300px;
+    max-width: 400px;
     margin: 20px;
     cursor: pointer;
     background-color: transparent;
     border: 1px solid #f57f01;
+}
+
+.carousel-card {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+  width: 400px;
+  height: auto;
+}
+
+.valuable {
+  margin: 20px;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+}
+
+.valuable-container {
+    width: 100%;
 }
 
 .cards-container{
@@ -30,16 +49,24 @@
 
 img {
     margin: 20px;
-    height: 400px;
+    height: auto;
     width: auto;
     max-width: 100%;
     max-height: 100%;
-    /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
-    /* filter: invert(100%) */
   }
 
+.carousel-img {
+  height: auto;
+  width: 100%;
+  margin: 0;
+}
+
 p.name{
-    font-size: 15px;
+    font-size: 18px;
+    text-overflow: ellipsis !important;
+    width: 75%;
+    contain: content;
+    margin-block: auto;
 }
 
 h2{
@@ -51,6 +78,13 @@ h2{
     background-color: #f57f01;
     display: flex;
     flex-flow: column nowrap;
+}
+
+.carousel-info {
+  width: 100%;
+  background-color: #f57f01;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .add-button{
@@ -228,4 +262,27 @@ h2{
 
 .card-data > p {
   font-weight: bolder;
+}
+
+.card:hover {
+  background-color: #ce710070;
+  transition: 500ms;
+}
+
+.test {
+  display: flex;
+  width: 100%;
+}
+
+.value {
+  font-weight: bold;
+  font-size: xx-large;
+  color: #f57f01;
+}
+
+.carousel-card-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }

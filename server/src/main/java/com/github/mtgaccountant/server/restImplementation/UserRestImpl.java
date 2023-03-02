@@ -90,7 +90,6 @@ public class UserRestImpl implements UserRest{
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
         try {
-            //System.out.println("forgot password restimpl");
             return userService.forgotPassword(requestMap);
         } catch (Exception e) {
             e.printStackTrace();

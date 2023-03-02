@@ -1,5 +1,6 @@
 package com.github.mtgaccountant.server.serviceImplementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,14 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.github.mtgaccountant.server.dao.CardDao;
 import com.github.mtgaccountant.server.dao.CollectionDao;
 import com.github.mtgaccountant.server.dao.SetDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.CollectionCountData;
+import com.github.mtgaccountant.server.models.Prices;
+import com.github.mtgaccountant.server.models.Set;
+import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.service.CollectionService;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
+import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
@@ -25,6 +31,9 @@ public class CollectionServiceImpl implements CollectionService{
 
     @Autowired
     CollectionDao collectionDao;
+
+    @Autowired
+    CardDao cardDao;
 
     @Autowired
     UserDao userDao;
@@ -72,13 +81,9 @@ public class CollectionServiceImpl implements CollectionService{
             
             // Get users collection from database.
             // Get lists from request (cards to be added and cards to be removed) 
-            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); // TODO generate unique id
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); 
             String[] idList = requestMap.get("id_list");
             String[] removeList = requestMap.get("remove_list");
-
-            // for (String id : idList) {
-            //     System.out.println(id);
-            // }
 
             // Update cards property collected
             for (CollectionCardWrapper card : collection.getCards()){
@@ -158,6 +163,138 @@ public class CollectionServiceImpl implements CollectionService{
 
         System.out.println(collectedCount);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(String email) {
+        UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+        List<Set> sets;
+        List<SetsProgress> progressList = new ArrayList<>();
+
+        if(!user.getEmail().equals(email)){
+            System.out.println("Email param doesn't match users email.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());  
+        List<CollectionCardWrapper> cards = collection.getCards();
+        sets = setDao.findAll();
+
+        for (Set set : sets) {
+            progressList.add(new SetsProgress(set.getCode(), set.getCard_count(), 0));
+        }
+
+        for (SetsProgress setsProgress : progressList) {
+            Integer collectedCount = 0;
+            for (CollectionCardWrapper card : cards) {
+
+                if (card.getSet().equals(setsProgress.getCode())){
+                    if (card.isCollected() == true){
+                        //System.out.println("collected++");
+                        collectedCount++;
+                    }
+                } 
+            }
+            
+            if (setsProgress.getTotalCount() != 0) {
+                Float progress = (collectedCount.floatValue() / setsProgress.getTotalCount().floatValue())*100;
+                setsProgress.setProgress(progress.intValue());
+            }
+        }
+
+        return new ResponseEntity<>(progressList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Double> getCollectionValue(String email) {
+        try {
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+            List<CardWrapper> cards = cardDao.findAll();
+            double collectionValue = 0;
+
+            // Check if user email matches param email. If not return unauthorized
+            if(!user.getEmail().equals(email)){
+                System.out.println("Email param doesn't match users email.");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            
+            // Get users collection from database.
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
+
+            for (CollectionCardWrapper card : collection.getCards()) {
+                for (CardWrapper cardWrapper : cards) {
+                    if (cardWrapper.getId().equals(card.getId())){
+                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null){
+                            collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur()) ;
+                        }
+                    }
+                }
+            }
+
+            return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<CardWrapper> getMostValuableCard(String email) {
+        try {
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+            List<CardWrapper> cards = cardDao.findAll();
+            CardWrapper mostValuable = new CardWrapper();
+            Prices defaultPrices = new Prices("0","0","0","0","0");
+            mostValuable.setPrices(defaultPrices);
+
+            // Check if user email matches param email. If not return unauthorized
+            if(!user.getEmail().equals(email)){
+                System.out.println("Email param doesn't match users email.");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            
+            // Get users collection from database.
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
+
+            collection.getCards().removeIf(c -> c.isCollected() == false);
+
+            for (CollectionCardWrapper collectionCardWrapper : collection.getCards()) {
+                for (CardWrapper cardWrapper : cards) {
+                    if (collectionCardWrapper.getId().equals(cardWrapper.getId())) {
+                        //System.out.println(card.getName());
+                        if (cardWrapper.getPrices().getEur() != null){
+                            if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
+                                mostValuable = cardWrapper;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // for (CollectionCardWrapper card : collection.getCards()) {
+            //     if (card.isCollected()) {
+            //         for (CardWrapper cardWrapper : cards) {
+            //             if (card.getId().equals(cardWrapper.getId())) {
+            //                 //System.out.println(card.getName());
+            //                 if (cardWrapper.getPrices().getEur() != null){
+            //                     if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
+            //                         mostValuable = cardWrapper;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            // cards.stream().filter(c -> Objects.nonNull(c.getPrices().getEur())).sorted(priceComparator.reversed()).limit(5).forEach(returnCards::add);
+
+
+            return new ResponseEntity<CardWrapper>(mostValuable, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<CardWrapper>(HttpStatus.BAD_REQUEST);
     }
     
 }

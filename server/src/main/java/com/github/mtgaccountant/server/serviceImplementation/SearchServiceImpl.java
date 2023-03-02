@@ -35,8 +35,6 @@ public class SearchServiceImpl implements SearchService{
 
             List<CardWrapper> tempcards = new ArrayList<>();
 
-            System.out.println(rarities.length);
-
             for (CardWrapper cardWrapper : cards) {
 
                 // Name
@@ -46,8 +44,6 @@ public class SearchServiceImpl implements SearchService{
                         searchCards.add(convertCardWrapperToSearchWrapper(cardWrapper));
                     }
                 }  // After card name search, there shouldn't be more searches as they would be pointless
-
-                //System.out.println("testCards: " + testCards.size());
                 
                 // Rarities
                 if (searchData.getRarities() != null && searchData.getRarities().length != 0){
@@ -73,14 +69,8 @@ public class SearchServiceImpl implements SearchService{
                             tempcards.add(cardWrapper);
                         }
                     }
-
-                    //testCards.removeAll(tempcards);
-                    //tempcards.clear();
                 }
 
-                //System.out.println("testCards: " + testCards.size());
-                
-                    
                 // Set Types
                 if (searchData.getSetTypes() != null && searchData.getSetTypes().length != 0){
                     if (types.length == 2){
@@ -120,19 +110,13 @@ public class SearchServiceImpl implements SearchService{
             }
 
             testCards.removeAll(tempcards);
-
-                                    
+        
             for (CardWrapper cardWrapper : testCards) {
                 searchCards.add(convertCardWrapperToSearchWrapper(cardWrapper));
             }
         
-            
-            System.out.println(searchData);
-            return new ResponseEntity<>(searchCards, HttpStatus.OK);
-                                    
+            return new ResponseEntity<>(searchCards, HttpStatus.OK);                       
         } catch (Exception e) {
-            // System.out.println(cardDao.findAll());
-        
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
