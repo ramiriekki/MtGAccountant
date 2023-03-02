@@ -46,7 +46,7 @@ h2{
 }
 
 .info{
-    width: 90%;
+    width: 100%;
     background-color: #f57f01;
     display: flex;
     flex-flow: column nowrap;
