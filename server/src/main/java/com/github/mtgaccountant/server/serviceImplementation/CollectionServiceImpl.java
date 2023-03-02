@@ -256,20 +256,38 @@ public class CollectionServiceImpl implements CollectionService{
             // Get users collection from database.
             Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
 
-            for (CollectionCardWrapper card : collection.getCards()) {
-                if (card.isCollected()) {
-                    for (CardWrapper cardWrapper : cards) {
-                        if (card.getId().equals(cardWrapper.getId())) {
-                            //System.out.println(card.getName());
-                            if (cardWrapper.getPrices().getEur() != null){
-                                if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
-                                    mostValuable = cardWrapper;
-                                }
+            collection.getCards().removeIf(c -> c.isCollected() == false);
+
+            for (CollectionCardWrapper collectionCardWrapper : collection.getCards()) {
+                for (CardWrapper cardWrapper : cards) {
+                    if (collectionCardWrapper.getId().equals(cardWrapper.getId())) {
+                        //System.out.println(card.getName());
+                        if (cardWrapper.getPrices().getEur() != null){
+                            if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
+                                mostValuable = cardWrapper;
                             }
                         }
                     }
                 }
             }
+
+            // for (CollectionCardWrapper card : collection.getCards()) {
+            //     if (card.isCollected()) {
+            //         for (CardWrapper cardWrapper : cards) {
+            //             if (card.getId().equals(cardWrapper.getId())) {
+            //                 //System.out.println(card.getName());
+            //                 if (cardWrapper.getPrices().getEur() != null){
+            //                     if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
+            //                         mostValuable = cardWrapper;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            // cards.stream().filter(c -> Objects.nonNull(c.getPrices().getEur())).sorted(priceComparator.reversed()).limit(5).forEach(returnCards::add);
+
 
             return new ResponseEntity<CardWrapper>(mostValuable, HttpStatus.OK);
         } catch (Exception e) {

@@ -140,14 +140,12 @@ img {
   background-color: transparent;
   border: 1px solid #f57f01;
   margin: 20px;
-}
-
-.valuable-img {
-  margin-top: 20px;
+  width: 500px;
+  height: auto;
 }
 
 .valuable-card {
-  width: 400px;
+  width: 100%;
   height: auto;
   margin-left: 0;
   margin-bottom: 0;
@@ -156,13 +154,12 @@ img {
 
 .most-valuable {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .most-valuable-data {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 }
 
 .most-valuable-data-row {
@@ -174,8 +171,9 @@ img {
 .most-valuable-data-card {
   display: flex;
   flex-direction: column;
-  background-color: #f57f0188;
+  background-color: #f57f01;
   border: 1px solid #f57f01;
   height: 100%;
   width: 300px;
+  width: 100%;
 }
