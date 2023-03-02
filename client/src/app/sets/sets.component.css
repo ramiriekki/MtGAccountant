@@ -23,9 +23,7 @@ img {
     margin: 20px;
     height: 150px;
     width: 150px;
-    /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
     filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg) brightness(88%) contrast(103%);
-    /* filter: invert(100%) */
   }
 
 p.name{

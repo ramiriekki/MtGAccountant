@@ -17,9 +17,6 @@ import { AdminComponent } from '../admin/admin.component';
 import { QuickMoveComponent } from '../shared/quick-move/quick-move.component';
 import { SortTabsComponent } from '../shared/sort-tabs/sort-tabs.component';
 
-//import {CarouselModule} from 'primeng/carousel';
-
-
 @NgModule({
   declarations: [
     SetsComponent,

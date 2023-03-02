@@ -130,7 +130,6 @@ export class SetComponent implements OnInit, OnDestroy {
     this.setsService.getChildSets(code).subscribe(sets => this.childSets = sets)
     this.setsService.getChildSets(code).subscribe(sets => sets.forEach(set => {
       this.codes.push(set.code)
-      //console.log("code: " + set.code);
       this.setsService.getSet(set.code).subscribe(cards => this.childSetCards.push(new ChildCards(set.code, cards)))
     }))
   }
@@ -147,8 +146,6 @@ export class SetComponent implements OnInit, OnDestroy {
 
     for (const element of this.collection) {
       if(element.id == id){
-        //console.log(element.id, element.collected);
-
         if(element.collected == true){
           isCollected = true
           break
@@ -163,8 +160,6 @@ export class SetComponent implements OnInit, OnDestroy {
   }
 
   addToCollection(id: string): void {
-    console.log(id);
-
     // This is needed for updating the view
     for (const element of this.collection) {
       if(element.id == id){
@@ -181,8 +176,6 @@ export class SetComponent implements OnInit, OnDestroy {
   }
 
   removeFromCollection(id: string): void {
-    console.log(id);
-
     // This is needed for updating the view
     for (const element of this.collection) {
       if(element.id == id){
@@ -199,12 +192,6 @@ export class SetComponent implements OnInit, OnDestroy {
 
   moveToSubSet(code: string): void {
     this.scroller.scrollToAnchor(code);
-    // document.getElementById(code).scrollIntoView({
-    //   behavior: "smooth",
-    //   block: "start",
-    //   inline: "nearest"
-    // });
-    // this.router.navigate([], { fragment: code });
   }
 
   addAllToCollection(): void {
@@ -223,7 +210,6 @@ export class SetComponent implements OnInit, OnDestroy {
     }
 
     this.progressWidth = 100
-
 
     // update to db happens here
     this.cardsService.updateCollection([""], ids);
@@ -247,15 +233,8 @@ export class SetComponent implements OnInit, OnDestroy {
 
     this.progressWidth = 0
 
-
     // update to db happens here
     this.cardsService.updateCollection(ids, [""]);
     this.cdr.detectChanges()
-  }
-
-  log(): void {
-    // console.log(this.codes)
-    console.log(this.topCards)
-    //this.setsService.getChildSets("bro").subscribe(sets => this.childSets = sets)
   }
 }

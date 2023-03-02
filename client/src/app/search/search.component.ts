@@ -68,7 +68,6 @@ export class SearchComponent implements OnInit {
 
   onSubmit() {
     this.ngxService.start()
-    console.log(this.parentForm.value);
     this.searchService.searchCards(this.parentForm.value).subscribe(response => this.response = response)
     this.submitted = true;
     this.ngxService.stop()
@@ -83,7 +82,6 @@ export class SearchComponent implements OnInit {
   }
 
   goToCard(string: string): void {
-    console.log(string);
     this.cards.forEach(card => {
       if (card.name === string) {
         this.router.navigate(['/dashboard/collection/', card.id])
@@ -93,8 +91,6 @@ export class SearchComponent implements OnInit {
 
   isOwned(id: string): boolean {
     let isOwned: boolean = false
-
-    //console.log(id);
 
     this.collection.forEach(card => {
       if (card.name === id && card.collected === true) {
@@ -109,6 +105,3 @@ export class SearchComponent implements OnInit {
   }
 
 }
-
-
-// TODO When hovering over card in results, show cards image

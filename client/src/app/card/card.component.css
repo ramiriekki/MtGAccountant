@@ -146,3 +146,7 @@ p{
   margin-top: 20px;
   background-color:#b75e00;
 }
+
+#set-link {
+  cursor: pointer;
+}

@@ -45,7 +45,6 @@ export class CardsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((value) => {
         this.sortValue = value
-        console.log(this.sortValue)
         if (this.sortValue == "nameAZ") {
           this.SortCardsService.sortByNameAZ(this.cards);
         } else if (this.sortValue == "nameZA"){
@@ -101,8 +100,6 @@ export class CardsComponent implements OnInit, OnDestroy {
 
     for (const element of this.collection) {
       if(element.id == id){
-        //console.log(element.id, element.collected);
-
         if(element.collected == true){
           isCollected = true
           break
@@ -117,8 +114,6 @@ export class CardsComponent implements OnInit, OnDestroy {
   }
 
   addToCollection(id: string): void {
-    console.log(id);
-
     // This is needed for updating the view
     for (const element of this.collection) {
       if(element.id == id){
@@ -131,8 +126,6 @@ export class CardsComponent implements OnInit, OnDestroy {
   }
 
   removeFromCollection(id: string): void {
-    console.log(id);
-
     // This is needed for updating the view
     for (const element of this.collection) {
       if(element.id == id){

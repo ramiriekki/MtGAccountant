@@ -17,15 +17,11 @@ export class DashboardComponent implements OnInit {
     private userService: UserService
     ) {
     router.events.subscribe((val) => {
-      // console.log(this.isDashboard);
-
       this.isDashboard = this.isAtDashboard()
     })
   }
 
   ngOnInit(): void {
-    // console.log(this.router.url);
-    // console.log(this.isAtDashboard());
     this.isDashboard = this.isAtDashboard()
     this.getUser()
     this.role = localStorage.getItem('role')
@@ -35,8 +31,6 @@ export class DashboardComponent implements OnInit {
     if(this.router.url == '/dashboard'){
       return true
     } else {
-      // console.log("is not dash");
-
       return false
     }
   }
@@ -46,17 +40,10 @@ export class DashboardComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    //console.log(this.user.role);
-
     if (this.user.role === "admin") {
-      //console.log("Is admin.");
-
       return true;
     } else {
-      //console.log("is not admin");
-
       return false
     }
   }
-
 }
