@@ -20,6 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {CarouselModule} from 'primeng/carousel';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import {CarouselModule} from 'primeng/carousel';
     MatCheckboxModule,
     MatTableModule,
     MatAutocompleteModule,
-    CarouselModule
+    CarouselModule,
+    MatSortModule
   ],
   exports: [
     MatToolbarModule,
@@ -64,7 +66,8 @@ import {CarouselModule} from 'primeng/carousel';
     MatCheckboxModule,
     MatTableModule,
     MatAutocompleteModule,
-    CarouselModule
+    CarouselModule,
+    MatSortModule
   ]
 })
 export class MaterialModule { }

@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Subject, takeUntil } from 'rxjs';
 import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 import { Search } from '../models/Search';
 import { CardsService } from '../services/cards.service';
 import { SearchService } from '../services/search.service';
 import { SetsService } from '../services/sets.service';
+import { SortCardsService } from '../services/sort-cards.service';
 
 @Component({
   selector: 'app-search',
@@ -15,6 +19,9 @@ import { SetsService } from '../services/sets.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  protected _unsubscribe$: Subject<void> = new Subject();
+  @ViewChild(MatTable, {static: false}) table!: MatTable<any>
+
   displayedColumns: string[] = ['name', 'set', 'set_code', 'set_type', 'collector_number', 'rarity', 'prices', 'owned'];
   parentForm!: FormGroup
   submitted: boolean = false;
@@ -23,17 +30,18 @@ export class SearchComponent implements OnInit {
   response: any
   cards: Card[] = []
   collection!: CollectionCard[];
+  sortValue!: string
 
   rarities = ['common', 'uncommon',
             'rare', 'mythic'];
 
   constructor(
-    private ngxService: NgxUiLoaderService,
     private formBuilder: FormBuilder,
     private setService: SetsService,
     private searchService: SearchService,
     private cardsService: CardsService,
-    private router: Router
+    private router: Router,
+    private SortCardsService: SortCardsService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +60,39 @@ export class SearchComponent implements OnInit {
     this.getSetCodes()
     this.getCards()
     this.getCollection()
+
+    this.SortCardsService.onTypeChange$
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((value) => {
+        this.sortValue = value
+        if (this.sortValue == "nameAZ") {
+          this.response = this.SortCardsService.sortByNameAZ(this.response);
+        } else if (this.sortValue == "nameZA"){
+          this.response = this.SortCardsService.sortByNameZA(this.response)
+        } else if (this.sortValue == "collectorNumberAsc") {
+          this.SortCardsService.sortByCollectorNumberAsc(this.response)
+        } else if (this.sortValue == "collectorNumberDec") {
+          this.SortCardsService.sortByCollectorNumberDec(this.response)
+        } else if (this.sortValue == "rarityUp"){
+          this.SortCardsService.sortByRarityAsc(this.response)
+        } else if (this.sortValue == "rarityDown") {
+          this.SortCardsService.sortByRarityDec(this.response)
+        } else if (this.sortValue == "priceAsc") {
+          this.SortCardsService.sortByPriceAsc(this.response)
+        } else if (this.sortValue == "priceDec") {
+          this.SortCardsService.sortByPriceDec(this.response)
+        } else if (this.sortValue == "collected") {
+          this.SortCardsService.sortByCollected(this.response, this.collection)
+          console.log(this.response);
+
+        } else if (this.sortValue == "notCollected") {
+          this.SortCardsService.sortByNotCollected(this.response, this.collection)
+          console.log(this.response);
+
+        }
+
+        this.table.renderRows() // update the table
+      })
   }
 
   getSetCodes(): void {
@@ -67,10 +108,9 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit() {
-    this.ngxService.start()
     this.searchService.searchCards(this.parentForm.value).subscribe(response => this.response = response)
+    this.searchService.searchCards(this.parentForm.value).subscribe(response => console.log(response))
     this.submitted = true;
-    this.ngxService.stop()
   }
 
   formatLabel(value: number) {
@@ -94,7 +134,6 @@ export class SearchComponent implements OnInit {
 
     this.collection.forEach(card => {
       if (card.name === id && card.collected === true) {
-        console.log("found");
         isOwned = true
       } else if (card.name === id && card.collected === false) {
         isOwned = false

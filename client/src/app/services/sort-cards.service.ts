@@ -29,6 +29,14 @@ export class SortCardsService {
     return cards.sort((a, b) => (a.name > b.name ? -1 : 1));
   }
 
+  sortByNameAZany(cards: any[]): any[]{
+    return cards.sort((a, b) => (a.name < b.name ? -1 : 1));
+  }
+
+  sortByNameZAany(cards: any[]): any[]{
+    return cards.sort((a, b) => (a.name > b.name ? -1 : 1));
+  }
+
   sortByCollectorNumberAsc(cards: Card[]): Card[]{
     return cards.sort((a, b) => (Number(a.collector_number) < Number(b.collector_number) ? -1 : 1));
   }
