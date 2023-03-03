@@ -1,6 +1,6 @@
 <div class="filter-container">
   <form [formGroup]="parentForm">
-    <mat-button-toggle-group class="toggle-group" name="type" aria-label="Set Type" (change)="onSubmit($event.value)">
+    <mat-button-toggle-group class="toggle-group" name="type" aria-label="Set Type" (change)="onSubmit($event.value)" value="expansion">
       <mat-button-toggle class="toggle" value="all">All</mat-button-toggle>
       <mat-button-toggle class="toggle" value="core">Core</mat-button-toggle>
       <mat-button-toggle class="toggle" value="expansion">Expansion</mat-button-toggle>

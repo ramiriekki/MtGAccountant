@@ -39,6 +39,7 @@ export class SetsComponent implements OnInit{
     })
       this.getAllSets()
       this.getCollectionPercentages()
+      this.onSubmit("expansion")
   }
 
   getAllSets(): void {
