@@ -4,6 +4,10 @@
       <mat-button-toggle class="toggle" value="all">All</mat-button-toggle>
       <mat-button-toggle class="toggle" value="core">Core</mat-button-toggle>
       <mat-button-toggle class="toggle" value="expansion">Expansion</mat-button-toggle>
+      <mat-button-toggle class="toggle" value="draft_innovation">Draft Innovation</mat-button-toggle>
+      <mat-button-toggle class="toggle" value="commander">Commander</mat-button-toggle>
+      <mat-button-toggle class="toggle" value="funny">Funny</mat-button-toggle>
+      <mat-button-toggle class="toggle" value="masters">Masters</mat-button-toggle>
     </mat-button-toggle-group>
   </form>
 </div>
@@ -39,6 +43,62 @@
 <div class="sets-container" *ngIf="submittedValue == 'expansion'">
   <ng-container *ngFor="let set of sets">
     <mat-card *ngIf="set.set_type == 'expansion'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
+      <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
+      <img src="{{set.icon_svg_uri}}" alt="">
+      <mat-card color="accent" class="info">
+        <mat-progress-bar mode="determinate" value="{{getProgressValue(set.code)}}" class="progress-bar" color="accent"></mat-progress-bar>
+        <h2 style="text-transform: capitalize;">{{set.set_type}}</h2>
+        <h2>Cards: {{set.card_count}}</h2>
+      </mat-card>
+    </mat-card>
+  </ng-container>
+</div>
+
+<div class="sets-container" *ngIf="submittedValue == 'draft_innovation'">
+  <ng-container *ngFor="let set of sets">
+    <mat-card *ngIf="set.set_type == 'draft_innovation'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
+      <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
+      <img src="{{set.icon_svg_uri}}" alt="">
+      <mat-card color="accent" class="info">
+        <mat-progress-bar mode="determinate" value="{{getProgressValue(set.code)}}" class="progress-bar" color="accent"></mat-progress-bar>
+        <h2 style="text-transform: capitalize;">{{set.set_type}}</h2>
+        <h2>Cards: {{set.card_count}}</h2>
+      </mat-card>
+    </mat-card>
+  </ng-container>
+</div>
+
+<div class="sets-container" *ngIf="submittedValue == 'commander'">
+  <ng-container *ngFor="let set of sets">
+    <mat-card *ngIf="set.set_type == 'commander'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
+      <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
+      <img src="{{set.icon_svg_uri}}" alt="">
+      <mat-card color="accent" class="info">
+        <mat-progress-bar mode="determinate" value="{{getProgressValue(set.code)}}" class="progress-bar" color="accent"></mat-progress-bar>
+        <h2 style="text-transform: capitalize;">{{set.set_type}}</h2>
+        <h2>Cards: {{set.card_count}}</h2>
+      </mat-card>
+    </mat-card>
+  </ng-container>
+</div>
+
+<div class="sets-container" *ngIf="submittedValue == 'funny'">
+  <ng-container *ngFor="let set of sets">
+    <mat-card *ngIf="set.set_type == 'funny'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
+      <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
+      <img src="{{set.icon_svg_uri}}" alt="">
+      <mat-card color="accent" class="info">
+        <mat-progress-bar mode="determinate" value="{{getProgressValue(set.code)}}" class="progress-bar" color="accent"></mat-progress-bar>
+        <h2 style="text-transform: capitalize;">{{set.set_type}}</h2>
+        <h2>Cards: {{set.card_count}}</h2>
+      </mat-card>
+    </mat-card>
+  </ng-container>
+</div>
+
+<div class="sets-container" *ngIf="submittedValue == 'masters'">
+  <ng-container *ngFor="let set of sets">
+    <mat-card *ngIf="set.set_type == 'masters'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
       <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
       <img src="{{set.icon_svg_uri}}" alt="">
       <mat-card color="accent" class="info">
