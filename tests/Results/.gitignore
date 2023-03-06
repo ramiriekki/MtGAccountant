@@ -1,0 +1,5 @@
+# Ignore robot framework report files.
+report*.html
+log*.html
+output*.xml
+selenium-*.png
