@@ -12,3 +12,11 @@ Verify Successful Login to MtGAccountant
     Page should contain                Hello robot!    
     Close Browser
 
+Verify Successful Logout from MtGAccountant
+    [documentation]                    Verifies that user is able to Logout from the app
+    [tags]                             Logout
+    Login
+    Wait Until Element Is Visible      xpath://h1[@class='hello']  timeout=5
+    Page should contain                Hello robot!   
+    Logout 
+    Close Browser
