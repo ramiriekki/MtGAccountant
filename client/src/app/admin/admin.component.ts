@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -13,7 +12,6 @@ export class AdminComponent implements OnInit {
   userStatus: string = ""
 
   constructor(
-    private router: Router,
     private userService: UserService
   ) { }
 
@@ -37,8 +35,6 @@ export class AdminComponent implements OnInit {
       status: this.userStatus
     }
 
-    console.log(data);
-
     this.userService.changeStatus(data).subscribe()
     // This is needed for updating the view
     for (const element of this.users) {
@@ -46,11 +42,5 @@ export class AdminComponent implements OnInit {
         element.status = this.userStatus
       }
     }
-    // this.ngOnInit()
   }
-
-  test(test: string): void {
-    console.log(test);
-  }
-
 }

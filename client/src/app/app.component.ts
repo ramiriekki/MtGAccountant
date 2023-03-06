@@ -9,8 +9,6 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { Location } from '@angular/common'
 
-// import jwt_decode from 'jwt-decode';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -40,14 +38,11 @@ export class AppComponent implements OnInit{
     this.isLoggedIn()
 
     window.addEventListener('storage', function(e) {
-      console.log('event from localstorage')
-      // any change/trigger in local storage will be catch here
+
   });
   }
 
   back(): void {
-    // console.log(this.router.url);
-
     if (this.router.url != "/dashboard") {
       this.location.back()
     }

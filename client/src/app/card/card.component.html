@@ -10,7 +10,7 @@
             <mat-card class="main-data-container">
               <div class="main-data-subcont">
                 <p class="main-data">Rarity: {{card.rarity}}</p>
-                <p class="main-data">Set: {{card.set_name}}</p>
+                <p id="set-link" class="main-data" [routerLink]="['/dashboard/sets/', card.set]">Set: {{card.set_name}}</p>
                 <p class="main-data">Collection number: {{card.collector_number}}</p>
                 <p class="main-data">Price: {{card.prices.eur}} €</p>
               </div>

@@ -134,26 +134,19 @@ p{
 .oracle-button {
   display: flex;
   flex-direction: column;
-  padding-right: 35px;
+  width: 50%;
 }
 
 .add-button{
   margin-top: 20px;
-  margin-left: auto;
-  width: 100%;
   background-color:#fb9b34;
-  width: 100%;
-  margin-right: 20px;
-  margin-left: 20px;
 }
 
 .remove-button{
   margin-top: 20px;
-  margin-left: auto;
-  width: 100%;
   background-color:#b75e00;
-  width: 100%;
-  margin-right: 20px;
-  margin-left: 20px;
+}
 
+#set-link {
+  cursor: pointer;
 }

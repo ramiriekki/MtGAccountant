@@ -18,10 +18,6 @@ export class QuickMoveComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   track(event: any) {
-      // console.debug("Scroll Event", window.pageYOffset );
-      // console.log(this.limit);
-      // console.log(scrollMaxValue());
-
       if (window.pageYOffset > 0) {
         this.hideUp = false
       } else {

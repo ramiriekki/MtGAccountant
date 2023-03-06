@@ -14,13 +14,11 @@
   <mat-card class="users">
 
     <table mat-table [dataSource]="users" class="mat-elevation-z8" color="primary">
-      <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> ID </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
       <ng-container matColumnDef="username">
         <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Username </th>
         <td mat-cell [style.background-color]="'#262626'" *matCellDef="let element">{{element.username}}</td>

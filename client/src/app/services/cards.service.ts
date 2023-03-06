@@ -40,16 +40,9 @@ export class CardsService {
   }
 
   updateCollection(removeArr: string[], addArr: any[]){
-    //let data: UpdateData
-
     const data = { id_list: addArr, remove_list: removeArr};
 
-    // console.log(localStorage.getItem('user'));
-    console.log(data);
-    console.log(this.url + `/api/collections/collection?email=${localStorage.getItem('user')}`);
-
     try {
-      // TODO check server side api/collections/collection?email=test.test@gmail.com
       return this.httpClient.post(this.url + `/api/collections/collection?email=${localStorage.getItem('user')}`, data, {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
       }).subscribe()

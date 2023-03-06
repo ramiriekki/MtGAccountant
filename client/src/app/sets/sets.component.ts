@@ -13,7 +13,6 @@ import { CollectionPercentages } from '../models/CollectionPercentages';
   selector: 'app-sets',
   templateUrl: './sets.component.html',
   styleUrls: ['./sets.component.css'],
-  //encapsulation: ViewEncapsulation.None,
 })
 export class SetsComponent implements OnInit{
   parentForm!: FormGroup
@@ -38,10 +37,9 @@ export class SetsComponent implements OnInit{
     this.parentForm = this.formBuilder.group({
       type: new FormControl()
     })
-      // this.test = this.setsService.getSets()
-      // console.log(this.test);
       this.getAllSets()
       this.getCollectionPercentages()
+      this.onSubmit("expansion")
   }
 
   getAllSets(): void {
@@ -53,7 +51,6 @@ export class SetsComponent implements OnInit{
   }
 
   onSubmit(value: string) {
-    console.log(value);
     this.submittedValue = value
   }
 

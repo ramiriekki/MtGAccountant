@@ -46,72 +46,58 @@ export class CardComponent implements OnInit {
       this.cardsService.getCollection().subscribe(collection => this.collection = collection)
     }
 
-  debug(): void {
-    console.log(this.card);
-
-  }
-
-  goToLink(url: string){
-    console.log(url);
-
-    window.open(url, "_blank");
-  }
-
-  changeCardFace(faceImageUri: string) {
-    this.card.card_faces.forEach(face => {
-      if (faceImageUri != face.image_uris.border_crop) {
-        this.image = face.image_uris.border_crop
-        this.flavor = face.flavor_text
-        this.oracle = face.oracle_text
-        this.power = face.power
-        this.toughness = face.toughness
-      }
-    });
-  }
-
-  isOwned(id: string): boolean {
-    let isOwned: boolean = false
-
-    //console.log(id);
-
-    this.collection.forEach(card => {
-      if (card.id === id && card.collected === true) {
-        console.log("found");
-        isOwned = true
-      } else if (card.id === id && card.collected === false) {
-        isOwned = false
-      }
-    });
-
-    return isOwned
-  }
-
-  addToCollection(id: string): void {
-    console.log(id);
-
-    // This is needed for updating the view
-    for (const element of this.collection) {
-      if(element.id == id){
-        element.collected = true
-      }
+    goToLink(url: string){
+      window.open(url, "_blank");
     }
 
-    // update to db happens here
-    this.cardsService.updateCollection([""], [id]);
-  }
+    changeCardFace(faceImageUri: string) {
+      this.card.card_faces.forEach(face => {
+        if (faceImageUri != face.image_uris.border_crop) {
+          this.image = face.image_uris.border_crop
+          this.flavor = face.flavor_text
+          this.oracle = face.oracle_text
+          this.power = face.power
+          this.toughness = face.toughness
+        }
+      });
+    }
+
+    isOwned(id: string): boolean {
+      let isOwned: boolean = false
+
+      this.collection.forEach(card => {
+        if (card.id === id && card.collected === true) {
+          isOwned = true
+        } else if (card.id === id && card.collected === false) {
+          isOwned = false
+        }
+      });
+
+      return isOwned
+    }
+
+    addToCollection(id: string): void {
+      // This is needed for updating the view
+      for (const element of this.collection) {
+        if(element.id == id){
+          element.collected = true
+        }
+      }
+
+      // update to db happens here
+      this.cardsService.updateCollection([""], [id]);
+    }
 
   removeFromCollection(id: string): void {
-    console.log(id);
-
-    // This is needed for updating the view
-    for (const element of this.collection) {
-      if(element.id == id){
-        element.collected = false
+      // This is needed for updating the view
+      for (const element of this.collection) {
+        if(element.id == id){
+          element.collected = false
+        }
       }
-    }
 
-    // update to db happens here
-    this.cardsService.updateCollection([id], [""]);
-  }
+      // update to db happens here
+      this.cardsService.updateCollection([id], [""]);
+    }
 
 }

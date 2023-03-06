@@ -29,8 +29,6 @@ img {
     width: auto;
     max-width: 100%;
     max-height: 100%;
-    /* filter: invert(60%) sepia(87%) saturate(3148%) hue-rotate(1deg) brightness(96%) contrast(102%); */
-    /* filter: invert(100%) */
   }
 
 p.name{
@@ -46,7 +44,7 @@ h2{
 }
 
 .info{
-    width: 90%;
+    width: 100%;
     background-color: #f57f01;
     display: flex;
     flex-flow: column nowrap;
@@ -140,7 +138,7 @@ img {
   background-color: transparent;
   border: 1px solid #f57f01;
   margin: 20px;
-  width: 500px;
+  width: 350px;
   height: auto;
 }
 
