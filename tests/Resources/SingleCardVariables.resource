@@ -20,3 +20,21 @@ ${CardToughness}        2
 ${CardPricesBox}        //div[@class='prices']
 
 # Double Faced Card
+${SetSelector2}              //*[contains(text(),'Innistrad: Midnight Hunt')]
+${CardSelector2}             //mat-card[6]//img[1]    # Ambitious Farmhand // Seasoned Cathar
+${FrontOracleElement}        //p[contains(text(),'When Ambitious Farmhand enters the battlefield, yo')]
+${BackOracleElement}         //p[contains(text(),'Lifelink')]
+${CardName2}                 //p[normalize-space()='Ambitious Farmhand // Seasoned Cathar']
+${CardRarity2}               uncommon
+${CardSet2}                  (//p[@id='set-link'])[1]
+${CardNumber2}               2
+${CardPrice2}                Price:
+${CardArtist2}               Bryan Sola
+${CardReleased2}             2021-09-24
+${FrontCardColorIdentity}    W
+${BackCardColorIdentity}    W
+${FrontCardPower}            1
+${FrontCardToughness}        1
+${BackCardPower}            3
+${BackCardToughness}        3
+${CardPricesBox2}            //div[@class='prices']
