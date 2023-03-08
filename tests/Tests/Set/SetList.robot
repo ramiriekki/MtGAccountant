@@ -38,6 +38,12 @@ Do filters show correct sets
     Close Browser
 
 Does clicking a set bring user to correct view
+    Open Browser                       ${BaseSiteURL}                                 ${Browser}
     Login
+    Wait For Condition                  return document.readyState == "complete"
     Navigate to sets view
     Wait For Condition                  return document.readyState == "complete"
+    Click Element                       (//p[normalize-space()="The Brothers' War"])
+    Wait For Condition                  return document.readyState == "complete"
+    Page Should Contain                 The Brothers' War
+    Close Browser
