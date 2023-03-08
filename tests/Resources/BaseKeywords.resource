@@ -18,3 +18,8 @@ Logout
     Click Button                       //button[@id='logout-confirmation']
     Wait Until Page Contains           Lorem ipsum dolor sit amet, consectetur adipiscing
     Wait Until Page Contains           Login
+
+Setup environment
+    Open Browser                       ${BaseSiteURL}                                 ${Browser}
+    Login
+    Wait For Condition                 return document.readyState == "complete"
