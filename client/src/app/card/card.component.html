@@ -48,12 +48,12 @@
 
                   <div *ngIf="isOwned(card.id) === true; then thenBlock else elseBlock"></div>
                   <ng-template #thenBlock>
-                    <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">
+                    <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)" id="remove-button">
                       remove
                     </button>
                   </ng-template>
                   <ng-template #elseBlock>
-                    <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
+                    <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)" id="add-button">
                       Add
                     </button>
                   </ng-template>
