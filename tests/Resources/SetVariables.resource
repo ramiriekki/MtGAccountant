@@ -23,3 +23,10 @@ ${SetReleased}          2022-11-18
 ${SetType}              expansion
 ${SetCardCount}         387
 ${SetUri}               https://scryfall.com/sets/bro
+
+${InfoBox}              //mat-card[@class='mat-card mat-focus-indicator set-data-card']
+${CollectButton}        (//button[@class='mat-focus-indicator add-button mat-raised-button mat-button-base mat-accent ng-star-inserted'])[1]
+${RemoveButton}         (//button[@class='mat-focus-indicator remove-button mat-raised-button mat-button-base ng-star-inserted'])[1]
+${CollectedCircle}      (//div[@class='collected-circle ng-star-inserted'])[1]
+${NotCollectedCircle}   (//div[@class='notcollected-circle ng-star-inserted'])[1]
+

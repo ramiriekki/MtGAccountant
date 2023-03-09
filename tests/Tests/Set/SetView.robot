@@ -12,14 +12,22 @@ Resource         ../../Keywords/CommonSingleCardKeywords.robot
 Set info box contains correct values
     Navigate to sets view
     Open set    ${SetName}
-    Element Should Contain    //mat-card[@class='mat-card mat-focus-indicator set-data-card']    ${SetCode}
-    Element Should Contain    //mat-card[@class='mat-card mat-focus-indicator set-data-card']    ${SetName}
-    Element Should Contain    //mat-card[@class='mat-card mat-focus-indicator set-data-card']    ${SetReleased}
-    Element Should Contain    //mat-card[@class='mat-card mat-focus-indicator set-data-card']    ${SetType}
-    Element Should Contain    //mat-card[@class='mat-card mat-focus-indicator set-data-card']    ${SetCardCount}
-    Element Should Contain    //mat-card[@class='mat-card mat-focus-indicator set-data-card']    ${SetUri}
+    Element Should Contain    ${InfoBox}    ${SetCode}
+    Element Should Contain    ${InfoBox}    ${SetName}
+    Element Should Contain    ${InfoBox}    ${SetReleased}
+    Element Should Contain    ${InfoBox}    ${SetType}
+    Element Should Contain    ${InfoBox}    ${SetCardCount}
+    Element Should Contain    ${InfoBox}    ${SetUri}
 
 Add / remove buttons work
+    Navigate to sets view
+    Open set    ${SetName}
+    Wait Until Page Contains Element    ${CollectButton}
+    Scroll Element Into View    ${CollectButton}
+    Click Button    ${CollectButton}
+    Page Should Contain Element    ${CollectedCircle}
+    Click Button    ${RemoveButton}
+    Page Should Contain Element    ${NotCollectedCircle}
 
 Add / remove all works
 
