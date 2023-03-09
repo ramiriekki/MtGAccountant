@@ -5,7 +5,6 @@ Resource         GlobalVariables.resource
 
 *** Keywords ***
 Login
-    Open Browser                       ${BaseSiteURL}                                 ${Browser}
     Wait Until Element Is Visible      xpath://a[normalize-space()='Login']           timeout=5
     Click Link                         xpath://a[normalize-space()='Login']
     Wait Until Element Is Visible      xpath://span[normalize-space()='Login']        timeout=5
@@ -15,6 +14,12 @@ Login
 
 Logout
     Click Link                         (//a[normalize-space()='Logout'])[1]
-    Wait Until Element Is Visible      (//span[@class='mat-button-wrapper'])[13]
-    Click Button                       (//button[@class='mat-focus-indicator mat-raised-button mat-button-base mat-accent'])[3]
+    Wait Until Element Is Visible      //span[normalize-space()='Confirmation']
+    Click Button                       //button[@id='logout-confirmation']
     Wait Until Page Contains           Lorem ipsum dolor sit amet, consectetur adipiscing
+    Wait Until Page Contains           Login
+
+Setup environment
+    Open Browser                       ${BaseSiteURL}                                 ${Browser}
+    Login
+    Wait For Condition                 return document.readyState == "complete"
