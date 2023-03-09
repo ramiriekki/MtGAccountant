@@ -30,6 +30,13 @@ Add / remove buttons work
     Page Should Contain Element    ${NotCollectedCircle}
 
 Add / remove all works
+    Navigate to sets view
+    Open set    ${SetName}
+    Wait Until Page Contains Element    ${AddAll}
+    Click Element    ${AddAll}
+    Check cards status    Collected
+    Click Element    ${RemoveAll}
+    Check cards status    NotCollected
 
 Quick move to child set works
 

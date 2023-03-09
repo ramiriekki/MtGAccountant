@@ -29,4 +29,6 @@ ${CollectButton}        (//button[@class='mat-focus-indicator add-button mat-rai
 ${RemoveButton}         (//button[@class='mat-focus-indicator remove-button mat-raised-button mat-button-base ng-star-inserted'])[1]
 ${CollectedCircle}      (//div[@class='collected-circle ng-star-inserted'])[1]
 ${NotCollectedCircle}   (//div[@class='notcollected-circle ng-star-inserted'])[1]
-
+${AddAll}               //div[@class='set-container']//button[1]
+${RemoveAll}            //div[@class='set-container']//button[2]
+${CardTemplate}         //body/app-root/mat-drawer-container[@class='mat-drawer-container example-container']/mat-drawer-content[@class='mat-drawer-content ng-star-inserted']/div[@class='example-sidenav-content']/app-dashboard[@class='ng-star-inserted']/app-set[@class='ng-star-inserted']/div[@class='cards-container']/mat-card
