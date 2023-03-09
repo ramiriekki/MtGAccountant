@@ -32,3 +32,5 @@ ${NotCollectedCircle}   (//div[@class='notcollected-circle ng-star-inserted'])[1
 ${AddAll}               //div[@class='set-container']//button[1]
 ${RemoveAll}            //div[@class='set-container']//button[2]
 ${CardTemplate}         //body/app-root/mat-drawer-container[@class='mat-drawer-container example-container']/mat-drawer-content[@class='mat-drawer-content ng-star-inserted']/div[@class='example-sidenav-content']/app-dashboard[@class='ng-star-inserted']/app-set[@class='ng-star-inserted']/div[@class='cards-container']/mat-card
+${TokenButton}          //mat-drawer-content[@class='mat-drawer-content ng-star-inserted']//button[6]
+${TestToken}            //p[normalize-space()='Zombie']

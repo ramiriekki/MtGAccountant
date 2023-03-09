@@ -39,6 +39,11 @@ Add / remove all works
     Check cards status    NotCollected
 
 Quick move to child set works
+    Navigate to sets view
+    Open set    ${SetName}
+    Wait Until Page Contains Element    ${TestToken}    timeout=60
+    Click Element    ${TokenButton}
+    Wait Until Element Is Visible    ${TestToken}
 
 # TODO: Correct value is displayed    # Request from backend
 # TODO: Progress bar value is correct    # Request from backend
