@@ -11,12 +11,12 @@ Resource         ../Resources/CollectionVariables.resource
 *** Test Cases ***
 Verify that collection view has correct information
     [documentation]                    Test for collection view
-    [tags]                             Collection
+    [tags]    Collection
     Navigate to collection view
     Page Should Contain    Collection Value
 
 User should be able to add / remove cards
-    [tags]                             Collection
+    [tags]    Collection
     Navigate to collection view
     Wait Until Page Contains Element    ${CollectButton}
     Scroll Element Into View    ${CollectButton}
@@ -26,7 +26,7 @@ User should be able to add / remove cards
     Page Should Contain Element    ${NotCollectedCircle}
 
 Pagination display card amount works
-    [Tags]                              Collection
+    [Tags]    Collection
     Navigate to collection view
     Wait Until Page Contains Element    ${PageLimitSelect}
     Click Element    ${PageLimitSelect}
@@ -38,3 +38,14 @@ Pagination display card amount works
     Click Element    ${PageLimit20}
     ${CardCount} =    Get Element Count    ${CollectionCardTemplate}
     Should Be Equal As Integers    ${CardCount}    20
+
+User can change pages
+    [Tags]    Collection
+    Navigate to collection view
+    Wait Until Page Contains Element    ${PageLimitSelect}
+    Click Element    ${NextPage}
+    Wait Until Page Contains Element    ${PageLimitSelect}
+    Check if url is correct and showed amount is correct    ${SecondPageUrl}
+    Click Element    ${PreviousPage}
+    Wait Until Page Contains Element    ${PageLimitSelect}
+    Check if url is correct and showed amount is correct    ${FirstPageUrl}
