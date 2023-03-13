@@ -101,6 +101,7 @@ public class UserRestImpl implements UserRest{
     @Override
     public ResponseEntity<String> deleteUser(String email) {
         try {
+            System.out.println(email);
             return userService.deleteUser(email);
         } catch (Exception e) {
             e.printStackTrace();
