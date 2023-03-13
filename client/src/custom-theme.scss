@@ -50,7 +50,7 @@ $client-accent: mat.define-palette($custom-palette, A400);
 $client-progress: mat.define-palette($custom-palette, A700);
 
 // The warn palette is optional (defaults to red).
-$client-warn: mat.define-palette(mat.$red-palette);
+$client-warn: mat.define-palette(mat.$deep-orange-palette, A700);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

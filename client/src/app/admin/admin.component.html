@@ -39,10 +39,17 @@
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.role}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="actions">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Actions </th>
+      <ng-container matColumnDef="change_status">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Change Status </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">
-          <button mat-raised-button color="accent" style="width: 100%; height: 30px;" (click)="changeStatus(element.email, element.status)">Change Status</button>
+          <button mat-raised-button color="accent" style="width: 100%;" (click)="changeStatus(element.email, element.status)">Change Status</button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="remove">
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Remove </th>
+        <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">
+          <button mat-raised-button color="warn" style="width: 100%; margin-left: 10px;" (click)="removeUser(element.email)">Remove User</button>
         </td>
       </ng-container>
 
