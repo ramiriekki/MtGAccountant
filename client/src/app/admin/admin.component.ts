@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'username', 'email', 'status', 'role', 'actions'];
+  displayedColumns: string[] = ['id', 'username', 'email', 'status', 'role', 'change_status', 'remove'];
   users: any[] = []
   userStatus: string = ""
 
@@ -42,5 +42,10 @@ export class AdminComponent implements OnInit {
         element.status = this.userStatus
       }
     }
+  }
+
+  // TODO: refresh the data
+  async removeUser(email: string): Promise<void> {
+    this.userService.removeUser(email).subscribe(() => console.log('Delete successful'))
   }
 }

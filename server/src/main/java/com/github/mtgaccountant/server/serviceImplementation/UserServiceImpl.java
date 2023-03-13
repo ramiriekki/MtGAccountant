@@ -263,9 +263,29 @@ public class UserServiceImpl implements UserService{
     // }
 
     @Override
-    public ResponseEntity<String> deleteUser() {
-        // TODO Delete user.
-        return null;
+    public ResponseEntity<String> deleteUser(String email) {
+        try {
+            //System.out.println(email);
+
+            if(jwtFilter.isAdmin()){
+                System.out.println("User is an admin!!");
+                System.out.println(email);
+                // Remove both user and the users collection
+                User user = userDao.findUserByEmail(email);
+                userDao.delete(user);
+
+                Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); 
+                collectionDao.delete(collection);
+
+                return new ResponseEntity<>("User removed successfully.", HttpStatus.OK);            
+            } else {
+                return new ResponseEntity<>("Unauthorized access", HttpStatus.UNAUTHORIZED);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override

@@ -38,7 +38,7 @@ public interface UserRest {
     ResponseEntity<String> forgotPassword(@RequestBody(required = true) Map<String, String> requestMap);
 
     @DeleteMapping(path = "/delete")
-    ResponseEntity<String> deleteUser();
+    ResponseEntity<String> deleteUser(@RequestParam String email);
 
     @GetMapping(path = "/user")
     public ResponseEntity<UserWrapper> getUser(@RequestParam String email);
