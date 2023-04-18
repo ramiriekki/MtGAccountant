@@ -1,5 +1,6 @@
 import { ViewportScroller } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject, takeUntil } from 'rxjs';
@@ -10,6 +11,7 @@ import { Set } from '../models/set';
 import { CardsService } from '../services/cards.service';
 import { SetsService } from '../services/sets.service';
 import { SortCardsService } from '../services/sort-cards.service';
+import { BinderModifyComponent } from './binder-modify/binder-modify.component';
 
 @Component({
   selector: 'app-set',
@@ -36,6 +38,7 @@ export class SetComponent implements OnInit, OnDestroy {
   topCards: Card[] = []
 
   constructor(
+    private dialog: MatDialog,
     private scroller: ViewportScroller,
     private setsService: SetsService,
     private router: Router,
@@ -236,5 +239,14 @@ export class SetComponent implements OnInit, OnDestroy {
     // update to db happens here
     this.cardsService.updateCollection(ids, [""]);
     this.cdr.detectChanges()
+  }
+
+  handleBinderOpenAction(){
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.width = "850px"
+    dialogConfig.height = "650px"
+    dialogConfig.panelClass = "binder-dialog"
+    dialogConfig.data = this.cards,
+    this.dialog.open(BinderModifyComponent, dialogConfig)
   }
 }

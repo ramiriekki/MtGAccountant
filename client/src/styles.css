@@ -19,3 +19,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: palegreen;
   color: black;
 }
+
+.mat-dialog-container{
+  background-color: #343434 !important;
+  color: #f57f01 !important;
+}

@@ -1,0 +1,51 @@
+.binder-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.binder-top {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80%;
+}
+
+.binder-bottom {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 20%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-page, .right-page {
+  background-color: rgb(172, 172, 172);
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-page {
+  margin-right: 10px;
+}
+
+.right-page {
+  margin-left: 10px;
+}
+
+.binder-button {
+  width: 20%;
+}
+
+.card-pocket {
+  height: 25%;
+  width: 25%;
+  background-color: rgb(213, 213, 213);
+  margin: 12px;
+}
