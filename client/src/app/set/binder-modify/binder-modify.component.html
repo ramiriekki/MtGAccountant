@@ -3,15 +3,23 @@
 <div class="binder-container">
   <div class="binder-top">
     <div class="left-page">
-      <div class="card-pocket" *ngFor="let card of testData"></div>
+      <div class="card-pocket" *ngFor="let card of leftCards">
+        <div class="card-data">{{card.name}}</div>
+        <div class="card-data">{{card.collector_number}}</div>
+        <div class="card-data">{{card.rarity}}</div>
+      </div>
     </div>
     <div class="right-page">
-
+      <div class="card-pocket" *ngFor="let card of rightCards">
+        <div class="card-data">{{card.name}}</div>
+        <div class="card-data">{{card.collector_number}}</div>
+        <div class="card-data">{{card.rarity}}</div>
+      </div>
     </div>
   </div>
   <div class="binder-bottom">
-    <button mat-raised-button class="binder-button" color="accent">Previous Opening</button>
+    <button mat-raised-button class="binder-button" color="accent" (click)="handlePreviousOpening()">Previous Opening</button>
     <button mat-raised-button class="binder-button" color="accent">Add All</button>
-    <button mat-raised-button class="binder-button" color="accent">Next Opening</button>
+    <button mat-raised-button class="binder-button" color="accent" (click)="handleNextOpening()">Next Opening</button>
   </div>
 </div>
