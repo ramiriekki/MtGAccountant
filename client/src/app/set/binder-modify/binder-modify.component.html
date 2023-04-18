@@ -3,14 +3,14 @@
 <div class="binder-container">
   <div class="binder-top">
     <div class="left-page">
-      <div class="card-pocket" *ngFor="let card of leftCards">
+      <div class="card-pocket" *ngFor="let card of leftCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}">
         <div class="card-data">{{card.name}}</div>
         <div class="card-data">{{card.collector_number}}</div>
         <div class="card-data">{{card.rarity}}</div>
       </div>
     </div>
     <div class="right-page">
-      <div class="card-pocket" *ngFor="let card of rightCards">
+      <div class="card-pocket" *ngFor="let card of rightCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}">
         <div class="card-data">{{card.name}}</div>
         <div class="card-data">{{card.collector_number}}</div>
         <div class="card-data">{{card.rarity}}</div>

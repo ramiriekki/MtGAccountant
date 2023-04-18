@@ -44,6 +44,7 @@
 }
 
 .card-pocket {
+  color: black;
   height: 25%;
   width: 25%;
   background-color: rgb(213, 213, 213);
@@ -53,6 +54,31 @@
   align-items: center;
   justify-content: space-between;
   text-align: center;
+}
+
+.card-pocket-collected {
+  color: white;
+  height: 25%;
+  width: 25%;
+  background-color: rgb(66 145 50);
+  margin: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.card-pocket:hover {
+  background-color: rgb(255, 205, 130);
+  transition: 1s;
+  cursor: pointer;
+}
+
+.card-pocket-collected:hover {
+  background-color: rgb(161, 44, 44);
+  transition: 1s;
+  cursor: pointer;
 }
 
 .card-data {
