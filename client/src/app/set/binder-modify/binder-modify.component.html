@@ -3,14 +3,14 @@
 <div class="binder-container">
   <div class="binder-top">
     <div class="left-page">
-      <div class="card-pocket" *ngFor="let card of leftCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}">
+      <div class="card-pocket" *ngFor="let card of leftCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}" (click)="handlePocketClick(card.id)">
         <div class="card-data">{{card.name}}</div>
         <div class="card-data">{{card.collector_number}}</div>
         <div class="card-data">{{card.rarity}}</div>
       </div>
     </div>
     <div class="right-page">
-      <div class="card-pocket" *ngFor="let card of rightCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}">
+      <div class="card-pocket" *ngFor="let card of rightCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}" (click)="handlePocketClick(card.id)">
         <div class="card-data">{{card.name}}</div>
         <div class="card-data">{{card.collector_number}}</div>
         <div class="card-data">{{card.rarity}}</div>
@@ -19,7 +19,7 @@
   </div>
   <div class="binder-bottom">
     <button mat-raised-button class="binder-button" color="accent" (click)="handlePreviousOpening()">Previous Opening</button>
-    <button mat-raised-button class="binder-button" color="accent">Add All</button>
+    <button mat-raised-button class="binder-button" color="accent">Add Whole Opening</button>
     <button mat-raised-button class="binder-button" color="accent" (click)="handleNextOpening()">Next Opening</button>
   </div>
 </div>

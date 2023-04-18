@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Card } from 'src/app/models/Card';
 import { CollectionCard } from 'src/app/models/CollectionCard';
+import { CardsService } from 'src/app/services/cards.service';
 
 @Component({
   selector: 'app-binder-modify',
@@ -14,7 +15,10 @@ export class BinderModifyComponent implements OnInit {
   leftIndexes: {start: number, end: number} = {start: 0, end: 9}
   rightIndexes: {start: number, end: number} = {start: 9, end: 18}
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {cards: Card[], collection: CollectionCard[]}) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {cards: Card[], collection: CollectionCard[]},
+    private cardsService: CardsService
+    ) { }
 
   ngOnInit(): void {
 
@@ -72,6 +76,41 @@ export class BinderModifyComponent implements OnInit {
     }
 
     return isCollected
+  }
+
+  addToCollection(id: string): void {
+    // This is needed for updating the view
+    for (const element of this.data.collection) {
+      if(element.id == id){
+        element.collected = true
+      }
+    }
+
+    // update to db happens here
+    this.cardsService.updateCollection([""], [id]);
+  }
+
+  removeFromCollection(id: string): void {
+    // This is needed for updating the view
+    for (const element of this.data.collection) {
+      if(element.id == id){
+        element.collected = false
+      }
+    }
+
+    // update to db happens here
+    this.cardsService.updateCollection([id], [""]);
+  }
+
+  handlePocketClick(id: string): void {
+    let isPocketCollected
+    isPocketCollected = this.isInCollection(id);
+
+    if (!isPocketCollected) {
+      this.addToCollection(id)
+    } else {
+      this.removeFromCollection(id)
+    }
   }
 
 }
