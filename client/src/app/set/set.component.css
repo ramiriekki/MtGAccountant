@@ -118,6 +118,8 @@ p{
   margin: 20px;
   background-color: transparent;
   border: 1px solid #f57f01;
+  align-items: center;
+  justify-content: center;
 }
 
 .set-name > p{
@@ -285,4 +287,10 @@ h2{
   align-items: center;
   justify-content: center;
   padding: 10px;
+}
+
+.binder-button {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
 }
