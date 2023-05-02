@@ -14,6 +14,7 @@ export class BinderModifyComponent implements OnInit {
   rightCards: Card[] = []
   leftIndexes: {start: number, end: number} = {start: 0, end: 9}
   rightIndexes: {start: number, end: number} = {start: 9, end: 18}
+  showCards: boolean = true
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {cards: Card[], collection: CollectionCard[]},
@@ -111,6 +112,32 @@ export class BinderModifyComponent implements OnInit {
     } else {
       this.removeFromCollection(id)
     }
+  }
+
+  changeDisplay(): void {
+    this.showCards = !this.showCards;
+  }
+
+  addWholeOpening(): void {
+    let ids: string[] = []
+
+    this.leftCards.forEach((card) => {
+      ids.push(card.id)
+    })
+
+    this.rightCards.forEach((card) => {
+      ids.push(card.id)
+    })
+
+    for (const element of this.data.collection) {
+      ids.forEach(id => {
+        if(element.id == id){
+          element.collected = true
+        }
+      });
+    }
+
+    this.cardsService.updateCollection([""], ids);
   }
 
 }

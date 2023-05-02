@@ -243,8 +243,8 @@ export class SetComponent implements OnInit, OnDestroy {
 
   handleBinderOpenAction(){
     const dialogConfig = new MatDialogConfig()
-    dialogConfig.width = "850px"
-    dialogConfig.height = "650px"
+    dialogConfig.width = "1050px"
+    dialogConfig.height = "850px"
     dialogConfig.panelClass = "binder-dialog"
     dialogConfig.data = {cards: this.cards, collection: this.collection}
     this.dialog.open(BinderModifyComponent, dialogConfig)
