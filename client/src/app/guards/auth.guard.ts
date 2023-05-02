@@ -14,10 +14,10 @@ export class AuthGuard implements CanActivate {
     if (this.auth.isAuthenticated()) {
       return true;
     }
-    
+
     // navigate to login page as user is not authenticated
     this.router.navigate(['']);
     return false;
   }
-  
+
 }

@@ -1,0 +1,46 @@
+<mat-toolbar color="accent" class="binder-toolbar">Binder Tool</mat-toolbar>
+
+<div class="binder-container">
+  <div class="binder-top">
+    <div class="left-page" *ngIf="showCards == false">
+      <div class="card-pocket-no-image" *ngFor="let card of leftCards" [ngClass]="{'card-pocket-no-image': !isInCollection(card.id), 'card-pocket-collected-no-image': isInCollection(card.id)}" (click)="handlePocketClick(card.id)">
+        <div class="card-data">{{card.name}}</div>
+        <div class="card-data">{{card.collector_number}}</div>
+        <div class="card-data">{{card.rarity}}</div>
+      </div>
+    </div>
+    <div class="left-page" *ngIf="showCards == true">
+      <div class="card-pocket" *ngFor="let card of leftCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}" (click)="handlePocketClick(card.id)">
+        <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="">
+        <ng-template #elsePart>
+          <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="">
+        </ng-template>
+        <div class="collected" *ngIf="isInCollection(card.id)"></div>
+        <div class="not-collected" *ngIf="!isInCollection(card.id)"></div>
+      </div>
+    </div>
+    <div class="right-page" *ngIf="showCards == false">
+      <div class="card-pocket-no-image" *ngFor="let card of rightCards" [ngClass]="{'card-pocket-no-image': !isInCollection(card.id), 'card-pocket-collected-no-image': isInCollection(card.id)}" (click)="handlePocketClick(card.id)">
+        <div class="card-data">{{card.name}}</div>
+        <div class="card-data">{{card.collector_number}}</div>
+        <div class="card-data">{{card.rarity}}</div>
+      </div>
+    </div>
+    <div class="right-page" *ngIf="showCards == true">
+      <div class="card-pocket" *ngFor="let card of rightCards" [ngClass]="{'card-pocket': !isInCollection(card.id), 'card-pocket-collected': isInCollection(card.id)}" (click)="handlePocketClick(card.id)">
+        <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="">
+        <ng-template #elsePart>
+          <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="">
+        </ng-template>
+        <div class="collected" *ngIf="isInCollection(card.id)"></div>
+        <div class="not-collected" *ngIf="!isInCollection(card.id)"></div>
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button class="change-display" color="accent" (click)="changeDisplay()">Show / Hide Cards</button>
+  <div class="binder-bottom">
+    <button mat-raised-button class="binder-button" color="accent" (click)="handlePreviousOpening()">Previous Opening</button>
+    <button mat-raised-button class="binder-button" color="accent" (click)="addWholeOpening()">Add Whole Opening</button>
+    <button mat-raised-button class="binder-button" color="accent" (click)="handleNextOpening()">Next Opening</button>
+  </div>
+</div>

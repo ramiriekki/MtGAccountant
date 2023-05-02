@@ -16,6 +16,7 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
 import { AdminComponent } from '../admin/admin.component';
 import { QuickMoveComponent } from '../shared/quick-move/quick-move.component';
 import { SortTabsComponent } from '../shared/sort-tabs/sort-tabs.component';
+import { BinderModifyComponent } from '../set/binder-modify/binder-modify.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SortTabsComponent } from '../shared/sort-tabs/sort-tabs.component';
     AdminComponent,
     QuickMoveComponent,
     SortTabsComponent,
+    BinderModifyComponent,
   ],
   imports: [
     CommonModule,
