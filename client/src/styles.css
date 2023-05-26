@@ -24,3 +24,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #343434 !important;
   color: #f57f01 !important;
 }
+
+.mat-tooltip {
+  background-color: #b05931;
+}

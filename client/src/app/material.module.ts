@@ -21,6 +21,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {CarouselModule} from 'primeng/carousel';
 import {MatSortModule} from '@angular/material/sort';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatAutocompleteModule,
     CarouselModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule
   ],
   exports: [
     MatToolbarModule,
@@ -67,7 +69,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatAutocompleteModule,
     CarouselModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }

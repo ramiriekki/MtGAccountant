@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorInterceptor } from './interceptors/token-interceptor.interceptor';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+import { tooltipDefaults } from 'src/defaults/tooltipDefaults';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: "Loading...",
@@ -49,7 +51,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [HttpClientModule, {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true}],
+  providers: [
+    HttpClientModule,
+    {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
+    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: tooltipDefaults}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

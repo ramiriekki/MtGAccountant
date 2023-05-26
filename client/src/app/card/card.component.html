@@ -3,7 +3,7 @@
     <div class="card-main-container">
       <div class="image-container">
         <img [src]="image" alt="">
-        <button class="change-image-button" mat-raised-button type="button" color="accent" (click)="changeCardFace(image)">Swap Face</button>
+        <button class="change-image-button" mat-raised-button type="button" color="accent" (click)="changeCardFace(image)" matTooltip="Change card image and data to match the other face">Swap Face</button>
       </div>
 
         <div class="details">
@@ -14,8 +14,8 @@
                 <p class="main-data">Collection number: {{card.collector_number}}</p>
                 <p class="main-data">Price: {{card.prices.eur}} €</p>
               </div>
-              <div class="collected" *ngIf="isOwned(card.id)"><mat-icon color="primary" class="icon">check_circle</mat-icon></div>
-              <div class="not-collected" *ngIf="!isOwned(card.id)"><mat-icon color="primary" class="icon">highlight_off</mat-icon></div>
+              <div class="collected" *ngIf="isOwned(card.id)"><mat-icon color="primary" class="icon" matTooltip="In collection">check_circle</mat-icon></div>
+              <div class="not-collected" *ngIf="!isOwned(card.id)"><mat-icon color="primary" class="icon" matTooltip="Not in collection">highlight_off</mat-icon></div>
             </mat-card>
             <div class="details-sub">
                 <div class="sub-data">
