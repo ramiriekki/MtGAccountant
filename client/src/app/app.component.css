@@ -363,3 +363,10 @@ mat-drawer-container {
       visibility: hidden;
     }
   }
+
+  app-footer {
+    /* position: fixed; */
+    bottom: 0px;
+    z-index: 5;
+    width: 100%;
+  }
