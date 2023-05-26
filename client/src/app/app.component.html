@@ -1,12 +1,12 @@
 <mat-toolbar color="primary" class="toolbar">
   <mat-toolbar-row>
-    <button id="back-button" type="button" mat-raised-button (click)="back()" color="accent">
+    <button id="back-button" type="button" mat-raised-button (click)="back()" color="accent" matTooltip="Previous page">
       <mat-icon>chevron_left</mat-icon>
     </button>
-    <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent">
+    <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent" matTooltip="Side menu">
       ≡
     </button>
-    <a id="title" [routerLink]="['/dashboard']">MtG Accountant</a>
+    <a id="title" [routerLink]="['/dashboard']" matTooltip="Home">MtG Accountant</a>
     <div class="link-cont">
       <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
       <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>

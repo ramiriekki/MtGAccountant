@@ -87,7 +87,7 @@
     <h2>Quick move to set:</h2>
 
     <div class="button-group">
-      <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets">
+      <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets" matTooltip="Scroll down to {{child.name}}">
         {{child.name}}
       </button>
     </div>
