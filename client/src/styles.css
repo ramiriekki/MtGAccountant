@@ -28,3 +28,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-tooltip {
   background-color: #b05931;
 }
+
+.mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  height: auto !important;
+}
+
+.mat-divider {
+  border-top-color: #f57f01;
+}
