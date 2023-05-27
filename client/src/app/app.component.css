@@ -7,6 +7,10 @@
   margin-top: 50px;
 }
 
+a {
+  height: 90%;
+}
+
 mat-drawer-container {
   margin-top: 100px;
 }
@@ -369,4 +373,27 @@ mat-drawer-container {
     bottom: 0px;
     z-index: 5;
     width: 100%;
+  }
+
+  img{
+    height:95%;
+    width: 150px;
+  }
+
+  mat-toolbar-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .toolbar-left {
+    width: 200px;
+    display: flex;
+  }
+
+  .toolbar-right {
+    width: 200px;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
