@@ -24,11 +24,22 @@
 
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <button [routerLink]="['/dashboard']" mat-raised-button color="accent" style="color: white;" class="side-button-dash">
+    <!-- <button [routerLink]="['/dashboard']" mat-raised-button color="accent" style="color: white;" class="side-button-dash">
       Dashboard
-    </button>
-    <br>
-    <button [routerLink]="['/dashboard/collection/page/0']" mat-raised-button color="accent" style="color: white;" class="side-button">
+    </button> -->
+    <!-- <br> -->
+    <a class="side-link" [routerLink]="['/dashboard']">Dashboard</a>
+    <mat-divider></mat-divider>
+    <a class="side-link" [routerLink]="['/dashboard/collection/page/0']">My Collection</a>
+    <mat-divider></mat-divider>
+    <a class="side-link" [routerLink]="['/dashboard/sets']">Sets</a>
+    <mat-divider></mat-divider>
+    <a class="side-link" [routerLink]="['/dashboard/profile']">Profile</a>
+    <mat-divider></mat-divider>
+    <a class="side-link" [routerLink]="['/dashboard/search']">Search</a>
+    <mat-divider></mat-divider>
+    <a class="side-link" (click)="handleLogoutAction()">Logout</a>
+    <!-- <button [routerLink]="['/dashboard/collection/page/0']" mat-raised-button color="accent" style="color: white;" class="side-button">
       My Collection
     </button>
     <br>
@@ -44,7 +55,7 @@
     <br>
     <button mat-raised-button color="accent" style="color: white;" class="side-button" (click)="handleLogoutAction()">
       Logout
-    </button>
+    </button> -->
   </mat-drawer>
 
   <div class="example-sidenav-content">

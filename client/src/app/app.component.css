@@ -21,10 +21,27 @@ mat-drawer-container {
 
 .example-sidenav {
   padding: 20px;
-  background-color: rgb(23, 23, 23);
+  background-color: black;
   width: 250px;
   position: fixed;
   margin-top: 60px;
+}
+
+.side-link {
+  color: #f57f01;
+  font-size: xx-large;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.side-link:visited {
+  color: #f57f01;
+}
+
+.side-link:hover {
+  color: white;
+  cursor: pointer;
+  transition-duration: 500ms;
 }
 
 #menu-button {
@@ -369,9 +386,9 @@ mat-drawer-container {
   }
 
   app-footer {
-    /* position: fixed; */
-    bottom: 0px;
-    z-index: 5;
+    position: relative;
+    bottom: -4px;
+    z-index: 15;
     width: 100%;
   }
 
