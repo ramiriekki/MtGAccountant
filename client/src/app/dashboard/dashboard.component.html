@@ -1,10 +1,13 @@
 <router-outlet></router-outlet>
 
 <body *ngIf="isDashboard">
-    <div class="hello-cont">
-        <h1 class="hello">Hello {{user.username}}!</h1>
-    </div>
-    <br>
+  <div class="hello-cont">
+    <h1 class="hello">Hello {{user.username}}!</h1>
+  </div>
+  <br>
+  <div class="main-container">
+    <app-top-card></app-top-card>
+    <app-progress-list></app-progress-list>
     <div class="row">
         <div class="column">
             <mat-card color="primary" class="test">
@@ -61,4 +64,5 @@
           </mat-card>
         </div>
     </div>
+  </div>
 </body>

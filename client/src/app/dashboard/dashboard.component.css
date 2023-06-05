@@ -9,7 +9,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
+    flex-direction: column;
+    margin-bottom: 20px
 }
 
 .column{
@@ -27,7 +28,7 @@
 }
 
 .hello-cont{
-    margin-top: 35px;
+    margin-top: 55px;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -37,4 +38,9 @@
 .mat-card{
     background-color: transparent;
     border: 1px solid #f57f01;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
 }
