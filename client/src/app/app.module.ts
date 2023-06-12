@@ -18,6 +18,8 @@ import { ConfirmationComponent } from './dialog/confirmation/confirmation.compon
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { tooltipDefaults } from 'src/defaults/tooltipDefaults';
+import { RouteReuseStrategy } from '@angular/router';
+import { mtgRouteResuseStrategy } from './strategies/mtgRouteReuseStrategy';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: "Loading...",
@@ -54,7 +56,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   providers: [
     HttpClientModule,
     {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
-    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: tooltipDefaults}
+    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: tooltipDefaults},
+    {
+      provide: RouteReuseStrategy,
+      useClass: mtgRouteResuseStrategy,
+    },
   ],
   bootstrap: [AppComponent]
 })

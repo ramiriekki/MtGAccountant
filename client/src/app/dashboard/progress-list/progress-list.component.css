@@ -1,0 +1,64 @@
+.progress-list-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+  overflow-y: scroll;
+}
+
+.set-card {
+  background-color: transparent;
+}
+
+.set-card:hover {
+  background-color: #f57f01;
+  transition: 500ms;
+  cursor: pointer;
+}
+
+.set-card:hover > div > img{
+  filter: invert(0%);
+}
+
+.progress-bar {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  height: 15px;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.mat-toolbar {
+  background: transparent;
+  color: orange;
+  height: 30px;
+  font-size: medium;
+  padding: 0;
+}
+
+.mat-toolbar > p{
+  height: inherit;
+  margin: 0;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+  margin-right: 20px;
+  filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg) brightness(88%) contrast(103%);
+}
+
+.set-container {
+  display: flex;
+}
+
+.set-data {
+  width: 100%;
+}
+
+.mat-progress-spinner {
+  overflow: visible;
+}
