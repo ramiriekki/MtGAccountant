@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CollectionPercentages } from 'src/app/models/CollectionPercentages';
 import { CardsService } from 'src/app/services/cards.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { SetsService } from 'src/app/services/sets.service';
 import { Set } from '../../models/set';
 
@@ -13,15 +14,23 @@ export class ProgressListComponent implements OnInit {
   sets: Set[] = []
   collectionPercentages: CollectionPercentages[] = []
 
+  @Output()
+  isProgLoading = new EventEmitter<boolean>();
+
   constructor(
     private setsService: SetsService,
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private loaderService: LoaderService
     ) { }
 
   ngOnInit(): void {
-      this.getAllSets()
-      this.getCollectionPercentages()
+    this.getAllSets()
+    this.getCollectionPercentages()
   }
+
+  ngAfterViewInit() {
+      this.loaderService.sendData()
+   }
 
   getAllSets(): void {
     this.setsService.getSets().subscribe(sets => this.sets = sets)

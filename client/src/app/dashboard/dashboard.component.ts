@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -11,10 +12,12 @@ export class DashboardComponent implements OnInit {
   isDashboard!: boolean
   user: any
   role!: string | null
+  isProgLoading: any
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private loaderService: LoaderService,
     ) {
     router.events.subscribe((val) => {
       this.isDashboard = this.isAtDashboard()
@@ -25,6 +28,11 @@ export class DashboardComponent implements OnInit {
     this.isDashboard = this.isAtDashboard()
     this.getUser()
     this.role = localStorage.getItem('role')
+    this.isProgLoading = true
+
+    this.loaderService.progLoad.subscribe(emitedValue => {
+      this.isProgLoading = emitedValue;
+   });
   }
 
   private isAtDashboard(): boolean{
@@ -45,5 +53,12 @@ export class DashboardComponent implements OnInit {
     } else {
       return false
     }
+  }
+
+  test(): void {
+    console.log("asdsafa");
+
+    console.log(this.isProgLoading);
+
   }
 }

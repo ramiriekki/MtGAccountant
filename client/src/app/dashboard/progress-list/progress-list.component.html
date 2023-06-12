@@ -1,4 +1,5 @@
 <mat-card class="progress-list-card">
+  <mat-spinner color="accent"></mat-spinner>
   <ng-container *ngFor="let set of sets">
     <mat-card *ngIf="set.set_type == 'expansion'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
       <div class="set-container">

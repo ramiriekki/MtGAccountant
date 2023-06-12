@@ -58,3 +58,7 @@ img {
 .set-data {
   width: 100%;
 }
+
+.mat-progress-spinner {
+  overflow: visible;
+}

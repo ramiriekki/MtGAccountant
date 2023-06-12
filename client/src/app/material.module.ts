@@ -22,6 +22,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {CarouselModule} from 'primeng/carousel';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatAutocompleteModule,
     CarouselModule,
     MatSortModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatToolbarModule,
@@ -70,7 +72,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatAutocompleteModule,
     CarouselModule,
     MatSortModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }
