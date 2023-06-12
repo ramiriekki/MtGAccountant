@@ -44,3 +44,15 @@
   display: flex;
   justify-content: space-around;
 }
+
+.progress-list, .top-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%; */
+}
+
+app-progress-list {
+  height: 100%;
+}

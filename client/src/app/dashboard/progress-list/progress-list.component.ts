@@ -29,7 +29,7 @@ export class ProgressListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-      this.loaderService.sendData()
+      this.loaderService.progLoaded()
    }
 
   getAllSets(): void {

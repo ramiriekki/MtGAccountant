@@ -7,8 +7,12 @@ import { BehaviorSubject } from 'rxjs';
 export class LoaderService {
 
   @Output() progLoad: EventEmitter<any> = new EventEmitter();
+  @Output() topCardLoad: EventEmitter<any> = new EventEmitter();
 
-  sendData(): any {
+  progLoaded(): any {
     this.progLoad.emit(false);
+  }
+  topCardLoaded(): any {
+    this.topCardLoad.emit(false);
   }
 }

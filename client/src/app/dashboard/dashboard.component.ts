@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
 import { UserService } from '../services/user.service';
 
@@ -12,7 +12,9 @@ export class DashboardComponent implements OnInit {
   isDashboard!: boolean
   user: any
   role!: string | null
-  isProgLoading: any
+  isProgLoading: boolean = true
+  isTopCardLoading: boolean = true
+  routerEvent: any
 
   constructor(
     private router: Router,
@@ -22,6 +24,13 @@ export class DashboardComponent implements OnInit {
     router.events.subscribe((val) => {
       this.isDashboard = this.isAtDashboard()
     })
+
+    this.routerEvent = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.isProgLoading = true;
+        this.isTopCardLoading = true;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -29,10 +38,14 @@ export class DashboardComponent implements OnInit {
     this.getUser()
     this.role = localStorage.getItem('role')
     this.isProgLoading = true
+    this.isTopCardLoading = true
 
     this.loaderService.progLoad.subscribe(emitedValue => {
       this.isProgLoading = emitedValue;
-   });
+    });
+    this.loaderService.topCardLoad.subscribe(emitedValue => {
+      this.isTopCardLoading = emitedValue;
+    });
   }
 
   private isAtDashboard(): boolean{
@@ -55,10 +68,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  test(): void {
-    console.log("asdsafa");
-
-    console.log(this.isProgLoading);
-
+  ngOnDestroy() {
+    this.routerEvent.unsubscribe();
   }
 }

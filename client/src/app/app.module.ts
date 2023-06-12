@@ -57,10 +57,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HttpClientModule,
     {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
     {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: tooltipDefaults},
-      {
-        provide: RouteReuseStrategy,
-        useClass: mtgRouteResuseStrategy,
-      },
+    {
+      provide: RouteReuseStrategy,
+      useClass: mtgRouteResuseStrategy,
+    },
   ],
   bootstrap: [AppComponent]
 })

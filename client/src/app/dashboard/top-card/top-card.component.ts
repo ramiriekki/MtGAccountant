@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from 'src/app/models/Card';
 import { CardsService } from 'src/app/services/cards.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-top-card',
@@ -13,12 +14,17 @@ export class TopCardComponent implements OnInit {
 
   constructor(
     private ngxService: NgxUiLoaderService,
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit(): void {
     this.getMostValuableCard()
   }
+
+  ngAfterViewInit() {
+    this.loaderService.topCardLoaded()
+ }
 
   getMostValuableCard(): void {
     this.ngxService.start()
