@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    if (this.user.role === "admin") {
+    if (this.user?.role === "admin") {
       return true;
     } else {
       return false

@@ -13,7 +13,7 @@
 .most-valuable {
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: #161404;
 }
 
 .most-valuable-data {

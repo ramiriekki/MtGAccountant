@@ -28,6 +28,10 @@ img {
 
 p.name{
     font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+    margin: 0;
 }
 
 h2{
