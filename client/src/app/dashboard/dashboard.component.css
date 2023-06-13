@@ -1,7 +1,7 @@
 .card{
-    padding: 10px;
+    /* padding: 10px; */
     padding-bottom: 5px;
-    width: 400px;
+    width: 100%;
     color: #f57f01;
 }
 
@@ -10,7 +10,7 @@
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: column;
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
 .column{
@@ -55,4 +55,31 @@
 
 app-progress-list {
   height: 100%;
+}
+
+@media only screen and (max-width: 1250px){
+  .main-container {
+    flex-direction: column-reverse;
+  }
+
+  .main-container > div{
+    width: 100%;
+  }
+
+  app-progress-list {
+    width: 100%;
+    /* padding: 10px; */
+  }
+
+  .top-card, .progress-list{
+    padding: 10px;
+  }
+}
+
+.top-card, .progress-list, .row {
+  width: 30%;
+}
+
+.top-card > *, .progress-list > *, .row > *{
+  width: 100%;
 }

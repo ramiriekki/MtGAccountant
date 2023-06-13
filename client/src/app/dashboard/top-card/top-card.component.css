@@ -4,7 +4,7 @@
   background-color: transparent;
   border: 1px solid #f57f01;
   margin: 20px;
-  width: 350px;
+  /* width: 350px; */
   height: 75vh;
   margin: 0;
   margin-bottom: 20px;
@@ -13,6 +13,7 @@
 .most-valuable {
   display: flex;
   flex-direction: column;
+  background-color: black;
 }
 
 .most-valuable-data {
@@ -39,4 +40,11 @@
 img {
   width: 100%;
   height: 100%;
+}
+
+.valuable-img {
+  display:flex;
+  align-self: center;
+  height: 50vh;
+  padding: 20px;
 }
