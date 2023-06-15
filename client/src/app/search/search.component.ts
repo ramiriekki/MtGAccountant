@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   @ViewChild(MatTable, {static: false}) table!: MatTable<any>
 
   displayedColumns: string[] = ['name', 'set', 'set_code', 'set_type', 'collector_number', 'rarity', 'prices', 'owned'];
+  displayedColumnsMobile: string[] = ['name', 'set_code', 'collector_number', 'owned'];
   parentForm!: FormGroup
   submitted: boolean = false;
   model = new Search();
@@ -31,6 +32,7 @@ export class SearchComponent implements OnInit {
   cards: Card[] = []
   collection!: CollectionCard[];
   sortValue!: string
+  isMobile: boolean = false
 
   rarities = ['common', 'uncommon',
             'rare', 'mythic'];
@@ -93,6 +95,11 @@ export class SearchComponent implements OnInit {
 
         this.table.renderRows() // update the table
       })
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.isMobile = window.innerWidth < 1100;
   }
 
   getSetCodes(): void {
