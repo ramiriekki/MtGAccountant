@@ -8,6 +8,7 @@
   height: 75vh;
   margin: 0;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .most-valuable {
@@ -37,14 +38,41 @@
   width: 100%;
 }
 
-img {
+.value-cont {
   width: 100%;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  color: white;
 }
 
-.valuable-img {
-  display:flex;
-  align-self: center;
-  height: 50vh;
-  padding: 20px;
+.top-card-cont {
+color: white;
+width: 100%;
+display: flex;
+align-items: center;
+flex-direction: column;
+}
+
+.most-valuable-card > div:hover {
+  background-color: #f57f0180;
+  transition: 500ms;
+  cursor: pointer;
+}
+
+.most-valuable-card > div:hover > h2 {
+  color: white;
+}
+
+.mat-divider {
+  position: unset !important;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+h2 {
+  color: #f57f00;
 }
