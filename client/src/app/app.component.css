@@ -7,6 +7,10 @@
   margin-top: 50px;
 }
 
+a {
+  height: 90%;
+}
+
 mat-drawer-container {
   margin-top: 100px;
 }
@@ -17,10 +21,27 @@ mat-drawer-container {
 
 .example-sidenav {
   padding: 20px;
-  background-color: rgb(23, 23, 23);
+  background-color: black;
   width: 250px;
   position: fixed;
   margin-top: 60px;
+}
+
+.side-link {
+  color: #f57f01;
+  font-size: xx-large;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.side-link:visited {
+  color: #f57f01;
+}
+
+.side-link:hover {
+  color: white;
+  cursor: pointer;
+  transition-duration: 500ms;
 }
 
 #menu-button {
@@ -362,4 +383,34 @@ mat-drawer-container {
       display: none;
       visibility: hidden;
     }
+  }
+
+  app-footer {
+    position: relative;
+    bottom: -4px;
+    z-index: 15;
+    width: 100%;
+  }
+
+  img{
+    height:95%;
+    width: 150px;
+  }
+
+  mat-toolbar-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .toolbar-left {
+    width: 200px;
+    display: flex;
+  }
+
+  .toolbar-right {
+    width: 200px;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

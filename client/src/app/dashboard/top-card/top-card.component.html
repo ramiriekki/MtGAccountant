@@ -1,0 +1,11 @@
+<mat-card class="most-valuable-card">
+  <div class="top-card-cont" [routerLink]="['/dashboard/collection/', mostValuableCard.id]">
+    <h2>Most valuable card:</h2>
+    <h3 class="value">{{mostValuableCard?.name}} - {{mostValuableCard?.set}} ({{mostValuableCard?.prices!.eur}} €)</h3>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="value-cont">
+    <h2>Collection Value</h2>
+    <h3 class="value">{{collectionValue}} €</h3>
+  </div>
+</mat-card>

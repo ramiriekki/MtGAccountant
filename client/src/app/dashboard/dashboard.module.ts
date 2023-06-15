@@ -17,6 +17,10 @@ import { AdminComponent } from '../admin/admin.component';
 import { QuickMoveComponent } from '../shared/quick-move/quick-move.component';
 import { SortTabsComponent } from '../shared/sort-tabs/sort-tabs.component';
 import { BinderModifyComponent } from '../set/binder-modify/binder-modify.component';
+import { TopCardComponent } from './top-card/top-card.component';
+import { ProgressListComponent } from './progress-list/progress-list.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { mtgRouteResuseStrategy } from '../strategies/mtgRouteReuseStrategy';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,8 @@ import { BinderModifyComponent } from '../set/binder-modify/binder-modify.compon
     QuickMoveComponent,
     SortTabsComponent,
     BinderModifyComponent,
+    TopCardComponent,
+    ProgressListComponent,
   ],
   imports: [
     CommonModule,

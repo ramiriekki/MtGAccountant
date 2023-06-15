@@ -1,7 +1,7 @@
 .card{
-    padding: 10px;
+    /* padding: 10px; */
     padding-bottom: 5px;
-    width: 400px;
+    width: 100%;
     color: #f57f01;
 }
 
@@ -9,7 +9,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .column{
@@ -27,7 +28,7 @@
 }
 
 .hello-cont{
-    margin-top: 35px;
+    margin-top: 55px;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -37,4 +38,48 @@
 .mat-card{
     background-color: transparent;
     border: 1px solid #f57f01;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.progress-list, .top-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%; */
+}
+
+app-progress-list {
+  height: 100%;
+}
+
+@media only screen and (max-width: 1250px){
+  .main-container {
+    flex-direction: column-reverse;
+  }
+
+  .main-container > div{
+    width: 100%;
+  }
+
+  app-progress-list {
+    width: 100%;
+    /* padding: 10px; */
+  }
+
+  .top-card, .progress-list{
+    padding: 10px;
+  }
+}
+
+.top-card, .progress-list, .row {
+  width: 30%;
+}
+
+.top-card > *, .progress-list > *, .row > *{
+  width: 100%;
 }

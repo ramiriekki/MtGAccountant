@@ -220,6 +220,7 @@ h2{
 .button-group > * {
   margin: 10px;
   width: 24%;
+  height: 45px;
 }
 
 .prog-button-group {
@@ -293,4 +294,19 @@ h2{
   width: 40%;
   margin-left: 30%;
   margin-right: 30%;
+}
+
+@media only screen and (max-width: 1165px){
+  .set-data {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .set-data-card {
+    margin-left: 20px;
+  }
+
+  .set-data-card, .set-progress-card {
+    width: 100%;
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { Location } from '@angular/common'
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { Location } from '@angular/common'
 export class AppComponent implements OnInit{
   role: any
   isAuthenticated: boolean = false
+  isBaseLocationUrl: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -24,7 +26,19 @@ export class AppComponent implements OnInit{
     private router: Router,
     private authService: AuthService,
     private location: Location
-    ){}
+    ){
+      router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
+      .subscribe((val) => {
+        console.log(val);
+        console.log(this.router.url);
+        this.isBaseLocation();
+        console.log(this.isBaseLocationUrl);
+
+      });
+    }
 
   ngOnInit(): void {
     // Check on default page if user is signed in (has token).
@@ -35,15 +49,18 @@ export class AppComponent implements OnInit{
       console.log(error);
     })
 
+    this.isBaseLocation()
     this.isLoggedIn()
 
     window.addEventListener('storage', function(e) {
+
+
 
   });
   }
 
   back(): void {
-    if (this.router.url != "/dashboard") {
+    if (this.router.url != "/dashboard" && this.router.url != "/home") {
       this.location.back()
     }
   }
@@ -84,6 +101,16 @@ export class AppComponent implements OnInit{
 
   isLoggedIn() {
     this.isAuthenticated = this.authService.isAuthenticated()
+  }
+
+  isBaseLocation() {
+    console.log(this.router.url);
+
+    if (this.router.url != "/home" && this.router.url != "/dashboard") {
+      this.isBaseLocationUrl = true;
+    } else {
+      this.isBaseLocationUrl = false;
+    }
   }
 
   title = 'client';
