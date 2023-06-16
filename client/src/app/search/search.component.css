@@ -2,6 +2,9 @@
     margin: 20px;
     background-color: transparent;
     border: 1px solid #f57f01;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form-card {
@@ -212,5 +215,18 @@ form > div > * {
   width: 100%;
 }
 
+.form-group {
+  display: flex;
+  align-items: center;
+}
 
-/* TODO: mobile results responsivity */
+.form-group > p {
+  width: 180px !important;
+}
+
+.mat-icon {
+  width: 24px !important;
+  color: white;
+  margin: 0 0 12px;
+  margin-right: 5px;
+}

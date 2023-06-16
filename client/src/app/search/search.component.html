@@ -7,16 +7,18 @@
         <div class="form-container">
             <form (ngSubmit)="onSubmit()" [formGroup]="parentForm">
 
-              <p>Card name:</p>
-                <div class="form-group">
-                    <mat-form-field appearance="fill" color="primary" [formGroup]="parentForm">
-                        <mat-label>Card name</mat-label>
-                        <input matInput placeholder="Placeholder" formControlName="name">
-                    </mat-form-field>
+              <div class="form-group">
+                  <mat-icon>perm_contact_calendar</mat-icon>
+                  <p>Card name:</p>
+                  <mat-form-field appearance="fill" color="primary" [formGroup]="parentForm">
+                      <mat-label>Card name</mat-label>
+                      <input matInput placeholder="Placeholder" formControlName="name">
+                  </mat-form-field>
                 </div>
 
-                <p>Rarity:</p>
                 <div class="form-group">
+                  <mat-icon>star_border</mat-icon>
+                  <p>Rarity:</p>
                     <mat-button-toggle-group name="rarities" aria-label="Rarities" multiple formControlName="rarities">
                         <mat-button-toggle [style.background-color]="'#f57f01'" value="common">Common</mat-button-toggle>
                         <mat-button-toggle value="uncommon">Uncommon</mat-button-toggle>
@@ -25,26 +27,31 @@
                     </mat-button-toggle-group>
                 </div>
 
-                <br><p>Set type:</p>
+                <br>
                 <div class="form-group">
+                  <mat-icon>library_books</mat-icon>
+                  <p>Set type:</p>
                     <mat-button-toggle-group name="setType" aria-label="Set Type" multiple formControlName="setTypes">
                         <mat-button-toggle value="expansion">Expansion</mat-button-toggle>
                         <mat-button-toggle value="core">Core</mat-button-toggle>
                     </mat-button-toggle-group>
                 </div><br><br>
 
-                <p>Minimum price:</p><br>
                 <div class="form-group">
+                  <mat-icon>euro_symbol</mat-icon>
+                  <p>Minimum price:</p><br>
                     <mat-slider displayValue thumbLabel formControlName="minPrice" min="0" max="1000" step="1"></mat-slider>
                 </div>
 
-                <p>Maximum price:</p><br>
                 <div class="form-group">
+                  <mat-icon>euro_symbol</mat-icon>
+                  <p>Maximum price:</p><br>
                     <mat-slider displayValue thumbLabel formControlName="maxPrice" min="0" max="1000" step="1"></mat-slider>
                 </div>
 
-                <p>Include sets:</p>
                 <div class="form-group">
+                  <mat-icon>view_agenda</mat-icon>
+                  <p>Include sets:</p>
                     <mat-form-field appearance="fill">
                         <mat-label>Sets</mat-label>
                         <mat-select multiple formControlName="sets">
