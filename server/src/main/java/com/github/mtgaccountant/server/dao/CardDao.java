@@ -24,4 +24,6 @@ public interface CardDao extends MongoRepository<CardWrapper, Integer> {
 
     @Query("{set:'?0'}")
     List<CardWrapper> findSetCards(String code);
+
+    List<CardWrapper> findByName(String name);
 }
