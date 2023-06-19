@@ -68,19 +68,17 @@
                     </mat-button-toggle-group>
                 </div> -->
 
-                <button class="button" type="submit" mat-raised-button color="accent">Search</button>
+                <button class="button" type="submit" mat-raised-button color="accent" (click)="scrollToBottom()">Search</button>
             </form>
         </div>
     </mat-card>
     <div class="result-container" *ngIf="submitted">
-
-
       <mat-toolbar class="page-title" color="accent"><p class="result-title">Results</p></mat-toolbar>
 
       <app-sort-tabs></app-sort-tabs>
 
       <mat-card class="table-card" *ngIf="!isMobile">
-
+          <mat-spinner *ngIf="isLoading" color="accent" class="loading-spinner"></mat-spinner>
           <table mat-table [dataSource]="response" class="mat-elevation-z8" color="primary" matSort>
 
             <ng-container matColumnDef="name">
@@ -136,6 +134,7 @@
         </mat-card>
 
         <mat-card class="table-card" *ngIf="isMobile">
+          <mat-spinner *ngIf="isLoading" color="accent" class="loading-spinner"></mat-spinner>
           <table mat-table [dataSource]="response" class="mat-elevation-z8" color="primary" matSort>
 
             <ng-container matColumnDef="name">
