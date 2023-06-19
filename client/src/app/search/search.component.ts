@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit {
   collection!: CollectionCard[];
   sortValue!: string
   isMobile: boolean = false
+  isLoading: boolean = true
 
   rarities = ['common', 'uncommon',
             'rare', 'mythic'];
@@ -48,6 +49,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.submitted = false;
+    this.isLoading = true
 
     // Parent group init
     this.parentForm = this.formBuilder.group({
@@ -85,12 +87,8 @@ export class SearchComponent implements OnInit {
           this.SortCardsService.sortByPriceDec(this.response)
         } else if (this.sortValue == "collected") {
           this.SortCardsService.sortByCollected(this.response, this.collection)
-          console.log(this.response);
-
         } else if (this.sortValue == "notCollected") {
           this.SortCardsService.sortByNotCollected(this.response, this.collection)
-          console.log(this.response);
-
         }
 
         this.table.renderRows() // update the table
@@ -115,7 +113,10 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmit() {
-    this.searchService.searchCards(this.parentForm.value).subscribe(response => this.response = response)
+    this.searchService.searchCards(this.parentForm.value).subscribe(response => {
+      this.response = response
+      this.isLoading = false;
+    })
     this.searchService.searchCards(this.parentForm.value).subscribe(response => console.log(response))
     this.submitted = true;
   }
@@ -148,6 +149,14 @@ export class SearchComponent implements OnInit {
     });
 
     return isOwned
+  }
+
+  scrollToBottom(): void {
+    window.scroll({
+      top: document.body.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
 }
