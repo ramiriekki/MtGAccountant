@@ -21,6 +21,7 @@ import { TopCardComponent } from './top-card/top-card.component';
 import { ProgressListComponent } from './progress-list/progress-list.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { mtgRouteResuseStrategy } from '../strategies/mtgRouteReuseStrategy';
+import { ChatComponent } from '../chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { mtgRouteResuseStrategy } from '../strategies/mtgRouteReuseStrategy';
     BinderModifyComponent,
     TopCardComponent,
     ProgressListComponent,
+    //ChatComponent,
   ],
   imports: [
     CommonModule,
