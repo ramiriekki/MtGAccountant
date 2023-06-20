@@ -1,5 +1,5 @@
 .message-field {
-  width: 400px;
+  width: 70%;
 }
 
 mat-label {
@@ -20,4 +20,24 @@ mat-form-field {
 
 mat-hint {
   color: orange !important;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  margin-top: 15px;
+}
+
+.message-area {
+  height: 80%;
+  background-color: #00000052;
+  width: 80%;
+  align-self: center;
+  margin-top: 30px;
+}
+
+form > div {
+  display: flex;
+  justify-content: center;
 }
