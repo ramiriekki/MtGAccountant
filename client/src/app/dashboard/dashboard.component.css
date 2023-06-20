@@ -7,10 +7,14 @@
 
 .row{
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: center;
     flex-direction: column;
     margin-bottom: 20px;
+    height: 75vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-top: 100px;
 }
 
 .column{
