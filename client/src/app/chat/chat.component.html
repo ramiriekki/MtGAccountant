@@ -6,7 +6,24 @@
 <form #loginForm=ngForm>
     <div>
         <br>
-        <textarea autocomplete="off" placeholder="Type Your Message..." name="newmessage" [(ngModel)]="newmessage" required></textarea>
-        <button class="btn btn-primary" (click)="sendMessage()" [disabled]="!loginForm.valid">Send</button>
+        <!-- <textarea matInput autocomplete="off" placeholder="Type Your Message..." name="newMessage" [(ngModel)]="newMessage" required></textarea> -->
+        <mat-form-field class="message-field">
+          <mat-label>Leave a comment</mat-label>
+          <textarea cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          matInput
+          placeholder="Ex. It makes me feel..."></textarea>
+          <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>
+
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="newMessage=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <!-- <button class="btn btn-primary" (click)="sendMessage()" [disabled]="!loginForm.valid">Send</button> -->
+        <button class="change-image-button" mat-raised-button type="button" color="accent" matTooltip="Change card image and data to match the other face">Send<mat-icon>send</mat-icon>
+        </button>
+
     </div>
 </form>

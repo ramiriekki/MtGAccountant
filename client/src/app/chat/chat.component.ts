@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @Component({
  selector: 'app-chat',
  templateUrl: './chat.component.html',
@@ -10,7 +16,7 @@ export class ChatComponent {
   title = 'WebSocketChatRoom';
   greetings: string[] = [];
   disabled = true;
-  newmessage: string | undefined;
+  newMessage: string | undefined;
   private stompClient: Stomp.Client | undefined;
 
   constructor(){
@@ -48,10 +54,10 @@ export class ChatComponent {
       this.stompClient.send(
         '/current/resume',
         {},
-        JSON.stringify(this.newmessage)
+        JSON.stringify(this.newMessage)
       );
     }
-    this.newmessage = "";
+    this.newMessage = "";
   }
 
   showMessage(message: string) {

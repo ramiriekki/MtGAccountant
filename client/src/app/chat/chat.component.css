@@ -1,0 +1,23 @@
+.message-field {
+  width: 400px;
+}
+
+mat-label {
+  color: white;
+}
+/*
+mat-form-field {
+  background-color: aqua;
+} */
+
+mat-form-field {
+  background-color: #00000033;
+}
+
+.mat-input-element::placeholder{
+  color: rgba(157, 157, 157, 0.56);
+}
+
+mat-hint {
+  color: orange !important;
+}
