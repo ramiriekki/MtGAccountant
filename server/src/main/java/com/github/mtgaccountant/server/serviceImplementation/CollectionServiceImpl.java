@@ -1,7 +1,6 @@
 package com.github.mtgaccountant.server.serviceImplementation;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.CollectionCountData;
-import com.github.mtgaccountant.server.models.Prices;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.service.CollectionService;
