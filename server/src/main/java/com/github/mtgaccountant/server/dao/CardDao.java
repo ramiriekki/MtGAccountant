@@ -9,7 +9,7 @@ import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 
-public interface CardDao extends MongoRepository<CardWrapper, Integer> {
+public interface CardDao extends MongoRepository<CardWrapper, String> {
     @Query(value = "{}", fields = "{'id' : 1, 'name' : 1, 'set' : 1, 'collected' : 1, 'prices' : 1}")
     List<CollectionCardWrapper> findAllCollectionCards();
 
