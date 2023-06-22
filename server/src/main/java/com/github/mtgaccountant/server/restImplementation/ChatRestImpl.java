@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
 import com.github.mtgaccountant.server.rest.ChatRest;
 import com.github.mtgaccountant.server.service.ChatService;
 
+@RestController
 public class ChatRestImpl implements ChatRest{
 
     @Autowired
@@ -19,7 +21,6 @@ public class ChatRestImpl implements ChatRest{
 
     @Override
     public ResponseEntity<Conversation> createNewChat(ConversationForm conversation) {
-        System.out.println("test");
         try {
             return chatService.createChat(conversation);
         } catch (Exception e) {

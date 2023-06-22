@@ -2,21 +2,20 @@ package com.github.mtgaccountant.server.serviceImplementation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-import com.github.mtgaccountant.server.constants.MtgAccountantConstants;
 import com.github.mtgaccountant.server.dao.ChatDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
 import com.github.mtgaccountant.server.models.User;
 import com.github.mtgaccountant.server.service.ChatService;
-import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
 
+@Service
 public class ChatServiceImpl implements ChatService{
 
     @Autowired
