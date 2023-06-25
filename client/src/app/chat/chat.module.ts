@@ -6,6 +6,7 @@ import { ChatRoutingModule } from './chat-routing.module';
 import { ChatComponent } from './chat.component';
 import { ChatMenuComponent } from './chat-menu/chat-menu.component';
 import { ChatListComponent } from './chat-menu/chat-list/chat-list.component';
+import { ChatFormComponent } from './chat-menu/chat-form/chat-form.component';
 
 
 
@@ -13,7 +14,8 @@ import { ChatListComponent } from './chat-menu/chat-list/chat-list.component';
   declarations: [
     ChatComponent,
     ChatListComponent,
-    ChatMenuComponent
+    ChatMenuComponent,
+    ChatFormComponent
   ],
   imports: [
     CommonModule,

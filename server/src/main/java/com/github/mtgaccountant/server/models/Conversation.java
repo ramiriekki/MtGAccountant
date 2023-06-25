@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.github.mtgaccountant.server.wrapper.UserWrapper;
+
 import lombok.Data;
 
 @Data
@@ -12,7 +14,7 @@ import lombok.Data;
 public class Conversation implements Serializable {
     private String _id;
     private String title;
-    private List<User> participants;
+    private List<UserWrapper> participants;
     private List<Message> messages;
     private Boolean isPrivate;
 }

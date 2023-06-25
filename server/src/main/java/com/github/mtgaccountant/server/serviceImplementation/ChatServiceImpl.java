@@ -14,6 +14,7 @@ import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
 import com.github.mtgaccountant.server.models.User;
 import com.github.mtgaccountant.server.service.ChatService;
+import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 @Service
 public class ChatServiceImpl implements ChatService{
@@ -27,9 +28,9 @@ public class ChatServiceImpl implements ChatService{
     @Override
     public ResponseEntity<Conversation> createChat(ConversationForm conversation) {
         try{    
-            List<User> users = new ArrayList<>();
+            List<UserWrapper> users = new ArrayList<>();
             for (String user : conversation.getParticipants()) {
-                users.add(userDao.findUserByEmail(user));
+                users.add(userDao.findUserWrapperByEmail(user));
             }
             
             Conversation newChat = new Conversation();

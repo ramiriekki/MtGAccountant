@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
+import com.github.mtgaccountant.server.wrapper.MinimalUserWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 public interface UserService {
@@ -17,4 +18,5 @@ public interface UserService {
     ResponseEntity<String> forgotPassword(Map<String, String> requestMap);
     ResponseEntity<String> deleteUser(String email);
     ResponseEntity<UserWrapper> getUser(String email);
+    ResponseEntity<List<MinimalUserWrapper>> getAllMinUsers();
 }
