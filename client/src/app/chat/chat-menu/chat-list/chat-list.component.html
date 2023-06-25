@@ -1,1 +1,9 @@
-<p>chat-list works!</p>
+<mat-card class="chats-card">
+  <div class="chats">
+    <mat-card class="chat-card" *ngFor="let chat of chats">
+      <div class="chat">
+        <p>{{chat.title}}</p>
+      </div>
+    </mat-card>
+  </div>
+</mat-card>
