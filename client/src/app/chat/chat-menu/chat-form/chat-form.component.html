@@ -1,0 +1,38 @@
+<mat-card class="form-card">
+  <mat-toolbar color="accent">Create new chat</mat-toolbar>
+  <form (ngSubmit)="onSubmit()" [formGroup]="chatForm">
+
+    <div class="form-group">
+        <p>Chat title:</p>
+        <mat-form-field appearance="fill" color="primary" [formGroup]="chatForm">
+            <mat-label>Chat title</mat-label>
+            <input matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+    </div>
+
+    <section class="form-group">
+      <p>Add users:</p>
+      <mat-form-field appearance="fill" color="primary" [formGroup]="chatForm">
+        <mat-label>User</mat-label>
+        <input type="text"
+               placeholder="User"
+               aria-label="User"
+               matInput
+               [formGroup]="chatForm"
+               formControlName="users"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let user of allUsers" [value]="user.id">
+            {{user.username}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </section>
+
+    <section class="form-group">
+      <mat-checkbox class="private-selection" color="accent" [formGroup]="chatForm" formControlName="private">Private?</mat-checkbox>
+    </section>
+
+      <button class="button" type="submit" mat-raised-button color="accent" >Create</button>
+  </form>
+</mat-card>
