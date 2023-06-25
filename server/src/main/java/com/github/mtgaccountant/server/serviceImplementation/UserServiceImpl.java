@@ -26,6 +26,7 @@ import com.github.mtgaccountant.server.models.User;
 import com.github.mtgaccountant.server.service.UserService;
 import com.github.mtgaccountant.server.utils.EmailUtils;
 import com.github.mtgaccountant.server.utils.MtgAccountantUtils;
+import com.github.mtgaccountant.server.wrapper.MinimalUserWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 import com.google.common.base.Strings;
 
@@ -296,6 +297,17 @@ public class UserServiceImpl implements UserService{
             e.printStackTrace();
         }
         return new ResponseEntity<>(new UserWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<MinimalUserWrapper>> getAllMinUsers() {
+        try {
+            return new ResponseEntity<>(userDao.findAllMinUsers(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }

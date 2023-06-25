@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.mtgaccountant.server.wrapper.MinimalUserWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 @RequestMapping(path = "/api/user")
@@ -24,6 +25,9 @@ public interface UserRest {
 
     @GetMapping(path = "/get")
     public ResponseEntity<List<UserWrapper>> getAllUsers();
+
+    @GetMapping(path = "/getMin")
+    public ResponseEntity<List<MinimalUserWrapper>> getAllMinUsers();
 
     @PostMapping(path = "/update")
     public ResponseEntity<String> update(@RequestBody(required = true) Map<String, String> requestMap);
