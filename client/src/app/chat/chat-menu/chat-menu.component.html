@@ -1,4 +1,6 @@
-<div class="chat-menu-container">
+<router-outlet></router-outlet>
+
+<div class="chat-menu-container" *ngIf="isAtCommunityView()">
   <div class="chat-menu-info">
     <app-chat-form></app-chat-form>
   </div>

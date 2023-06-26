@@ -1,5 +1,6 @@
 <div class="chat-container">
   <div class="message-area">
+    <mat-toolbar color="accent">{{chatData.title}}</mat-toolbar>
     <div *ngFor="let string of greetings">
         <div class="container">
             <p>{{string}}</p>
@@ -25,7 +26,7 @@
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
-          <button (click)="sendMessage()" class="change-image-button" mat-raised-button type="button" color="accent">Send <mat-icon>send</mat-icon>
+          <button class="change-image-button" mat-raised-button type="button" color="accent">Send <mat-icon>send</mat-icon>
           </button>
 
       </div>

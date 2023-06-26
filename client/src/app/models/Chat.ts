@@ -1,7 +1,7 @@
 import { User } from "./User";
 
 export interface Chat{
-    id?: string;
+    _id?: string;
     title: string;
     participants: User[]
     messages?: string[]
