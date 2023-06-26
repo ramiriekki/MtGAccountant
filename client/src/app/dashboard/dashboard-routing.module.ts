@@ -22,7 +22,7 @@ const routes: Routes = [
         {path: 'sets/:set', component: SetComponent},
         {path: 'collection/:id', component: CardComponent},
         {path: 'collection/page/:page', component: CardsComponent},
-        {path: 'chat', loadChildren: () => import('../chat/chat.module').then((m) => m.ChatModule)/*, canActivate: [!Muted]*/}
+        {path: 'community', loadChildren: () => import('../chat/chat.module').then((m) => m.ChatModule)/*, canActivate: [!Muted]*/}
       ]
   }
 ];

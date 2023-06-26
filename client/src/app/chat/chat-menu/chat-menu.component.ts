@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-menu',
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-menu.component.css']
 })
 export class ChatMenuComponent implements OnInit {
+  isCommunityView: boolean = true
 
-  constructor() { }
+  constructor(private router: Router) {
+    router.events.subscribe((val) => {
+      this.isCommunityView = this.isAtCommunityView()
+    })
+  }
 
   ngOnInit(): void {
+    this.isCommunityView = this.isAtCommunityView()
+  }
+
+  isAtCommunityView(): boolean {
+    if(this.router.url == '/dashboard/community'){
+      return true
+    } else {
+      return false
+    }
   }
 
 }

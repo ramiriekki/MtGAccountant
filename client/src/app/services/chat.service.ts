@@ -28,4 +28,8 @@ export class ChatService {
       return null
     }
   }
+
+  getChat(id: string) {
+    return this.httpClient.get<Chat>(this.url + `/api/chat/get?id=${id}`)
+  }
 }
