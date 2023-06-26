@@ -1,9 +1,9 @@
 <div class="chat-container">
   <div class="message-area">
     <mat-toolbar color="accent">{{chatData.title}}</mat-toolbar>
-    <div *ngFor="let string of greetings">
+    <div *ngFor="let message of chatData.messages">
         <div class="container">
-            <p>{{string}}</p>
+            <p>{{user?.username}}: {{message.content}}</p>
         </div>
     </div>
   </div>

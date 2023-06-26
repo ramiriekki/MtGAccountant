@@ -34,7 +34,6 @@ public class ChatRestImpl implements ChatRest{
     @Override
     public ResponseEntity<Conversation> getChat(String id) {
         try {
-            System.out.println(id + " TEST");
             return chatService.getChat(id);
         } catch (Exception e) {
             e.printStackTrace();
