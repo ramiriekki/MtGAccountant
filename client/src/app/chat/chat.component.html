@@ -8,25 +8,25 @@
     </div>
   </div>
 
-  <form #loginForm=ngForm>
+  <form (ngSubmit)="sendMessage()" [formGroup]="messageForm">
       <div>
           <br>
-          <!-- <textarea matInput autocomplete="off" placeholder="Type Your Message..." name="newMessage" [(ngModel)]="newMessage" required></textarea> -->
-          <mat-form-field class="message-field">
+          <mat-form-field class="message-field" [formGroup]="messageForm">
             <mat-label>Leave a comment</mat-label>
             <textarea cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"
             matInput
-            placeholder="Ex. It makes me feel..."></textarea>
+            placeholder="Ex. It makes me feel..."
+            formControlName="message"></textarea>
             <mat-hint align="start"><strong>Don't disclose personal information</strong> </mat-hint>
 
             <button matSuffix mat-icon-button aria-label="Clear" (click)="newMessage=''">
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>
-          <button class="change-image-button" mat-raised-button type="button" color="accent">Send <mat-icon>send</mat-icon>
+          <button type="submit" (click)="sendMessage()" class="change-image-button" mat-raised-button type="button" color="accent">Send <mat-icon>send</mat-icon>
           </button>
 
       </div>

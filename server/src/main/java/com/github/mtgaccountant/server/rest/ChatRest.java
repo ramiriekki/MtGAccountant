@@ -11,17 +11,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
+import com.github.mtgaccountant.server.models.Message;
 
 @RequestMapping(path = "/api/chat")
 public interface ChatRest {
     @PostMapping(path = "/new")
-    public ResponseEntity<Conversation> createNewChat(@RequestBody(required = false) ConversationForm conversation);
+    public ResponseEntity<Conversation> createNewChat(@RequestBody(required = true) ConversationForm conversation);
 
     @GetMapping(path = "/get")
     public ResponseEntity<Conversation> getChat(@RequestParam String id);
 
     @GetMapping(path = "/all")
     public ResponseEntity<List<Conversation>> getAllChats();
+
+    @PostMapping(path = "/registerMessage")
+    public ResponseEntity<Message> registerMessage(@RequestBody(required = true) Message message);
+
 
     // TODO: getlatestmessage
     // TODO: addMessageToChat

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
+import com.github.mtgaccountant.server.models.Message;
 import com.github.mtgaccountant.server.rest.ChatRest;
 import com.github.mtgaccountant.server.service.ChatService;
 
@@ -51,6 +52,17 @@ public class ChatRestImpl implements ChatRest{
         }
 
         return new ResponseEntity<List<Conversation>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<Message> registerMessage(Message message) {
+        try {
+            return chatService.registerMessage(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<Message>(new Message(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }
