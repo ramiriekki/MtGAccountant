@@ -10,4 +10,5 @@ public class Message implements Serializable{
     private String content;
     private Date timeSent;
     private User user;
+    private String chatId;
 }

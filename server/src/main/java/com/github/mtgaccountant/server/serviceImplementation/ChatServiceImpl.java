@@ -12,7 +12,7 @@ import com.github.mtgaccountant.server.dao.ChatDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
-import com.github.mtgaccountant.server.models.User;
+import com.github.mtgaccountant.server.models.Message;
 import com.github.mtgaccountant.server.service.ChatService;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
@@ -64,6 +64,22 @@ public class ChatServiceImpl implements ChatService{
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public ResponseEntity<Message> registerMessage(Message message) {
+        try{    
+            Conversation chat = chatDao.findById(message.getChatId()).get();
+            List<Message> messages = chat.getMessages();
+            messages.add(message);
+            chat.setMessages(messages);
+            chatDao.save(chat);
+
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Message>(new Message(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
 }
