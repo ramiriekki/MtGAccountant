@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.github.mtgaccountant.server.dao.ChatDao;
 import com.github.mtgaccountant.server.dao.UserDao;
+import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
 import com.github.mtgaccountant.server.models.Message;
 import com.github.mtgaccountant.server.service.ChatService;
+import com.github.mtgaccountant.server.wrapper.MinimalUserWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 @Service
@@ -24,6 +26,9 @@ public class ChatServiceImpl implements ChatService{
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    JwtFilter jwtFilter;
 
     @Override
     public ResponseEntity<Conversation> createChat(ConversationForm conversation) {
@@ -69,13 +74,18 @@ public class ChatServiceImpl implements ChatService{
     @Override
     public ResponseEntity<Message> registerMessage(Message message) {
         try{    
-            Conversation chat = chatDao.findById(message.getChatId()).get();
-            List<Message> messages = chat.getMessages();
-            messages.add(message);
-            chat.setMessages(messages);
-            chatDao.save(chat);
-
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            if (message.getContent() != null && message.getContent() != "") {
+                MinimalUserWrapper user = userDao.findMinUserByEmail(jwtFilter.getCurrentUser());
+    
+                Conversation chat = chatDao.findById(message.getChatId()).get();
+                List<Message> messages = chat.getMessages();
+                message.setUser(user);
+                messages.add(message);
+                chat.setMessages(messages);
+                chatDao.save(chat);
+    
+                return new ResponseEntity<>(message, HttpStatus.OK);
+            }
         } catch (Exception e){
             e.printStackTrace();
         }

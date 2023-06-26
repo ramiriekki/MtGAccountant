@@ -14,6 +14,9 @@ public interface UserDao extends MongoRepository<User, Integer>{
     User findUserByEmail(String email);
 
     @Query("{email:'?0'}")
+    MinimalUserWrapper findMinUserByEmail(String email);
+
+    @Query("{email:'?0'}")
     UserWrapper findUserWrapperByEmail(String email);
     
     @Query("{username:'?0'}")
