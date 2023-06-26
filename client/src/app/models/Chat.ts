@@ -1,10 +1,11 @@
+import { Message } from "./Message";
 import { User } from "./User";
 
 export interface Chat{
     _id?: string;
     title: string;
     participants: User[]
-    messages?: string[]
+    messages?: Message[]
     isPrivate: boolean;
 }
 
