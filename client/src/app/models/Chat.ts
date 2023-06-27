@@ -7,6 +7,7 @@ export interface Chat{
     participants: User[]
     messages?: Message[]
     isPrivate: boolean;
+    owner: User;
 }
 
 export interface ChatForm{

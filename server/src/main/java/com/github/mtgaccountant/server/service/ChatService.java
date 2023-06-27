@@ -12,8 +12,10 @@ public interface ChatService {
     ResponseEntity<Conversation> createChat(ConversationForm conversation);
 
     ResponseEntity<Conversation> getChat(String id);
-    
+
     ResponseEntity<List<Conversation>> getAllChats();
 
     ResponseEntity<Message> registerMessage(Message message);
+
+    ResponseEntity<String> removeChat(String id);
 }

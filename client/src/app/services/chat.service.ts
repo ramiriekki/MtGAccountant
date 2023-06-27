@@ -44,4 +44,15 @@ export class ChatService {
       return null
     }
   }
+
+  removeChat(id: string) {
+    try {
+      return this.httpClient.delete(this.url + `/api/chat/remove?id=${id}`, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+      }).subscribe()
+    } catch (error) {
+      console.log(error);
+      return null
+    }
+  }
 }

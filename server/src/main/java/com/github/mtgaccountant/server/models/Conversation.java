@@ -17,4 +17,5 @@ public class Conversation implements Serializable {
     private List<UserWrapper> participants;
     private List<Message> messages;
     private Boolean isPrivate;
+    private UserWrapper owner;
 }

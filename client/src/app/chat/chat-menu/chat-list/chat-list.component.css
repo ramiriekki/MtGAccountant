@@ -9,6 +9,11 @@
   color: white;
 }
 
+.chat {
+  display: flex;
+  justify-content: space-between;
+}
+
 .chat-card {
   background-color: transparent;
   width: 100%;
@@ -32,4 +37,8 @@
   overflow-y: scroll;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+p {
+  font-weight: bold;
 }
