@@ -1,9 +1,12 @@
 <div class="chat-container">
   <div class="message-area">
-    <mat-toolbar color="accent" (click)="refresh()">{{chatData.title}}</mat-toolbar>
+    <mat-toolbar color="accent">{{chatData.title}}</mat-toolbar>
     <div *ngFor="let message of chatData.messages">
-        <div class="container">
-            <p>{{message.user.username}}: {{message.content}}</p>
+        <div class="bubble-container" *ngIf="!isCurrentUser(message.user)">
+            <p class="chat-bubble">{{message.user.username}}: {{message.content}}</p>
+        </div>
+        <div class="my-bubble-container" *ngIf="isCurrentUser(message.user)">
+            <p class="my-bubble">{{message.user.username}}: {{message.content}}</p>
         </div>
     </div>
   </div>
