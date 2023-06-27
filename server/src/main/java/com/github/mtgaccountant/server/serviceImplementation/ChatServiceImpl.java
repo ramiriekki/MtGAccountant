@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.github.mtgaccountant.server.constants.MtgAccountantConstants;
 import com.github.mtgaccountant.server.dao.ChatDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
@@ -93,6 +94,18 @@ public class ChatServiceImpl implements ChatService {
             e.printStackTrace();
         }
         return new ResponseEntity<Message>(new Message(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> removeChat(String id) {
+        try {
+            Conversation chat = chatDao.findById(id).get();
+            chatDao.delete(chat);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<String>(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

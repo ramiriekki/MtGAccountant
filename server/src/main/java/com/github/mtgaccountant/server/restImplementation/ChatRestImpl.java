@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.mtgaccountant.server.constants.MtgAccountantConstants;
 import com.github.mtgaccountant.server.models.Conversation;
 import com.github.mtgaccountant.server.models.ConversationForm;
 import com.github.mtgaccountant.server.models.Message;
@@ -15,7 +16,7 @@ import com.github.mtgaccountant.server.rest.ChatRest;
 import com.github.mtgaccountant.server.service.ChatService;
 
 @RestController
-public class ChatRestImpl implements ChatRest{
+public class ChatRestImpl implements ChatRest {
 
     @Autowired
     ChatService chatService;
@@ -63,5 +64,17 @@ public class ChatRestImpl implements ChatRest{
 
         return new ResponseEntity<Message>(new Message(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
+    @Override
+    public ResponseEntity<String> removeChat(String id) {
+        try {
+            return chatService.removeChat(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<String>(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

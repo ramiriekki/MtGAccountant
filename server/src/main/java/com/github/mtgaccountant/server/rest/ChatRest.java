@@ -3,6 +3,7 @@ package com.github.mtgaccountant.server.rest;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +28,7 @@ public interface ChatRest {
     @PostMapping(path = "/registerMessage")
     public ResponseEntity<Message> registerMessage(@RequestBody(required = true) Message message);
 
+    @DeleteMapping(path = "/remove")
+    public ResponseEntity<String> removeChat(@RequestParam String id);
 
-    // TODO: getlatestmessage
-    // TODO: addMessageToChat
-    // TODO: getAllMessages
 }
