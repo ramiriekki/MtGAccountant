@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs';
 import { Chat } from '../models/Chat';
 import { Message } from '../models/Message';
+import { MinimalUser } from '../models/User';
 import { ChatService } from '../services/chat.service';
 import { UserService } from '../services/user.service';
 @Component({
@@ -23,15 +25,19 @@ export class ChatComponent {
     private formBuilder: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
     private userService: UserService
-  ){
-  }
+  ){}
 
   ngOnInit() {
     this.messageForm = this.formBuilder.group({
       message: new FormControl(),
     })
+
     this.getChat()
     this.getUser()
+
+    interval(5000).subscribe(() => {
+      this.getChat();
+  });
   }
 
   getChat(): void {
@@ -44,6 +50,7 @@ export class ChatComponent {
     let message: Message = {
       content: this.messageForm.value.message,
       timeSent: new Date,
+      user: this.user,
       chatId: this.route.snapshot.paramMap.get('id')
     }
 
@@ -54,6 +61,23 @@ export class ChatComponent {
 
   getUser(): void{
     this.userService.getUser().subscribe(user => this.user = user)
+  }
+
+  isCurrentUser(user: MinimalUser): boolean {
+    if (user.email == localStorage.getItem('user')) {
+      return true
+    }
+
+    return false
+  }
+
+  refresh(): void {
+    setTimeout(() => {
+      console.log('refresh');
+
+      this.getChat()
+      this.chatData.messages = [...this.chatData.messages!];
+  }, 2000);
   }
 
 }
