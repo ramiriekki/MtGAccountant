@@ -9,14 +9,14 @@ import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 
-public interface CardDao extends MongoRepository<CardWrapper, Integer>{
-    @Query(value="{}", fields="{'id' : 1, 'name' : 1, 'set' : 1, 'collected' : 1}")
+public interface CardDao extends MongoRepository<CardWrapper, String> {
+    @Query(value = "{}", fields = "{'id' : 1, 'name' : 1, 'set' : 1, 'collected' : 1, 'prices' : 1}")
     List<CollectionCardWrapper> findAllCollectionCards();
 
-    @Query(value="{}")
+    @Query(value = "{}")
     List<CardWrapper> findAlCardWrappers();
 
-    @Query(value="{}")
+    @Query(value = "{}")
     List<CardSearchWrapper> findAllCardSearchWrappers();
 
     @Query("{_id:'?0'}")
@@ -24,4 +24,6 @@ public interface CardDao extends MongoRepository<CardWrapper, Integer>{
 
     @Query("{set:'?0'}")
     List<CardWrapper> findSetCards(String code);
+
+    List<CardWrapper> findByName(String name);
 }

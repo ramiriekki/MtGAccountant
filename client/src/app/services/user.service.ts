@@ -35,6 +35,10 @@ export class UserService {
     return this.httpClient.get<any>(this.url + "/api/user/get")
   }
 
+  getAllMinUsers(): Observable<any> {
+    return this.httpClient.get<any>(this.url + "/api/user/getMin")
+  }
+
   changePassword(data: any){
     return this.httpClient.post(this.url + "/api/user/changePassword", data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')

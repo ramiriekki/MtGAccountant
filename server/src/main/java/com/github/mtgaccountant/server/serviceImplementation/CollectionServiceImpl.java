@@ -16,7 +16,6 @@ import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.CollectionCountData;
-import com.github.mtgaccountant.server.models.Prices;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.models.SetsProgress;
 import com.github.mtgaccountant.server.service.CollectionService;
@@ -27,7 +26,7 @@ import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 // BUG user can either modify collection or see the admin board 
 @Service
-public class CollectionServiceImpl implements CollectionService{
+public class CollectionServiceImpl implements CollectionService {
 
     @Autowired
     CollectionDao collectionDao;
@@ -51,14 +50,15 @@ public class CollectionServiceImpl implements CollectionService{
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
 
             // Check if user email matches param email. If not return unauthorized
-            if(!user.getEmail().equals(email)){
+            if (!user.getEmail().equals(email)) {
                 System.out.println("Email param doesn't match users email.");
                 return new ResponseEntity<>(new Collection(), HttpStatus.UNAUTHORIZED);
             }
 
-            //System.out.println(collectionDao.findByUser(user));
+            // System.out.println(collectionDao.findByUser(user));
 
-            return new ResponseEntity<>(collectionDao.findByFinderID(user.getUsername() + user.getEmail()), HttpStatus.OK);
+            return new ResponseEntity<>(collectionDao.findByFinderID(user.getUsername() + user.getEmail()),
+                    HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,28 +74,29 @@ public class CollectionServiceImpl implements CollectionService{
             System.out.println("User: " + user);
 
             // Check if user email matches param email. If not return unauthorized
-            if(!user.getEmail().equals(email)){
+            if (!user.getEmail().equals(email)) {
                 System.out.println("Email param doesn't match users email.");
-                return MtgAccountantUtils.getResponseEntity("Email param doesn't match users email.", HttpStatus.UNAUTHORIZED);
+                return MtgAccountantUtils.getResponseEntity("Email param doesn't match users email.",
+                        HttpStatus.UNAUTHORIZED);
             }
-            
+
             // Get users collection from database.
-            // Get lists from request (cards to be added and cards to be removed) 
-            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); 
+            // Get lists from request (cards to be added and cards to be removed)
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
             String[] idList = requestMap.get("id_list");
             String[] removeList = requestMap.get("remove_list");
 
             // Update cards property collected
-            for (CollectionCardWrapper card : collection.getCards()){
-                for (String id : idList){
-                    if (card.getId().equals(id)){
-                        //System.out.println("Found!");
+            for (CollectionCardWrapper card : collection.getCards()) {
+                for (String id : idList) {
+                    if (card.getId().equals(id)) {
+                        // System.out.println("Found!");
                         card.setCollected(true);
                     }
                 }
 
-                for (String id : removeList){
-                    if (card.getId().equals(id)){
+                for (String id : removeList) {
+                    if (card.getId().equals(id)) {
                         card.setCollected(false);
                     }
                 }
@@ -108,15 +109,16 @@ public class CollectionServiceImpl implements CollectionService{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return MtgAccountantUtils.getResponseEntity("Bad Request.", HttpStatus.BAD_REQUEST);
     }
 
     /*
-     * Get users collection with email param. 
+     * Get users collection with email param.
      * Retrieve the cards array from collection and iterate through
      * -> If cards set code matches code param increase collectedCount
-     * Returns Integer of how many unique cards in collection in a certain set user has aquired.
+     * Returns Integer of how many unique cards in collection in a certain set user
+     * has aquired.
      */
     @Override
     public ResponseEntity<CollectionCountData> getCollectionSetCount(String email, String code) {
@@ -124,15 +126,15 @@ public class CollectionServiceImpl implements CollectionService{
         Integer collectedCount = 0;
         Integer totalCount;
 
-        // System.out.println("Code: "  + code);
-        // System.out.println("email: "  + email);
+        // System.out.println("Code: " + code);
+        // System.out.println("email: " + email);
 
-        if(!user.getEmail().equals(email)){
+        if (!user.getEmail().equals(email)) {
             System.out.println("Email param doesn't match users email.");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());  
+        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
         List<CollectionCardWrapper> cards = collection.getCards();
 
         // Get total cards amount
@@ -142,15 +144,15 @@ public class CollectionServiceImpl implements CollectionService{
         // Count cards that are collected
         for (CollectionCardWrapper card : cards) {
 
-            //System.out.println(card.getSet() + " - " + code);
+            // System.out.println(card.getSet() + " - " + code);
 
-            if (card.getSet().equals(code)){
+            if (card.getSet().equals(code)) {
                 // System.out.println("found");
-                if (card.isCollected() == true){
+                if (card.isCollected() == true) {
                     collectedCount++;
                 }
             } else {
-                //System.out.println("not found");
+                // System.out.println("not found");
             }
         }
 
@@ -159,7 +161,6 @@ public class CollectionServiceImpl implements CollectionService{
         CollectionCountData response = new CollectionCountData();
         response.setCollected(collectedCount);
         response.setTotalCount(totalCount);
-
 
         System.out.println(collectedCount);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -171,12 +172,12 @@ public class CollectionServiceImpl implements CollectionService{
         List<Set> sets;
         List<SetsProgress> progressList = new ArrayList<>();
 
-        if(!user.getEmail().equals(email)){
+        if (!user.getEmail().equals(email)) {
             System.out.println("Email param doesn't match users email.");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());  
+        Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
         List<CollectionCardWrapper> cards = collection.getCards();
         sets = setDao.findAll();
 
@@ -188,16 +189,16 @@ public class CollectionServiceImpl implements CollectionService{
             Integer collectedCount = 0;
             for (CollectionCardWrapper card : cards) {
 
-                if (card.getSet().equals(setsProgress.getCode())){
-                    if (card.isCollected() == true){
-                        //System.out.println("collected++");
+                if (card.getSet().equals(setsProgress.getCode())) {
+                    if (card.isCollected() == true) {
+                        // System.out.println("collected++");
                         collectedCount++;
                     }
-                } 
+                }
             }
-            
+
             if (setsProgress.getTotalCount() != 0) {
-                Float progress = (collectedCount.floatValue() / setsProgress.getTotalCount().floatValue())*100;
+                Float progress = (collectedCount.floatValue() / setsProgress.getTotalCount().floatValue()) * 100;
                 setsProgress.setProgress(progress.intValue());
             }
         }
@@ -213,25 +214,25 @@ public class CollectionServiceImpl implements CollectionService{
             double collectionValue = 0;
 
             // Check if user email matches param email. If not return unauthorized
-            if(!user.getEmail().equals(email)){
+            if (!user.getEmail().equals(email)) {
                 System.out.println("Email param doesn't match users email.");
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
-            
+
             // Get users collection from database.
             Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
 
             for (CollectionCardWrapper card : collection.getCards()) {
                 for (CardWrapper cardWrapper : cards) {
-                    if (cardWrapper.getId().equals(card.getId())){
-                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null){
-                            collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur()) ;
+                    if (cardWrapper.getId().equals(card.getId())) {
+                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null) {
+                            collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur());
                         }
                     }
                 }
             }
 
-            return new ResponseEntity<Double>(collectionValue , HttpStatus.OK);
+            return new ResponseEntity<Double>(collectionValue, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -242,52 +243,27 @@ public class CollectionServiceImpl implements CollectionService{
     public ResponseEntity<CardWrapper> getMostValuableCard(String email) {
         try {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
-            List<CardWrapper> cards = cardDao.findAll();
-            CardWrapper mostValuable = new CardWrapper();
-            Prices defaultPrices = new Prices("0","0","0","0","0");
-            mostValuable.setPrices(defaultPrices);
+            List<CollectionCardWrapper> cards;
+            CollectionCardWrapper mostValuableCollectionCard = new CollectionCardWrapper("", "", "", false, null);
 
             // Check if user email matches param email. If not return unauthorized
-            if(!user.getEmail().equals(email)){
+            if (!user.getEmail().equals(email)) {
                 System.out.println("Email param doesn't match users email.");
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
-            
+
             // Get users collection from database.
             Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
-
             collection.getCards().removeIf(c -> c.isCollected() == false);
+            cards = collection.getCards();
 
-            for (CollectionCardWrapper collectionCardWrapper : collection.getCards()) {
-                for (CardWrapper cardWrapper : cards) {
-                    if (collectionCardWrapper.getId().equals(cardWrapper.getId())) {
-                        //System.out.println(card.getName());
-                        if (cardWrapper.getPrices().getEur() != null){
-                            if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
-                                mostValuable = cardWrapper;
-                            }
-                        }
-                    }
-                }
-            }
+            mostValuableCollectionCard = cards.stream()
+                    .max((card, card2) -> Double.compare(Double.parseDouble(card.getPrices().getEur()),
+                            Double.parseDouble(card2.getPrices().getEur())))
+                    .orElseGet(() -> new CollectionCardWrapper("bf87803b-e7c6-4122-add4-72e596167b7e", "", "", false,
+                            null));
 
-            // for (CollectionCardWrapper card : collection.getCards()) {
-            //     if (card.isCollected()) {
-            //         for (CardWrapper cardWrapper : cards) {
-            //             if (card.getId().equals(cardWrapper.getId())) {
-            //                 //System.out.println(card.getName());
-            //                 if (cardWrapper.getPrices().getEur() != null){
-            //                     if (Double.parseDouble(cardWrapper.getPrices().getEur()) > Double.parseDouble(mostValuable.getPrices().getEur()) || mostValuable.equals(null)) {
-            //                         mostValuable = cardWrapper;
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-
-            // cards.stream().filter(c -> Objects.nonNull(c.getPrices().getEur())).sorted(priceComparator.reversed()).limit(5).forEach(returnCards::add);
-
+            CardWrapper mostValuable = cardDao.findCardById(mostValuableCollectionCard.getId());
 
             return new ResponseEntity<CardWrapper>(mostValuable, HttpStatus.OK);
         } catch (Exception e) {
@@ -296,5 +272,5 @@ public class CollectionServiceImpl implements CollectionService{
 
         return new ResponseEntity<CardWrapper>(HttpStatus.BAD_REQUEST);
     }
-    
+
 }

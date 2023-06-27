@@ -44,38 +44,48 @@ public class ScheduledTasks {
 	@Autowired
 	CollectionDao collectionDao;
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	@Scheduled(cron = "0 0 0 ? * *")
 	// @Scheduled(cron = "0/30 * * * * *")
-	public void getAllCards() { 
+	public void getAllCards() {
 		String url = "https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released";
-		//String url = "https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints";
+		// String url =
+		// "https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints";
 		Integer page = 1;
 		List<CardWrapper> cards = new ArrayList<>();
-		
+
 		RestTemplate template = new RestTemplate();
-		ResponseEntity<Search> response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
+		ResponseEntity<Search> response = template.exchange(url, HttpMethod.GET, null,
+				new ParameterizedTypeReference<Search>() {
+				});
 		Search search = response.getBody();
 		cards.addAll(search.getData());
-		
+
 		// Paginate trough all pages
-		while(search.isHas_more() && !page.equals(20)){
+		while (search.isHas_more() && !page.equals(20)) {
 			// https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released
-			// url = MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}", page.toString()) ;
-			// url = MessageFormat.format("https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints&page={0}", page.toString()) ;
-			
-			url = MessageFormat.format("https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released&page={0}", page.toString()) ;
-			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>(){});
+			// url =
+			// MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}",
+			// page.toString()) ;
+			// url =
+			// MessageFormat.format("https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints&page={0}",
+			// page.toString()) ;
+
+			url = MessageFormat.format(
+					"https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released&page={0}",
+					page.toString());
+			response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<Search>() {
+			});
 			search = response.getBody();
 			cards.addAll(search.getData());
-			
+
 			System.out.println(page);
 			page++;
 		}
 
-		//TODO Get the data on the last page
-		
+		// TODO Get the data on the last page
+
 		cardDao.saveAll(cards);
 
 		System.out.println("Cards fetched from Scryfall API " + dateFormat.format(new Date()));
@@ -83,12 +93,14 @@ public class ScheduledTasks {
 
 	// Fetch set data
 	@Scheduled(cron = "0 0 2 ? * *")
-	public void getAllSets(){
+	public void getAllSets() {
 		String url = "https://api.scryfall.com/sets/";
 		List<Set> sets = new ArrayList<>();
-		
+
 		RestTemplate template = new RestTemplate();
-		ResponseEntity<SetSearch> response = template.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<SetSearch>(){});
+		ResponseEntity<SetSearch> response = template.exchange(url, HttpMethod.GET, null,
+				new ParameterizedTypeReference<SetSearch>() {
+				});
 		SetSearch search = response.getBody();
 		sets.addAll(search.getData());
 		setDao.saveAll(sets);
@@ -99,26 +111,28 @@ public class ScheduledTasks {
 	// Update collections when there are new cards
 	@Scheduled(cron = "0 0 1 ? * *")
 	// @Scheduled(cron = "0/30 * * * * *")
-	public void updateCollectionCards(){
+	public void updateCollectionCards() {
 		// Use the user "update" to find all new cards by comparing
 		UserWrapper user = userDao.findUser("update@update.com");
-		List<CardWrapper> dbCards = cardDao.findAll();	// Get all cards fetched to database
-		Collection collectionCards = collectionDao.findByFinderID(user.getUsername() + user.getEmail());	// Find the "update"- users cards
+		List<CardWrapper> dbCards = cardDao.findAll(); // Get all cards fetched to database
+		Collection collectionCards = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
 		Boolean isInCollection = false;
 
 		List<CollectionCardWrapper> newCards = new ArrayList<>();
 
-		for (CardWrapper card : dbCards){
-			for (CollectionCardWrapper card2 : collectionCards.getCards()){
-				if(card.getId().equals(card2.getId())){	// Check if card is in collections already and mark true if is.
+		for (CardWrapper card : dbCards) {
+			for (CollectionCardWrapper card2 : collectionCards.getCards()) {
+				if (card.getId().equals(card2.getId())) { // Check if card is in collections already and mark true if
+															// is.
 					isInCollection = true;
 					break;
 				}
 			}
 
 			// If not in collections, add to new cards list
-			if(!isInCollection){
-				newCards.add(new CollectionCardWrapper(card.getId(), card.getName(), card.getSet(), false));
+			if (!isInCollection) {
+				newCards.add(new CollectionCardWrapper(card.getId(), card.getName(), card.getSet(), false,
+						card.getPrices()));
 			}
 			isInCollection = false;
 		}
@@ -126,7 +140,7 @@ public class ScheduledTasks {
 		List<Collection> collections = collectionDao.findAll();
 
 		// Go through all collections and add all new cards
-		for (Collection collection : collections){
+		for (Collection collection : collections) {
 			List<CollectionCardWrapper> userCards = collection.getCards();
 			userCards.addAll(newCards);
 			collection.setCards(userCards);

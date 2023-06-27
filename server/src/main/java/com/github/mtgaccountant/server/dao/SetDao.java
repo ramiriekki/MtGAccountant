@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.Query;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 
-public interface SetDao extends MongoRepository<Set, Integer>{
+public interface SetDao extends MongoRepository<Set, String>{
     Set findByCode(String code);
 
     @Query("{parent_set_code:'?0'}")
