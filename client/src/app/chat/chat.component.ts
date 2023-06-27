@@ -37,7 +37,7 @@ export class ChatComponent {
 
     interval(5000).subscribe(() => {
       this.getChat();
-  });
+    });
   }
 
   getChat(): void {
@@ -69,15 +69,6 @@ export class ChatComponent {
     }
 
     return false
-  }
-
-  refresh(): void {
-    setTimeout(() => {
-      console.log('refresh');
-
-      this.getChat()
-      this.chatData.messages = [...this.chatData.messages!];
-  }, 2000);
   }
 
 }

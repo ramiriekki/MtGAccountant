@@ -41,3 +41,35 @@ form > div {
   display: flex;
   justify-content: center;
 }
+
+.bubble-container {
+  display: flex;
+}
+
+.my-bubble-container {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 15px;
+}
+
+.chat-bubble {
+  background-color: white;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+  margin-left: 15px;
+}
+
+.my-bubble {
+  background-color: #f57f01;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+  margin-left: 15px;
+}
+
+mat-toolbar {
+  margin-bottom: 20px
+}
