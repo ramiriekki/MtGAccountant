@@ -99,8 +99,12 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public ResponseEntity<String> removeChat(String id) {
         try {
+            System.out.println(id);
             Conversation chat = chatDao.findById(id).get();
+            System.out.println(chat);
             chatDao.delete(chat);
+
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }

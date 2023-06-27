@@ -20,4 +20,17 @@ export class ChatListComponent implements OnInit {
   getAllChats(): void {
     this.chatService.getAllChats().subscribe(chats => this.chats = chats)
   }
+
+  remove(id: string): void {
+    this.chatService.removeChat(id)
+    this.chats = this.chats.filter((chat) => chat._id !== id);
+  }
+
+  isOwnedByCurrentUser(chat: Chat): boolean {
+    if (chat.owner.email == localStorage.getItem('user')) {
+      return true;
+    }
+
+    return false;
+  }
 }
