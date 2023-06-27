@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Chat } from 'src/app/models/Chat';
 import { ChatService } from 'src/app/services/chat.service';
 
@@ -10,11 +11,13 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatListComponent implements OnInit {
   chats: Chat[] = []
+  private subscription: Subscription | undefined;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.getAllChats()
+    this.subscribeToSharedArray();
   }
 
   getAllChats(): void {
@@ -32,5 +35,16 @@ export class ChatListComponent implements OnInit {
     }
 
     return false;
+  }
+
+  private subscribeToSharedArray(): void {
+    this.subscription =   this.chatService.dataArray$.subscribe(chats => {
+      this.chats = chats;
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the subscription to avoid memory leaks
+    this.subscription!.unsubscribe();
   }
 }

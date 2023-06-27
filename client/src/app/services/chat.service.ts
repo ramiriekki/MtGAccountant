@@ -1,14 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Chat } from '../models/Chat';
+import { Chat, ChatForm } from '../models/Chat';
 import { Message } from '../models/Message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
+  private dataArraySubject: BehaviorSubject<Chat[]> = new BehaviorSubject<Chat[]>([]);
+  private createdChatSubject: Subject<Chat> = new Subject<Chat>();
+  createdChat$: Observable<Chat> = this.createdChatSubject.asObservable();
+  dataArray$ = this.dataArraySubject.asObservable();
+
   url = environment.apiUrl;
 
   constructor(
@@ -19,15 +24,28 @@ export class ChatService {
     return this.httpClient.get<Chat[]>(this.url + "/api/chat/all")
   }
 
-  createNewChat(data: any) {
-    try {
-      return this.httpClient.post(this.url + `/api/chat/new`, data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json')
-      }).subscribe()
-    } catch (error) {
-      console.log(error);
-      return null
-    }
+  // createNewChat(data: any) {
+  //   try {
+  //     return this.httpClient.post(this.url + `/api/chat/new`, data, {
+  //       headers: new HttpHeaders().set('Content-Type', 'application/json')
+  //     }).subscribe()
+  //   } catch (error) {
+  //     console.log(error);
+  //     return null
+  //   }
+  // }
+
+  createNewChat(chatData: ChatForm): void {
+    this.httpClient.post<Chat>(this.url + `/api/chat/new`, chatData, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    }).subscribe(
+      (createdChat: Chat) => {
+        this.createdChatSubject.next(createdChat);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getChat(id: string) {
@@ -54,5 +72,11 @@ export class ChatService {
       console.log(error);
       return null
     }
+  }
+
+  addToSharedArray(newChat: Chat) {
+    const currentArray = this.dataArraySubject.value;
+    const updatedArray = [...currentArray, newChat];
+    this.dataArraySubject.next(updatedArray);
   }
 }

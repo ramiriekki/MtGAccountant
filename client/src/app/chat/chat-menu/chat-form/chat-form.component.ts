@@ -27,6 +27,7 @@ export class ChatFormComponent implements OnInit {
       private: new FormControl(),
     })
     this.getAllUsers();
+    this.subscribeToCreatedChat();
   }
 
   onSubmit() {
@@ -40,13 +41,17 @@ export class ChatFormComponent implements OnInit {
     chatData.participants.push(this.chatForm.value.users)
     chatData.participants.push(`${localStorage.getItem('user')}`)
 
-    this.chatService.createNewChat(chatData)
-    // this.searchService.searchCards(this.parentForm.value).subscribe(response => console.log(response))
-    // this.submitted = true;
+    this.chatService.createNewChat(chatData);
   }
 
   getAllUsers(): void{
-    this.userService.getAllMinUsers().subscribe(users => this.allUsers = users) // TODO: new endpoint for minimal userwrapers that everyone has access to
+    this.userService.getAllMinUsers().subscribe(users => this.allUsers = users)
+  }
+
+  private subscribeToCreatedChat(): void {
+    this.chatService.createdChat$.subscribe(newChat => {
+      this.chatService.addToSharedArray(newChat);
+    });
   }
 
 }
