@@ -1,0 +1,43 @@
+.form-card {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.private-selection {
+  color: white;
+}
+
+.form-group {
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group > *{
+  width: 100%;
+}
+
+mat-label {
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f57f01 !important;
+}
+
+::ng-deep span.mat-checkbox-frame{
+  border-color: #f57f01;
+}
+
+button {
+  width: 100%;
+}
+
+input {
+  background-color: #f57f01;
+}

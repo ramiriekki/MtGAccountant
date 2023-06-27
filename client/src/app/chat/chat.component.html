@@ -1,0 +1,38 @@
+<div class="chat-container">
+  <div class="message-area">
+    <mat-toolbar color="accent">{{chatData.title}}</mat-toolbar>
+    <div *ngFor="let message of chatData.messages">
+        <div class="bubble-container" *ngIf="!isCurrentUser(message.user)">
+            <p class="chat-bubble">{{message.user.username}}: {{message.content}}</p>
+        </div>
+        <div class="my-bubble-container" *ngIf="isCurrentUser(message.user)">
+            <p class="my-bubble">{{message.user.username}}: {{message.content}}</p>
+        </div>
+    </div>
+  </div>
+
+  <form (ngSubmit)="sendMessage()" [formGroup]="messageForm">
+      <div>
+          <br>
+          <mat-form-field class="message-field" [formGroup]="messageForm">
+            <mat-label>Leave a comment</mat-label>
+            <textarea cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            matInput
+            placeholder="Ex. It makes me feel..."
+            formControlName="message"></textarea>
+            <mat-hint align="start"><strong>Don't disclose personal information</strong> </mat-hint>
+
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="newMessage=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <button type="submit" (click)="sendMessage()" class="change-image-button" mat-raised-button type="button" color="accent">Send <mat-icon>send</mat-icon>
+          </button>
+
+      </div>
+  </form>
+</div>
+

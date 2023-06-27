@@ -38,3 +38,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-divider {
   border-top-color: #f57f01;
 }
+
+.mat-form-field-underline {
+  background-color: orange !important;
+}
+
+.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: white !important;;
+}

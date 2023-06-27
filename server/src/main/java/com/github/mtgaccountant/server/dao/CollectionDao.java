@@ -9,7 +9,7 @@ import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
-public interface CollectionDao extends MongoRepository<Collection, Integer> {
+public interface CollectionDao extends MongoRepository<Collection, String> {
     @Query(value = "{user : '?0'}")
     Collection findByUser(UserWrapper user);
 
