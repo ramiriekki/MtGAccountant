@@ -1,49 +1,50 @@
-<mat-toolbar color="primary" class="toolbar">
-  <mat-toolbar-row>
-    <div class="toolbar-left">
-      <button id="back-button" type="button" mat-raised-button (click)="back()" color="accent" matTooltip="Previous page" *ngIf="isBaseLocationUrl === true">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-      <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent" matTooltip="Side menu">
-        ≡
-      </button>
-    </div>
-
-    <a id="title" [routerLink]="['/dashboard']" matTooltip="Home"><img src="../assets/images/mtg-accountant-logo.png" alt=""></a>
-
-    <div class="toolbar-right">
-      <div class="link-cont">
-        <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
-        <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>
-        <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">Forgot Password?</a>
-        <a *ngIf="this.isAuthenticated" (click)="handleLogoutAction()">Logout</a>
+<div class="master-cont">
+  <mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar-row>
+      <div class="toolbar-left">
+        <button id="back-button" type="button" mat-raised-button (click)="back()" color="accent" matTooltip="Previous page" *ngIf="isBaseLocationUrl === true">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent" matTooltip="Side menu">
+          ≡
+        </button>
       </div>
+
+      <a id="title" [routerLink]="['/dashboard']" matTooltip="Home"><img src="../assets/images/mtg-accountant-logo.png" alt=""></a>
+
+      <div class="toolbar-right">
+        <div class="link-cont">
+          <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
+          <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>
+          <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">Forgot Password?</a>
+          <a *ngIf="this.isAuthenticated" (click)="handleLogoutAction()">Logout</a>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <a class="side-link" [routerLink]="['/dashboard']">Dashboard</a>
+      <mat-divider></mat-divider>
+      <a class="side-link" [routerLink]="['/dashboard/collection/page/0']">My Collection</a>
+      <mat-divider></mat-divider>
+      <a class="side-link" [routerLink]="['/dashboard/sets']">Sets</a>
+      <mat-divider></mat-divider>
+      <a class="side-link" [routerLink]="['/dashboard/profile']">Profile</a>
+      <mat-divider></mat-divider>
+      <a class="side-link" [routerLink]="['/dashboard/search']">Search</a>
+      <mat-divider></mat-divider>
+      <a class="side-link" (click)="handleLogoutAction()">Logout</a>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+
+      <router-outlet></router-outlet>
+      <ngx-ui-loader></ngx-ui-loader>
     </div>
-  </mat-toolbar-row>
-</mat-toolbar>
 
-<mat-drawer-container class="example-container">
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <a class="side-link" [routerLink]="['/dashboard']">Dashboard</a>
-    <mat-divider></mat-divider>
-    <a class="side-link" [routerLink]="['/dashboard/collection/page/0']">My Collection</a>
-    <mat-divider></mat-divider>
-    <a class="side-link" [routerLink]="['/dashboard/sets']">Sets</a>
-    <mat-divider></mat-divider>
-    <a class="side-link" [routerLink]="['/dashboard/profile']">Profile</a>
-    <mat-divider></mat-divider>
-    <a class="side-link" [routerLink]="['/dashboard/search']">Search</a>
-    <mat-divider></mat-divider>
-    <a class="side-link" (click)="handleLogoutAction()">Logout</a>
-  </mat-drawer>
+  </mat-drawer-container>
 
-  <div class="example-sidenav-content">
-
-    <router-outlet></router-outlet>
-    <ngx-ui-loader></ngx-ui-loader>
-  </div>
-
-</mat-drawer-container>
-
-<app-footer></app-footer>
-
+  <app-footer></app-footer>
+</div>
