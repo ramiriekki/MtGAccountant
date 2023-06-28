@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Login Keywords
+Documentation    Basic Functionalities
 Library          SeleniumLibrary
 
 *** Keywords ***
