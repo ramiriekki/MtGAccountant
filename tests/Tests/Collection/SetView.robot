@@ -13,3 +13,5 @@ Quick move to child sets
 User sorts cards on set view
 
 Binder tool works
+
+User can add / remove all cards on set
