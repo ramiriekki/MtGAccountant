@@ -4,7 +4,7 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
   background-color: #262626;
   color: white;
-  margin-top: 50px;
+  margin-top: 80px;
 }
 
 a {
@@ -386,7 +386,7 @@ mat-drawer-container {
   }
 
   app-footer {
-    position: relative;
+    /* position: relative; */
     bottom: -4px;
     z-index: 15;
     width: 100%;
@@ -413,4 +413,8 @@ mat-drawer-container {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .master-cont {
+    height: 95%;
   }
