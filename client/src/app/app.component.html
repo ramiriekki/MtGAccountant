@@ -35,6 +35,8 @@
       <mat-divider></mat-divider>
       <a class="side-link" [routerLink]="['/dashboard/search']">Search</a>
       <mat-divider></mat-divider>
+      <a *ngIf="isAdmin()" class="side-link" [routerLink]="['/dashboard/admin-board']">Admin</a>
+      <mat-divider></mat-divider>
       <a class="side-link" (click)="handleLogoutAction()">Logout</a>
     </mat-drawer>
 
