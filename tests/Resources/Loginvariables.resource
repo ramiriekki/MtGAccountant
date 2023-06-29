@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Set variables defined
+Documentation    Login variables defined
 
 *** Variables ***
 ${LoginForm}                            //mat-dialog-container[@id='mat-dialog-0']

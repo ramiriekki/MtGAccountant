@@ -2,9 +2,19 @@
 Documentation    Basic Functionalities
 Library          SeleniumLibrary
 Resource         ../Resources/GlobalVariables.resource
+Resource         ../Resources/LoginVariables.resource
 
 *** Keywords ***
 Login
+    [Arguments]    @{LoginData}
+    Given The user is not already logged in
+    Wait Until Element Is Visible    ${LoginLink}
+    Click Element    ${LoginLink}
+    Wait Until Element Is Visible    ${LoginFormEmailField}
+    Wait Until Element Is Visible    ${LoginFormPasswordField}
+    Input Text    ${LoginFormEmailField}    ${LoginData}[0]
+    Input Text    ${LoginFormPasswordField}    ${LoginData}[2]
+    Click Element    ${LoginButton}
 
 
 Logout
