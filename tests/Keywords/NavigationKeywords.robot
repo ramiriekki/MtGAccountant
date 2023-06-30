@@ -38,3 +38,12 @@ Close sidemenu
 Navigate to Admin page
     Open sidemenu
     Click Element    ${SideAdminLink}
+
+Navigate to Collection page
+    ${IsAtCollection}=     Run Keyword And Return Status   Wait Until Location Is    ${CollectionURL}    3s
+
+    IF  "${IsAtCollection}" == "False"
+        Open sidemenu
+        Click Element    ${SideCollectionLink}
+        Close sidemenu
+    END
