@@ -56,3 +56,11 @@ Navigate to Sets page
 Navigate to Set
     Wait Until Element Is Visible    ${SetContainer}
     Click Element    ${SetContainer}
+
+Navigate to Midnight Hunt set
+    Wait Until Element Is Visible    ${SetContainerMID}
+    Click Element    ${SetContainerMID}
+
+Navigate to double faced card
+    Wait Until Element Is Visible    ${DoubleFacedCard}
+    Click Element    ${DoubleFacedCard}

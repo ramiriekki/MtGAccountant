@@ -7,6 +7,7 @@ ${TitleLink}                            //a[@id='title']
 ${ProfileDashboardLink}                 //button[@id='profile-button']
 ${NavigateBack}                         //button[@id='back-button']
 ${SetContainer}                         //div[@class='sets-container ng-star-inserted']/mat-card[contains(.,'Dominaria United')]
+${SetContainerMID}                      //div[@class='sets-container ng-star-inserted']/mat-card[contains(.,'Midnight Hunt')]
 
 #Side Navigation
 ${SideMenuButton}                       //button[@id='menu-button']
@@ -22,3 +23,4 @@ ${CollectionURLSecondPage}              http://localhost:4200/dashboard/collecti
 ${DominariaUnitedURL}                   http://localhost:4200/dashboard/sets/dmu
 
 ${FirstCardNameVar}
+${DoubleFacedCard}                      //body//app-root//mat-card[8]
