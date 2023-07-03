@@ -49,6 +49,10 @@ Navigate to Collection page
     END
 
 Navigate to Sets page
-        Open sidemenu
-        Click Element    ${SideSetsLink}
-        Close sidemenu
+    Open sidemenu
+    Click Element    ${SideSetsLink}
+    Close sidemenu
+
+Navigate to Set
+    Wait Until Element Is Visible    ${SetContainer}
+    Click Element    ${SetContainer}

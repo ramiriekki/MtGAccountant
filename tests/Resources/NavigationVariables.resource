@@ -6,6 +6,7 @@ ${HelloContainer}                       //h1[@class='hello']
 ${TitleLink}                            //a[@id='title']
 ${ProfileDashboardLink}                 //button[@id='profile-button']
 ${NavigateBack}                         //button[@id='back-button']
+${SetContainer}                         //div[@class='sets-container ng-star-inserted']/mat-card[contains(.,'Dominaria United')]
 
 #Side Navigation
 ${SideMenuButton}                       //button[@id='menu-button']
