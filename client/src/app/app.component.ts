@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { Location } from '@angular/common'
 import { filter } from 'rxjs';
+import { User } from './models/User';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit{
   role: any
+  user!: any;
   isAuthenticated: boolean = false
   isBaseLocationUrl: boolean = false;
 
@@ -51,6 +53,7 @@ export class AppComponent implements OnInit{
 
     this.isBaseLocation()
     this.isLoggedIn()
+    this.getUser()
 
     window.addEventListener('storage', function(e) {
 
@@ -110,6 +113,18 @@ export class AppComponent implements OnInit{
       this.isBaseLocationUrl = true;
     } else {
       this.isBaseLocationUrl = false;
+    }
+  }
+
+  getUser(): void{
+    this.userService.getUser().subscribe(user => this.user = user)
+  }
+
+  isAdmin(): boolean {
+    if (this.user?.role === "admin") {
+      return true;
+    } else {
+      return false
     }
   }
 

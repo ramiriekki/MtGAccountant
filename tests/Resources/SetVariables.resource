@@ -2,35 +2,38 @@
 Documentation    Set variables defined
 
 *** Variables ***
-${CoreType}             Core
-${ExpansionType}        Expansion
-${DraftType}            Draft_Innovation
-${CommanderType}        Commander
-${FunnyType}            Funny
-${MastersType}          Masters
+${SetDataCard}                    //mat-card[@class='mat-card mat-focus-indicator set-data-card']
+${SetCode}                        DMU
+${SetName}                        Dominaria United
+${SetReleaseDate}                 2022-09-09
+${SetType}                        expansion
+${SetCardsAmount}                 436
+${SetLink}                        https://scryfall.com/sets/dmu
 
-${CoreButton}           //button[@id='mat-button-toggle-2-button']
-${ExpansionButton}      //button[@id='mat-button-toggle-3-button']
-${DraftButton}          //button[@id='mat-button-toggle-4-button']
-${CommanderButton}      //button[@id='mat-button-toggle-5-button']
-${FunnyButton}          //button[@id='mat-button-toggle-6-button']
-${MastersButton}        //button[@id='mat-button-toggle-7-button']
+${DataCardSetCode}                //mat-card[@class='mat-card mat-focus-indicator set-data-card']/p[1]
+${DataCardSetName}                //mat-card[@class='mat-card mat-focus-indicator set-data-card']/p[2]
+${DataCardSetReleaseDate}         //mat-card[@class='mat-card mat-focus-indicator set-data-card']/p[3]
+${DataCardSetType}                //mat-card[@class='mat-card mat-focus-indicator set-data-card']/p[4]
+${DataCardSetCardsAmount}         //mat-card[@class='mat-card mat-focus-indicator set-data-card']/p[5]
+${DataCardSetLink}                //mat-card[@class='mat-card mat-focus-indicator set-data-card']/p[6]
 
-# Test set: The Brothers' War
-${SetName}              The Brothers' War
-${SetCode}              BRO
-${SetReleased}          2022-11-18
-${SetType}              expansion
-${SetCardCount}         387
-${SetUri}               https://scryfall.com/sets/bro
+@{AddButtons}
+...    (//button[contains(.,'Add')])[5]    
+...    (//button[contains(.,'Add')])[10]
+...    (//button[contains(.,'Add')])[15]
+...    (//button[contains(.,'Add')])[20]
+...    (//button[contains(.,'Add')])[25]
 
-${InfoBox}              //mat-card[@class='mat-card mat-focus-indicator set-data-card']
-${CollectButton}        (//button[@class='mat-focus-indicator add-button mat-raised-button mat-button-base mat-accent ng-star-inserted'])[1]
-${RemoveButton}         (//button[@class='mat-focus-indicator remove-button mat-raised-button mat-button-base ng-star-inserted'])[1]
-${CollectedCircle}      (//div[@class='collected-circle ng-star-inserted'])[1]
-${NotCollectedCircle}   (//div[@class='notcollected-circle ng-star-inserted'])[1]
-${AddAll}               //div[@class='set-container']//button[1]
-${RemoveAll}            //div[@class='set-container']//button[2]
-${CardTemplate}         //body/app-root/mat-drawer-container[@class='mat-drawer-container example-container']/mat-drawer-content[@class='mat-drawer-content ng-star-inserted']/div[@class='example-sidenav-content']/app-dashboard[@class='ng-star-inserted']/app-set[@class='ng-star-inserted']/div[@class='cards-container']/mat-card
-${TokenButton}          //mat-drawer-content[@class='mat-drawer-content ng-star-inserted']//button[6]
-${TestToken}            //p[normalize-space()='Zombie']
+${CollectedAmount}                //div[@class='progress-text']
+${CollectedValue}                 //h2[contains(text(),'Current set value')]
+${MoveToArtSeries}                //button[contains(.,'Art Series')]
+${FirstArtSeriesCard}             //p[contains(text(),'Zar Ojanen, Scion of Efrava // Zar Ojanen, Scion o')]
+
+${BinderToolButton}               //button[.='Open Binder View']
+${BinderToolWindow}               //div[@class='binder-container']
+${HideCards}                      //button[.='Show / Hide Cards']
+${FirstBinderCard}                //div[@class='left-page ng-star-inserted']/div[1]/div[1]
+${AddAllButton}                   //button[contains(.,'Add all')]
+${RemoveAllButton}                //button[contains(.,'Remove all')]
+${CardLocatorCollected}           //div[@class='cards-container']/mat-card/mat-toolbar/div[contains(@class,'collected-circle')]  
+${CardLocatorNotCollected}        //div[@class='cards-container']/mat-card/mat-toolbar/div[contains(@class,'notcollected-circle')]  
