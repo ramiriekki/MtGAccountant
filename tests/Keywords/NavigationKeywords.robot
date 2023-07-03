@@ -47,3 +47,8 @@ Navigate to Collection page
         Click Element    ${SideCollectionLink}
         Close sidemenu
     END
+
+Navigate to Sets page
+        Open sidemenu
+        Click Element    ${SideSetsLink}
+        Close sidemenu
