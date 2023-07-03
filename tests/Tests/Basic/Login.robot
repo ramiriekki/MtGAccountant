@@ -4,6 +4,7 @@ Library          SeleniumLibrary
 Suite Setup    Run Keywords
 ...    Open Browser    ${BaseSiteURL}     ${BROWSER} 
 ...    AND    Set Selenium Timeout    15s
+Suite Teardown    Close Browser
 Resource         ../../Keywords/BaseKeywords.resource
 Resource         ../../Keywords/LoginKeywords.robot
 Resource         ../../Resources/GlobalVariables.resource

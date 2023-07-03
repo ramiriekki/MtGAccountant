@@ -8,6 +8,7 @@ Suite Setup    Run Keywords
 ...    AND    Navigate to Sets page
 ...    AND    Navigate to Midnight Hunt set
 ...    AND    Navigate to double faced card
+Suite Teardown    Close Browser
 Resource         ../../Keywords/BaseKeywords.resource
 Resource         ../../Keywords/SingleCardKeywords.robot
 Resource         ../../Keywords/NavigationKeywords.robot

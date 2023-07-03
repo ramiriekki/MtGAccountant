@@ -8,6 +8,7 @@ Suite Setup    Run Keywords
 ...    AND    Navigate to Sets page
 ...    AND    Navigate to Set
 ...    AND    Click Element    ${RemoveAllButton}
+Suite Teardown    Close Browser
 Resource         ../../Keywords/BaseKeywords.resource
 Resource         ../../Keywords/SetKeywords.robot
 Resource         ../../Keywords/NavigationKeywords.robot

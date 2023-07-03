@@ -6,6 +6,7 @@ Suite Setup    Run Keywords
 ...    AND    Set Selenium Timeout    15s
 ...    AND    Login    @{NormalUserData}
 ...    AND    Navigate to Sets page
+Suite Teardown    Close Browser
 Resource         ../../Keywords/BaseKeywords.resource
 Resource         ../../Keywords/SetsKeywords.robot
 Resource         ../../Keywords/NavigationKeywords.robot
