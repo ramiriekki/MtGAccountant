@@ -25,6 +25,7 @@ mat-drawer-container {
   width: 250px;
   position: fixed;
   margin-top: 60px;
+  border-right: 4px solid #f57f01;
 }
 
 .side-link {
@@ -120,6 +121,7 @@ mat-drawer-container {
     position: fixed;
     top: 0;
     z-index: 5;
+    border-bottom: 4px solid #f57f01;
     /* top: 0;
     left: 0;
     right: 0;
@@ -418,3 +420,14 @@ mat-drawer-container {
   .master-cont {
     height: 95%;
   }
+
+  mat-drawer-container {
+    background: linear-gradient(to right, #4d3000, black, black, black, #4d3000);
+    /* background-color: #00070f !important; */
+  }
+
+  .example-sidenav-content {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
