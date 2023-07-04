@@ -9,6 +9,10 @@ mat-card.main{
     color: #f57f01;
 }
 
+.prices, .oracle-text, .main > mat-card{
+  background-color: rgb(39, 39, 39) !important;
+}
+
 .buy-button, .change-image-button {
   width: 100%;
 }
