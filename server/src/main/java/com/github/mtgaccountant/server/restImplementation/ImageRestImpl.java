@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.pdfbox.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,20 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.mtgaccountant.server.rest.ImageRest;
+import com.github.mtgaccountant.server.service.ImageService;
 
 @RestController
 public class ImageRestImpl implements ImageRest {
 
+    @Autowired
+    ImageService imageService;
+
     @Override
     public ResponseEntity<String> uploadFile(MultipartFile file) {
         try {
-            File path = new File("/Users/ramiriekkinen/Projects/School/MtGAccountant/server/data/images/"
-                    + file.getOriginalFilename());
-            path.createNewFile();
-            FileOutputStream output = new FileOutputStream(path);
-            output.write(file.getBytes());
-            output.close();
-            return new ResponseEntity<String>("File is uploaded successfully!", HttpStatus.OK);
+            return imageService.uploadImage(file);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
@@ -36,12 +35,11 @@ public class ImageRestImpl implements ImageRest {
 
     @Override
     public ResponseEntity<byte[]> getImage(String id) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        InputStream in = new FileInputStream(
-                "/Users/ramiriekkinen/Projects/School/MtGAccountant/server/data/images/angular_architecture.png");
-        byte[] media = IOUtils.toByteArray(in);
-        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        return new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
+        try {
+            return imageService.getImage(id);
+        } catch (Exception e) {
+            return new ResponseEntity<byte[]>(new byte[0], HttpStatus.MULTI_STATUS);
+        }
     }
 
 }
