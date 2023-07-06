@@ -2,12 +2,13 @@ package com.github.mtgaccountant.server.serviceImplementation;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.pdfbox.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,16 +16,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.mtgaccountant.server.dao.UserDao;
+import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.service.ImageService;
+import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 @Service
 public class ImageServiceImpl implements ImageService {
 
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    JwtFilter jwtFilter;
+
+    @Value("${mtg.accountant.data.path}")
+    private String dataPath;
+
     @Override
     public ResponseEntity<String> uploadImage(MultipartFile file) {
         try {
-            File path = new File("/Users/ramiriekkinen/Projects/School/MtGAccountant/server/data/images/"
-                    + file.getOriginalFilename()); // TODO: save with username prefix
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+
+            File path = new File(dataPath + "/data/images/"
+                    + user.getUsername() + "ProfilePicture.png"); // TODO: save with username prefix
             path.createNewFile();
             FileOutputStream output = new FileOutputStream(path);
             output.write(file.getBytes());
@@ -40,10 +55,12 @@ public class ImageServiceImpl implements ImageService {
         HttpHeaders headers = new HttpHeaders();
         // TODO: fetch with username prefix with requestparameter
         InputStream in = new FileInputStream(
-                "/Users/ramiriekkinen/Projects/School/MtGAccountant/server/data/images/angular_architecture.png");
+                dataPath + "/data/images/" + id + "ProfilePicture.png");
         byte[] media = IOUtils.toByteArray(in);
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
         return new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
     }
+
+    // TODO: delete & change image
 
 }
