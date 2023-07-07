@@ -10,76 +10,15 @@
       <mat-spinner *ngIf="isTopCardLoading" color="accent"></mat-spinner>
       <app-top-card [hidden]="isTopCardLoading"></app-top-card>
     </div>
+
     <div class="progress-list">
       <mat-spinner *ngIf="isProgLoading" color="accent"></mat-spinner>
       <app-progress-list [hidden]="isProgLoading"></app-progress-list>
     </div>
-    <div class="row">
-        <div class="column">
-            <mat-card color="primary" class="test">
-                <div class="card">
-                    <div class="container">
-                        <h1 class="title">All Cards</h1>
-                        <p><button id="all-cards-button" class="button" [routerLink]="['collection/page/0']" mat-raised-button color="accent" matTooltip="List of all cards">To All Cards</button></p>
-                    </div>
-                </div>
-            </mat-card>
-        </div>
 
-        <div class="column">
-            <mat-card color="primary">
-                <div class="card">
-                    <div class="container">
-                        <h1 class="title">Sets</h1>
-                        <p><button id="sets-button" class="button" [routerLink]="['sets']" mat-raised-button color="accent" matTooltip="List of all sets">To Sets</button></p>
-                    </div>
-                </div>
-            </mat-card>
-        </div>
-
-        <div class="column">
-            <mat-card color="primary">
-                <div class="card">
-                    <div class="container">
-                        <h1 class="title">Search</h1>
-                        <p><button id="search-button" class="button" [routerLink]="['search']" mat-raised-button color="accent">To Search</button></p>
-                    </div>
-                </div>
-            </mat-card>
-        </div>
-
-        <div class="column">
-          <mat-card color="primary">
-              <div class="card">
-                  <div class="container">
-                      <h1 class="title">Profile</h1>
-                      <p><button id="profile-button" class="button" [routerLink]="['profile']" mat-raised-button color="accent">Profile</button></p>
-                  </div>
-              </div>
-          </mat-card>
-        </div>
-
-        <div class="column">
-          <mat-card color="primary">
-              <div class="card">
-                  <div class="container">
-                      <h1 class="title">Chat</h1>
-                      <p><button id="chat-button" class="button" [routerLink]="['community']" mat-raised-button color="accent">Chat</button></p>
-                  </div>
-              </div>
-          </mat-card>
-        </div>
-
-        <div class="column"  *ngIf="isAdmin()">
-          <mat-card color="primary">
-              <div class="card">
-                  <div class="container">
-                      <h1 class="title">Admin Tools</h1>
-                      <p><button id="admin-button" class="button" [routerLink]="['admin-board']" mat-raised-button color="accent">To Admin Board</button></p>
-                  </div>
-              </div>
-          </mat-card>
-        </div>
+    <div class="progress-list">
+      <app-main-navigation [isAdmin]="isAdmin()"></app-main-navigation>
     </div>
+
   </div>
 </body>
