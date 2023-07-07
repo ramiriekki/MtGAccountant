@@ -39,12 +39,12 @@ public class ImageServiceImpl implements ImageService {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
 
             File path = new File(dataPath + "/data/images/"
-                    + user.getUsername() + "ProfilePicture.png"); // TODO: save with username prefix
+                    + user.getUsername() + "ProfilePicture.png");
             path.createNewFile();
             FileOutputStream output = new FileOutputStream(path);
             output.write(file.getBytes());
             output.close();
-            return new ResponseEntity<String>("File is uploaded successfully!", HttpStatus.OK);
+            return new ResponseEntity<String>("File was uploaded successfully!", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
@@ -53,14 +53,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ResponseEntity<byte[]> getImage(String id) throws IOException {
         HttpHeaders headers = new HttpHeaders();
-        // TODO: fetch with username prefix with requestparameter
         InputStream in = new FileInputStream(
                 dataPath + "/data/images/" + id + "ProfilePicture.png");
         byte[] media = IOUtils.toByteArray(in);
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
         return new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
     }
-
-    // TODO: delete & change image
-
 }

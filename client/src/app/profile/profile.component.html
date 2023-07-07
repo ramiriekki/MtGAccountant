@@ -1,19 +1,27 @@
 <div class="profile-container">
       <mat-card class="profile-card">
+
+        <mat-card color="accent" class="info">
           <mat-toolbar color="accent"><p class="title">Profile<p></mat-toolbar>
 
-          <mat-card color="accent" class="info">
+            <div class="profile-side-cont">
+              <div class="image-div">
+                <img src="{{ImageUrl}}" alt="">
+                <button mat-raised-button color="accent" style="color: white;" class="image-button">Change Image</button>
+              </div>
+              <div class="data">
+                <div class="data-title">Email: <p class="sub">{{user.email}}</p></div>
+                <mat-divider></mat-divider><br>
+                <div class="data-title">Username: <p class="sub">{{user.username}}</p></div>
+                <mat-divider></mat-divider><br>
+                <div class="data-title">Id: <p class="sub">{{user.id}}</p></div>
+                <mat-divider></mat-divider><br>
+                <button mat-raised-button color="accent" style="color: white;" class="password-button" (click)="handleChangePasswordAction()">
+                  Change Password
+                </button>
+              </div>
+            </div>
 
-            <div class="data-title">Email: <p class="sub">{{user.email}}</p></div>
-            <mat-divider></mat-divider><br>
-            <div class="data-title">Username: <p class="sub">{{user.username}}</p></div>
-            <mat-divider></mat-divider><br>
-            <div class="data-title">Id: <p class="sub">{{user.id}}</p></div>
-            <mat-divider></mat-divider><br>
-
-            <button mat-raised-button color="accent" style="color: white;" class="password-button" (click)="handleChangePasswordAction()">
-              Change Password
-            </button>
           </mat-card>
       </mat-card>
 </div>
