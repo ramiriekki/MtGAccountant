@@ -46,7 +46,7 @@ export class AppComponent implements OnInit{
     // Check on default page if user is signed in (has token).
     // If token exist, reroute the user back to dashboard.
     this.userService.checkToken().subscribe((response: any) => {
-      this.router.navigate(['/dashboard'])
+      //this.router.navigate(['/dashboard'])
     }, (error: any) => {
       console.log(error);
     })

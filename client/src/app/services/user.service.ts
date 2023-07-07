@@ -61,4 +61,14 @@ export class UserService {
     console.log(email);
     return this.httpClient.delete(this.url + `/api/user/delete?email=${email}`)  // TODO: This isn't working...
   }
+
+  getUserImage(username: string): Observable<Blob> {
+    return this.httpClient.get(this.url + `/api/images/get?id=${username}`, { responseType: 'blob' })
+  }
+
+  uploadUserImage(data: any): Observable<any> {
+    return this.httpClient.post(this.url + "/api/images/upload/local", data, {
+      //headers: new HttpHeaders().set('Content-Type', 'multipart/file')
+    })
+  }
 }

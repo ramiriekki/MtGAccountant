@@ -22,6 +22,7 @@ import { ProgressListComponent } from './progress-list/progress-list.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { mtgRouteResuseStrategy } from '../strategies/mtgRouteReuseStrategy';
 import { ChatComponent } from '../chat/chat.component';
+import { UploadImageComponent } from '../dialog/upload-image/upload-image.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ChatComponent } from '../chat/chat.component';
     BinderModifyComponent,
     TopCardComponent,
     ProgressListComponent,
+    UploadImageComponent,
     //ChatComponent,
   ],
   imports: [
