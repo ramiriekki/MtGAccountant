@@ -7,7 +7,7 @@
             <div class="profile-side-cont">
               <div class="image-div">
                 <img src="{{ImageUrl}}" alt="">
-                <button mat-raised-button color="accent" style="color: white;" class="image-button">Change Image</button>
+                <button mat-raised-button color="accent" style="color: white;" class="image-button" (click)="handleUploadImageAction()">Change Image</button>
               </div>
               <div class="data">
                 <div class="data-title">Email: <p class="sub">{{user.email}}</p></div>

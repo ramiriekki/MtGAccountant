@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { UploadImageComponent } from '../dialog/upload-image/upload-image.component';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -42,6 +43,12 @@ export class ProfileComponent implements OnInit {
     const dialogConfig = new MatDialogConfig()
     dialogConfig.width = "550px"
     this.dialog.open(ChangePasswordComponent, dialogConfig)
+  }
+
+  handleUploadImageAction(){
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.width = "550px"
+    this.dialog.open(UploadImageComponent, dialogConfig)
   }
 
   createImageFromBlob(image: Blob) {
