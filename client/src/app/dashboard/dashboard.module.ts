@@ -23,6 +23,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { mtgRouteResuseStrategy } from '../strategies/mtgRouteReuseStrategy';
 import { ChatComponent } from '../chat/chat.component';
 import { UploadImageComponent } from '../dialog/upload-image/upload-image.component';
+import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UploadImageComponent } from '../dialog/upload-image/upload-image.compon
     TopCardComponent,
     ProgressListComponent,
     UploadImageComponent,
+    MainNavigationComponent,
     //ChatComponent,
   ],
   imports: [
