@@ -21,7 +21,7 @@
 }
 
 .chat-card:hover {
-  background-color: #f57f01;
+  background-color: #f57f01 !important;
   transition: 500ms;
   cursor: pointer;
   color: white;

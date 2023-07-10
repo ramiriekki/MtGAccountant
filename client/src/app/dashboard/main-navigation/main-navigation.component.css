@@ -1,0 +1,27 @@
+.navigation-card {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: 1px solid #f57f01;
+  margin: 20px;
+  /* width: 350px; */
+  height: 75vh;
+  margin: 0;
+  margin-bottom: 20px;
+  align-items: center;
+  place-content: space-around;
+}
+
+.button, .card, .container {
+  width: 100%;
+}
+
+.button {
+  height: 50px;
+  box-shadow: 3px 5px 3px 3px #dc4302, -3px 5px 3px 3px #dc4302;
+}
+
+.button:hover {
+  background-color: #ab3300;
+  color: white;
+}

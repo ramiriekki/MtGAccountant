@@ -9,6 +9,7 @@
     cursor: pointer;
     background-color: transparent;
     border: 1px solid #f57f01;
+    box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
 }
 
 .carousel-card {
@@ -17,6 +18,7 @@
   border: 1px solid #f57f01;
   width: 350px;
   height: auto;
+  box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
 }
 
 .valuable {
@@ -268,7 +270,7 @@ h2{
 }
 
 .card:hover {
-  background-color: #ce710070;
+  background-color: #f57f01 !important;
   transition: 500ms;
 }
 

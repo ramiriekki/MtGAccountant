@@ -19,9 +19,11 @@ import { SortTabsComponent } from '../shared/sort-tabs/sort-tabs.component';
 import { BinderModifyComponent } from '../set/binder-modify/binder-modify.component';
 import { TopCardComponent } from './top-card/top-card.component';
 import { ProgressListComponent } from './progress-list/progress-list.component';
-import { RouteReuseStrategy } from '@angular/router';
-import { mtgRouteResuseStrategy } from '../strategies/mtgRouteReuseStrategy';
-import { ChatComponent } from '../chat/chat.component';
+import { UploadImageComponent } from '../dialog/upload-image/upload-image.component';
+import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -40,14 +42,22 @@ import { ChatComponent } from '../chat/chat.component';
     BinderModifyComponent,
     TopCardComponent,
     ProgressListComponent,
-    //ChatComponent,
+    UploadImageComponent,
+    MainNavigationComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild({
+      extend: true
+    })
   ]
 })
 export class DashboardModule { }
+
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

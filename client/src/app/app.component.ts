@@ -9,6 +9,8 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { Location } from '@angular/common'
 import { filter } from 'rxjs';
+import { User } from './models/User';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,7 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit{
   role: any
+  user!: any;
   isAuthenticated: boolean = false
   isBaseLocationUrl: boolean = false;
 
@@ -25,7 +28,8 @@ export class AppComponent implements OnInit{
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
-    private location: Location
+    private location: Location,
+    public translate: TranslateService
     ){
       router.events
       .pipe(
@@ -38,19 +42,23 @@ export class AppComponent implements OnInit{
         console.log(this.isBaseLocationUrl);
 
       });
+
+      translate.addLangs(['en', 'fi']);
+      translate.setDefaultLang('en');
     }
 
   ngOnInit(): void {
     // Check on default page if user is signed in (has token).
     // If token exist, reroute the user back to dashboard.
     this.userService.checkToken().subscribe((response: any) => {
-      this.router.navigate(['/dashboard'])
+      //this.router.navigate(['/dashboard'])
     }, (error: any) => {
       console.log(error);
     })
 
     this.isBaseLocation()
     this.isLoggedIn()
+    this.getUser()
 
     window.addEventListener('storage', function(e) {
 
@@ -111,6 +119,22 @@ export class AppComponent implements OnInit{
     } else {
       this.isBaseLocationUrl = false;
     }
+  }
+
+  getUser(): void{
+    this.userService.getUser().subscribe(user => this.user = user)
+  }
+
+  isAdmin(): boolean {
+    if (this.user?.role === "admin") {
+      return true;
+    } else {
+      return false
+    }
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 
   title = 'client';

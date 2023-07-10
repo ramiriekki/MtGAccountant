@@ -1,21 +1,19 @@
 *** Settings ***
-Test Setup       Setup environment
-Test Teardown    Close Browser
-Documentation    Login Functionality
+Documentation    Profile Functionality
 Library          SeleniumLibrary
-Resource         ../../Resources/BaseKeywords.resource
+Suite Setup    Run Keywords
+...    Open Browser    ${BaseSiteURL}     ${BROWSER} 
+...    AND    Set Selenium Timeout    15s
+...    AND    Login    @{NormalUserData}
+Suite Teardown    Close Browser
+Resource         ../../Keywords/BaseKeywords.resource
+Resource         ../../Keywords/ProfileKeywords.robot
+Resource         ../../Keywords/NavigationKeywords.robot
 Resource         ../../Resources/GlobalVariables.resource
 
-*** Test Cases ***
-User is able to navigate to profile view 
-    Click Element                       //button[@class='mat-focus-indicator button mat-raised-button mat-button-base mat-accent']//span[@class='mat-button-wrapper'][normalize-space()='Profile']
-    Wait For Condition                  return document.readyState == "complete"
-    Page Should Contain                 Profile
 
-Profile view should contain correct information 
-    Click Element                       //button[@class='mat-focus-indicator button mat-raised-button mat-button-base mat-accent']//span[@class='mat-button-wrapper'][normalize-space()='Profile']
-    Wait For Condition                  return document.readyState == "complete"
-    Page Should Contain                   Email: ${TestEmail}
-    Page Should Contain                   Username: ${TestUsername}
-    Page Should Contain                   Id: ${TestId}
-    Page Should Contain Element           //button[@class='mat-focus-indicator password-button mat-raised-button mat-button-base mat-accent']                   
+*** Test Cases ***
+Correct user information is shown on profile page
+    Given The user is at dashboard
+    The user navigates to 'Profile'
+    Then The correct information should be visible    @{NormalUserData}

@@ -2,11 +2,24 @@
 Documentation    Collection variables defined
 
 *** Variables ***
-${PageLimitSelect}    //body[1]/app-root[1]/mat-drawer-container[1]/mat-drawer-content[1]/div[1]/app-dashboard[1]/app-cards[1]/mat-paginator[1]/div[1]/div[1]/div[1]/mat-form-field[1]/div[1]
-${PageLimit40}        //span[normalize-space()='40']
-${PageLimit20}        //span[normalize-space()='20']
-${CollectionCardTemplate}       (//mat-card[@class='mat-card mat-focus-indicator card ng-star-inserted'])
-${NextPage}    //button[@aria-label='Next page']
-${PreviousPage}    //button[@aria-label='Previous page']
-${FirstPageUrl}    http://localhost:4200/dashboard/collection/page/0
-${SecondPageUrl}    http://localhost:4200/dashboard/collection/page/1
+#Pagination
+${RangeLabel}                            //div[@class='mat-paginator-range-label']
+${NextPageButton}                        //button[@aria-label='Next page']//span[@class='mat-button-wrapper']//*[name()='svg']
+${PreviousPageButton}                    //button[@aria-label='Previous page']
+
+#Card Elements
+${FirstCardNameLocator}                  //mat-card[1]//mat-toolbar[1]//p[1]
+${FirstCardRarityLocator}                //mat-card[1]//mat-card[1]//div[1]//p[1]
+${FirstCardPriceLocator}                 //body//app-root//mat-card[1]//mat-card[1]//div[1]//p[3]
+${FirstCardNotCollected}                 //mat-card[1]//mat-toolbar[1]/div[@class='notcollected-circle ng-star-inserted']
+${FirstCardCollected}                    //mat-card[1]//mat-toolbar[1]/div[@class='collected-circle ng-star-inserted']
+
+#Sort
+${AZSort}                                //button[contains(.,'Name A-Z')]
+${ZASort}                                //button[contains(.,'Name Z-A')]
+${RaritySortAsc}                         //button[contains(.,'Rarity Ascending')]
+${RaritySortDec}                         //button[contains(.,'Rarity Decending')]
+${PriceSortAsc}                          //button[contains(.,'Price Ascending')]
+${PriceSortDec}                          //button[contains(.,'Price Decending')]
+${CollectedSort}                         //button[@id='mat-button-toggle-9-button']
+${NotCollectedSort}                      //button[contains(.,'Not Collected')]
