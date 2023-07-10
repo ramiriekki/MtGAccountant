@@ -1,6 +1,6 @@
 <div class="search-container">
     <mat-card class="search-card">
-        <mat-toolbar class="page-title" color="accent"><p class="page-title">Search</p></mat-toolbar>
+        <mat-toolbar class="page-title" color="accent"><p class="page-title">{{'search.search' | translate}}</p></mat-toolbar>
 
         <mat-card class="form-card">
 
@@ -9,7 +9,7 @@
 
               <div class="form-group">
                   <mat-icon>perm_contact_calendar</mat-icon>
-                  <p>Card name:</p>
+                  <p>{{'search.name' | translate}}</p>
                   <mat-form-field appearance="fill" color="primary" [formGroup]="parentForm">
                       <mat-label>Card name</mat-label>
                       <input matInput placeholder="Placeholder" formControlName="name">
@@ -18,7 +18,7 @@
 
                 <div class="form-group">
                   <mat-icon>star_border</mat-icon>
-                  <p>Rarity:</p>
+                  <p>{{'search.rarity' | translate}}:</p>
                     <mat-button-toggle-group name="rarities" aria-label="Rarities" multiple formControlName="rarities">
                         <mat-button-toggle [style.background-color]="'#f57f01'" value="common">Common</mat-button-toggle>
                         <mat-button-toggle value="uncommon">Uncommon</mat-button-toggle>
@@ -30,7 +30,7 @@
                 <br>
                 <div class="form-group">
                   <mat-icon>library_books</mat-icon>
-                  <p>Set type:</p>
+                  <p>{{'search.type' | translate}}</p>
                     <mat-button-toggle-group name="setType" aria-label="Set Type" multiple formControlName="setTypes">
                         <mat-button-toggle value="expansion">Expansion</mat-button-toggle>
                         <mat-button-toggle value="core">Core</mat-button-toggle>
@@ -39,19 +39,19 @@
 
                 <div class="form-group">
                   <mat-icon>euro_symbol</mat-icon>
-                  <p>Minimum price:</p><br>
+                  <p>{{'search.min.price' | translate}}</p><br>
                     <mat-slider displayValue thumbLabel formControlName="minPrice" min="0" max="1000" step="1"></mat-slider>
                 </div>
 
                 <div class="form-group">
                   <mat-icon>euro_symbol</mat-icon>
-                  <p>Maximum price:</p><br>
+                  <p>{{'search.max.price' | translate}}</p><br>
                     <mat-slider displayValue thumbLabel formControlName="maxPrice" min="0" max="1000" step="1"></mat-slider>
                 </div>
 
                 <div class="form-group">
                   <mat-icon>view_agenda</mat-icon>
-                  <p>Include sets:</p>
+                  <p>{{'search.sets' | translate}}</p>
                     <mat-form-field appearance="fill">
                         <mat-label>Sets</mat-label>
                         <mat-select multiple formControlName="sets">
@@ -68,7 +68,7 @@
                     </mat-button-toggle-group>
                 </div> -->
 
-                <button class="button" type="submit" mat-raised-button color="accent" (click)="scrollToBottom()">Search</button>
+                <button class="button" type="submit" mat-raised-button color="accent" (click)="scrollToBottom()">{{'search.do.search' | translate}}</button>
             </form>
         </div>
     </mat-card>

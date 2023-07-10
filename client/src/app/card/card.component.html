@@ -3,16 +3,16 @@
     <div class="card-main-container">
       <div class="image-container">
         <img [src]="image" alt="">
-        <button class="change-image-button" mat-raised-button type="button" color="accent" (click)="changeCardFace(image)" matTooltip="Change card image and data to match the other face">Swap Face</button>
+        <button class="change-image-button" mat-raised-button type="button" color="accent" (click)="changeCardFace(image)" matTooltip="Change card image and data to match the other face">{{'singlecard.swap.faces' | translate}}</button>
       </div>
 
         <div class="details">
             <mat-card class="main-data-container">
               <div class="main-data-subcont">
-                <p class="main-data">Rarity: {{card.rarity}}</p>
-                <p id="set-link" class="main-data" [routerLink]="['/dashboard/sets/', card.set]">Set: {{card.set_name}}</p>
-                <p class="main-data">Collection number: {{card.collector_number}}</p>
-                <p class="main-data">Price: {{card.prices.eur}} €</p>
+                <p class="main-data">{{'singlecard.rarity' | translate}} {{card.rarity}}</p>
+                <p id="set-link" class="main-data" [routerLink]="['/dashboard/sets/', card.set]">{{'singlecard.set' | translate}} {{card.set_name}}</p>
+                <p class="main-data">{{'singlecard.collector.number' | translate}} {{card.collector_number}}</p>
+                <p class="main-data">{{'singlecard.price' | translate}} {{card.prices.eur}} €</p>
               </div>
               <div class="collected" *ngIf="isOwned(card.id)"><mat-icon color="primary" class="icon" matTooltip="In collection">check_circle</mat-icon></div>
               <div class="not-collected" *ngIf="!isOwned(card.id)"><mat-icon color="primary" class="icon" matTooltip="Not in collection">highlight_off</mat-icon></div>
@@ -20,18 +20,18 @@
             <div class="details-sub">
                 <div class="sub-data">
                     <div class="data-div-cont">
-                      <div class="data-div">Artist: <p>{{card.artist}}</p></div>
-                      <div class="data-div">Released: <p>{{card.released_at}}</p></div>
+                      <div class="data-div">{{'singlecard.artist' | translate}} <p>{{card.artist}}</p></div>
+                      <div class="data-div">{{'singlecard.released' | translate}} <p>{{card.released_at}}</p></div>
 
-                      <div class="color-div" *ngIf="card.colors != null">Colors: <p>{{card.colors}}</p></div>
-                      <div class="color-div" *ngIf="card.color_identity[0] != null">Color Identity: <p>{{card.color_identity}}</p></div>
+                      <div class="color-div" *ngIf="card.colors != null">{{'singlecard.colors' | translate}} <p>{{card.colors}}</p></div>
+                      <div class="color-div" *ngIf="card.color_identity[0] != null">{{'singlecard.color.identity' | translate}} <p>{{card.color_identity}}</p></div>
 
-                      <div class="data-div" *ngIf="power">Power: <p>{{power}}</p></div>
-                      <div class="data-div" *ngIf="toughness">Toughness: <p>{{toughness}}</p></div>
+                      <div class="data-div" *ngIf="power">{{'singlecard.power' | translate}} <p>{{power}}</p></div>
+                      <div class="data-div" *ngIf="toughness">{{'singlecard.toughness' | translate}}: <p>{{toughness}}</p></div>
                     </div>
 
                     <div class="prices">
-                      <mat-toolbar color="accent" style="margin-bottom: 20px;"><p class="name">Prices<p></mat-toolbar>
+                      <mat-toolbar color="accent" style="margin-bottom: 20px;"><p class="name">{{'singlecard.prices' | translate}}<p></mat-toolbar>
                       <div class="price-div">non-foil: <p class="price">{{card.prices.eur}}&nbsp;</p> €</div>
                       <div class="price-div">foil: <p class="price">{{card.prices.eur_foil}}&nbsp;</p> €</div>
                       <div class="price-div">non-foil: <p class="price">{{card.prices.usd}}&nbsp;</p> $</div>
