@@ -10,6 +10,7 @@ import { UserService } from './services/user.service';
 import { Location } from '@angular/common'
 import { filter } from 'rxjs';
 import { User } from './models/User';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit{
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
-    private location: Location
+    private location: Location,
+    public translate: TranslateService
     ){
       router.events
       .pipe(
@@ -40,6 +42,9 @@ export class AppComponent implements OnInit{
         console.log(this.isBaseLocationUrl);
 
       });
+
+      translate.addLangs(['en', 'fi']);
+      translate.setDefaultLang('fi');
     }
 
   ngOnInit(): void {
@@ -126,6 +131,10 @@ export class AppComponent implements OnInit{
     } else {
       return false
     }
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 
   title = 'client';
