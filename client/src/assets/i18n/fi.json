@@ -80,5 +80,13 @@
   "dialog.logout.confirmation": "Haluatko varmasti kirjautua ulos?",
   "dialog.logout.yes": "Kyllä",
   "dialog.logout.no": "Ei",
-  "admin.": ""
+  "admin.guide": "Täällä voit estää käyttäjien sisäänkirjautumisen. false = Käyttäjä estetty \ntrue = Käyttäjä aktiivinen",
+  "admin.user.list": "Käyttäjät",
+  "admin.table.username": "Käyttäjänimi",
+  "admin.table.email": "Sähköposti",
+  "admin.table.status": "Tila",
+  "admin.table.role": "Rooli",
+  "admin.change.status": "Vaihda tila",
+  "admin.remove": "Poista",
+  "admin.remove.user": "Poista käyttäjä"
 }

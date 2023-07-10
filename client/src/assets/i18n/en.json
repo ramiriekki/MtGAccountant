@@ -80,5 +80,13 @@
   "dialog.logout.confirmation": "Are you sure you want to logout?",
   "dialog.logout.yes": "Yes",
   "dialog.logout.no": "No",
-  "admin.": ""
+  "admin.guide": "Here you can change the status of users. false = Account disabled by admin \ntrue = Account active",
+  "admin.user.list": "User List",
+  "admin.table.username": "Username",
+  "admin.table.email": "Email",
+  "admin.table.status": "Status",
+  "admin.table.role": "Role",
+  "admin.change.status": "Change Status",
+  "admin.remove": "Remove",
+  "admin.remove.user": "Remove User"
 }
