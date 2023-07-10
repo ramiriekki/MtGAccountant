@@ -4,13 +4,11 @@
   </div>
   <mat-card class="guide-card">
     <p>
-      Here you can change the status of users. <br>
-      false = Account disabled by admin <br>
-      true = Account active
+      {{'admin.guide' | translate}}
     </p>
   </mat-card>
 
-  <h1>User List</h1>
+  <h1>{{'admin.user.list' | translate}}</h1>
   <mat-card class="users">
 
     <table mat-table [dataSource]="users" class="mat-elevation-z8" color="primary">
@@ -20,36 +18,36 @@
       </ng-container>
 
       <ng-container matColumnDef="username">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Username </th>
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> {{'admin.table.username' | translate}} </th>
         <td mat-cell [style.background-color]="'#262626'" *matCellDef="let element">{{element.username}}</td>
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Email </th>
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> {{'admin.table.email' | translate}} </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.email}}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Status </th>
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> {{'admin.table.status' | translate}} </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.status}}</td>
       </ng-container>
 
       <ng-container matColumnDef="role">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef>  Role </th>
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef>  {{'admin.table.role' | translate}} </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">{{element.role}}</td>
       </ng-container>
 
       <ng-container matColumnDef="change_status">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Change Status </th>
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> {{'admin.change.status' | translate}} </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">
-          <button mat-raised-button color="accent" style="width: 100%;" (click)="changeStatus(element.email, element.status)">Change Status</button>
+          <button mat-raised-button color="accent" style="width: 100%;" (click)="changeStatus(element.email, element.status)">{{'admin.change.status' | translate}}</button>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="remove">
-        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> Remove </th>
+        <th [style.background-color]="'#f57f01'" mat-header-cell *matHeaderCellDef> {{'admin.remove' | translate}} </th>
         <td [style.background-color]="'#262626'" mat-cell *matCellDef="let element">
-          <button mat-raised-button color="warn" style="width: 100%; margin-left: 10px;" (click)="removeUser(element.email)">Remove User</button>
+          <button mat-raised-button color="warn" style="width: 100%; margin-left: 10px;" (click)="removeUser(element.email)">{{'admin.remove.user' | translate}}</button>
         </td>
       </ng-container>
 

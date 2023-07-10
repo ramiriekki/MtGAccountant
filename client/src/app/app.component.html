@@ -8,16 +8,23 @@
         <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent" matTooltip="Side menu">
           ≡
         </button>
+
+        <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+          <option *ngFor="let language of translate.getLangs()" [value]="language"
+            [selected]="language === translate.currentLang">
+            {{ language }}
+          </option>
+        </select>
       </div>
 
       <a id="title" [routerLink]="['/dashboard']" matTooltip="Home"><img src="../assets/images/mtg-accountant-logo.png" alt=""></a>
 
       <div class="toolbar-right">
         <div class="link-cont">
-          <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">Login</a>
-          <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">Register</a>
-          <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">Forgot Password?</a>
-          <a *ngIf="this.isAuthenticated" (click)="handleLogoutAction()">Logout</a>
+          <a *ngIf="!this.isAuthenticated" (click)="handleLoginAction()">{{'account.login' | translate}}</a>
+          <a *ngIf="!this.isAuthenticated" (click)="handleSignupAction()">{{'account.register' | translate}}</a>
+          <a *ngIf="!this.isAuthenticated" (click)="handleForgotPasswordAction()">{{'account.forgot.password' | translate}}</a>
+          <a *ngIf="this.isAuthenticated" (click)="handleLogoutAction()">{{'account.logout' | translate}}</a>
         </div>
       </div>
     </mat-toolbar-row>
@@ -25,23 +32,22 @@
 
   <mat-drawer-container class="example-container">
     <mat-drawer #drawer class="example-sidenav" mode="side">
-      <a class="side-link" [routerLink]="['/dashboard']">Dashboard</a>
+      <a class="side-link" [routerLink]="['/dashboard']">{{'navigation.dashboard' | translate}}</a>
       <mat-divider></mat-divider>
-      <a class="side-link" [routerLink]="['/dashboard/collection/page/0']">My Collection</a>
+      <a class="side-link" [routerLink]="['/dashboard/collection/page/0']">{{'navigation.collection' | translate}}</a>
       <mat-divider></mat-divider>
-      <a class="side-link" [routerLink]="['/dashboard/sets']">Sets</a>
+      <a class="side-link" [routerLink]="['/dashboard/sets']">{{'navigation.sets' | translate}}</a>
       <mat-divider></mat-divider>
-      <a class="side-link" [routerLink]="['/dashboard/profile']">Profile</a>
+      <a class="side-link" [routerLink]="['/dashboard/profile']">{{'navigation.profile' | translate}}</a>
       <mat-divider></mat-divider>
-      <a class="side-link" [routerLink]="['/dashboard/search']">Search</a>
+      <a class="side-link" [routerLink]="['/dashboard/search']">{{'navigation.search' | translate}}</a>
       <mat-divider></mat-divider>
-      <a *ngIf="isAdmin()" class="side-link" [routerLink]="['/dashboard/admin-board']">Admin</a>
+      <a *ngIf="isAdmin()" class="side-link" [routerLink]="['/dashboard/admin-board']">{{'navigation.admin' | translate}}</a>
       <mat-divider></mat-divider>
-      <a class="side-link" (click)="handleLogoutAction()">Logout</a>
+      <a class="side-link" (click)="handleLogoutAction()">{{'account.logout' | translate}}</a>
     </mat-drawer>
 
     <div class="example-sidenav-content">
-
       <router-outlet></router-outlet>
       <ngx-ui-loader></ngx-ui-loader>
     </div>

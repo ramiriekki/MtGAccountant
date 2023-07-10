@@ -1,19 +1,19 @@
 <mat-card class="form-card">
-  <mat-toolbar color="accent">Create new chat</mat-toolbar>
+  <mat-toolbar color="accent">{{'chat.new' | translate}}</mat-toolbar>
   <form (ngSubmit)="onSubmit()" [formGroup]="chatForm">
 
     <div class="form-group">
-        <p>Chat title:</p>
+        <p>{{'chat.title' | translate}}</p>
         <mat-form-field appearance="fill" color="primary" [formGroup]="chatForm">
-            <mat-label>Chat title</mat-label>
+            <mat-label>{{'chat.title' | translate}}</mat-label>
             <input matInput placeholder="Title" formControlName="title">
         </mat-form-field>
     </div>
 
     <section class="form-group">
-      <p>Add users:</p>
+      <p>{{'chat.users' | translate}}</p>
       <mat-form-field appearance="fill" color="primary" [formGroup]="chatForm">
-        <mat-label>User</mat-label>
+        <mat-label>{{'chat.user' | translate}}</mat-label>
         <input type="text"
                placeholder="User"
                aria-label="User"
@@ -30,9 +30,9 @@
     </section>
 
     <section class="form-group">
-      <mat-checkbox class="private-selection" color="accent" [formGroup]="chatForm" formControlName="private">Private?</mat-checkbox>
+      <mat-checkbox class="private-selection" color="accent" [formGroup]="chatForm" formControlName="private">{{'chat.private' | translate}}</mat-checkbox>
     </section>
 
-      <button class="button" type="submit" mat-raised-button color="accent" >Create</button>
+      <button class="button" type="submit" mat-raised-button color="accent" >{{'chat.create' | translate}}</button>
   </form>
 </mat-card>

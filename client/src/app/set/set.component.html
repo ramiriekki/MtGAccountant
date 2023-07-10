@@ -13,14 +13,14 @@
           <mat-divider class="divider"></mat-divider><br>
           <p>{{set.set_type}}</p>
           <mat-divider class="divider"></mat-divider><br>
-          <p>Cards: {{set.card_count}}</p>
+          <p>{{'sets.set.cards.amount' | translate}} {{set.card_count}}</p>
           <mat-divider class="divider"></mat-divider><br>
           <p><a class="scryfall-link" href="{{set.scryfall_uri}}" target="_blank" rel="noopener noreferrer">{{set.scryfall_uri}}</a></p>
           <mat-divider class="divider"></mat-divider><br>
         </mat-card>
 
         <mat-card class="set-progress-card">
-          <mat-toolbar color="accent" class="set-name"><p class="name">Progress<p></mat-toolbar>
+          <mat-toolbar color="accent" class="set-name"><p class="name">{{'sets.set.progress' | translate}}<p></mat-toolbar>
             <br>
 
           <div class="progress">
@@ -37,7 +37,7 @@
               </button>
             </div>
             <mat-divider></mat-divider><br>
-            <h2 class="value">Current set value: {{wholeSetValue}} €</h2>
+            <h2 class="value">{{'sets.set.value' | translate}} {{wholeSetValue}} €</h2>
           </div>
         </mat-card>
 
@@ -48,7 +48,7 @@
 <div class="valuable-container">
   <mat-card class="valuable">
     <mat-toolbar color="accent" class="card-header" style="margin-bottom: 20px;">
-      Most valuable cards collected:
+      {{'sets.set.most.valuable' | translate}}
     </mat-toolbar>
     <p-carousel [value]="topCards" [numVisible]="3" [numScroll]="3" [responsiveOptions]="responsiveOptions">
       <ng-template let-card pTemplate="item">
@@ -84,7 +84,7 @@
 
 <div class="options-container">
   <mat-card class="options">
-    <h2>Quick move to set:</h2>
+    <h2>{{'sets.set.quick.move' | translate}}</h2>
 
     <div class="button-group">
       <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets" matTooltip="Scroll down to {{child.name}}">
@@ -92,13 +92,13 @@
       </button>
     </div>
 
-    <h2>Sort Cards</h2>
+    <h2>{{'sets.set.sort.cards' | translate}}</h2>
 
     <div class="sort-tabs">
       <app-sort-tabs></app-sort-tabs>
     </div>
 
-    <button mat-raised-button class="binder-button" color="accent" (click)="handleBinderOpenAction()">Open Binder View</button>
+    <button mat-raised-button class="binder-button" color="accent" (click)="handleBinderOpenAction()">{{'sets.set.open.binder.tool' | translate}}</button>
   </mat-card>
 </div>
 
