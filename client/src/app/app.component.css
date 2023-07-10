@@ -431,3 +431,10 @@ mat-drawer-container {
     padding-right: 100px;
   }
 
+select {
+  border-radius: 5px;
+  background-color: black;
+  border: 2px solid #f57f00;
+  color: #f57f00;
+  width: 80px;
+}

@@ -1,3 +1,19 @@
 {
-  "test": "Testing"
+  "dashboard.most.valuable": "Most valuable card:",
+  "dashboard.collection.value": "Collection value:",
+  "dashboard.collection.button": "Collection",
+  "dashboard.sets.button": "Sets",
+  "dashboard.profile.button": "Profile",
+  "dashboard.search.button": "Search",
+  "dashboard.admin.button": "Admin",
+  "dashboard.chat.button": "Chat",
+  "collection.": "",
+  "sets.": "",
+  "sets.set.": "",
+  "singlecard.": "",
+  "search.": "",
+  "admin.": "",
+  "profile.": "",
+  "chat.": "",
+  "sidenav.": ""
 }

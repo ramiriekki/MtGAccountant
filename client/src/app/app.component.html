@@ -8,6 +8,13 @@
         <button id="menu-button" type="button" mat-raised-button (click)="drawer.toggle()" color="accent" matTooltip="Side menu">
           ≡
         </button>
+
+        <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+          <option *ngFor="let language of translate.getLangs()" [value]="language"
+            [selected]="language === translate.currentLang">
+            {{ language }}
+          </option>
+        </select>
       </div>
 
       <a id="title" [routerLink]="['/dashboard']" matTooltip="Home"><img src="../assets/images/mtg-accountant-logo.png" alt=""></a>
@@ -41,7 +48,6 @@
     </mat-drawer>
 
     <div class="example-sidenav-content">
-      <h1>{{'test' | translate}}</h1>
       <router-outlet></router-outlet>
       <ngx-ui-loader></ngx-ui-loader>
     </div>

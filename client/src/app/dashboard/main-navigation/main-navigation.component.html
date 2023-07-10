@@ -1,37 +1,37 @@
 <mat-card class="navigation-card">
     <div class="card">
         <div class="container">
-            <p><button id="all-cards-button" class="button" [routerLink]="['collection/page/0']" mat-raised-button color="accent" matTooltip="List of all cards">To All Cards</button></p>
+            <p><button id="all-cards-button" class="button" [routerLink]="['collection/page/0']" mat-raised-button color="accent" matTooltip="List of all cards">{{'dashboard.collection.button' | translate}}</button></p>
         </div>
     </div>
 
     <div class="card">
         <div class="container">
-            <p><button id="sets-button" class="button" [routerLink]="['sets']" mat-raised-button color="accent" matTooltip="List of all sets">To Sets</button></p>
+            <p><button id="sets-button" class="button" [routerLink]="['sets']" mat-raised-button color="accent" matTooltip="List of all sets">{{'dashboard.sets.button' | translate}}</button></p>
         </div>
     </div>
 
     <div class="card">
         <div class="container">
-            <p><button id="search-button" class="button" [routerLink]="['search']" mat-raised-button color="accent">To Search</button></p>
+            <p><button id="search-button" class="button" [routerLink]="['search']" mat-raised-button color="accent">{{'dashboard.search.button' | translate}}</button></p>
         </div>
     </div>
 
     <div class="card">
         <div class="container">
-            <p><button id="profile-button" class="button" [routerLink]="['profile']" mat-raised-button color="accent">Profile</button></p>
+            <p><button id="profile-button" class="button" [routerLink]="['profile']" mat-raised-button color="accent">{{'dashboard.profile.button' | translate}}</button></p>
         </div>
     </div>
 
     <div class="card">
         <div class="container">
-            <p><button id="chat-button" class="button" [routerLink]="['community']" mat-raised-button color="accent">Chat</button></p>
+            <p><button id="chat-button" class="button" [routerLink]="['community']" mat-raised-button color="accent">{{'dashboard.chat.button' | translate}}</button></p>
         </div>
     </div>
 
     <div class="card" *ngIf="isAdmin">
         <div class="container">
-            <p><button id="admin-button" class="button" [routerLink]="['admin-board']" mat-raised-button color="accent">To Admin Board</button></p>
+            <p><button id="admin-button" class="button" [routerLink]="['admin-board']" mat-raised-button color="accent">{{'dashboard.admin.button' | translate}}</button></p>
         </div>
     </div>
 </mat-card>

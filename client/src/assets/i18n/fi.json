@@ -1,3 +1,19 @@
 {
-  "test": "Testataan"
+  "dashboard.most.valuable": "Arvokkain kortti:",
+  "dashboard.collection.value": "Kokoelman arvo:",
+  "dashboard.collection.button": "Kokoelma",
+  "dashboard.sets.button": "Setit",
+  "dashboard.profile.button": "Profiili",
+  "dashboard.search.button": "Haku",
+  "dashboard.admin.button": "Admin",
+  "dashboard.chat.button": "Chat",
+  "collection.": "",
+  "sets.": "",
+  "sets.set.": "",
+  "singlecard.": "",
+  "search.": "",
+  "admin.": "",
+  "profile.": "",
+  "chat.": "",
+  "sidenav.": ""
 }
