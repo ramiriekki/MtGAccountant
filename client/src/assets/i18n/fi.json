@@ -33,6 +33,8 @@
   "search.min.price": "Minimi hinta: ",
   "search.max.price": "Maksimi hinta: ",
   "search.sets": "Sisällytä lisäosat: ",
+  "search.color": "Sisällytä värit: ",
+  "search.collected": "Kokoelmassa? ",
   "search.do.search": "Hae",
   "profile.title": "Profiili",
   "profile.email": "Sähköposti:",

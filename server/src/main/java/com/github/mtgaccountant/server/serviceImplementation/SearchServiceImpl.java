@@ -16,7 +16,10 @@ import com.github.mtgaccountant.server.utils.SearchUtils;
 import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
@@ -27,7 +30,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public ResponseEntity<List<CardSearchWrapper>> searchCards(ClientSearch searchData) {
-
+        log.debug("Search data: {}", searchData);
         try {
             List<CardWrapper> cards = cardDao.findAlCardWrappers();
             List<CardSearchWrapper> searchCards = new ArrayList<>();
