@@ -33,6 +33,7 @@ build/
 ### VS Code ###
 .vscode/
 
+### Other ###
 /src/main/resources/application.properties
-
 /data
+/logs

@@ -26,8 +26,11 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 // BUG user can either modify collection or see the admin board 
 @Service
+@Slf4j
 public class CollectionServiceImpl implements CollectionService {
 
     @Autowired
@@ -244,6 +247,12 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public ResponseEntity<CardWrapper> getMostValuableCard(String email) {
         try {
+            log.trace("A TRACE Message");
+            log.debug("A DEBUG Message");
+            log.info("An INFO Message");
+            log.warn("A WARN Message");
+            log.error("An ERROR Message");
+
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
             List<CollectionCardWrapper> cards;
             CollectionCardWrapper mostValuableCollectionCard = new CollectionCardWrapper("", "", "", false, null);
