@@ -3,6 +3,8 @@ package com.github.mtgaccountant.server.serviceImplementation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -258,6 +260,7 @@ public class CollectionServiceImpl implements CollectionService {
             cards = collection.getCards();
 
             mostValuableCollectionCard = cards.stream()
+                    .filter(c -> c.getPrices().getEur() != null)
                     .max((card, card2) -> Double.compare(Double.parseDouble(card.getPrices().getEur()),
                             Double.parseDouble(card2.getPrices().getEur())))
                     .orElseGet(() -> new CollectionCardWrapper("bf87803b-e7c6-4122-add4-72e596167b7e", "", "", false,
