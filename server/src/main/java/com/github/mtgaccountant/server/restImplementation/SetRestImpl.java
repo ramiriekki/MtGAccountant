@@ -15,7 +15,7 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
 
 @RestController
-public class SetRestImpl implements SetRest{
+public class SetRestImpl implements SetRest {
 
     @Autowired
     SetService setService;
@@ -27,7 +27,7 @@ public class SetRestImpl implements SetRest{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return new ResponseEntity<List<Set>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -49,7 +49,7 @@ public class SetRestImpl implements SetRest{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return new ResponseEntity<List<SetCodesWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -85,5 +85,5 @@ public class SetRestImpl implements SetRest{
 
         return new ResponseEntity<List<CardWrapper>>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
 }

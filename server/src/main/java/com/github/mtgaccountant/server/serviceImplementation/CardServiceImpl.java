@@ -13,7 +13,7 @@ import com.github.mtgaccountant.server.service.CardService;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @Service
-public class CardServiceImpl implements CardService{
+public class CardServiceImpl implements CardService {
 
     @Autowired
     CardDao cardDao;
