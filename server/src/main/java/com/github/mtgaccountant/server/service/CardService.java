@@ -8,6 +8,8 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 public interface CardService {
     ResponseEntity<List<CardWrapper>> getAllCards();
+
     ResponseEntity<CardWrapper> getCard(String cardId);
+
     ResponseEntity<List<CardWrapper>> getSetCards(String code);
 }

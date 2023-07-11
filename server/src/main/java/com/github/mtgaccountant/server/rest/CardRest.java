@@ -13,7 +13,7 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 public interface CardRest {
     @GetMapping(path = "/all-cards")
     public ResponseEntity<List<CardWrapper>> getAllCards();
-    
+
     // Eg. http://localhost:8080/api/cards/card?cardId=fjkasnfaksjfn124hj23btk
     @GetMapping(path = "/card")
     public ResponseEntity<CardWrapper> getCard(@RequestParam String cardId);

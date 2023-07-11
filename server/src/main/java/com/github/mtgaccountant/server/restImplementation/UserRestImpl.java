@@ -17,7 +17,7 @@ import com.github.mtgaccountant.server.wrapper.MinimalUserWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
 @RestController
-public class UserRestImpl implements UserRest{
+public class UserRestImpl implements UserRest {
 
     @Autowired
     UserService userService;
@@ -30,7 +30,8 @@ public class UserRestImpl implements UserRest{
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -41,7 +42,8 @@ public class UserRestImpl implements UserRest{
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -63,7 +65,8 @@ public class UserRestImpl implements UserRest{
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -74,7 +77,8 @@ public class UserRestImpl implements UserRest{
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -85,7 +89,8 @@ public class UserRestImpl implements UserRest{
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -96,19 +101,20 @@ public class UserRestImpl implements UserRest{
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     public ResponseEntity<String> deleteUser(String email) {
         try {
-            System.out.println(email);
             return userService.deleteUser(email);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -132,5 +138,5 @@ public class UserRestImpl implements UserRest{
 
         return new ResponseEntity<List<MinimalUserWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
 }

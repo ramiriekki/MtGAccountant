@@ -18,18 +18,21 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @RequestMapping(path = "/api/collections")
 public interface CollectionRest {
-    // Eg. http://localhost:8080/api/collections/collection?email=test.test@gmail.com
+    // Eg.
+    // http://localhost:8080/api/collections/collection?email=test.test@gmail.com
     @GetMapping(path = "/collection")
     public ResponseEntity<Collection> getCollection(@RequestParam String email);
 
     @PostMapping(path = "/collection")
-    public ResponseEntity<String> updateCollection(@RequestBody(required = true) Map<String, String[]> requestMap, @RequestParam String email);
+    public ResponseEntity<String> updateCollection(@RequestBody(required = true) Map<String, String[]> requestMap,
+            @RequestParam String email);
 
     @DeleteMapping(path = "/collection")
     public ResponseEntity<String> deleteCollection(@RequestParam String email);
 
     @GetMapping(path = "/collection/set")
-    public ResponseEntity<CollectionCountData> getCollectionSetCount(@RequestParam String email, @RequestParam String code);
+    public ResponseEntity<CollectionCountData> getCollectionSetCount(@RequestParam String email,
+            @RequestParam String code);
 
     @GetMapping(path = "/collection/sets-progress")
     public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(@RequestParam String email);

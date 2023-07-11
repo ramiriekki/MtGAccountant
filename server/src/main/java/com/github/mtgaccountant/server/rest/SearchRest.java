@@ -12,6 +12,6 @@ import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 
 @RequestMapping(path = "/api/search")
 public interface SearchRest {
-    @PostMapping(path = "/cards") 
+    @PostMapping(path = "/cards")
     public ResponseEntity<List<CardSearchWrapper>> getSearch(@RequestBody(required = true) ClientSearch clientSearch);
 }

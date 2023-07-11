@@ -14,7 +14,7 @@ import com.github.mtgaccountant.server.service.SearchService;
 import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 
 @RestController
-public class SearchRestImpl implements SearchRest{
+public class SearchRestImpl implements SearchRest {
 
     @Autowired
     SearchService searchService;
@@ -22,10 +22,10 @@ public class SearchRestImpl implements SearchRest{
     @Override
     public ResponseEntity<List<CardSearchWrapper>> getSearch(ClientSearch clientSearch) {
         try {
-                return searchService.searchCards(clientSearch);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return new ResponseEntity<List<CardSearchWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return searchService.searchCards(clientSearch);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return new ResponseEntity<List<CardSearchWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
