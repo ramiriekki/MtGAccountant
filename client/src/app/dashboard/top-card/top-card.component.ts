@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from 'src/app/models/Card';
@@ -13,6 +13,8 @@ import { LoaderService } from 'src/app/services/loader.service';
 export class TopCardComponent implements OnInit {
   mostValuableCard!: Card;
   collectionValue: number = 0;
+  @Input()
+  user: any;
 
   constructor(
     private router: Router,

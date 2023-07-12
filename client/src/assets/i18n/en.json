@@ -7,6 +7,7 @@
   "dashboard.search.button": "Search",
   "dashboard.admin.button": "Admin",
   "dashboard.chat.button": "Chat",
+  "dashboard.user": "User",
   "sets.set.cards.amount": "Cards:",
   "sets.set.progress": "Progress",
   "sets.set.value": "Current set value",

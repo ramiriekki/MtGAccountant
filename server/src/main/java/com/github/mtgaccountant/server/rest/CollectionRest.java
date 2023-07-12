@@ -18,28 +18,31 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @RequestMapping(path = "/api/collections")
 public interface CollectionRest {
-    // Eg.
-    // http://localhost:8080/api/collections/collection?email=test.test@gmail.com
-    @GetMapping(path = "/collection")
-    public ResponseEntity<Collection> getCollection(@RequestParam String email);
+        // Eg.
+        // http://localhost:8080/api/collections/collection?email=test.test@gmail.com
+        @GetMapping(path = "/collection")
+        public ResponseEntity<Collection> getCollection(@RequestParam String email);
 
-    @PostMapping(path = "/collection")
-    public ResponseEntity<String> updateCollection(@RequestBody(required = true) Map<String, String[]> requestMap,
-            @RequestParam String email);
+        @PostMapping(path = "/collection")
+        public ResponseEntity<String> updateCollection(@RequestBody(required = true) Map<String, String[]> requestMap,
+                        @RequestParam String email);
 
-    @DeleteMapping(path = "/collection")
-    public ResponseEntity<String> deleteCollection(@RequestParam String email);
+        @DeleteMapping(path = "/collection")
+        public ResponseEntity<String> deleteCollection(@RequestParam String email);
 
-    @GetMapping(path = "/collection/set")
-    public ResponseEntity<CollectionCountData> getCollectionSetCount(@RequestParam String email,
-            @RequestParam String code);
+        @GetMapping(path = "/collection/set")
+        public ResponseEntity<CollectionCountData> getCollectionSetCount(@RequestParam String email,
+                        @RequestParam String code);
 
-    @GetMapping(path = "/collection/sets-progress")
-    public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(@RequestParam String email);
+        @GetMapping(path = "/collection/sets-progress")
+        public ResponseEntity<List<SetsProgress>> getCollectionSetsProgress(@RequestParam String email);
 
-    @GetMapping(path = "/collection/value")
-    public ResponseEntity<Double> getCollectionValue(@RequestParam String email);
+        @GetMapping(path = "/collection/value")
+        public ResponseEntity<Double> getCollectionValue(@RequestParam String email);
 
-    @GetMapping(path = "/collection/most-valuable")
-    public ResponseEntity<CardWrapper> getMostValuableCard(@RequestParam String email);
+        @GetMapping(path = "/collection/most-valuable")
+        public ResponseEntity<CardWrapper> getMostValuableCard(@RequestParam String email);
+
+        @GetMapping(path = "/collection/count")
+        public ResponseEntity<Integer> countCollected(@RequestParam String email);
 }
