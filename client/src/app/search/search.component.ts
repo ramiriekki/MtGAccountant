@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   protected _unsubscribe$: Subject<void> = new Subject();
   @ViewChild(MatTable, {static: false}) table!: MatTable<any>
 
+  colors: any[] = [{short: 'W', name: "White" }, {short: 'B', name: "Black" }, {short: 'G', name: "Green" }, {short: 'R', name: "Red" }, {short: 'U', name: "Blue" }]
   displayedColumns: string[] = ['name', 'set', 'set_code', 'set_type', 'collector_number', 'rarity', 'prices', 'owned'];
   displayedColumnsMobile: string[] = ['name', 'set_code', 'collector_number', 'owned'];
   parentForm!: FormGroup
@@ -59,6 +60,7 @@ export class SearchComponent implements OnInit {
       minPrice: new FormControl(),
       maxPrice: new FormControl(),
       sets: new FormControl(),
+      colors: new FormControl(),
       owned: new FormControl()
     })
     this.getSetCodes()

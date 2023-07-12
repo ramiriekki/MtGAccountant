@@ -14,7 +14,7 @@ export class SearchService {
   ) { }
 
   searchCards(searchData: any): Observable<any>{
-    const data = { name: searchData.name, rarities: searchData.rarities, setTypes: searchData.setTypes, minPrice: searchData.minPrice, maxPrice: searchData.maxPrice, sets: searchData.sets, owned: searchData.owned}
+    const data = { name: searchData.name, rarities: searchData.rarities, setTypes: searchData.setTypes, minPrice: searchData.minPrice, maxPrice: searchData.maxPrice, sets: searchData.sets, colors: searchData.colors, owned: searchData.owned}
 
     return this.httpClient.post(this.url + `/api/search/cards`, data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')

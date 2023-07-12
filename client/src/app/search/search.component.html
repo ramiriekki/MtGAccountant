@@ -60,13 +60,26 @@
                     </mat-form-field>
                 </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
+                  <mat-icon>color_lens</mat-icon>
+                  <p>{{'search.color' | translate}}</p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Color</mat-label>
+                        <mat-select multiple formControlName="colors">
+                        <mat-option *ngFor="let color of colors" [value]="color.short">{{color.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                  <mat-icon>check_circle</mat-icon>
+                  <p>{{'search.collected' | translate}}</p>
                     <mat-button-toggle-group name="owned" aria-label="Collection" formControlName="owned">
-                        <mat-button-toggle value="collected">In Collection</mat-button-toggle>
-                        <mat-button-toggle value="others">Not In Collection</mat-button-toggle>
-                        <mat-button-toggle value="all">All</mat-button-toggle>
+                        <mat-button-toggle value="COLLECTED">In Collection</mat-button-toggle>
+                        <mat-button-toggle value="NOT_COLLECTED">Not In Collection</mat-button-toggle>
+                        <mat-button-toggle value="ALL">All</mat-button-toggle>
                     </mat-button-toggle-group>
-                </div> -->
+                </div>
 
                 <button class="button" type="submit" mat-raised-button color="accent" (click)="scrollToBottom()">{{'search.do.search' | translate}}</button>
             </form>

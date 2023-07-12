@@ -5,9 +5,9 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class ClientSearch implements Serializable{
+public class ClientSearch implements Serializable {
     private String name;
-    
+
     private String[] rarities;
 
     private String[] setTypes;
@@ -17,6 +17,8 @@ public class ClientSearch implements Serializable{
     private int maxPrice;
 
     private String[] sets;
+
+    private String[] colors;
 
     private String owned;
 }

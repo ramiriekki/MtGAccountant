@@ -16,7 +16,10 @@ import com.github.mtgaccountant.server.utils.SearchUtils;
 import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class SearchServiceImpl implements SearchService {
 
     @Autowired
@@ -27,7 +30,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public ResponseEntity<List<CardSearchWrapper>> searchCards(ClientSearch searchData) {
-
+        log.debug("Search data: {}", searchData);
         try {
             List<CardWrapper> cards = cardDao.findAlCardWrappers();
             List<CardSearchWrapper> searchCards = new ArrayList<>();
@@ -35,21 +38,26 @@ public class SearchServiceImpl implements SearchService {
             String[] rarities = searchData.getRarities();
             String[] types = searchData.getSetTypes();
             String[] sets = searchData.getSets();
+            String[] colors = searchData.getColors();
 
             if (searchData.getName() != null && !searchData.getName().isEmpty()) {
                 cards = searchUtils.searchByName(cards, searchData.getName());
             }
 
-            if (searchData.getRarities() != null && searchData.getRarities().length != 0) {
+            if (rarities != null && rarities.length != 0) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.RARITY, rarities);
             }
 
-            if (searchData.getSetTypes() != null && searchData.getSetTypes().length != 0) {
+            if (types != null && types.length != 0) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.TYPE, types);
             }
 
-            if (searchData.getSets() != null && searchData.getSets().length != 0) {
+            if (sets != null && sets.length != 0) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.CODE, sets);
+            }
+
+            if (colors != null && colors.length != 0) {
+                cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.COLORS, colors);
             }
 
             if (searchData.getMinPrice() != 0 || searchData.getMaxPrice() != 0) {
@@ -59,6 +67,10 @@ public class SearchServiceImpl implements SearchService {
                     cards = searchUtils.limitSearchListByPrice(cards, searchData.getMinPrice(),
                             searchData.getMaxPrice());
                 }
+            }
+
+            if (searchData.getOwned() != null) {
+                cards = searchUtils.limitOwned(cards, searchData.getOwned());
             }
 
             for (CardWrapper cardWrapper : cards) {

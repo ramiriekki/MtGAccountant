@@ -33,6 +33,8 @@
   "search.min.price": "Minimum price: ",
   "search.max.price": "Maximum price: ",
   "search.sets": "Include sets: ",
+  "search.color": "Include colors: ",
+  "search.collected": "Collected? ",
   "search.do.search": "Search",
   "profile.title": "Profile",
   "profile.email": "Email:",
