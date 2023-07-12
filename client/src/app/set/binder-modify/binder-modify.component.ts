@@ -21,16 +21,11 @@ export class BinderModifyComponent implements OnInit {
     private cardsService: CardsService
     ) { }
 
-  ngOnInit(): void {
-
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.leftCards = this.data.cards.slice(this.leftIndexes.start, this.leftIndexes.end);
     this.rightCards = this.data.cards.slice(this.rightIndexes.start, this.rightIndexes.end);
-    console.log(this.leftCards);
-
   }
 
   handleNextOpening(): void {

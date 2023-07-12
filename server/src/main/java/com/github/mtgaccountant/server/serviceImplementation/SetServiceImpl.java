@@ -110,7 +110,7 @@ public class SetServiceImpl implements SetService {
 
             // Check if user email matches param email. If not return unauthorized
             if (!user.getEmail().equals(email)) {
-                System.out.println("Email param doesn't match users email.");
+                log.warn(MtgAccountantConstants.EMAIL_DOESNT_MATCH);
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 

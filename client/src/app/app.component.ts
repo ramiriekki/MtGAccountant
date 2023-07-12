@@ -36,11 +36,7 @@ export class AppComponent implements OnInit{
         filter(event => event instanceof NavigationEnd)
       )
       .subscribe((val) => {
-        console.log(val);
-        console.log(this.router.url);
         this.isBaseLocation();
-        console.log(this.isBaseLocationUrl);
-
       });
 
       translate.addLangs(['en', 'fi']);
@@ -112,8 +108,6 @@ export class AppComponent implements OnInit{
   }
 
   isBaseLocation() {
-    console.log(this.router.url);
-
     if (this.router.url != "/home" && this.router.url != "/dashboard") {
       this.isBaseLocationUrl = true;
     } else {

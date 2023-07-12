@@ -58,7 +58,6 @@ export class UserService {
   }
 
   removeUser(email: string): Observable<any> {
-    console.log(email);
     return this.httpClient.delete(this.url + `/api/user/delete?email=${email}`)  // TODO: This isn't working...
   }
 

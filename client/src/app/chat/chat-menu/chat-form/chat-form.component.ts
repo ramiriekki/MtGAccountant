@@ -31,7 +31,6 @@ export class ChatFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.chatForm);
     let chatData: ChatForm = {
       title: this.chatForm.value.title,
       participants: [],

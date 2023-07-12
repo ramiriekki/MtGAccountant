@@ -4,9 +4,7 @@ export class mtgRouteResuseStrategy implements RouteReuseStrategy {
   private storedRoutes = new Map<string, DetachedRouteHandle>();
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    console.log("routeconfigpath", route);
     if (route.routeConfig != null && route.routeConfig.path != undefined){
-
       return route.routeConfig.path! === "collection/page/:page";
     } else {
       return false;

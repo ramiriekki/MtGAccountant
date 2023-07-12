@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit{
       localStorage.setItem('user', this.getDecodedAccessToken(response.token).sub)
 
       user = this.getDecodedAccessToken(response.token).sub
-      console.log(user)
 
       this.router.navigate(['/dashboard'])
       window.location.reload();

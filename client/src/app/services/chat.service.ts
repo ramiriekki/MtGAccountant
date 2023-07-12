@@ -24,17 +24,6 @@ export class ChatService {
     return this.httpClient.get<Chat[]>(this.url + "/api/chat/all")
   }
 
-  // createNewChat(data: any) {
-  //   try {
-  //     return this.httpClient.post(this.url + `/api/chat/new`, data, {
-  //       headers: new HttpHeaders().set('Content-Type', 'application/json')
-  //     }).subscribe()
-  //   } catch (error) {
-  //     console.log(error);
-  //     return null
-  //   }
-  // }
-
   createNewChat(chatData: ChatForm): void {
     this.httpClient.post<Chat>(this.url + `/api/chat/new`, chatData, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')

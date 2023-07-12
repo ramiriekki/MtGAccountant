@@ -48,10 +48,8 @@ export class CardsComponent implements OnInit, OnDestroy {
         } else if (this.sortValue == "nameZA"){
           this.SortCardsService.sortByNameZA(this.cards)
         } else if (this.sortValue == "collectorNumberAsc") {
-          console.log("asc")
           this.SortCardsService.sortByCollectorNumberAsc(this.cards)
         } else if (this.sortValue == "collectorNumberDec") {
-          console.log("dec")
           this.SortCardsService.sortByCollectorNumberDec(this.cards)
         } else if (this.sortValue == "rarityUp"){
           this.SortCardsService.sortByRarityAsc(this.cards)

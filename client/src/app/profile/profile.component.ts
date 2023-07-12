@@ -32,10 +32,7 @@ export class ProfileComponent implements OnInit {
 
   public getUserImage(username: string): void{
     this.userService.getUserImage(username).subscribe(imageUrl => {
-      console.log(username);
-
       this.createImageFromBlob(imageUrl);
-      console.log(this.ImageUrl);
     });
   }
 

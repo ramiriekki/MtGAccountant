@@ -60,7 +60,6 @@ export class SetComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((value) => {
         this.sortValue = value
-        console.log(this.sortValue);
 
         if (this.sortValue == "nameAZ") {
           this.SortCardsService.sortByNameAZ(this.cards);

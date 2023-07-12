@@ -58,8 +58,6 @@ public class CollectionServiceImpl implements CollectionService {
                 return new ResponseEntity<>(new Collection(), HttpStatus.UNAUTHORIZED);
             }
 
-            // System.out.println(collectionDao.findByUser(user));
-
             return new ResponseEntity<>(collectionDao.findByFinderID(user.getUsername() + user.getEmail()),
                     HttpStatus.OK);
         } catch (Exception e) {
@@ -73,8 +71,6 @@ public class CollectionServiceImpl implements CollectionService {
     public ResponseEntity<String> updateCollection(Map<String, String[]> requestMap, String email) {
         try {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
-
-            System.out.println("User: " + user);
 
             // Check if user email matches param email. If not return unauthorized
             if (!user.getEmail().equals(email)) {
