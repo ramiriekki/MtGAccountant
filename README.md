@@ -12,33 +12,37 @@ Now works as a playground to test and learn new technologies and further study A
 ## Example views
 ### Home & dialog (28.06.23)
 
-![login view](/images/register.png)
+![register](/images/register.png)
 
 ### Collection (28.06.23)
 
-![my-collection view](/images/collection.png)
+![collection](/images/collection.png)
 
 
 ### Sets list (28.06.23)
 
-![sets view](/images/sets.png)
+![sets](/images/sets.png)
 
 ### Set
 
-![set cards view](/images/set.png)
+![set](/images/set.png)
 
 ### Single card view
 
-![single card view](/images/single_card.png)
+![single card](/images/single_card.png)
 
 ### Search & results
 Search:  (28.06.23)
-![single card view](/images/search.png)
+![search](/images/search.png)
 Results:
-![single card view](/images/results.png)
+![results](/images/results.png)
 
 ### Profile
-![single card view](/images/profile.png)
+![profile](/images/profile.png)
+
+### Chat
+![chat](/images/chat.png)
+![chat](/images/chat2.png)
 
 <br><br>
 ## Legacy views
@@ -85,6 +89,8 @@ MONGO_USERNAME=[MongoDB username]
 MONGO_PASSWORD=
 MONGO_CLUSTER=[MongoDB cluster]
 DATABASE_NAME=[Name of the database]
+
+DATA_PATH=[Path to data folder]
 ```
 
 Create <code>application.properties</code> file under <code>src/main</code> and add following lines:
@@ -99,6 +105,15 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 spring.data.mongodb.uri=mongodb+srv://${env.MONGO_USERNAME}:${env.MONGO_PASSWORD}@${env.MONGO_CLUSTER}.ie0p3lh.mongodb.net/?retryWrites=true&w=majority
 spring.data.mongodb.database=${env.DATABASE_NAME}
+
+spring.servlet.multipart.max-file-size=256MB
+spring.servlet.multipart.max-request-size=256MB
+spring.servlet.multipart.enabled=true
+
+mtg.accountant.data.path=${env.DATA_PATH}
+
+logging.level.root=WARN
+logging.level.com.github.mtgaccountant==TRACE
 ```
 
 To populate the database:
