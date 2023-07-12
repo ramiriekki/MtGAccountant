@@ -3,14 +3,16 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
+    /* flex: 1; */
+    min-width: 100px;
+    max-width: 250px;
     margin: 20px;
     cursor: pointer;
     background-color: transparent;
     border: 1px solid #f57f01;
     box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
+    /* width: 225px; */
+    height: 500px;
 }
 
 .cards-container{
@@ -38,6 +40,7 @@ p.name{
 
 p {
   font-weight: bolder;
+  margin: 0;
 }
 
 h2{
@@ -49,7 +52,7 @@ h2{
     background-color: #f57f01;
     display: flex;
     flex-flow: column nowrap;
-
+    padding-bottom: 5px;
 }
 
 .add-button{
