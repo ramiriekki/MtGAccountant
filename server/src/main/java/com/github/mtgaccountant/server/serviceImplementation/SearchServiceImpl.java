@@ -38,21 +38,26 @@ public class SearchServiceImpl implements SearchService {
             String[] rarities = searchData.getRarities();
             String[] types = searchData.getSetTypes();
             String[] sets = searchData.getSets();
+            String[] colors = searchData.getColors();
 
             if (searchData.getName() != null && !searchData.getName().isEmpty()) {
                 cards = searchUtils.searchByName(cards, searchData.getName());
             }
 
-            if (searchData.getRarities() != null && searchData.getRarities().length != 0) {
+            if (rarities != null && rarities.length != 0) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.RARITY, rarities);
             }
 
-            if (searchData.getSetTypes() != null && searchData.getSetTypes().length != 0) {
+            if (types != null && types.length != 0) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.TYPE, types);
             }
 
-            if (searchData.getSets() != null && searchData.getSets().length != 0) {
+            if (sets != null && sets.length != 0) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.CODE, sets);
+            }
+
+            if (colors != null && colors.length != 0) {
+                cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.COLORS, colors);
             }
 
             if (searchData.getMinPrice() != 0 || searchData.getMaxPrice() != 0) {

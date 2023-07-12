@@ -1,6 +1,7 @@
 package com.github.mtgaccountant.server.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,17 @@ public class SearchUtils {
         if (searchField.equals(MtgAccountantConstants.CODE)) {
             for (String value : searchValue) {
                 result.addAll(cards.stream().filter(c -> c.getSet().toLowerCase().contains(value.toLowerCase()))
+                        .collect(Collectors.toList()));
+            }
+
+            return result;
+        }
+
+        if (searchField.equals(MtgAccountantConstants.COLORS)) {
+            for (String value : searchValue) {
+                result.addAll(cards.stream()
+                        .filter(c -> Arrays.asList(c.getColors()).stream()
+                                .anyMatch(co -> co.toLowerCase().contains(value.toLowerCase())))
                         .collect(Collectors.toList()));
             }
 

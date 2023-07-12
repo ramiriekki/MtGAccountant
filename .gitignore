@@ -5,3 +5,5 @@
 node_modules
 config
 rebel.xml
+logs/server-debug.log
+logs/server-main.log
