@@ -199,7 +199,7 @@ public class CollectionServiceImpl implements CollectionService {
 
             // Check if user email matches param email. If not return unauthorized
             if (!user.getEmail().equals(email)) {
-                System.out.println("Email param doesn't match users email.");
+                log.warn(MtgAccountantConstants.EMAIL_DOESNT_MATCH);
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
@@ -256,6 +256,29 @@ public class CollectionServiceImpl implements CollectionService {
         }
 
         return new ResponseEntity<CardWrapper>(HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<Integer> countCollected(String email) {
+        try {
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+            Integer collectedCards = 0;
+
+            // Check if user email matches param email. If not return unauthorized
+            if (!user.getEmail().equals(email)) {
+                log.warn(MtgAccountantConstants.EMAIL_DOESNT_MATCH);
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
+
+            collectedCards = (int) collection.getCards().stream().filter(c -> c.isCollected()).count();
+
+            return new ResponseEntity<Integer>(collectedCards, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
     }
 
 }

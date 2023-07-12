@@ -47,6 +47,7 @@
 .main-container {
   display: flex;
   justify-content: space-around;
+  margin-top: 30px;
 }
 
 .progress-list, .top-card {

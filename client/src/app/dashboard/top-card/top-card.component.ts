@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Card } from 'src/app/models/Card';
@@ -13,6 +13,9 @@ import { LoaderService } from 'src/app/services/loader.service';
 export class TopCardComponent implements OnInit {
   mostValuableCard!: Card;
   collectionValue: number = 0;
+  totalCollectedAmount: number = 0;
+  @Input()
+  user: any;
 
   constructor(
     private router: Router,
@@ -24,6 +27,7 @@ export class TopCardComponent implements OnInit {
   ngOnInit(): void {
     this.getMostValuableCard()
     this.getCollectionValue()
+    this.getCollectionCount()
   }
 
   ngAfterViewInit() {
@@ -39,6 +43,10 @@ export class TopCardComponent implements OnInit {
 
   getCollectionValue(): void {
     this.cardsService.getCollectionValue().subscribe(value => this.collectionValue = +value.toFixed(2))
+  }
+
+  getCollectionCount(): void {
+    this.cardsService.getCollectionCount().subscribe(count => this.totalCollectedAmount = +count)
   }
 
   moveToTopCard(): void {

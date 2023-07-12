@@ -7,6 +7,8 @@
   "dashboard.search.button": "Haku",
   "dashboard.admin.button": "Admin",
   "dashboard.chat.button": "Chat",
+  "dashboard.user": "Käyttäjä:",
+  "dashboard.collection.count": "Kortteja kerätty:",
   "sets.set.cards.amount": "Kortit:",
   "sets.set.progress": "Tilanne",
   "sets.set.value": "Kerätty arvo:",

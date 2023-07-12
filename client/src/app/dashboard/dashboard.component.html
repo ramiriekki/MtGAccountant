@@ -1,14 +1,11 @@
 <router-outlet></router-outlet>
 
 <body *ngIf="isDashboard">
-  <div class="hello-cont">
-    <h1 class="hello">Hello {{user?.username}}!</h1>
-  </div>
-  <br>
+
   <div class="main-container">
     <div class="top-card">
       <mat-spinner *ngIf="isTopCardLoading" color="accent"></mat-spinner>
-      <app-top-card [hidden]="isTopCardLoading"></app-top-card>
+      <app-top-card [hidden]="isTopCardLoading" [user]="user"></app-top-card>
     </div>
 
     <div class="progress-list">

@@ -22,4 +22,6 @@ public interface CollectionService {
     ResponseEntity<Double> getCollectionValue(String email);
 
     ResponseEntity<CardWrapper> getMostValuableCard(String email);
+
+    ResponseEntity<Integer> countCollected(String email);
 }

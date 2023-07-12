@@ -59,4 +59,8 @@ export class CardsService {
   getMostValuableCard(): Observable<Card> {
     return this.httpClient.get<any>(this.url + `/api/collections/collection/most-valuable?email=${localStorage.getItem('user')}`)
   }
+
+  getCollectionCount(): Observable<number> {
+    return this.httpClient.get<number>(this.url + `/api/collections/collection/count?email=${localStorage.getItem('user')}`)
+  }
 }

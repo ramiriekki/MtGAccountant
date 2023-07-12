@@ -96,4 +96,15 @@ public class CollectionRestImpl implements CollectionRest {
         return new ResponseEntity<CardWrapper>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<Integer> countCollected(String email) {
+        try {
+            return collectionService.countCollected(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<Integer>(0, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
