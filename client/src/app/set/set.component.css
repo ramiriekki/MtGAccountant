@@ -1,34 +1,17 @@
 .card{
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-    margin: 20px;
-    cursor: pointer;
-    background-color: transparent;
-    border: 1px solid #f57f01;
-    box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
-}
-
-.carousel-card {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  /* flex: 1; */
+  min-width: 100px;
+  max-width: 250px;
+  margin: 20px;
   cursor: pointer;
   background-color: transparent;
   border: 1px solid #f57f01;
-  width: 350px;
-  height: auto;
   box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
-}
-
-.valuable {
-  margin: 20px;
-  background-color: transparent;
-  border: 1px solid #f57f01;
-}
-
-.valuable-container {
-    width: 100%;
+  /* width: 225px; */
+  height: 500px;
 }
 
 .cards-container{
@@ -38,6 +21,7 @@
     margin-top: 12px;
     flex: 1;
     min-width: 0;
+    justify-content: center;
 }
 
 .cards-container-child{
@@ -80,6 +64,7 @@ h2{
     background-color: #f57f01;
     display: flex;
     flex-flow: column nowrap;
+    padding-bottom: 5px;
 }
 
 .carousel-info {
@@ -103,6 +88,7 @@ h2{
 
 p{
     color: white;
+    margin: 0;
 }
 
 .scryfall-link {
@@ -285,20 +271,13 @@ h2{
   color: #f57f01;
 }
 
-.carousel-card-cont {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
 .binder-button {
   width: 40%;
   margin-left: 30%;
   margin-right: 30%;
 }
 
-@media only screen and (max-width: 1165px){
+@media only screen and (max-width: 1565px){
   .set-data {
     flex-direction: column;
     align-items: center;

@@ -427,8 +427,8 @@ mat-drawer-container {
   }
 
   .example-sidenav-content {
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 15%;
+    padding-right: 15%;
   }
 
 select {

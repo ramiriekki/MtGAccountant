@@ -45,43 +45,6 @@
   </mat-card>
 </div>
 
-<div class="valuable-container">
-  <mat-card class="valuable">
-    <mat-toolbar color="accent" class="card-header" style="margin-bottom: 20px;">
-      {{'sets.set.most.valuable' | translate}}
-    </mat-toolbar>
-    <p-carousel [value]="topCards" [numVisible]="3" [numScroll]="3" [responsiveOptions]="responsiveOptions">
-      <ng-template let-card pTemplate="item">
-        <div class="carousel-card-cont">
-          <mat-card class="carousel-card">
-            <mat-toolbar color="accent" class="card-header">
-              <p class="name">
-                {{card.name}}
-              <p>
-              <div class="collected-circle"></div>
-            </mat-toolbar>
-            <div class="carousel-img-div">
-              <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="carousel-img">
-            </div>
-            <ng-template #elsePart>
-              <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
-            </ng-template>
-
-            <mat-card color="accent" class="carousel-info">
-              <div class="card-data">
-                <p style="text-transform: capitalize;">{{card.rarity}}</p>
-                <p>Collector Number: {{card.collector_number}}</p>
-                <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
-                <p *ngIf="!card.prices.eur">0 €</p>
-              </div>
-            </mat-card>
-          </mat-card>
-        </div>
-      </ng-template>
-    </p-carousel>
-  </mat-card>
-</div>
-
 <div class="options-container">
   <mat-card class="options">
     <h2>{{'sets.set.quick.move' | translate}}</h2>

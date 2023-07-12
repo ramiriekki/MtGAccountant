@@ -47,18 +47,6 @@ export class SetComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private SortCardsService: SortCardsService
   ) {
-    this.responsiveOptions = [
-      {
-          breakpoint: '1260px',
-          numVisible: 2,
-          numScroll: 2
-      },
-      {
-          breakpoint: '900px',
-          numVisible: 1,
-          numScroll: 1
-      }
-  ];
     this.code = this.router.url.split('/').pop()
   }
 
@@ -101,7 +89,6 @@ export class SetComponent implements OnInit, OnDestroy {
     this.getSetValue(this.code)
     this.getCollection()
     this.getCards()
-    this.getTopCards(this.code)
     this.getSetData(this.code)
     this.getCollectedCountFromSet(this.code)
     this.progressWidth = (this.collectedData.collected / this.collectedData.totalCount)*100
@@ -123,10 +110,6 @@ export class SetComponent implements OnInit, OnDestroy {
 
   getSetValue(code: string) {
     this.setsService.getSetValue(code).subscribe(value => this.wholeSetValue = +value.toFixed(2))
-  }
-
-  getTopCards(code: string): void {
-    this.setsService.getMostValuableCards(code).subscribe(cards => this.topCards = cards)
   }
 
   async getChildSets(code: string): Promise<void> {
