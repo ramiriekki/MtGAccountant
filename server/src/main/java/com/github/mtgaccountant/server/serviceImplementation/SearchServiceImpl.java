@@ -69,6 +69,10 @@ public class SearchServiceImpl implements SearchService {
                 }
             }
 
+            if (searchData.getOwned() != null) {
+                cards = searchUtils.limitOwned(cards, searchData.getOwned());
+            }
+
             for (CardWrapper cardWrapper : cards) {
                 searchCards.add(searchUtils.convertCardWrapperToSearchWrapper(cardWrapper));
             }

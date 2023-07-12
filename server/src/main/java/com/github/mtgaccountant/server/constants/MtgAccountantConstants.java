@@ -10,4 +10,5 @@ public class MtgAccountantConstants {
     public static final String CODE = "Code";
     public static final String COLORS = "Colors";
     public static final String EMAIL_DOESNT_MATCH = "Email param doesn't match users email.";
+    public static final String COLLECTED = "Collected";
 }
