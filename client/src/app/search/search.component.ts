@@ -132,7 +132,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                     );
                 }
 
-                this.table.renderRows(); // update the table
+                this.table?.renderRows(); // update the table
             });
     }
 

@@ -25,8 +25,8 @@ export class SetComponent implements OnInit, OnDestroy {
     code: any = '';
     collection: CollectionCard[] = [];
     sets: Set[] = [];
-    set!: Set;
-    collectedData!: any;
+    set!: Set | undefined;
+    collectedData!: any | undefined;
     progressWidth: number = 0;
     collected: number = 0;
     childSets: Set[] = [];
@@ -97,7 +97,7 @@ export class SetComponent implements OnInit, OnDestroy {
         this.getSetData(this.code);
         this.getCollectedCountFromSet(this.code);
         this.progressWidth =
-            (this.collectedData.collected / this.collectedData.totalCount) *
+            (this.collectedData?.collected / this.collectedData?.totalCount) *
             100;
     }
 
@@ -201,7 +201,9 @@ export class SetComponent implements OnInit, OnDestroy {
         }
 
         this.collected++;
-        this.progressWidth = (this.collected / this.set.card_count) * 100;
+
+        if (this.set)
+            this.progressWidth = (this.collected / this.set?.card_count) * 100;
 
         // update to db happens here
         this.cardsService.updateCollection([''], [id]);
@@ -217,7 +219,9 @@ export class SetComponent implements OnInit, OnDestroy {
         }
 
         this.collected--;
-        this.progressWidth = (this.collected / this.set.card_count) * 100;
+
+        if (this.set)
+            this.progressWidth = (this.collected / this.set?.card_count) * 100;
 
         // update to db happens here
         this.cardsService.updateCollection([id], ['']);

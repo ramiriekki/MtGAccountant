@@ -15,7 +15,7 @@ import { UserService } from '../services/user.service';
 export class ChatComponent implements OnInit, OnDestroy {
     disabled = true;
     newMessage: string | undefined;
-    chatData!: Chat;
+    chatData!: Chat | undefined;
     messageForm!: FormGroup;
     user: any;
     protected _unsubscribe$: Subject<void> = new Subject();
@@ -65,7 +65,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         };
 
         this.chatService.sendMessage(message);
-        this.chatData.messages = [...this.chatData.messages!, message];
+
+        if (this.chatData)
+            this.chatData.messages = [...this.chatData.messages!, message];
         this.changeDetectorRef.detectChanges();
     }
 

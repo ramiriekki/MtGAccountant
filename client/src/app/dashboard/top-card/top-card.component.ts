@@ -13,7 +13,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 })
 export class TopCardComponent implements OnInit, OnDestroy {
     protected _unsubscribe$: Subject<void> = new Subject();
-    mostValuableCard!: Card;
+    mostValuableCard!: Card | undefined;
     collectionValue: number = 0;
     totalCollectedAmount: number = 0;
     @Input()
@@ -70,7 +70,7 @@ export class TopCardComponent implements OnInit, OnDestroy {
     moveToTopCard(): void {
         this.router.navigate([
             'dashboard/collection)',
-            this.mostValuableCard.id,
+            this.mostValuableCard?.id,
         ]);
     }
 }

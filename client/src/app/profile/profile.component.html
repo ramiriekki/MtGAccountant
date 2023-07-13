@@ -22,17 +22,17 @@
                 <div class="data">
                     <div class="data-title">
                         {{ 'profile.email' | translate }}
-                        <p class="sub">{{ user.email }}</p>
+                        <p class="sub">{{ user?.email }}</p>
                     </div>
                     <mat-divider></mat-divider><br />
                     <div class="data-title">
                         {{ 'profile.username' | translate }}
-                        <p class="sub">{{ user.username }}</p>
+                        <p class="sub">{{ user?.username }}</p>
                     </div>
                     <mat-divider></mat-divider><br />
                     <div class="data-title">
                         Id:
-                        <p class="sub">{{ user.id }}</p>
+                        <p class="sub">{{ user?.id }}</p>
                     </div>
                     <mat-divider></mat-divider><br />
                     <button

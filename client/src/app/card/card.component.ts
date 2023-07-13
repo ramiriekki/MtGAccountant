@@ -12,12 +12,12 @@ import { CardsService } from '../services/cards.service';
     styleUrls: ['./card.component.css'],
 })
 export class CardComponent implements OnInit, OnDestroy {
-    card!: Card;
-    image!: string;
-    flavor!: string;
-    oracle!: string;
-    power!: string;
-    toughness!: string;
+    card!: Card | undefined;
+    image!: string | undefined;
+    flavor!: string | undefined;
+    oracle!: string | undefined;
+    power!: string | undefined;
+    toughness!: string | undefined;
     collection!: CollectionCard[];
     private unsubscribe$ = new Subject<void>();
 
@@ -77,38 +77,49 @@ export class CardComponent implements OnInit, OnDestroy {
             .subscribe((collection) => (this.collection = collection));
     }
 
-    goToLink(url: string) {
+    goToLink(url: string | undefined) {
         window.open(url, '_blank');
     }
 
-    changeCardFace(faceImageUri: string) {
-        const face = this.card.card_faces[0];
-        if (faceImageUri !== face.image_uris.border_crop) {
-            this.image = face.image_uris.border_crop;
-            this.flavor = face.flavor_text;
-            this.oracle = face.oracle_text;
-            this.power = face.power;
-            this.toughness = face.toughness;
+    changeCardFace(faceImageUri: string | undefined) {
+        const face = this.card?.card_faces[0];
+        if (faceImageUri !== face?.image_uris.border_crop) {
+            this.image = face?.image_uris.border_crop;
+            this.flavor = face?.flavor_text;
+            this.oracle = face?.oracle_text;
+            this.power = face?.power;
+            this.toughness = face?.toughness;
         }
     }
 
-    isOwned(id: string): boolean {
-        return this.collection.some((card) => card.id === id && card.collected);
+    isOwned(id: string | undefined): boolean {
+        if (id != undefined) {
+            return this.collection?.some(
+                (card) => card.id === id && card.collected
+            );
+        } else {
+            return false;
+        }
     }
 
-    addToCollection(id: string): void {
+    addToCollection(id: string | undefined): void {
         const card = this.collection.find((element) => element.id === id);
         if (card) {
             card.collected = true;
         }
-        this.cardsService.updateCollection([''], [id]);
+
+        if (id !== undefined) {
+            this.cardsService.updateCollection([''], [id]);
+        }
     }
 
-    removeFromCollection(id: string): void {
+    removeFromCollection(id: string | undefined): void {
         const card = this.collection.find((element) => element.id === id);
         if (card) {
             card.collected = false;
         }
-        this.cardsService.updateCollection([id], ['']);
+        if (id !== undefined) {
+            this.cardsService.updateCollection([id], ['']);
+        }
     }
 }
