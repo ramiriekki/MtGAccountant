@@ -19,10 +19,24 @@ public class SearchRestImpl implements SearchRest {
     @Autowired
     SearchService searchService;
 
+    // @Override
+    // public ResponseEntity<List<CardSearchWrapper>> getSearch(ClientSearch
+    // clientSearch) {
+    // try {
+    // return searchService.searchCards(clientSearch);
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // return new ResponseEntity<List<CardSearchWrapper>>(new ArrayList<>(),
+    // HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
+
     @Override
-    public ResponseEntity<List<CardSearchWrapper>> getSearch(ClientSearch clientSearch) {
+    public ResponseEntity<List<CardSearchWrapper>> getSearch(String name, String[] rarities, String[] setTypes,
+            Integer minPrice, Integer maxPrice, String[] sets, String[] colors, String owned) {
         try {
-            return searchService.searchCards(clientSearch);
+            return searchService.searchCards(name, rarities, setTypes, minPrice,
+                    maxPrice, sets, colors, owned);
         } catch (Exception e) {
             e.printStackTrace();
         }

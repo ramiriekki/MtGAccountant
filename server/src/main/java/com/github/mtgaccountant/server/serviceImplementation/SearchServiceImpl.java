@@ -29,48 +29,45 @@ public class SearchServiceImpl implements SearchService {
     SearchUtils searchUtils;
 
     @Override
-    public ResponseEntity<List<CardSearchWrapper>> searchCards(ClientSearch searchData) {
-        log.debug("Search data: {}", searchData);
+    public ResponseEntity<List<CardSearchWrapper>> searchCards(String name, String[] rarities, String[] setTypes,
+            Integer minPrice, Integer maxPrice, String[] sets, String[] colors, String owned) {
+        log.debug("Search data: {}",
+                new ClientSearch(name, rarities, setTypes, minPrice, maxPrice, sets, colors, owned));
         try {
             List<CardWrapper> cards = cardDao.findAlCardWrappers();
             List<CardSearchWrapper> searchCards = new ArrayList<>();
 
-            String[] rarities = searchData.getRarities();
-            String[] types = searchData.getSetTypes();
-            String[] sets = searchData.getSets();
-            String[] colors = searchData.getColors();
-
-            if (searchData.getName() != null && !searchData.getName().isEmpty()) {
-                cards = searchUtils.searchByName(cards, searchData.getName());
+            if (name != null && !name.isEmpty() && !name.equals("null")) {
+                cards = searchUtils.searchByName(cards, name);
             }
 
-            if (rarities != null && rarities.length != 0) {
+            if (rarities != null && rarities.length != 0 && !rarities[0].equals("null")) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.RARITY, rarities);
             }
 
-            if (types != null && types.length != 0) {
-                cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.TYPE, types);
+            if (setTypes != null && setTypes.length != 0 && !setTypes[0].equals("null")) {
+                cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.TYPE, setTypes);
             }
 
-            if (sets != null && sets.length != 0) {
+            if (sets != null && sets.length != 0 && !sets[0].equals("null")) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.CODE, sets);
             }
 
-            if (colors != null && colors.length != 0) {
+            if (colors != null && colors.length != 0 && !colors[0].equals("null")) {
                 cards = searchUtils.limitSearchList(cards, MtgAccountantConstants.COLORS, colors);
             }
 
-            if (searchData.getMinPrice() != 0 || searchData.getMaxPrice() != 0) {
-                if (searchData.getMinPrice() > 0 && searchData.getMaxPrice() == 0) {
-                    cards = searchUtils.limitSearchListByPrice(cards, searchData.getMinPrice());
+            if (minPrice != 0 || maxPrice != 0) {
+                if (minPrice > 0 && maxPrice == 0) {
+                    cards = searchUtils.limitSearchListByPrice(cards, minPrice);
                 } else {
-                    cards = searchUtils.limitSearchListByPrice(cards, searchData.getMinPrice(),
-                            searchData.getMaxPrice());
+                    cards = searchUtils.limitSearchListByPrice(cards, minPrice,
+                            maxPrice);
                 }
             }
 
-            if (searchData.getOwned() != null) {
-                cards = searchUtils.limitOwned(cards, searchData.getOwned());
+            if (owned != null && !owned.equals("null")) {
+                cards = searchUtils.limitOwned(cards, owned);
             }
 
             for (CardWrapper cardWrapper : cards) {
