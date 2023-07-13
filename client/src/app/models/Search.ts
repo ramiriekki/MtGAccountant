@@ -1,4 +1,4 @@
-export class Search{
+export class Search {
     constructor(
         public name?: string,
         public rarities?: string[],
@@ -7,5 +7,5 @@ export class Search{
         public sets?: string[],
         public colors?: string[],
         public owned?: boolean
-      ) {  }
+    ) {}
 }
