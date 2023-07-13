@@ -1,4 +1,4 @@
-export interface Set{
+export interface Set {
     id: string;
     code: string;
     name: string;
@@ -8,4 +8,4 @@ export interface Set{
     card_count: number;
     parent_set_code: string;
     icon_svg_uri: string;
-  }
+}

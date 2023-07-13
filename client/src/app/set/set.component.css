@@ -1,20 +1,21 @@
-.card{
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  /* flex: 1; */
-  min-width: 100px;
-  max-width: 250px;
-  margin: 20px;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1px solid #f57f01;
-  box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
-  /* width: 225px; */
-  height: 500px;
+.card {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    /* flex: 1; */
+    min-width: 100px;
+    max-width: 250px;
+    margin: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    box-shadow: 5px 5px 10px #f57f01, -5px -5px 10px #f57f01,
+        -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
+    /* width: 225px; */
+    height: 500px;
 }
 
-.cards-container{
+.cards-container {
     display: flex;
     flex-flow: wrap;
     margin-right: 12px;
@@ -24,13 +25,13 @@
     justify-content: center;
 }
 
-.cards-container-child{
-  display: flex;
-  flex-flow: wrap;
-  margin-right: 12px;
-  margin-top: 12px;
-  flex: 1;
-  min-width: 0;
+.cards-container-child {
+    display: flex;
+    flex-flow: wrap;
+    margin-right: 12px;
+    margin-top: 12px;
+    flex: 1;
+    min-width: 0;
 }
 
 img {
@@ -39,15 +40,15 @@ img {
     width: auto;
     max-width: 100%;
     max-height: 100%;
-  }
-
-.carousel-img {
-  height: auto;
-  width: 100%;
-  margin: 0;
 }
 
-p.name{
+.carousel-img {
+    height: auto;
+    width: 100%;
+    margin: 0;
+}
+
+p.name {
     font-size: 18px;
     text-overflow: ellipsis !important;
     width: 75%;
@@ -55,11 +56,11 @@ p.name{
     margin-block: auto;
 }
 
-h2{
+h2 {
     color: white;
 }
 
-.info{
+.info {
     width: 100%;
     background-color: #f57f01;
     display: flex;
@@ -68,63 +69,64 @@ h2{
 }
 
 .carousel-info {
-  width: 100%;
-  background-color: #f57f01;
-  display: flex;
-  flex-flow: column nowrap;
+    width: 100%;
+    background-color: #f57f01;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
-.add-button{
+.add-button {
     margin-left: auto;
     width: 100%;
-    background-color:#fb9b34;
+    background-color: #fb9b34;
 }
 
-.remove-button{
+.remove-button {
     margin-left: auto;
     width: 100%;
-    background-color:#b75e00;
+    background-color: #b75e00;
 }
 
-p{
+p {
     color: white;
     margin: 0;
 }
 
 .scryfall-link {
-  color: #f57f01;
-  text-decoration: none;
+    color: #f57f01;
+    text-decoration: none;
 }
 
-.set{
+.set {
     margin: 20px;
     background-color: transparent;
     border: 1px solid #f57f01;
 }
 
 .options {
-  margin: 20px;
-  background-color: transparent;
-  border: 1px solid #f57f01;
-  align-items: center;
-  justify-content: center;
+    margin: 20px;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    align-items: center;
+    justify-content: center;
 }
 
-.set-name > p{
+.set-name > p {
     font-size: 35px;
 }
 
-.set-icon{
-    filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg) brightness(88%) contrast(103%);
+.set-icon {
+    filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg)
+        brightness(88%) contrast(103%);
     width: 350px;
     height: 350px;
 }
 
-.set-data{
+.set-data {
     display: flex;
 }
 
-.set-data-card{
+.set-data-card {
     margin: 20px;
     background-color: transparent;
     border: 1px solid #f57f01;
@@ -132,7 +134,7 @@ p{
     width: 40%;
 }
 
-.set-progress-card{
+.set-progress-card {
     margin: 20px;
     background-color: transparent;
     border: 1px solid #f57f01;
@@ -145,149 +147,150 @@ p{
     color: #f57f01;
 }
 
-.progress{
+.progress {
     height: 100%;
 }
 
-.progress-bottom{
+.progress-bottom {
     border: 1px solid #f57f01;
     height: 20px;
     width: 100%;
-    position:static;
+    position: static;
 }
 
-.progress-top{
+.progress-top {
     background-color: #f57f01;
     height: 100%;
 }
 
 .mat-divider {
-    border-top-color:#f57f0163;
+    border-top-color: #f57f0163;
 }
 
-.progress-text{
+.progress-text {
     margin-top: 15px;
 }
 
-.progress-text > p{
+.progress-text > p {
     text-align: center;
     color: #f57f01;
     font-size: 20px;
     font-weight: bold;
 }
 
-.progress-bar{
+.progress-bar {
     height: 20px;
 }
 
 .child-set-cont {
-  margin-bottom: 20px;
-  display: flex;
-  height: auto;
-  width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    height: auto;
+    width: 100%;
 }
 
 .sort-tabs {
-  margin: 20px;
+    margin: 20px;
 }
 
-h2{
-  text-align: center;
-  color: #f57f01;
+h2 {
+    text-align: center;
+    color: #f57f01;
 }
 
 .button-group {
-  display: flex;
-  flex-wrap: wrap;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 .button-group > * {
-  margin: 10px;
-  width: 24%;
-  height: 45px;
+    margin: 10px;
+    width: 24%;
+    height: 45px;
 }
 
 .prog-button-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.prog-button-group > *{
-  margin: 20px;
-  width: 50%;
+.prog-button-group > * {
+    margin: 20px;
+    width: 50%;
 }
 
 .collected-circle {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: greenyellow;
-  position: absolute;
-  right: 35px;
-  border: 3px solid green;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: greenyellow;
+    position: absolute;
+    right: 35px;
+    border: 3px solid green;
 }
 
 .notcollected-circle {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background-color: rgb(255, 82, 82);
-  position: absolute;
-  right: 35px;
-  border: 3px solid red;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: rgb(255, 82, 82);
+    position: absolute;
+    right: 35px;
+    border: 3px solid red;
 }
 
 .spacer {
-  width: 40%;
+    width: 40%;
 }
 
 .card-img {
-  margin-bottom: 5px !important;
-  margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
 }
 
 .card-data > p {
-  font-weight: bolder;
+    font-weight: bolder;
 }
 
 .card:hover {
-  background-color: #f57f01 !important;
-  transition: 500ms;
+    background-color: #f57f01 !important;
+    transition: 500ms;
 }
 
 .test {
-  display: flex;
-  width: 100%;
+    display: flex;
+    width: 100%;
 }
 
 .value {
-  font-weight: bold;
-  font-size: xx-large;
-  color: #f57f01;
+    font-weight: bold;
+    font-size: xx-large;
+    color: #f57f01;
 }
 
 .binder-button {
-  width: 40%;
-  margin-left: 30%;
-  margin-right: 30%;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
 }
 
-@media only screen and (max-width: 1565px){
-  .set-data {
-    flex-direction: column;
-    align-items: center;
-  }
+@media only screen and (max-width: 1565px) {
+    .set-data {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .set-data-card {
-    margin-left: 20px;
-  }
+    .set-data-card {
+        margin-left: 20px;
+    }
 
-  .set-data-card, .set-progress-card {
-    width: 100%;
-  }
+    .set-data-card,
+    .set-progress-card {
+        width: 100%;
+    }
 }

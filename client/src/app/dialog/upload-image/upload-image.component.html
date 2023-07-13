@@ -1,30 +1,39 @@
 <mat-toolbar color="accent">
-  <mat-toolbar-row fxLayout="row">
-    <span>Select a new profile picture</span>
-  </mat-toolbar-row>
+    <mat-toolbar-row fxLayout="row">
+        <span>Select a new profile picture</span>
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-dialog-content class="mat-typography">
-  <form [formGroup]="imageForm" >
-    <input type="file" class="file-input"
-        (change)="onFileSelected($event)" #fileUpload hidden>
+    <form [formGroup]="imageForm">
+        <input
+            type="file"
+            class="file-input"
+            (change)="onFileSelected($event)"
+            #fileUpload
+            hidden
+        />
 
-    <div class="file-upload">
-      {{fileName || "No file uploaded yet."}}
-        <button mat-mini-fab color="accent" class="upload-btn"
-          (click)="fileUpload.click()">
-            <mat-icon>attach_file</mat-icon>
-        </button>
-    </div>
-  </form>
+        <div class="file-upload">
+            {{ fileName || 'No file uploaded yet.' }}
+            <button
+                mat-mini-fab
+                color="accent"
+                class="upload-btn"
+                (click)="fileUpload.click()"
+            >
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+    </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="accent" id="logout-confirmation">
-    <mat-icon>check_circle</mat-icon> Confirm
-  </button>
+    <button mat-raised-button color="accent" id="logout-confirmation">
+        <mat-icon>check_circle</mat-icon> Confirm
+    </button>
 
-  <button mat-raised-button color="warn" mat-dialog-close>
-    <mat-icon>cancel</mat-icon> Cancel
-  </button>
+    <button mat-raised-button color="warn" mat-dialog-close>
+        <mat-icon>cancel</mat-icon> Cancel
+    </button>
 </mat-dialog-actions>

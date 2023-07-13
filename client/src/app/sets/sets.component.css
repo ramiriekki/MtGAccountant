@@ -1,4 +1,4 @@
-.set-card{
+.set-card {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -8,10 +8,11 @@
     cursor: pointer;
     background-color: transparent;
     border: 1px solid #f57f01;
-    box-shadow: 5px 5px 10px #F57F01, -5px -5px 10px #f57f01, -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
+    box-shadow: 5px 5px 10px #f57f01, -5px -5px 10px #f57f01,
+        -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
 }
 
-.sets-container{
+.sets-container {
     display: flex;
     flex-flow: wrap;
     margin-right: 12px;
@@ -24,10 +25,11 @@ img {
     margin: 20px;
     height: 150px;
     width: 150px;
-    filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg) brightness(88%) contrast(103%);
-  }
+    filter: invert(64%) sepia(58%) saturate(4284%) hue-rotate(358deg)
+        brightness(88%) contrast(103%);
+}
 
-p.name{
+p.name {
     font-size: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -35,11 +37,11 @@ p.name{
     margin: 0;
 }
 
-h2{
+h2 {
     color: white;
 }
 
-.info{
+.info {
     width: 100%;
     background-color: #f57f01;
     padding-top: 0;
@@ -48,26 +50,26 @@ h2{
 }
 
 .filter-container {
-  width: 100%;
-  margin-top: 15px;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .toggle-group {
-  width: 100%;
+    width: 100%;
 }
 
 .toggle {
-  width: 33.3%;
+    width: 33.3%;
 }
 
 .mat-button-toggle-checked {
-  background-color: #c66600 !important;
+    background-color: #c66600 !important;
 }
 
 .mat-button-toggle {
-  color: white !important;
-  background-color: #f57f01;
-  font-weight: bold;
+    color: white !important;
+    background-color: #f57f01;
+    font-weight: bold;
 }
 
 .set-card:hover {
@@ -75,21 +77,20 @@ h2{
     transition: 500ms;
 }
 
-.set-card:hover > img{
-  filter: invert(0%) ;
+.set-card:hover > img {
+    filter: invert(0%);
 }
 
 .progress-bar {
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 0;
-  height: 15px;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    height: 15px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
 }
 
 .info > h2 {
-  margin-top: 10px;
-  margin-left: 25px;
+    margin-top: 10px;
+    margin-left: 25px;
 }
-

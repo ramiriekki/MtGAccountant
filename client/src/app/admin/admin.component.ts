@@ -1,51 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.css'],
 })
-export class AdminComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'username', 'email', 'status', 'role', 'change_status', 'remove'];
-  users: any[] = []
-  userStatus: string = ""
+export class AdminComponent implements OnInit, OnDestroy {
+    displayedColumns: string[] = [
+        'id',
+        'username',
+        'email',
+        'status',
+        'role',
+        'change_status',
+        'remove',
+    ];
+    users: any[] = [];
+    userStatus: string = '';
+    private unsubscribe$ = new Subject<void>();
 
-  constructor(
-    private userService: UserService
-  ) { }
+    constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-    this.getAllUsers()
-  }
-
-  getAllUsers(): void{
-    this.userService.getAllUsers().subscribe(users => this.users = users)
-  }
-
-  changeStatus(email: string, status: string): void {
-    if (status === "true") {
-      this.userStatus = "false"
-    } else {
-      this.userStatus = "true"
+    ngOnInit(): void {
+        this.getAllUsers();
     }
 
-    let data = {
-      email: email,
-      status: this.userStatus
+    ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 
-    this.userService.changeStatus(data).subscribe()
-    // This is needed for updating the view
-    for (const element of this.users) {
-      if(element.email == email){
-        element.status = this.userStatus
-      }
+    getAllUsers(): void {
+        this.userService
+            .getAllUsers()
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((users) => (this.users = users));
     }
-  }
 
-  // TODO: refresh the data
-  async removeUser(email: string): Promise<void> {
-    this.userService.removeUser(email).subscribe(() => console.log('Delete successful'))
-  }
+    changeStatus(email: string, status: string): void {
+        this.userStatus = status === 'true' ? 'false' : 'true';
+
+        let data = {
+            email: email,
+            status: this.userStatus,
+        };
+
+        this.userService
+            .changeStatus(data)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(() => {
+                // Update the user's status in the local array
+                const user = this.users.find(
+                    (element) => element.email === email
+                );
+                if (user) {
+                    user.status = this.userStatus;
+                }
+            });
+    }
+
+    // TODO: refresh the data
+    removeUser(email: string): void {
+        this.userService
+            .removeUser(email)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(() => console.log('Delete successful'));
+    }
 }

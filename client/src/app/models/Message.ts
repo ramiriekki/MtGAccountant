@@ -1,8 +1,8 @@
-import { MinimalUser } from "./User";
+import { MinimalUser } from './User';
 
-export interface Message{
-  content: string;
-  timeSent: Date
-  user: MinimalUser
-  chatId: string | null
+export interface Message {
+    content: string;
+    timeSent: Date;
+    user: MinimalUser;
+    chatId: string | null;
 }

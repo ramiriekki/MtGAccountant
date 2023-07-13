@@ -26,38 +26,38 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
-  declarations: [
-    SetsComponent,
-    DashboardComponent,
-    SetComponent,
-    CardsComponent,
-    CardComponent,
-    SearchComponent,
-    ResultsComponent,
-    ProfileComponent,
-    ChangePasswordComponent,
-    AdminComponent,
-    QuickMoveComponent,
-    SortTabsComponent,
-    BinderModifyComponent,
-    TopCardComponent,
-    ProgressListComponent,
-    UploadImageComponent,
-    MainNavigationComponent,
-  ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule.forChild({
-      extend: true
-    })
-  ]
+    declarations: [
+        SetsComponent,
+        DashboardComponent,
+        SetComponent,
+        CardsComponent,
+        CardComponent,
+        SearchComponent,
+        ResultsComponent,
+        ProfileComponent,
+        ChangePasswordComponent,
+        AdminComponent,
+        QuickMoveComponent,
+        SortTabsComponent,
+        BinderModifyComponent,
+        TopCardComponent,
+        ProgressListComponent,
+        UploadImageComponent,
+        MainNavigationComponent,
+    ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forChild({
+            extend: true,
+        }),
+    ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
 
 export function httpTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http);
 }

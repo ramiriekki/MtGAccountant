@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    OnDestroy,
+    OnInit,
+    Output,
+} from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { CollectionPercentages } from 'src/app/models/CollectionPercentages';
 import { CardsService } from 'src/app/services/cards.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -6,50 +13,63 @@ import { SetsService } from 'src/app/services/sets.service';
 import { Set } from '../../models/set';
 
 @Component({
-  selector: 'app-progress-list',
-  templateUrl: './progress-list.component.html',
-  styleUrls: ['./progress-list.component.css']
+    selector: 'app-progress-list',
+    templateUrl: './progress-list.component.html',
+    styleUrls: ['./progress-list.component.css'],
 })
-export class ProgressListComponent implements OnInit {
-  sets: Set[] = []
-  collectionPercentages: CollectionPercentages[] = []
+export class ProgressListComponent implements OnInit, OnDestroy {
+    protected _unsubscribe$: Subject<void> = new Subject();
+    sets: Set[] = [];
+    collectionPercentages: CollectionPercentages[] = [];
 
-  @Output()
-  isProgLoading = new EventEmitter<boolean>();
+    @Output()
+    isProgLoading = new EventEmitter<boolean>();
 
-  constructor(
-    private setsService: SetsService,
-    private cardsService: CardsService,
-    private loaderService: LoaderService
-    ) { }
+    constructor(
+        private setsService: SetsService,
+        private cardsService: CardsService,
+        private loaderService: LoaderService
+    ) {}
 
-  ngOnInit(): void {
-    this.getAllSets()
-    this.getCollectionPercentages()
-  }
+    ngOnInit(): void {
+        this.getAllSets();
+        this.getCollectionPercentages();
+    }
 
-  ngAfterViewInit() {
-      this.loaderService.progLoaded()
-   }
+    ngOnDestroy(): void {
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
+    }
 
-  getAllSets(): void {
-    this.setsService.getSets().subscribe(sets => this.sets = sets)
-  }
+    ngAfterViewInit() {
+        this.loaderService.progLoaded();
+    }
 
-  getCollectionPercentages(): void {
-    this.cardsService.getCollectionPercentages().subscribe(percentages => this.collectionPercentages = percentages)
-  }
+    getAllSets(): void {
+        this.setsService
+            .getSets()
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe((sets) => (this.sets = sets));
+    }
 
-  getProgressValue(code: string): any {
-    let progressWidth: any
+    getCollectionPercentages(): void {
+        this.cardsService
+            .getCollectionPercentages()
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe(
+                (percentages) => (this.collectionPercentages = percentages)
+            );
+    }
 
-    this.collectionPercentages.forEach(set => {
-      if (set.code === code) {
-        progressWidth = set.progress
-      }
-    });
+    getProgressValue(code: string): any {
+        let progressWidth: any;
 
-    return progressWidth
-  }
+        this.collectionPercentages.forEach((set) => {
+            if (set.code === code) {
+                progressWidth = set.progress;
+            }
+        });
 
+        return progressWidth;
+    }
 }

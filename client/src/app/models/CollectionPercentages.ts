@@ -1,5 +1,5 @@
-export interface CollectionPercentages{
-  code: string
-  totalCount: string
-  progress: boolean
+export interface CollectionPercentages {
+    code: string;
+    totalCount: string;
+    progress: boolean;
 }

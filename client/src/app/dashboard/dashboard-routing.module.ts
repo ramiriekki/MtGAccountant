@@ -11,23 +11,31 @@ import { SetsComponent } from '../sets/sets.component';
 import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent, children:
-      [
-        {path: 'sets', component: SetsComponent},
-        {path: 'collection', component: CardsComponent},
-        {path: 'search', component: SearchComponent},
-        {path: 'profile', component: ProfileComponent},
-        {path: 'admin-board', component: AdminComponent},
-        //{path: 'chat', component: ChatComponent},
-        {path: 'sets/:set', component: SetComponent},
-        {path: 'collection/:id', component: CardComponent},
-        {path: 'collection/page/:page', component: CardsComponent},
-        {path: 'community', loadChildren: () => import('../chat/chat.module').then((m) => m.ChatModule)/*, canActivate: [!Muted]*/}
-      ]
-  }
+    {
+        path: '',
+        component: DashboardComponent,
+        children: [
+            { path: 'sets', component: SetsComponent },
+            { path: 'collection', component: CardsComponent },
+            { path: 'search', component: SearchComponent },
+            { path: 'profile', component: ProfileComponent },
+            { path: 'admin-board', component: AdminComponent },
+            //{path: 'chat', component: ChatComponent},
+            { path: 'sets/:set', component: SetComponent },
+            { path: 'collection/:id', component: CardComponent },
+            { path: 'collection/page/:page', component: CardsComponent },
+            {
+                path: 'community',
+                loadChildren: () =>
+                    import('../chat/chat.module').then(
+                        (m) => m.ChatModule
+                    ) /*, canActivate: [!Muted]*/,
+            },
+        ],
+    },
 ];
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

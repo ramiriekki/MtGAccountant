@@ -1,41 +1,41 @@
 .sort-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .toggle-group {
-  width: 100%;
+    width: 100%;
 }
 
 .toggle {
-  width: 100%;
+    width: 100%;
 }
 
 .mat-button-toggle-checked {
-  background-color: #c66600 !important;
+    background-color: #c66600 !important;
 }
 
 .mat-button-toggle {
-  color: white !important;
-  background-color: #f57f01;
-  font-weight: bold;
+    color: white !important;
+    background-color: #f57f01;
+    font-weight: bold;
 }
 
 mat-button-toggle-group {
-  width: 100%;
-  flex-wrap: wrap;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 mat-button-toggle {
-  width: 20% !important;
+    width: 20% !important;
 }
 
 mat-button-toggle > button {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-grid;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-grid;
 }
 
 /* TODO: Add responsivity - Breaks when narrowed to a point */

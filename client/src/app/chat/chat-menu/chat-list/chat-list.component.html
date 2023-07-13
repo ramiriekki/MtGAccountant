@@ -1,10 +1,19 @@
 <mat-card class="chats-card">
-  <div class="chats">
-    <mat-card class="chat-card" *ngFor="let chat of chats" [routerLink]="['chat/', chat._id]">
-      <div class="chat">
-        <p>{{chat.title}}</p>
-        <mat-icon color="warn" (click)="remove(chat._id!)" *ngIf="isOwnedByCurrentUser(chat)">delete</mat-icon>
-      </div>
-    </mat-card>
-  </div>
+    <div class="chats">
+        <mat-card
+            class="chat-card"
+            *ngFor="let chat of chats"
+            [routerLink]="['chat/', chat._id]"
+        >
+            <div class="chat">
+                <p>{{ chat.title }}</p>
+                <mat-icon
+                    color="warn"
+                    (click)="remove(chat._id!)"
+                    *ngIf="isOwnedByCurrentUser(chat)"
+                    >delete</mat-icon
+                >
+            </div>
+        </mat-card>
+    </div>
 </mat-card>
