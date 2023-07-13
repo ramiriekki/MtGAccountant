@@ -3,21 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProgressListComponent } from './progress-list.component';
 
 describe('ProgressListComponent', () => {
-  let component: ProgressListComponent;
-  let fixture: ComponentFixture<ProgressListComponent>;
+    let component: ProgressListComponent;
+    let fixture: ComponentFixture<ProgressListComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ProgressListComponent ]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [ProgressListComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(ProgressListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(ProgressListComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

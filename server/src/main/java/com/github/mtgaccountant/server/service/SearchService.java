@@ -8,5 +8,7 @@ import com.github.mtgaccountant.server.models.ClientSearch;
 import com.github.mtgaccountant.server.wrapper.CardSearchWrapper;
 
 public interface SearchService {
-    ResponseEntity<List<CardSearchWrapper>> searchCards(ClientSearch searchData);
+    ResponseEntity<List<CardSearchWrapper>> searchCards(String name, String[] rarities, String[] setTypes,
+            Integer minPrice,
+            Integer maxPrice, String[] sets, String[] colors, String owned);
 }

@@ -1,5 +1,5 @@
-export interface CollectionCard{
-    id: string
-    name: string
-    collected: boolean
+export interface CollectionCard {
+    id: string;
+    name: string;
+    collected: boolean;
 }

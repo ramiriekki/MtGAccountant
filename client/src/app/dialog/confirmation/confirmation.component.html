@@ -1,19 +1,24 @@
 <mat-toolbar color="accent">
-  <mat-toolbar-row fxLayout="row">
-    <span>{{'dialog.logout.title' | translate}}</span>
-  </mat-toolbar-row>
+    <mat-toolbar-row fxLayout="row">
+        <span>{{ 'dialog.logout.title' | translate }}</span>
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-dialog-content class="mat-typography">
-  <h6>{{'dialog.logout.confirmation' | translate}}</h6>
+    <h6>{{ 'dialog.logout.confirmation' | translate }}</h6>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="accent" (click)="handleChangeAction()" id="logout-confirmation">
-    <mat-icon>check_circle</mat-icon> {{'dialog.logout.yes' | translate}}
-  </button>
+    <button
+        mat-raised-button
+        color="accent"
+        (click)="handleChangeAction()"
+        id="logout-confirmation"
+    >
+        <mat-icon>check_circle</mat-icon> {{ 'dialog.logout.yes' | translate }}
+    </button>
 
-  <button mat-raised-button color="warn" mat-dialog-close>
-    <mat-icon>cancel</mat-icon> {{'dialog.logout.no' | translate}}
-  </button>
+    <button mat-raised-button color="warn" mat-dialog-close>
+        <mat-icon>cancel</mat-icon> {{ 'dialog.logout.no' | translate }}
+    </button>
 </mat-dialog-actions>

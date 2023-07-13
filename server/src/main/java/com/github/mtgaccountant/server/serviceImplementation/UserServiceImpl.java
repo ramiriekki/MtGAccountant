@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
@@ -66,37 +66,40 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
-        try{
-            if(validateSignUpMap(requestMap)){
+        try {
+            if (validateSignUpMap(requestMap)) {
                 User user = userDao.findUserByEmail(requestMap.get("email"));
                 Collection collection = new Collection();
 
-                if(Objects.isNull(user)){
-                    userDao.save(getUserFromMap(requestMap));   // Save user document to database
+                if (Objects.isNull(user)) {
+                    userDao.save(getUserFromMap(requestMap)); // Save user document to database
 
                     UserWrapper collectionUser = userDao.findUser(requestMap.get("email"));
-                    
+
                     collection.setCards(cardDao.findAllCollectionCards());
                     collection.setUser(collectionUser);
                     collection.setFinderID(collectionUser.getUsername() + collectionUser.getEmail());
 
-                    collectionDao.save(collection);     // Save user specific collection to database
-                    
+                    collectionDao.save(collection); // Save user specific collection to database
+
                     return MtgAccountantUtils.getResponseEntity("Succesfully registered.", HttpStatus.OK);
                 } else {
                     return MtgAccountantUtils.getResponseEntity("Email already exists.", HttpStatus.BAD_REQUEST);
                 }
             } else {
-                return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
+                return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.INVALID_DATA,
+                        HttpStatus.BAD_REQUEST);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private boolean validateSignUpMap(Map<String, String> requestMap){
-        if(requestMap.containsKey("username") && requestMap.containsKey("email") && requestMap.containsKey("password")){
+    private boolean validateSignUpMap(Map<String, String> requestMap) {
+        if (requestMap.containsKey("username") && requestMap.containsKey("email")
+                && requestMap.containsKey("password")) {
             return true;
         } else {
             return false;
@@ -121,33 +124,32 @@ public class UserServiceImpl implements UserService{
     }
 
     /*
-     * Authenticate user by email and password. 
+     * Authenticate user by email and password.
      * If authenticated returns a JWT token
      */
     @Override
     public ResponseEntity<String> login(Map<String, String> requestMap) {
         try {
             Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
-            );
+                    new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password")));
 
-            if (auth.isAuthenticated()){
-                // System.out.println("Is authenticated");
-                if(customerUserDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
-                    return new ResponseEntity<String>("{\"token\":\"" + 
+            if (auth.isAuthenticated()) {
+                if (customerUserDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")) {
+                    return new ResponseEntity<String>("{\"token\":\"" +
                             jwtUtil.generateToken(customerUserDetailsService.getUserDetails().getEmail(),
-                                customerUserDetailsService.getUserDetails().getRole()) + "\"}", 
-                                HttpStatus.OK);
+                                    customerUserDetailsService.getUserDetails().getRole())
+                            + "\"}",
+                            HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<String>("{\"message\":\"" + "Account disabled by admin." + "\"}", 
-                        HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<String>("{\"message\":\"" + "Account disabled by admin." + "\"}",
+                            HttpStatus.BAD_REQUEST);
                 }
             }
         } catch (Exception e) {
             log.error("{}", e);
         }
-        return new ResponseEntity<String>("{\"message\":\"" + "Bad Credentials." + "\"}", 
-                        HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("{\"message\":\"" + "Bad Credentials." + "\"}",
+                HttpStatus.BAD_REQUEST);
     }
 
     /*
@@ -156,7 +158,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
         try {
-            if(jwtFilter.isAdmin()){
+            if (jwtFilter.isAdmin()) {
                 return new ResponseEntity<>(userDao.findAllUsers(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
@@ -170,32 +172,32 @@ public class UserServiceImpl implements UserService{
     }
 
     /*
-     * Admin method. 
+     * Admin method.
      * If user is admin: changes the status of the specified user to the
      * specified status from the request map.
      * 
-     * Sends an email to all other admins. 
+     * Sends an email to all other admins.
      */
     @Override
     public ResponseEntity<String> update(Map<String, String> requestMap) {
         try {
-            System.out.println("wgasdfhg");
-            if (jwtFilter.isAdmin()){
+            if (jwtFilter.isAdmin()) {
                 User optional = userDao.findUserByEmail(requestMap.get("email"));
-                System.out.println(optional.getEmail());
 
                 optional.setStatus(requestMap.get("status"));
 
                 userDao.save(optional);
                 return MtgAccountantUtils.getResponseEntity("User status updated", HttpStatus.OK);
             } else {
-                return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+                return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.UNAUTHORIZED_ACCESS,
+                        HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -209,13 +211,13 @@ public class UserServiceImpl implements UserService{
             User userObj = userDao.findUserByEmail(jwtFilter.getCurrentUser());
 
             if (!userObj.equals(null)) {
-        
+
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 String oldPassword = requestMap.get("oldPassword");
                 String dbPassword = userObj.getPassword();
 
                 // If passwords match -> set new
-                if (passwordEncoder.matches(oldPassword, dbPassword)){
+                if (passwordEncoder.matches(oldPassword, dbPassword)) {
                     String encodedPassword = new BCryptPasswordEncoder().encode(requestMap.get("newPassword"));
 
                     userObj.setPassword(encodedPassword);
@@ -226,19 +228,20 @@ public class UserServiceImpl implements UserService{
                 return MtgAccountantUtils.getResponseEntity("Incorrect old password.", HttpStatus.BAD_REQUEST);
             }
 
-            return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+            return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // TODO this doesn't work with BCryptPasswordEncoder. --> Generate new temp password that replaces the old one and send it to user.
+    // TODO this doesn't work with BCryptPasswordEncoder. --> Generate new temp
+    // password that replaces the old one and send it to user.
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
-        System.out.println("Forgot password.");
-
         try {
             User user = userDao.findUserByEmail(requestMap.get("email"));
 
@@ -250,43 +253,46 @@ public class UserServiceImpl implements UserService{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // private void sendMailToAllAdmins(String status, String user, List<String> allAdmins) {
-    //     allAdmins.remove(jwtFilter.getCurrentUser());
+    // private void sendMailToAllAdmins(String status, String user, List<String>
+    // allAdmins) {
+    // allAdmins.remove(jwtFilter.getCurrentUser());
 
-    //     if(status != null && status.equalsIgnoreCase("true")) {
-    //         emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved", "USER:- " + user +" \n is approved by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
-    //     } else {
-    //         emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:- " + user +" \n is disabled by \n ADMIN:- " + jwtFilter.getCurrentUser(), allAdmins);
-    //     }
+    // if(status != null && status.equalsIgnoreCase("true")) {
+    // emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved",
+    // "USER:- " + user +" \n is approved by \n ADMIN:- " +
+    // jwtFilter.getCurrentUser(), allAdmins);
+    // } else {
+    // emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled",
+    // "USER:- " + user +" \n is disabled by \n ADMIN:- " +
+    // jwtFilter.getCurrentUser(), allAdmins);
+    // }
     // }
 
     @Override
     public ResponseEntity<String> deleteUser(String email) {
         try {
-            //System.out.println(email);
-
-            if(jwtFilter.isAdmin()){
-                System.out.println("User is an admin!!");
-                System.out.println(email);
+            if (jwtFilter.isAdmin()) {
                 // Remove both user and the users collection
                 User user = userDao.findUserByEmail(email);
                 userDao.delete(user);
 
-                Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail()); 
+                Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
                 collectionDao.delete(collection);
 
-                return new ResponseEntity<>("User removed successfully.", HttpStatus.OK);            
+                return new ResponseEntity<>("User removed successfully.", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Unauthorized access", HttpStatus.UNAUTHORIZED);
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return MtgAccountantUtils.getResponseEntity(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -309,5 +315,5 @@ public class UserServiceImpl implements UserService{
 
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
 }

@@ -1,44 +1,44 @@
 .chats {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  overflow-y: scroll;
-  color: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: scroll;
+    color: white;
 }
 
 .chat {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .chat-card {
-  background-color: transparent;
-  width: 100%;
-  color: #f57f01;
+    background-color: transparent;
+    width: 100%;
+    color: #f57f01;
 }
 
 .chat-card:hover {
-  background-color: #f57f01 !important;
-  transition: 500ms;
-  cursor: pointer;
-  color: white;
+    background-color: #f57f01 !important;
+    transition: 500ms;
+    cursor: pointer;
+    color: white;
 }
 
 .chats-card {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 75vh;
-  background-color: transparent;
-  border: 1px solid #f57f01;
-  overflow-y: scroll;
-  margin-left: 20px;
-  margin-right: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    overflow-y: scroll;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 p {
-  font-weight: bold;
+    font-weight: bold;
 }

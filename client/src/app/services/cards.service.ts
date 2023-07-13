@@ -9,54 +9,102 @@ import { CollectionPercentages } from '../models/CollectionPercentages';
 import { UpdateData } from '../models/UpdateData';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class CardsService {
-  url = environment.apiUrl;
+    url = environment.apiUrl;
 
-  constructor(
-    private httpClient: HttpClient
-  ) { }
+    constructor(private httpClient: HttpClient) {}
 
-  getAllCards(): Observable<Card[]>{ // TODO get collection instead of all cards
-    return this.httpClient.get<Card[]>(this.url + "/api/cards/all-cards")
-  }
-
-  getCollection(): Observable<CollectionCard[]>{
-    return this.httpClient.get<Collection>(this.url + `/api/collections/collection?email=${localStorage.getItem('user')}`).pipe(
-      map(c => c.cards));
-  }
-
-  getCard(id:string): Observable<Card>{
-    return this.httpClient.get<Card>(this.url + `/api/cards/card?cardId=${id}`)
-  }
-
-  getCollectionPercentages(): Observable<CollectionPercentages[]> {
-    return this.httpClient.get<CollectionPercentages[]>(this.url + `/api/collections/collection/sets-progress?email=${localStorage.getItem('user')}`)
-  }
-
-  getCollectionValue(): Observable<number> {
-    return this.httpClient.get<number>(this.url + `/api/collections/collection/value?email=${localStorage.getItem('user')}`)
-  }
-
-  updateCollection(removeArr: string[], addArr: any[]){
-    const data = { id_list: addArr, remove_list: removeArr};
-
-    try {
-      return this.httpClient.post(this.url + `/api/collections/collection?email=${localStorage.getItem('user')}`, data, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json')
-      }).subscribe()
-    } catch (error) {
-      console.log(error);
-      return null
+    getAllCards(): Observable<Card[]> {
+        // TODO get collection instead of all cards
+        return this.httpClient.get<Card[]>(this.url + '/api/cards/all-cards');
     }
-  }
 
-  getCollectedCountFromSet(code: string): Observable<any>{
-    return this.httpClient.get<any>(this.url + `/api/collections/collection/set?email=${localStorage.getItem('user')}&code=${code}`)
-  }
+    getCollection(): Observable<CollectionCard[]> {
+        return this.httpClient
+            .get<Collection>(
+                this.url +
+                    `/api/collections/collection?email=${localStorage.getItem(
+                        'user'
+                    )}`
+            )
+            .pipe(map((c) => c.cards));
+    }
 
-  getMostValuableCard(): Observable<Card> {
-    return this.httpClient.get<any>(this.url + `/api/collections/collection/most-valuable?email=${localStorage.getItem('user')}`)
-  }
+    getCard(id: string): Observable<Card> {
+        return this.httpClient.get<Card>(
+            this.url + `/api/cards/card?cardId=${id}`
+        );
+    }
+
+    getCollectionPercentages(): Observable<CollectionPercentages[]> {
+        return this.httpClient.get<CollectionPercentages[]>(
+            this.url +
+                `/api/collections/collection/sets-progress?email=${localStorage.getItem(
+                    'user'
+                )}`
+        );
+    }
+
+    getCollectionValue(): Observable<number> {
+        return this.httpClient.get<number>(
+            this.url +
+                `/api/collections/collection/value?email=${localStorage.getItem(
+                    'user'
+                )}`
+        );
+    }
+
+    updateCollection(removeArr: string[], addArr: any[]) {
+        const data = { id_list: addArr, remove_list: removeArr };
+
+        try {
+            return this.httpClient
+                .post(
+                    this.url +
+                        `/api/collections/collection?email=${localStorage.getItem(
+                            'user'
+                        )}`,
+                    data,
+                    {
+                        headers: new HttpHeaders().set(
+                            'Content-Type',
+                            'application/json'
+                        ),
+                    }
+                )
+                .subscribe();
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
+    getCollectedCountFromSet(code: string): Observable<any> {
+        return this.httpClient.get<any>(
+            this.url +
+                `/api/collections/collection/set?email=${localStorage.getItem(
+                    'user'
+                )}&code=${code}`
+        );
+    }
+
+    getMostValuableCard(): Observable<Card> {
+        return this.httpClient.get<any>(
+            this.url +
+                `/api/collections/collection/most-valuable?email=${localStorage.getItem(
+                    'user'
+                )}`
+        );
+    }
+
+    getCollectionCount(): Observable<number> {
+        return this.httpClient.get<number>(
+            this.url +
+                `/api/collections/collection/count?email=${localStorage.getItem(
+                    'user'
+                )}`
+        );
+    }
 }

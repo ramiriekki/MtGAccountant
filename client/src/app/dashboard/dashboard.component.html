@@ -1,24 +1,22 @@
 <router-outlet></router-outlet>
 
 <body *ngIf="isDashboard">
-  <div class="hello-cont">
-    <h1 class="hello">Hello {{user?.username}}!</h1>
-  </div>
-  <br>
-  <div class="main-container">
-    <div class="top-card">
-      <mat-spinner *ngIf="isTopCardLoading" color="accent"></mat-spinner>
-      <app-top-card [hidden]="isTopCardLoading"></app-top-card>
-    </div>
+    <div class="main-container">
+        <div class="top-card">
+            <mat-spinner *ngIf="isTopCardLoading" color="accent"></mat-spinner>
+            <app-top-card
+                [hidden]="isTopCardLoading"
+                [user]="user"
+            ></app-top-card>
+        </div>
 
-    <div class="progress-list">
-      <mat-spinner *ngIf="isProgLoading" color="accent"></mat-spinner>
-      <app-progress-list [hidden]="isProgLoading"></app-progress-list>
-    </div>
+        <div class="progress-list">
+            <mat-spinner *ngIf="isProgLoading" color="accent"></mat-spinner>
+            <app-progress-list [hidden]="isProgLoading"></app-progress-list>
+        </div>
 
-    <div class="progress-list">
-      <app-main-navigation [isAdmin]="isAdmin()"></app-main-navigation>
+        <div class="progress-list">
+            <app-main-navigation [isAdmin]="isAdmin()"></app-main-navigation>
+        </div>
     </div>
-
-  </div>
 </body>

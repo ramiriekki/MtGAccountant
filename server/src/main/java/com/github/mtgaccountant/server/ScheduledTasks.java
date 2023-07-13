@@ -27,7 +27,10 @@ import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.UserWrapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class ScheduledTasks {
 	@Autowired
 	MongoTemplate db;
@@ -44,14 +47,12 @@ public class ScheduledTasks {
 	@Autowired
 	CollectionDao collectionDao;
 
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	@Scheduled(cron = "0 0 0 ? * *")
 	// @Scheduled(cron = "0/30 * * * * *")
 	public void getAllCards() {
 		String url = "https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released";
-		// String url =
-		// "https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints";
 		Integer page = 1;
 		List<CardWrapper> cards = new ArrayList<>();
 
@@ -64,14 +65,6 @@ public class ScheduledTasks {
 
 		// Paginate trough all pages
 		while (search.isHas_more() && !page.equals(20)) {
-			// https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released
-			// url =
-			// MessageFormat.format("https://api.scryfall.com/cards/search?q=color:blue+or+color:red+or+color:green+or+color:white+or+color:black+or+color:colorless&page={0}",
-			// page.toString()) ;
-			// url =
-			// MessageFormat.format("https://api.scryfall.com/cards/search?q=set:mid&include_extras=true&include_variations=true&order=set&unique=prints&page={0}",
-			// page.toString()) ;
-
 			url = MessageFormat.format(
 					"https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released&page={0}",
 					page.toString());
@@ -80,7 +73,6 @@ public class ScheduledTasks {
 			search = response.getBody();
 			cards.addAll(search.getData());
 
-			System.out.println(page);
 			page++;
 		}
 
@@ -88,7 +80,7 @@ public class ScheduledTasks {
 
 		cardDao.saveAll(cards);
 
-		System.out.println("Cards fetched from Scryfall API " + dateFormat.format(new Date()));
+		log.info("Cards fetched from Scryfall API " + dateFormat.format(new Date()));
 	}
 
 	// Fetch set data
@@ -105,7 +97,7 @@ public class ScheduledTasks {
 		sets.addAll(search.getData());
 		setDao.saveAll(sets);
 
-		System.out.println("Sets fetched from Scryfall API " + dateFormat.format(new Date()));
+		log.info("Sets fetched from Scryfall API " + dateFormat.format(new Date()));
 	}
 
 	// Update collections when there are new cards
@@ -147,7 +139,7 @@ public class ScheduledTasks {
 			collectionDao.save(collection);
 		}
 
-		System.out.println("Finished updating collections.");
+		log.info("Finished updating collections.");
 	}
 
 }

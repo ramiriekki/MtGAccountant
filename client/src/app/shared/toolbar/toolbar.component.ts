@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+    selector: 'app-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent implements OnInit {
+    appName!: String;
 
-  appName!: String;
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-    this.appName = "MtG Accountant"
-  }
-
+    ngOnInit(): void {
+        this.appName = 'MtG Accountant';
+    }
 }

@@ -1,192 +1,276 @@
 <div class="set-container">
-  <mat-card class="set">
-    <mat-toolbar color="accent" class="set-name"><p class="name">{{set.name}}<p></mat-toolbar>
-      <div class="set-data">
-
-        <img src="{{set.icon_svg_uri}}" alt="" class="set-icon">
-        <mat-card class="set-data-card">
-          <p style="text-transform: uppercase;">{{set.code}}</p>
-          <mat-divider class="divider"></mat-divider><br>
-          <p>{{set.name}}</p>
-          <mat-divider class="divider"></mat-divider><br>
-          <p>{{set.released_at}}</p>
-          <mat-divider class="divider"></mat-divider><br>
-          <p>{{set.set_type}}</p>
-          <mat-divider class="divider"></mat-divider><br>
-          <p>{{'sets.set.cards.amount' | translate}} {{set.card_count}}</p>
-          <mat-divider class="divider"></mat-divider><br>
-          <p><a class="scryfall-link" href="{{set.scryfall_uri}}" target="_blank" rel="noopener noreferrer">{{set.scryfall_uri}}</a></p>
-          <mat-divider class="divider"></mat-divider><br>
-        </mat-card>
-
-        <mat-card class="set-progress-card">
-          <mat-toolbar color="accent" class="set-name"><p class="name">{{'sets.set.progress' | translate}}<p></mat-toolbar>
-            <br>
-
-          <div class="progress">
-            <mat-progress-bar mode="determinate" [value]="progressWidth" class="progress-bar" color="accent"></mat-progress-bar>
-            <div class="progress-text">
-              <p>{{collected}} / {{set.card_count}}</p>
-            </div>
-            <div class="prog-button-group">
-              <button mat-raised-button color="accent" style="color: white;" (click)="addAllToCollection()">
-                Add all
-              </button>
-              <button mat-raised-button color="accent" style="color: white;" (click)="removeAllFromCollection()">
-                Remove all
-              </button>
-            </div>
-            <mat-divider></mat-divider><br>
-            <h2 class="value">{{'sets.set.value' | translate}} {{wholeSetValue}} €</h2>
-          </div>
-        </mat-card>
-
-      </div>
-  </mat-card>
-</div>
-
-<div class="valuable-container">
-  <mat-card class="valuable">
-    <mat-toolbar color="accent" class="card-header" style="margin-bottom: 20px;">
-      {{'sets.set.most.valuable' | translate}}
-    </mat-toolbar>
-    <p-carousel [value]="topCards" [numVisible]="3" [numScroll]="3" [responsiveOptions]="responsiveOptions">
-      <ng-template let-card pTemplate="item">
-        <div class="carousel-card-cont">
-          <mat-card class="carousel-card">
-            <mat-toolbar color="accent" class="card-header">
-              <p class="name">
-                {{card.name}}
-              <p>
-              <div class="collected-circle"></div>
-            </mat-toolbar>
-            <div class="carousel-img-div">
-              <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="carousel-img">
-            </div>
-            <ng-template #elsePart>
-              <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
-            </ng-template>
-
-            <mat-card color="accent" class="carousel-info">
-              <div class="card-data">
-                <p style="text-transform: capitalize;">{{card.rarity}}</p>
-                <p>Collector Number: {{card.collector_number}}</p>
-                <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
-                <p *ngIf="!card.prices.eur">0 €</p>
-              </div>
+    <mat-card class="set">
+        <mat-toolbar color="accent" class="set-name"
+            ><p class="name">{{ set.name }}</p>
+            <p></p
+        ></mat-toolbar>
+        <div class="set-data">
+            <img src="{{ set.icon_svg_uri }}" alt="" class="set-icon" />
+            <mat-card class="set-data-card">
+                <p style="text-transform: uppercase">{{ set.code }}</p>
+                <mat-divider class="divider"></mat-divider><br />
+                <p>{{ set.name }}</p>
+                <mat-divider class="divider"></mat-divider><br />
+                <p>{{ set.released_at }}</p>
+                <mat-divider class="divider"></mat-divider><br />
+                <p>{{ set.set_type }}</p>
+                <mat-divider class="divider"></mat-divider><br />
+                <p>
+                    {{ 'sets.set.cards.amount' | translate }}
+                    {{ set.card_count }}
+                </p>
+                <mat-divider class="divider"></mat-divider><br />
+                <p>
+                    <a
+                        class="scryfall-link"
+                        href="{{ set.scryfall_uri }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{ set.scryfall_uri }}</a
+                    >
+                </p>
+                <mat-divider class="divider"></mat-divider><br />
             </mat-card>
-          </mat-card>
+
+            <mat-card class="set-progress-card">
+                <mat-toolbar color="accent" class="set-name"
+                    ><p class="name">{{ 'sets.set.progress' | translate }}</p>
+                    <p></p
+                ></mat-toolbar>
+                <br />
+
+                <div class="progress">
+                    <mat-progress-bar
+                        mode="determinate"
+                        [value]="progressWidth"
+                        class="progress-bar"
+                        color="accent"
+                    ></mat-progress-bar>
+                    <div class="progress-text">
+                        <p>{{ collected }} / {{ set.card_count }}</p>
+                    </div>
+                    <div class="prog-button-group">
+                        <button
+                            mat-raised-button
+                            color="accent"
+                            style="color: white"
+                            (click)="addAllToCollection()"
+                        >
+                            Add all
+                        </button>
+                        <button
+                            mat-raised-button
+                            color="accent"
+                            style="color: white"
+                            (click)="removeAllFromCollection()"
+                        >
+                            Remove all
+                        </button>
+                    </div>
+                    <mat-divider></mat-divider><br />
+                    <h2 class="value">
+                        {{ 'sets.set.value' | translate }} {{ wholeSetValue }} €
+                    </h2>
+                </div>
+            </mat-card>
         </div>
-      </ng-template>
-    </p-carousel>
-  </mat-card>
+    </mat-card>
 </div>
 
 <div class="options-container">
-  <mat-card class="options">
-    <h2>{{'sets.set.quick.move' | translate}}</h2>
+    <mat-card class="options">
+        <h2>{{ 'sets.set.quick.move' | translate }}</h2>
 
-    <div class="button-group">
-      <button mat-raised-button color="accent" style="color: white;" (click)="moveToSubSet(child.code)" *ngFor="let child of childSets" matTooltip="Scroll down to {{child.name}}">
-        {{child.name}}
-      </button>
-    </div>
+        <div class="button-group">
+            <button
+                mat-raised-button
+                color="accent"
+                style="color: white"
+                (click)="moveToSubSet(child.code)"
+                *ngFor="let child of childSets"
+                matTooltip="Scroll down to {{ child.name }}"
+            >
+                {{ child.name }}
+            </button>
+        </div>
 
-    <h2>{{'sets.set.sort.cards' | translate}}</h2>
+        <h2>{{ 'sets.set.sort.cards' | translate }}</h2>
 
-    <div class="sort-tabs">
-      <app-sort-tabs></app-sort-tabs>
-    </div>
+        <div class="sort-tabs">
+            <app-sort-tabs></app-sort-tabs>
+        </div>
 
-    <button mat-raised-button class="binder-button" color="accent" (click)="handleBinderOpenAction()">{{'sets.set.open.binder.tool' | translate}}</button>
-  </mat-card>
+        <button
+            mat-raised-button
+            class="binder-button"
+            color="accent"
+            (click)="handleBinderOpenAction()"
+        >
+            {{ 'sets.set.open.binder.tool' | translate }}
+        </button>
+    </mat-card>
 </div>
 
 <div class="cards-container">
-  <ng-container *ngFor="let card of cards">
-      <mat-card class="card">
-          <mat-toolbar color="accent" class="card-header">
-            <p class="name">
-              {{card.name}}
-            <p>
-            <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
-            <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
-          </mat-toolbar>
-          <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
-          <ng-template #elsePart>
-            <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]" class="card-img">
-          </ng-template>
+    <ng-container *ngFor="let card of cards">
+        <mat-card class="card">
+            <mat-toolbar color="accent" class="card-header">
+                <p class="name">
+                    {{ card.name }}
+                </p>
 
-          <mat-card color="accent" class="info">
-            <div class="card-data">
-              <p style="text-transform: capitalize;">{{card.rarity}}</p>
-              <p>Collector Number: {{card.collector_number}}</p>
-              <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
-              <p *ngIf="!card.prices.eur">0 €</p>
-            </div>
-
-            <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
-            <ng-template #thenBlock>
-              <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">
-                remove
-              </button>
-            </ng-template>
-            <ng-template #elseBlock>
-              <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
-                Add
-              </button>
-            </ng-template>
-
-          </mat-card>
-        </mat-card>
-  </ng-container>
-</div>
-
-
-
-<div *ngFor="let child of childSets">
-  <mat-toolbar color="accent" class="set-name"><p class="name" [attr.id]="child.code">{{child.name}}<p></mat-toolbar>
-  <ng-container *ngFor="let set of childSetCards">
-    <div class="cards-container-child" *ngIf="child.code == set.code">
-        <ng-container *ngFor="let card of set.cards">
-          <mat-card class="card">
-            <mat-toolbar color="accent">
-              <div class="test">
-                <p class="name">{{card.name}}<p>
-              </div>
-                <div class="collected-circle" *ngIf="isInCollection(card.id) === true;"></div>
-                <div class="notcollected-circle" *ngIf="isInCollection(card.id) === false;"></div>
+                <p></p>
+                <div
+                    class="collected-circle"
+                    *ngIf="isInCollection(card.id) === true"
+                ></div>
+                <div
+                    class="notcollected-circle"
+                    *ngIf="isInCollection(card.id) === false"
+                ></div>
             </mat-toolbar>
-            <img *ngIf="card.image_uris != undefined; else elsePart" src="{{card.image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+            <img
+                *ngIf="card.image_uris != undefined; else elsePart"
+                src="{{ card.image_uris.border_crop }}"
+                alt=""
+                [routerLink]="['/dashboard/collection/', card.id]"
+                class="card-img"
+            />
             <ng-template #elsePart>
-              <img src="{{card.card_faces[0].image_uris.border_crop}}" alt="" [routerLink]="['/dashboard/collection/', card.id]">
+                <img
+                    src="{{ card.card_faces[0].image_uris.border_crop }}"
+                    alt=""
+                    [routerLink]="['/dashboard/collection/', card.id]"
+                    class="card-img"
+                />
             </ng-template>
 
             <mat-card color="accent" class="info">
-              <div class="card-data">
-                <p style="text-transform: capitalize;">{{card.rarity}}</p>
-                <p>Collector Number: {{card.collector_number}}</p>
-                <p *ngIf="card.prices.eur">{{card.prices.eur}} €</p>
-                <p *ngIf="!card.prices.eur">0 €</p>
-              </div>
+                <div class="card-data">
+                    <p style="text-transform: capitalize">{{ card.rarity }}</p>
+                    <p>Collector Number: {{ card.collector_number }}</p>
+                    <p *ngIf="card.prices.eur">{{ card.prices.eur }} €</p>
+                    <p *ngIf="!card.prices.eur">0 €</p>
+                </div>
 
-              <div *ngIf="isInCollection(card.id) === true; then thenBlock else elseBlock"></div>
-              <ng-template #thenBlock>
-                <button mat-raised-button style="color: white;" class="remove-button" (click)="removeFromCollection(card.id)">
-                  remove
-                </button>
-              </ng-template>
-              <ng-template #elseBlock>
-                <button mat-raised-button color="accent" style="color: white;" class="add-button" (click)="addToCollection(card.id)">
-                  Add
-                </button>
-              </ng-template>
-
+                <div
+                    *ngIf="
+                        isInCollection(card.id) === true;
+                        then thenBlock;
+                        else elseBlock
+                    "
+                ></div>
+                <ng-template #thenBlock>
+                    <button
+                        mat-raised-button
+                        style="color: white"
+                        class="remove-button"
+                        (click)="removeFromCollection(card.id)"
+                    >
+                        remove
+                    </button>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        style="color: white"
+                        class="add-button"
+                        (click)="addToCollection(card.id)"
+                    >
+                        Add
+                    </button>
+                </ng-template>
             </mat-card>
-          </mat-card>
-        </ng-container>
-    </div>
-  </ng-container>
+        </mat-card>
+    </ng-container>
+</div>
+
+<div *ngFor="let child of childSets">
+    <mat-toolbar color="accent" class="set-name"
+        ><p class="name" [attr.id]="child.code">{{ child.name }}</p>
+        <p></p
+    ></mat-toolbar>
+    <ng-container *ngFor="let set of childSetCards">
+        <div class="cards-container-child" *ngIf="child.code == set.code">
+            <ng-container *ngFor="let card of set.cards">
+                <mat-card class="card">
+                    <mat-toolbar color="accent">
+                        <div class="test">
+                            <p class="name">{{ card.name }}</p>
+                            <p></p>
+                        </div>
+
+                        <div
+                            class="collected-circle"
+                            *ngIf="isInCollection(card.id) === true"
+                        ></div>
+                        <div
+                            class="notcollected-circle"
+                            *ngIf="isInCollection(card.id) === false"
+                        ></div>
+                    </mat-toolbar>
+                    <img
+                        *ngIf="card.image_uris != undefined; else elsePart"
+                        src="{{ card.image_uris.border_crop }}"
+                        alt=""
+                        [routerLink]="['/dashboard/collection/', card.id]"
+                    />
+                    <ng-template #elsePart>
+                        <img
+                            src="{{
+                                card.card_faces[0].image_uris.border_crop
+                            }}"
+                            alt=""
+                            [routerLink]="['/dashboard/collection/', card.id]"
+                        />
+                    </ng-template>
+
+                    <mat-card color="accent" class="info">
+                        <div class="card-data">
+                            <p style="text-transform: capitalize">
+                                {{ card.rarity }}
+                            </p>
+                            <p>Collector Number: {{ card.collector_number }}</p>
+                            <p *ngIf="card.prices.eur">
+                                {{ card.prices.eur }} €
+                            </p>
+                            <p *ngIf="!card.prices.eur">0 €</p>
+                        </div>
+
+                        <div
+                            *ngIf="
+                                isInCollection(card.id) === true;
+                                then thenBlock;
+                                else elseBlock
+                            "
+                        ></div>
+                        <ng-template #thenBlock>
+                            <button
+                                mat-raised-button
+                                style="color: white"
+                                class="remove-button"
+                                (click)="removeFromCollection(card.id)"
+                            >
+                                remove
+                            </button>
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <button
+                                mat-raised-button
+                                color="accent"
+                                style="color: white"
+                                class="add-button"
+                                (click)="addToCollection(card.id)"
+                            >
+                                Add
+                            </button>
+                        </ng-template>
+                    </mat-card>
+                </mat-card>
+            </ng-container>
+        </div>
+    </ng-container>
 </div>
 
 <app-quick-move></app-quick-move>

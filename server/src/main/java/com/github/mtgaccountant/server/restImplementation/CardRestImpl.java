@@ -13,7 +13,7 @@ import com.github.mtgaccountant.server.service.CardService;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 
 @RestController
-public class CardRestImpl implements CardRest{
+public class CardRestImpl implements CardRest {
 
     @Autowired
     CardService cardService;
@@ -50,5 +50,5 @@ public class CardRestImpl implements CardRest{
 
         return new ResponseEntity<List<CardWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
 }
