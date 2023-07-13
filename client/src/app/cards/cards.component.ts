@@ -18,12 +18,9 @@ export class CardsComponent implements OnInit, OnDestroy {
 
     lowValue: number = 0;
     highValue: number = 20;
-
     cards: Card[] = [];
     collection: CollectionCard[] = [];
-
     currentPage: number = 0;
-
     sortValue!: string;
 
     constructor(
