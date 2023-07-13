@@ -9,7 +9,11 @@ import { MaterialModule } from './material.module';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpClientModule,
+    HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,57 +28,61 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  text: "Loading...",
-  textColor: "#FFFFFF",
-  textPosition: "center-center",
-  bgsColor: "#7b1fa2",
-  fgsColor: "#7b1fa2",
-  fgsType: SPINNER.circle,
-  fgsSize: 100,
-  hasProgressBar: false
-}
+    text: 'Loading...',
+    textColor: '#FFFFFF',
+    textPosition: 'center-center',
+    bgsColor: '#7b1fa2',
+    fgsColor: '#7b1fa2',
+    fgsType: SPINNER.circle,
+    fgsSize: 100,
+    hasProgressBar: false,
+};
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ToolbarComponent,
-    FooterComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
-    ConfirmationComponent,
-    ForgotPasswordComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    HttpClientModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpTranslateLoader,
-        deps: [HttpClient]
-      }
-    })
-  ],
-  providers: [
-    HttpClientModule,
-    {provide:HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
-    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: tooltipDefaults},
-    {
-      provide: RouteReuseStrategy,
-      useClass: mtgRouteResuseStrategy,
-    },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ToolbarComponent,
+        FooterComponent,
+        HomeComponent,
+        LoginComponent,
+        RegisterComponent,
+        ConfirmationComponent,
+        ForgotPasswordComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        HttpClientModule,
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: httpTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+    ],
+    providers: [
+        HttpClientModule,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorInterceptor,
+            multi: true,
+        },
+        { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: tooltipDefaults },
+        {
+            provide: RouteReuseStrategy,
+            useClass: mtgRouteResuseStrategy,
+        },
+    ],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 export function httpTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http);
 }

@@ -11,28 +11,26 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @NgModule({
-  declarations: [
-    ChatComponent,
-    ChatListComponent,
-    ChatMenuComponent,
-    ChatFormComponent
-  ],
-  imports: [
-    CommonModule,
-    ChatRoutingModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule.forChild({
-      extend: true
-    })
-  ]
+    declarations: [
+        ChatComponent,
+        ChatListComponent,
+        ChatMenuComponent,
+        ChatFormComponent,
+    ],
+    imports: [
+        CommonModule,
+        ChatRoutingModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule.forChild({
+            extend: true,
+        }),
+    ],
 })
-export class ChatModule { }
+export class ChatModule {}
 
 export function httpTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http);
 }
