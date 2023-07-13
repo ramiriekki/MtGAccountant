@@ -1,6 +1,6 @@
 <mat-toolbar color="accent">
     <mat-toolbar-row fxLayout="row">
-        <span>{{'dialog.login.title' | translate}}</span>
+        <span>{{ 'dialog.login.title' | translate }}</span>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -8,22 +8,53 @@
     <form [formGroup]="loginForm">
         <div fxFlex fxLayout="column" class="form">
             <mat-form-field appearance="standard" fxFlex>
-                <mat-label>{{'dialog.login.email' | translate}}</mat-label>
-                <input matInput formControlName="email" required>
-                <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
-                    <span *ngIf="loginForm.controls.email.errors.required">{{'dialog.mandatory' | translate}}</span>
-                    <span *ngIf="loginForm.controls.email.errors.pattern">{{'dialog.pattern' | translate}}</span>
+                <mat-label>{{ 'dialog.login.email' | translate }}</mat-label>
+                <input matInput formControlName="email" required />
+                <mat-error
+                    *ngIf="
+                        loginForm.controls.email.touched &&
+                        loginForm.controls.email.invalid
+                    "
+                >
+                    <span *ngIf="loginForm.controls.email.errors.required">{{
+                        'dialog.mandatory' | translate
+                    }}</span>
+                    <span *ngIf="loginForm.controls.email.errors.pattern">{{
+                        'dialog.pattern' | translate
+                    }}</span>
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="standard" fxFlex>
-                <mat-label>{{'dialog.login.password' | translate}}</mat-label>
-                <input matInput formControlName="password" type="password" required [type]="hide ? 'password': 'text'">
-                <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-label>{{ 'dialog.login.password' | translate }}</mat-label>
+                <input
+                    matInput
+                    formControlName="password"
+                    type="password"
+                    required
+                    [type]="hide ? 'password' : 'text'"
+                />
+                <button
+                    type="button"
+                    mat-icon-button
+                    matSuffix
+                    (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide"
+                >
+                    <mat-icon>{{
+                        hide ? 'visibility_off' : 'visibility'
+                    }}</mat-icon>
                 </button>
-                <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
-                    <span *ngIf="loginForm.controls.password.errors.required">{{'dialog.mandatory' | translate}}</span>
+                <mat-error
+                    *ngIf="
+                        loginForm.controls.password.touched &&
+                        loginForm.controls.password.invalid
+                    "
+                >
+                    <span *ngIf="loginForm.controls.password.errors.required">{{
+                        'dialog.mandatory' | translate
+                    }}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -31,10 +62,16 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-raised-button color="accent" type="submit" (click)="handleSubmit()" [disabled]="!(loginForm.valid && loginForm.dirty)">
-        <mat-icon>login</mat-icon> {{'dialog.login.confirm' | translate}}
+    <button
+        mat-raised-button
+        color="accent"
+        type="submit"
+        (click)="handleSubmit()"
+        [disabled]="!(loginForm.valid && loginForm.dirty)"
+    >
+        <mat-icon>login</mat-icon> {{ 'dialog.login.confirm' | translate }}
     </button>
     <button mat-raised-button color="warn" mat-dialog-close>
-        <mat-icon>cancel</mat-icon> {{'dialog.close' | translate}}
+        <mat-icon>cancel</mat-icon> {{ 'dialog.close' | translate }}
     </button>
 </mat-dialog-actions>

@@ -1,18 +1,48 @@
 <div class="sort-container">
-    <mat-button-toggle-group class="toggle-group" name="type" aria-label="Set Type">
-      <mat-button-toggle class="toggle" value="nameAZ" (click)="setSortValue(values[0])">Name A-Z</mat-button-toggle>
-      <mat-button-toggle class="toggle" value="nameZA" (click)="setSortValue(values[1])">Name Z-A</mat-button-toggle>
+    <mat-button-toggle-group
+        class="toggle-group"
+        name="type"
+        aria-label="Set Type"
+    >
+        <mat-button-toggle
+            class="toggle"
+            value="nameAZ"
+            (click)="setSortValue(values[0])"
+            >Name A-Z</mat-button-toggle
+        >
+        <mat-button-toggle
+            class="toggle"
+            value="nameZA"
+            (click)="setSortValue(values[1])"
+            >Name Z-A</mat-button-toggle
+        >
 
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[2])">Collector Number Ascending</mat-button-toggle>
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[3])">Collector Number Decending</mat-button-toggle>
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[2])"
+            >Collector Number Ascending</mat-button-toggle
+        >
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[3])"
+            >Collector Number Decending</mat-button-toggle
+        >
 
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[4])">Rarity Ascending</mat-button-toggle>
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[5])">Rarity Decending</mat-button-toggle>
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[4])"
+            >Rarity Ascending</mat-button-toggle
+        >
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[5])"
+            >Rarity Decending</mat-button-toggle
+        >
 
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[6])">Price Ascending</mat-button-toggle>
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[7])">Price Decending</mat-button-toggle>
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[6])"
+            >Price Ascending</mat-button-toggle
+        >
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[7])"
+            >Price Decending</mat-button-toggle
+        >
 
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[8])">Collected</mat-button-toggle>
-      <mat-button-toggle class="toggle" (click)="setSortValue(values[9])">Not Collected</mat-button-toggle>
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[8])"
+            >Collected</mat-button-toggle
+        >
+        <mat-button-toggle class="toggle" (click)="setSortValue(values[9])"
+            >Not Collected</mat-button-toggle
+        >
     </mat-button-toggle-group>
 </div>

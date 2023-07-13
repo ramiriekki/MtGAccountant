@@ -1,84 +1,83 @@
 .profile-card {
-  margin: 20px;
-  background-color: transparent;
-  border: 1px solid #f57f01;
+    margin: 20px;
+    background-color: transparent;
+    border: 1px solid #f57f01;
 }
 
 .title {
-  font-size: 25px !important;
-  color: white;
+    font-size: 25px !important;
+    color: white;
 }
 
 .data-title {
-  font-weight: bold;
+    font-weight: bold;
 }
 
-.info{
-  margin: 20px;
-  background-color: transparent;
-  border: 1px solid #f57f01;
-
+.info {
+    margin: 20px;
+    background-color: transparent;
+    border: 1px solid #f57f01;
 }
 
-p{
-  color: #f57f01;
-  font-weight: bold;
+p {
+    color: #f57f01;
+    font-weight: bold;
 }
 
-.sub{
-  color: white;
+.sub {
+    color: white;
 }
 
-.data-title{
-  color: #f57f01;
+.data-title {
+    color: #f57f01;
 }
 
 .mat-divider {
-  border-top-color: #f57f0174;
+    border-top-color: #f57f0174;
 }
 
 .profile-side-cont {
-  display: flex;
+    display: flex;
 }
 
 .mat-card .mat-divider-horizontal {
-  position: relative;
-  left:auto !important;
-  width: 100%;
+    position: relative;
+    left: auto !important;
+    width: 100%;
 }
 
 img {
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  margin: 20px;
-  border: 4px solid orange;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    margin: 20px;
+    border: 4px solid orange;
 }
 
 .data {
-  width: 100%;
-  margin-top: 20px;
+    width: 100%;
+    margin-top: 20px;
 }
 
 img:hover {
-  cursor: pointer;
-  filter: opacity(0.3);
-  transition: 500ms;
+    cursor: pointer;
+    filter: opacity(0.3);
+    transition: 500ms;
 }
 
 .image-button {
-  z-index: 100;
-  position: absolute;
-  color: white;
-  left: 230px;
-  top: 50%;
-  display: none;
+    z-index: 100;
+    position: absolute;
+    color: white;
+    left: 230px;
+    top: 50%;
+    display: none;
 }
 
 .image-div:hover > button {
-  display:block;
+    display: block;
 }
 
 .image-button:hover > img {
-  filter: opacity(0.3);
+    filter: opacity(0.3);
 }

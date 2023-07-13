@@ -1,13 +1,25 @@
 <mat-card class="progress-list-card">
-  <ng-container *ngFor="let set of sets">
-    <mat-card *ngIf="set.set_type == 'expansion'" class="set-card" [routerLink]="['/dashboard/sets/', set.code]">
-      <div class="set-container">
-        <img src="{{set.icon_svg_uri}}" alt="">
-        <div class="set-data">
-          <mat-toolbar color="accent"><p class="name">{{set.name}}<p></mat-toolbar>
-          <mat-progress-bar mode="determinate" value="{{getProgressValue(set.code)}}" class="progress-bar" color="accent"></mat-progress-bar>
-        </div>
-      </div>
-    </mat-card>
-  </ng-container>
+    <ng-container *ngFor="let set of sets">
+        <mat-card
+            *ngIf="set.set_type == 'expansion'"
+            class="set-card"
+            [routerLink]="['/dashboard/sets/', set.code]"
+        >
+            <div class="set-container">
+                <img src="{{ set.icon_svg_uri }}" alt="" />
+                <div class="set-data">
+                    <mat-toolbar color="accent"
+                        ><p class="name">{{ set.name }}</p>
+                        <p></p
+                    ></mat-toolbar>
+                    <mat-progress-bar
+                        mode="determinate"
+                        value="{{ getProgressValue(set.code) }}"
+                        class="progress-bar"
+                        color="accent"
+                    ></mat-progress-bar>
+                </div>
+            </div>
+        </mat-card>
+    </ng-container>
 </mat-card>

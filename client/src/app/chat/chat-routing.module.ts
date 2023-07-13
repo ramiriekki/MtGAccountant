@@ -4,16 +4,15 @@ import { ChatMenuComponent } from './chat-menu/chat-menu.component';
 import { ChatComponent } from './chat.component';
 
 const routes: Routes = [
-  {
-    path: '', component: ChatMenuComponent, children:
-      [
-        {path: 'chat/:id', component: ChatComponent}
-      ]
-  }
+    {
+        path: '',
+        component: ChatMenuComponent,
+        children: [{ path: 'chat/:id', component: ChatComponent }],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class ChatRoutingModule { }
+export class ChatRoutingModule {}

@@ -1,155 +1,155 @@
 .binder-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }
 
 .binder-top {
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 70%;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 70%;
 }
 
 .binder-bottom {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 20%;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 20%;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.left-page, .right-page {
-  background-color: rgb(134, 134, 134);
-  width: 50%;
-  height: 110%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+.left-page,
+.right-page {
+    background-color: rgb(134, 134, 134);
+    width: 50%;
+    height: 110%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .left-page {
-  margin-right: 10px;
-  max-width: 444px;
-  min-width: 420px;
-  box-shadow: 5px 5px 5px 5px black;
+    margin-right: 10px;
+    max-width: 444px;
+    min-width: 420px;
+    box-shadow: 5px 5px 5px 5px black;
 }
 
 .right-page {
-  margin-left: 10px;
-  max-width: 444px;
-  min-width: 420px;
-  box-shadow: 5px 5px 5px 5px black;
+    margin-left: 10px;
+    max-width: 444px;
+    min-width: 420px;
+    box-shadow: 5px 5px 5px 5px black;
 }
 
 .binder-button {
-  width: 20%;
+    width: 20%;
 }
 
 .card-pocket {
-  color: black;
-  height: auto;
-  width: 25%;
-  background-color: rgb(213, 213, 213);
-  margin: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
+    color: black;
+    height: auto;
+    width: 25%;
+    background-color: rgb(213, 213, 213);
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
 }
 
 .card-pocket-no-image {
-  color: black;
-  height: 25%;
-  width: 25%;
-  background-color: rgb(213, 213, 213);
-  margin: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
+    color: black;
+    height: 25%;
+    width: 25%;
+    background-color: rgb(213, 213, 213);
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
 }
 
 .card-pocket-collected {
-  color: white;
-  height: auto;
-  width: 25%;
-  background-color: rgb(66 145 50);
-  margin: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
+    color: white;
+    height: auto;
+    width: 25%;
+    background-color: rgb(66 145 50);
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
 }
 
 .card-pocket-collected-no-image {
-  color: white;
-  height: 25%;
-  width: 25%;
-  background-color: rgb(66 145 50);
-  margin: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
+    color: white;
+    height: 25%;
+    width: 25%;
+    background-color: rgb(66 145 50);
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 5px 5px 3px 3px rgb(63, 63, 63);
 }
 
 .card-pocket:hover {
-  background-color: rgb(255, 205, 130);
-  transition: 1s;
-  cursor: pointer;
+    background-color: rgb(255, 205, 130);
+    transition: 1s;
+    cursor: pointer;
 }
 
 .card-pocket-collected:hover {
-  background-color: rgb(161, 44, 44);
-  transition: 1s;
-  cursor: pointer;
+    background-color: rgb(161, 44, 44);
+    transition: 1s;
+    cursor: pointer;
 }
 
 .card-data {
-  height: 33%;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    height: 33%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .binder-toolbar {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 img {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 
 .change-display {
-  margin-top: 80px;
+    margin-top: 80px;
 }
 
 .collected {
-  width: 100%;
-  height: 20px;
-  background-color: greenyellow;
+    width: 100%;
+    height: 20px;
+    background-color: greenyellow;
 }
 
-
 .not-collected {
-  width: 100%;
-  height: 20px;
-  background-color: rgb(177, 19, 19);
+    width: 100%;
+    height: 20px;
+    background-color: rgb(177, 19, 19);
 }
