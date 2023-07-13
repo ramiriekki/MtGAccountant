@@ -4,95 +4,108 @@ import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
-
-
 export class SortCardsService {
-  rarityOrder = [
-    'common',
-    'uncommon',
-    'rare',
-    'mythic'
-  ]
+    rarityOrder = ['common', 'uncommon', 'rare', 'mythic'];
 
-  sortType: string = "";
-  onTypeChange$: BehaviorSubject<string> = new BehaviorSubject(this.sortType);
+    sortType: string = '';
+    onTypeChange$: BehaviorSubject<string> = new BehaviorSubject(this.sortType);
 
-  constructor() { }
+    constructor() {}
 
-  sortByNameAZ(cards: Card[]): Card[]{
-    return cards.sort((a, b) => (a.name < b.name ? -1 : 1));
-  }
+    sortByNameAZ(cards: Card[]): Card[] {
+        return cards.sort((a, b) => (a.name < b.name ? -1 : 1));
+    }
 
-  sortByNameZA(cards: Card[]): Card[]{
-    return cards.sort((a, b) => (a.name > b.name ? -1 : 1));
-  }
+    sortByNameZA(cards: Card[]): Card[] {
+        return cards.sort((a, b) => (a.name > b.name ? -1 : 1));
+    }
 
-  sortByNameAZany(cards: any[]): any[]{
-    return cards.sort((a, b) => (a.name < b.name ? -1 : 1));
-  }
+    sortByNameAZany(cards: any[]): any[] {
+        return cards.sort((a, b) => (a.name < b.name ? -1 : 1));
+    }
 
-  sortByNameZAany(cards: any[]): any[]{
-    return cards.sort((a, b) => (a.name > b.name ? -1 : 1));
-  }
+    sortByNameZAany(cards: any[]): any[] {
+        return cards.sort((a, b) => (a.name > b.name ? -1 : 1));
+    }
 
-  sortByCollectorNumberAsc(cards: Card[]): Card[]{
-    return cards.sort((a, b) => (Number(a.collector_number) < Number(b.collector_number) ? -1 : 1));
-  }
+    sortByCollectorNumberAsc(cards: Card[]): Card[] {
+        return cards.sort((a, b) =>
+            Number(a.collector_number) < Number(b.collector_number) ? -1 : 1
+        );
+    }
 
-  sortByCollectorNumberDec(cards: Card[]): Card[]{
-    return cards.sort((a, b) => (Number(a.collector_number) > Number(b.collector_number) ? -1 : 1));
-  }
+    sortByCollectorNumberDec(cards: Card[]): Card[] {
+        return cards.sort((a, b) =>
+            Number(a.collector_number) > Number(b.collector_number) ? -1 : 1
+        );
+    }
 
-  sortByRarityAsc(cards: Card[]): Card[] {
-    return cards.sort((a, b) => this.rarityOrder.indexOf(a.rarity) - this.rarityOrder.indexOf(b.rarity));
-  }
+    sortByRarityAsc(cards: Card[]): Card[] {
+        return cards.sort(
+            (a, b) =>
+                this.rarityOrder.indexOf(a.rarity) -
+                this.rarityOrder.indexOf(b.rarity)
+        );
+    }
 
-  sortByRarityDec(cards: Card[]): Card[] {
-    return cards.sort((a, b) => this.rarityOrder.indexOf(b.rarity) - this.rarityOrder.indexOf(a.rarity));
-  }
+    sortByRarityDec(cards: Card[]): Card[] {
+        return cards.sort(
+            (a, b) =>
+                this.rarityOrder.indexOf(b.rarity) -
+                this.rarityOrder.indexOf(a.rarity)
+        );
+    }
 
-  sortByPriceAsc(cards: Card[]): Card[]{
-    return cards.sort((a, b) => (Number(a.prices.eur) < Number(b.prices.eur) ? -1 : 1));
-  }
+    sortByPriceAsc(cards: Card[]): Card[] {
+        return cards.sort((a, b) =>
+            Number(a.prices.eur) < Number(b.prices.eur) ? -1 : 1
+        );
+    }
 
-  sortByPriceDec(cards: Card[]): Card[]{
-    return cards.sort((a, b) => (Number(a.prices.eur) > Number(b.prices.eur) ? -1 : 1));
-  }
+    sortByPriceDec(cards: Card[]): Card[] {
+        return cards.sort((a, b) =>
+            Number(a.prices.eur) > Number(b.prices.eur) ? -1 : 1
+        );
+    }
 
-  sortByCollected(cards: Card[], collection: CollectionCard[]): Card[]{
+    sortByCollected(cards: Card[], collection: CollectionCard[]): Card[] {
+        cards.forEach((card) => {
+            collection.forEach((collectionCard) => {
+                if (
+                    collectionCard.id === card.id &&
+                    collectionCard.collected === true
+                ) {
+                    card.collected = true;
+                }
+            });
+        });
 
-    cards.forEach(card => {
-      collection.forEach(collectionCard => {
-        if (collectionCard.id === card.id && collectionCard.collected === true) {
-          card.collected = true
-        }
-      });
-    });
+        return cards.sort((a, b) => Number(b.collected) - Number(a.collected));
+    }
 
-    return cards.sort((a, b) => Number(b.collected) - Number(a.collected));
-  }
+    sortByNotCollected(cards: Card[], collection: CollectionCard[]): Card[] {
+        cards.forEach((card) => {
+            collection.forEach((collectionCard) => {
+                if (
+                    collectionCard.id === card.id &&
+                    collectionCard.collected === true
+                ) {
+                    card.collected = true;
+                }
+            });
+        });
 
-  sortByNotCollected(cards: Card[], collection: CollectionCard[]): Card[]{
+        return cards.sort((a, b) => Number(a.collected) - Number(b.collected));
+    }
 
-    cards.forEach(card => {
-      collection.forEach(collectionCard => {
-        if (collectionCard.id === card.id && collectionCard.collected === true) {
-          card.collected = true
-        }
-      });
-    });
+    setSortValue(value: string): void {
+        this.sortType = value;
+        this.onTypeChange$.next(this.sortType);
+    }
 
-    return cards.sort((a, b) => Number(a.collected) - Number(b.collected));
-  }
-
-  setSortValue(value: string): void {
-    this.sortType = value
-    this.onTypeChange$.next(this.sortType)
-  }
-
-  getSortValue(): string {
-    return this.sortType
-  }
+    getSortValue(): string {
+        return this.sortType;
+    }
 }
