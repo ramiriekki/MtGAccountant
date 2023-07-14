@@ -81,17 +81,16 @@
     <mat-card class="options">
         <h2>{{ 'sets.set.quick.move' | translate }}</h2>
 
-        <div class="button-group">
-            <button
-                mat-raised-button
-                color="accent"
-                style="color: white"
-                (click)="moveToSubSet(child.code)"
-                *ngFor="let child of childSets"
-                matTooltip="Scroll down to {{ child.name }}"
-            >
-                {{ child.name }}
-            </button>
+        <div class="child-sets">
+            <ng-container *ngFor="let child of childSets">
+                <mat-card
+                    class="child-set-card"
+                    (click)="moveToSubSet(child.code)"
+                >
+                    <img src="{{ child.icon_svg_uri }}" alt="" />
+                    <p>{{ trimName(child.name) }}</p>
+                </mat-card>
+            </ng-container>
         </div>
 
         <h2>{{ 'sets.set.sort.cards' | translate }}</h2>
@@ -186,7 +185,7 @@
     </ng-container>
 </div>
 
-<div *ngFor="let child of childSets">
+<!-- <div *ngFor="let child of childSets">
     <mat-toolbar color="accent" class="set-name"
         ><p class="name" [attr.id]="child.code">{{ child.name }}</p>
         <p></p
@@ -271,6 +270,6 @@
             </ng-container>
         </div>
     </ng-container>
-</div>
+</div> -->
 
 <app-quick-move></app-quick-move>

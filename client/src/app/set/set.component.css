@@ -257,7 +257,8 @@ h2 {
     font-weight: bolder;
 }
 
-.card:hover {
+.card:hover,
+.child-set-card:hover {
     background-color: #f57f01 !important;
     transition: 500ms;
 }
@@ -293,4 +294,43 @@ h2 {
     .set-progress-card {
         width: 100%;
     }
+}
+
+.child-sets {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+}
+
+.child-set-card {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #f57f01;
+    box-shadow: 5px 5px 10px #f57f01, -5px -5px 10px #f57f01,
+        -5px 5px 10px #f57f01, 5px -5px 10px #f57f01;
+    width: 150px;
+    height: 200px;
+}
+
+.child-set-card > img {
+    filter: invert(100);
+    width: 100px;
+    height: 100px;
+}
+
+.child-set-card > p {
+    font-weight: 500;
+}
+
+.child-set-card:hover > p {
+    color: black;
+}
+
+.child-set-card:hover > img {
+    filter: brightness(0);
+    transition: 500ms;
 }
