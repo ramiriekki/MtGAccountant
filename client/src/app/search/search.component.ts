@@ -15,6 +15,7 @@ import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 import { Search } from '../models/Search';
 import { CardsService } from '../services/cards.service';
+import { LoggerService } from '../services/logger.service';
 import { SearchService } from '../services/search.service';
 import { SetsService } from '../services/sets.service';
 import { SortCardsService } from '../services/sort-cards.service';
@@ -70,7 +71,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         private searchService: SearchService,
         private cardsService: CardsService,
         private router: Router,
-        private SortCardsService: SortCardsService
+        private SortCardsService: SortCardsService,
+        private logger: LoggerService
     ) {}
 
     ngOnInit(): void {
@@ -178,7 +180,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchService
             .searchCards(this.parentForm.value)
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => console.log(response));
+            .subscribe((response) => this.logger.debug(response));
         this.submitted = true;
     }
 

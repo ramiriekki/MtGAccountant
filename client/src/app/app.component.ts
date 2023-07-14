@@ -6,7 +6,7 @@ import {
     Output,
 } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
@@ -15,8 +15,8 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { Location } from '@angular/common';
 import { filter, Subject, takeUntil } from 'rxjs';
-import { User } from './models/User';
 import { TranslateService } from '@ngx-translate/core';
+import { LoggerService } from './services/logger.service';
 
 @Component({
     selector: 'app-root',
@@ -36,7 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
         private router: Router,
         private authService: AuthService,
         private location: Location,
-        public translate: TranslateService
+        public translate: TranslateService,
+        private logger: LoggerService
     ) {
         router.events
             .pipe(filter((event) => event instanceof NavigationEnd))
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 //this.router.navigate(['/dashboard'])
             },
             (error: any) => {
-                console.log(error);
+                this.logger.error(error);
             }
         );
 
