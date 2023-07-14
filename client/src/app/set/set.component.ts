@@ -12,6 +12,7 @@ import { CardsService } from '../services/cards.service';
 import { SetsService } from '../services/sets.service';
 import { SortCardsService } from '../services/sort-cards.service';
 import { BinderModifyComponent } from './binder-modify/binder-modify.component';
+import { StringUtils } from '../shared/util/StringUtils';
 
 @Component({
     selector: 'app-set',
@@ -135,7 +136,9 @@ export class SetComponent implements OnInit, OnDestroy {
         this.setsService
             .getChildSets(code)
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((sets) => (this.childSets = sets));
+            .subscribe((sets) => {
+                this.childSets = sets;
+            });
         this.setsService
             .getChildSets(code)
             .pipe(takeUntil(this.unsubscribe$))
@@ -228,7 +231,7 @@ export class SetComponent implements OnInit, OnDestroy {
     }
 
     moveToSubSet(code: string): void {
-        this.scroller.scrollToAnchor(code);
+        this.router.navigateByUrl('/dashboard/sets/' + this.code + '/' + code);
     }
 
     addAllToCollection(): void {
@@ -282,5 +285,9 @@ export class SetComponent implements OnInit, OnDestroy {
         dialogConfig.panelClass = 'binder-dialog';
         dialogConfig.data = { cards: this.cards, collection: this.collection };
         this.dialog.open(BinderModifyComponent, dialogConfig);
+    }
+
+    trimName(name: string): string {
+        return StringUtils.fetchName(name);
     }
 }

@@ -22,6 +22,7 @@ const routes: Routes = [
             { path: 'admin-board', component: AdminComponent },
             //{path: 'chat', component: ChatComponent},
             { path: 'sets/:set', component: SetComponent },
+            { path: 'sets/:set/:sub-set', component: SetComponent },
             { path: 'collection/:id', component: CardComponent },
             { path: 'collection/page/:page', component: CardsComponent },
             {
