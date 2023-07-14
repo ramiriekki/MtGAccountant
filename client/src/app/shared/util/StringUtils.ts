@@ -16,4 +16,10 @@ export class StringUtils {
             return name;
         }
     }
+
+    // TODO:
+    /* static fetchName(string: string, wantedValue: string): string {
+     *  if (string.includes(wantedValue)) {
+     *     return string wantedValue;
+     */
 }
