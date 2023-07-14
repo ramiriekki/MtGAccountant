@@ -7,6 +7,7 @@ import { Collection } from '../models/Collection';
 import { CollectionCard } from '../models/CollectionCard';
 import { CollectionPercentages } from '../models/CollectionPercentages';
 import { UpdateData } from '../models/UpdateData';
+import { LoggerService } from './logger.service';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +15,10 @@ import { UpdateData } from '../models/UpdateData';
 export class CardsService {
     url = environment.apiUrl;
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(
+        private httpClient: HttpClient,
+        private logger: LoggerService
+    ) {}
 
     getAllCards(): Observable<Card[]> {
         // TODO get collection instead of all cards
@@ -75,8 +79,8 @@ export class CardsService {
                     }
                 )
                 .subscribe();
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            this.logger.error(error);
             return null;
         }
     }

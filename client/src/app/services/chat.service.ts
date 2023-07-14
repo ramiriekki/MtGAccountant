@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Chat, ChatForm } from '../models/Chat';
 import { Message } from '../models/Message';
+import { LoggerService } from './logger.service';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +19,10 @@ export class ChatService {
 
     url = environment.apiUrl;
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(
+        private httpClient: HttpClient,
+        private logger: LoggerService
+    ) {}
 
     getAllChats(): Observable<Chat[]> {
         return this.httpClient.get<Chat[]>(this.url + '/api/chat/all');
@@ -37,7 +41,7 @@ export class ChatService {
                     this.createdChatSubject.next(createdChat);
                 },
                 (error) => {
-                    console.log(error);
+                    this.logger.error(error);
                 }
             );
     }
@@ -56,8 +60,8 @@ export class ChatService {
                     ),
                 })
                 .subscribe();
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            this.logger.error(error);
             return null;
         }
     }
@@ -72,8 +76,8 @@ export class ChatService {
                     ),
                 })
                 .subscribe();
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            this.logger.error(error);
             return null;
         }
     }

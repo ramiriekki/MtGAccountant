@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription, takeUntil } from 'rxjs';
+import { LoggerService } from '../services/logger.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -21,7 +22,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     userStatus: string = '';
     private unsubscribe$ = new Subject<void>();
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private logger: LoggerService
+    ) {}
 
     ngOnInit(): void {
         this.getAllUsers();
@@ -66,6 +70,6 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.userService
             .removeUser(email)
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(() => console.log('Delete successful'));
+            .subscribe(() => this.logger.info('User removed'));
     }
 }
