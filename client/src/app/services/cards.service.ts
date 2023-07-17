@@ -64,21 +64,19 @@ export class CardsService {
         const data = { id_list: addArr, remove_list: removeArr };
 
         try {
-            return this.httpClient
-                .post(
-                    this.url +
-                        `/api/collections/collection?email=${localStorage.getItem(
-                            'user'
-                        )}`,
-                    data,
-                    {
-                        headers: new HttpHeaders().set(
-                            'Content-Type',
-                            'application/json'
-                        ),
-                    }
-                )
-                .subscribe();
+            return this.httpClient.post(
+                this.url +
+                    `/api/collections/collection?email=${localStorage.getItem(
+                        'user'
+                    )}`,
+                data,
+                {
+                    headers: new HttpHeaders().set(
+                        'Content-Type',
+                        'application/json'
+                    ),
+                }
+            );
         } catch (error: any) {
             this.logger.error(error);
             return null;

@@ -110,3 +110,7 @@ h2 {
 .head-cont {
     display: flex;
 }
+
+mat-spinner {
+    align-self: center;
+}
