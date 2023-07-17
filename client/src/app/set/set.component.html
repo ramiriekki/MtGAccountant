@@ -1,81 +1,10 @@
-<div class="set-container">
-    <mat-card class="set">
-        <mat-toolbar color="accent" class="set-name"
-            ><p class="name">{{ set?.name }}</p>
-            <p></p
-        ></mat-toolbar>
-        <div class="set-data">
-            <img src="{{ set?.icon_svg_uri }}" alt="" class="set-icon" />
-            <mat-card class="set-data-card">
-                <p style="text-transform: uppercase">{{ set?.code }}</p>
-                <mat-divider class="divider"></mat-divider><br />
-                <p>{{ set?.name }}</p>
-                <mat-divider class="divider"></mat-divider><br />
-                <p>{{ set?.released_at }}</p>
-                <mat-divider class="divider"></mat-divider><br />
-                <p>{{ set?.set_type }}</p>
-                <mat-divider class="divider"></mat-divider><br />
-                <p>
-                    {{ 'sets.set.cards.amount' | translate }}
-                    {{ set?.card_count }}
-                </p>
-                <mat-divider class="divider"></mat-divider><br />
-                <p>
-                    <a
-                        class="scryfall-link"
-                        href="{{ set?.scryfall_uri }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >{{ set?.scryfall_uri }}</a
-                    >
-                </p>
-                <mat-divider class="divider"></mat-divider><br />
-            </mat-card>
-
-            <mat-card class="set-progress-card">
-                <mat-toolbar color="accent" class="set-name"
-                    ><p class="name">{{ 'sets.set.progress' | translate }}</p>
-                    <p></p
-                ></mat-toolbar>
-                <br />
-
-                <div class="progress">
-                    <mat-progress-bar
-                        mode="determinate"
-                        [value]="progressWidth"
-                        class="progress-bar"
-                        color="accent"
-                    ></mat-progress-bar>
-                    <div class="progress-text">
-                        <p>{{ collected }} / {{ set?.card_count }}</p>
-                    </div>
-                    <div class="prog-button-group">
-                        <button
-                            mat-raised-button
-                            color="accent"
-                            style="color: white"
-                            (click)="addAllToCollection()"
-                        >
-                            Add all
-                        </button>
-                        <button
-                            mat-raised-button
-                            color="accent"
-                            style="color: white"
-                            (click)="removeAllFromCollection()"
-                        >
-                            Remove all
-                        </button>
-                    </div>
-                    <mat-divider></mat-divider><br />
-                    <h2 class="value">
-                        {{ 'sets.set.value' | translate }} {{ wholeSetValue }} €
-                    </h2>
-                </div>
-            </mat-card>
-        </div>
-    </mat-card>
-</div>
+<app-set-data
+    [wholeSetValue]="wholeSetValue"
+    [cards]="cards"
+    [collection]="collection"
+    [set]="set"
+    [collected]="collected"
+></app-set-data>
 
 <div class="options-container">
     <mat-card class="options">

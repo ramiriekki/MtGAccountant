@@ -28,7 +28,6 @@ export class SetComponent implements OnInit, OnDestroy {
     sets: Set[] = [];
     set!: Set | undefined;
     collectedData!: any | undefined;
-    progressWidth: number = 0;
     collected: number = 0;
     childSets: Set[] = [];
     childSetCards: ChildCards[] = [];
@@ -37,6 +36,7 @@ export class SetComponent implements OnInit, OnDestroy {
     wholeSetValue: number = 0;
     responsiveOptions: any[] = [];
     topCards: Card[] = [];
+    progressWidth: number = 0;
 
     constructor(
         private dialog: MatDialog,
@@ -232,50 +232,6 @@ export class SetComponent implements OnInit, OnDestroy {
 
     moveToSubSet(code: string): void {
         this.router.navigateByUrl('/dashboard/sets/' + this.code + '/' + code);
-    }
-
-    addAllToCollection(): void {
-        let ids: string[] = [];
-
-        this.cards.forEach((card) => {
-            ids.push(card.id);
-        });
-
-        for (const element of this.collection) {
-            ids.forEach((id) => {
-                if (element.id == id) {
-                    element.collected = true;
-                }
-            });
-        }
-
-        this.progressWidth = 100;
-
-        // update to db happens here
-        this.cardsService.updateCollection([''], ids);
-        this.cdr.detectChanges();
-    }
-
-    removeAllFromCollection(): void {
-        let ids: string[] = [];
-
-        this.cards.forEach((card) => {
-            ids.push(card.id);
-        });
-
-        for (const element of this.collection) {
-            ids.forEach((id) => {
-                if (element.id == id) {
-                    element.collected = false;
-                }
-            });
-        }
-
-        this.progressWidth = 0;
-
-        // update to db happens here
-        this.cardsService.updateCollection(ids, ['']);
-        this.cdr.detectChanges();
     }
 
     handleBinderOpenAction() {

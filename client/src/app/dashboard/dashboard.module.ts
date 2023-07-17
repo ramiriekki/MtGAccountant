@@ -25,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SingleCardComponent } from '../shared/single-card/single-card.component';
+import { SetDataComponent } from '../set/set-data/set-data.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { SingleCardComponent } from '../shared/single-card/single-card.component
         UploadImageComponent,
         MainNavigationComponent,
         SingleCardComponent,
+        SetDataComponent,
     ],
     imports: [
         CommonModule,
