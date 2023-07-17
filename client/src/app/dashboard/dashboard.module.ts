@@ -24,6 +24,7 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SingleCardComponent } from '../shared/single-card/single-card.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         ProgressListComponent,
         UploadImageComponent,
         MainNavigationComponent,
+        SingleCardComponent,
     ],
     imports: [
         CommonModule,
