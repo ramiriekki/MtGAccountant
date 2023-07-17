@@ -1,0 +1,128 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="parentForm">
+    <div class="form-group">
+        <mat-icon>perm_contact_calendar</mat-icon>
+        <p>{{ 'search.name' | translate }}</p>
+        <mat-form-field
+            appearance="fill"
+            color="primary"
+            [formGroup]="parentForm"
+        >
+            <mat-label>Card name</mat-label>
+            <input matInput placeholder="Placeholder" formControlName="name" />
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-icon>star_border</mat-icon>
+        <p>{{ 'search.rarity' | translate }}:</p>
+        <mat-button-toggle-group
+            name="rarities"
+            aria-label="Rarities"
+            multiple
+            formControlName="rarities"
+        >
+            <mat-button-toggle
+                [style.background-color]="'#f57f01'"
+                value="common"
+                >Common</mat-button-toggle
+            >
+            <mat-button-toggle value="uncommon">Uncommon</mat-button-toggle>
+            <mat-button-toggle value="rare">Rare</mat-button-toggle>
+            <mat-button-toggle value="mythic">Mythic</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <mat-icon>library_books</mat-icon>
+        <p>{{ 'search.type' | translate }}</p>
+        <mat-button-toggle-group
+            name="setType"
+            aria-label="Set Type"
+            multiple
+            formControlName="setTypes"
+        >
+            <mat-button-toggle value="expansion">Expansion</mat-button-toggle>
+            <mat-button-toggle value="core">Core</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <br /><br />
+
+    <div class="form-group">
+        <mat-icon>euro_symbol</mat-icon>
+        <p>{{ 'search.min.price' | translate }}</p>
+        <br />
+        <mat-slider
+            displayValue
+            thumbLabel
+            formControlName="minPrice"
+            min="0"
+            max="1000"
+            step="1"
+        ></mat-slider>
+    </div>
+
+    <div class="form-group">
+        <mat-icon>euro_symbol</mat-icon>
+        <p>{{ 'search.max.price' | translate }}</p>
+        <br />
+        <mat-slider
+            displayValue
+            thumbLabel
+            formControlName="maxPrice"
+            min="0"
+            max="1000"
+            step="1"
+        ></mat-slider>
+    </div>
+
+    <div class="form-group">
+        <mat-icon>view_agenda</mat-icon>
+        <p>{{ 'search.sets' | translate }}</p>
+        <mat-form-field appearance="fill">
+            <mat-label>Sets</mat-label>
+            <mat-select multiple formControlName="sets">
+                <mat-option *ngFor="let set of sets" [value]="set.code"
+                    >{{ set.code }} - {{ set.name }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-icon>color_lens</mat-icon>
+        <p>{{ 'search.color' | translate }}</p>
+        <mat-form-field appearance="fill">
+            <mat-label>Color</mat-label>
+            <mat-select multiple formControlName="colors">
+                <mat-option
+                    *ngFor="let color of colors"
+                    [value]="color.short"
+                    >{{ color.name }}</mat-option
+                >
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-icon>check_circle</mat-icon>
+        <p>{{ 'search.collected' | translate }}</p>
+        <mat-button-toggle-group
+            name="owned"
+            aria-label="Collection"
+            formControlName="owned"
+        >
+            <mat-button-toggle value="COLLECTED"
+                >In Collection</mat-button-toggle
+            >
+            <mat-button-toggle value="NOT_COLLECTED"
+                >Not In Collection</mat-button-toggle
+            >
+            <mat-button-toggle value="ALL">All</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <button class="button" type="submit" mat-raised-button color="accent">
+        {{ 'search.do.search' | translate }}
+    </button>
+</form>

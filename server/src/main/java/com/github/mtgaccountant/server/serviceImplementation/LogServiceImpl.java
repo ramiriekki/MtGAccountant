@@ -2,6 +2,7 @@ package com.github.mtgaccountant.server.serviceImplementation;
 
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class LogServiceImpl implements LogService {
             log.debug(message);
         }
         
-        return ResponseEntity.ok("OK");
+        return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
     
 }
