@@ -76,4 +76,16 @@ export class SetsComponent implements OnInit, OnDestroy {
 
         return progressWidth;
     }
+
+    isNew(set: any): boolean {
+        let date = new Date(
+            set.released_at.replace(/(\d{2})-(\d{2})-(\d{4})/, '$2/$1/$3')
+        );
+        let dateNow = new Date();
+
+        if (dateNow.getTime() - date.getTime() > 1000 * 60 * 60 * 24 * 30) {
+            return false;
+        }
+        return true;
+    }
 }
