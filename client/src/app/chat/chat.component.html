@@ -1,8 +1,9 @@
 <div class="chat-container">
     <div class="message-area">
-        <mat-toolbar color="accent">{{ chatData.title }}</mat-toolbar>
-        <div *ngFor="let message of chatData.messages">
+        <mat-toolbar color="accent">{{ chatData?.title }}</mat-toolbar>
+        <div *ngFor="let message of chatData?.messages">
             <div class="bubble-container" *ngIf="!isCurrentUser(message.user)">
+                <img src="{{ findUserImage(message.user.username) }}" alt="" />
                 <p class="chat-bubble">
                     {{ message.user.username }}: {{ message.content }}
                 </p>
@@ -11,6 +12,7 @@
                 class="my-bubble-container"
                 *ngIf="isCurrentUser(message.user)"
             >
+                <img src="{{ findUserImage(message.user.username) }}" alt="" />
                 <p class="my-bubble">
                     {{ message.user.username }}: {{ message.content }}
                 </p>

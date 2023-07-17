@@ -15,6 +15,7 @@ import { Card } from '../models/Card';
 import { CollectionCard } from '../models/CollectionCard';
 import { Search } from '../models/Search';
 import { CardsService } from '../services/cards.service';
+import { LoggerService } from '../services/logger.service';
 import { SearchService } from '../services/search.service';
 import { SetsService } from '../services/sets.service';
 import { SortCardsService } from '../services/sort-cards.service';
@@ -28,29 +29,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected unsubscribe$: Subject<void> = new Subject();
     @ViewChild(MatTable, { static: false }) table!: MatTable<any>;
 
-    colors: any[] = [
-        { short: 'W', name: 'White' },
-        { short: 'B', name: 'Black' },
-        { short: 'G', name: 'Green' },
-        { short: 'R', name: 'Red' },
-        { short: 'U', name: 'Blue' },
-    ];
-    displayedColumns: string[] = [
-        'name',
-        'set',
-        'set_code',
-        'set_type',
-        'collector_number',
-        'rarity',
-        'prices',
-        'owned',
-    ];
-    displayedColumnsMobile: string[] = [
-        'name',
-        'set_code',
-        'collector_number',
-        'owned',
-    ];
     parentForm!: FormGroup;
     submitted: boolean = false;
     model = new Search();
@@ -70,7 +48,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         private searchService: SearchService,
         private cardsService: CardsService,
         private router: Router,
-        private SortCardsService: SortCardsService
+        private SortCardsService: SortCardsService,
+        private logger: LoggerService
     ) {}
 
     ngOnInit(): void {
@@ -78,16 +57,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.isLoading = true;
 
         // Parent group init
-        this.parentForm = this.formBuilder.group({
-            name: new FormControl(),
-            rarities: new FormControl(),
-            setTypes: new FormControl(),
-            minPrice: new FormControl(),
-            maxPrice: new FormControl(),
-            sets: new FormControl(),
-            colors: new FormControl(),
-            owned: new FormControl(),
-        });
+
         this.getSetCodes();
         this.getCards();
         this.getCollection();
@@ -132,7 +102,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                     );
                 }
 
-                this.table.renderRows(); // update the table
+                this.table?.renderRows(); // update the table
             });
     }
 
@@ -165,21 +135,6 @@ export class SearchComponent implements OnInit, OnDestroy {
             .getCollection()
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((collection) => (this.collection = collection));
-    }
-
-    onSubmit() {
-        this.searchService
-            .searchCards(this.parentForm.value)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => {
-                this.response = response;
-                this.isLoading = false;
-            });
-        this.searchService
-            .searchCards(this.parentForm.value)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => console.log(response));
-        this.submitted = true;
     }
 
     formatLabel(value: number) {
@@ -218,5 +173,18 @@ export class SearchComponent implements OnInit, OnDestroy {
             left: 0,
             behavior: 'smooth',
         });
+    }
+
+    setResponse(response: any): void {
+        this.response = response;
+    }
+
+    isSubmitted(submitted: boolean): void {
+        if (submitted === true) this.submitted = true;
+        else this.submitted = false;
+    }
+
+    getLoading(isLoading: boolean): void {
+        !isLoading ? (this.isLoading = false) : (this.isLoading = true);
     }
 }

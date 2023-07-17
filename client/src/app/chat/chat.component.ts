@@ -15,9 +15,10 @@ import { UserService } from '../services/user.service';
 export class ChatComponent implements OnInit, OnDestroy {
     disabled = true;
     newMessage: string | undefined;
-    chatData!: Chat;
+    chatData!: Chat | undefined;
     messageForm!: FormGroup;
     user: any;
+    images: any[] = [];
     protected _unsubscribe$: Subject<void> = new Subject();
 
     constructor(
@@ -28,13 +29,12 @@ export class ChatComponent implements OnInit, OnDestroy {
         private userService: UserService
     ) {}
 
-    ngOnInit() {
+    async ngOnInit() {
         this.messageForm = this.formBuilder.group({
             message: new FormControl(),
         });
 
-        this.getChat();
-        this.getUser();
+        await this.getChat().then(() => {});
 
         interval(5000)
             .pipe(takeUntil(this._unsubscribe$))
@@ -48,12 +48,17 @@ export class ChatComponent implements OnInit, OnDestroy {
         this._unsubscribe$.complete();
     }
 
-    getChat(): void {
+    async getChat(): Promise<void> {
         const id = String(this.route.snapshot.paramMap.get('id'));
         this.chatService
             .getChat(id)
             .pipe(takeUntil(this._unsubscribe$))
-            .subscribe((chat) => (this.chatData = chat));
+            .subscribe((chat) => {
+                this.chatData = chat;
+                this.getUser();
+                // this.chatData!.participants.forEach((user) => {
+                // });
+            });
     }
 
     sendMessage(): void {
@@ -65,7 +70,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         };
 
         this.chatService.sendMessage(message);
-        this.chatData.messages = [...this.chatData.messages!, message];
+
+        if (this.chatData)
+            this.chatData.messages = [...this.chatData.messages!, message];
         this.changeDetectorRef.detectChanges();
     }
 
@@ -73,10 +80,46 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.userService
             .getUser()
             .pipe(takeUntil(this._unsubscribe$))
-            .subscribe((user) => (this.user = user));
+            .subscribe((user) => {
+                this.user = user;
+                this.getUserImage(user.username);
+                this.chatData!.participants.forEach((user) => {
+                    this.getUserImage(user.username);
+                });
+            });
     }
 
     isCurrentUser(user: MinimalUser): boolean {
         return user.email === localStorage.getItem('user');
     }
+
+    public getUserImage(username: string): void {
+        this.userService
+            .getUserImage(username)
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe((imageUrl) => {
+                this.createImageFromBlob(imageUrl, username);
+            });
+    }
+
+    createImageFromBlob(image: Blob, username: string) {
+        let reader = new FileReader();
+        reader.addEventListener(
+            'load',
+            () => {
+                this.images.push({ image: reader.result, username: username });
+            },
+            false
+        );
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
+    }
+
+    findUserImage(username: string): string {
+        return this.images.find((image) => image.username === username).image;
+    }
+
+    // TODO: public endpoint for getting all chats users images to {usename, image} array
 }

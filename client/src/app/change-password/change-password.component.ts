@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { LoggerService } from '../services/logger.service';
 import { SnackbarService } from '../services/snackbar.service';
 import { UserService } from '../services/user.service';
 import { GlobalConstants } from '../shared/global-comstants';
@@ -23,7 +24,8 @@ export class ChangePasswordComponent implements OnInit {
         private userService: UserService,
         public dialogRef: MatDialogRef<ChangePasswordComponent>,
         private ngxService: NgxUiLoaderService,
-        private snackbarService: SnackbarService
+        private snackbarService: SnackbarService,
+        private logger: LoggerService
     ) {}
 
     ngOnInit(): void {
@@ -65,7 +67,7 @@ export class ChangePasswordComponent implements OnInit {
                 );
             },
             (error) => {
-                console.log(error);
+                this.logger.error(error);
                 this.ngxService.stop();
                 if (error.error?.message) {
                     this.responseMessage = error.error?.message;

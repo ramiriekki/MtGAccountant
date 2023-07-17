@@ -9,7 +9,6 @@ import { SetComponent } from '../set/set.component';
 import { CardsComponent } from '../cards/cards.component';
 import { CardComponent } from '../card/card.component';
 import { SearchComponent } from '../search/search.component';
-import { ResultsComponent } from '../results/results.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from '../profile/profile.component';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
@@ -24,6 +23,11 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SingleCardComponent } from '../shared/single-card/single-card.component';
+import { SetDataComponent } from '../set/set-data/set-data.component';
+import { ResultsComponent } from '../search/results/results.component';
+import { ResultsMobileComponent } from '../search/results-mobile/results-mobile.component';
+import { SearchFormComponent } from '../search/search-form/search-form.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +37,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         CardsComponent,
         CardComponent,
         SearchComponent,
-        ResultsComponent,
         ProfileComponent,
         ChangePasswordComponent,
         AdminComponent,
@@ -44,6 +47,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         ProgressListComponent,
         UploadImageComponent,
         MainNavigationComponent,
+        SingleCardComponent,
+        SetDataComponent,
+        ResultsComponent,
+        ResultsMobileComponent,
+        SearchFormComponent,
     ],
     imports: [
         CommonModule,

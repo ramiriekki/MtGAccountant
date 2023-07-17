@@ -12,6 +12,7 @@ import { CardsService } from '../services/cards.service';
 import { SetsService } from '../services/sets.service';
 import { SortCardsService } from '../services/sort-cards.service';
 import { BinderModifyComponent } from './binder-modify/binder-modify.component';
+import { StringUtils } from '../shared/util/StringUtils';
 
 @Component({
     selector: 'app-set',
@@ -25,9 +26,8 @@ export class SetComponent implements OnInit, OnDestroy {
     code: any = '';
     collection: CollectionCard[] = [];
     sets: Set[] = [];
-    set!: Set;
-    collectedData!: any;
-    progressWidth: number = 0;
+    set!: Set | undefined;
+    collectedData!: any | undefined;
     collected: number = 0;
     childSets: Set[] = [];
     childSetCards: ChildCards[] = [];
@@ -36,6 +36,7 @@ export class SetComponent implements OnInit, OnDestroy {
     wholeSetValue: number = 0;
     responsiveOptions: any[] = [];
     topCards: Card[] = [];
+    progressWidth: number = 0;
 
     constructor(
         private dialog: MatDialog,
@@ -97,7 +98,7 @@ export class SetComponent implements OnInit, OnDestroy {
         this.getSetData(this.code);
         this.getCollectedCountFromSet(this.code);
         this.progressWidth =
-            (this.collectedData.collected / this.collectedData.totalCount) *
+            (this.collectedData?.collected / this.collectedData?.totalCount) *
             100;
     }
 
@@ -135,7 +136,9 @@ export class SetComponent implements OnInit, OnDestroy {
         this.setsService
             .getChildSets(code)
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((sets) => (this.childSets = sets));
+            .subscribe((sets) => {
+                this.childSets = sets;
+            });
         this.setsService
             .getChildSets(code)
             .pipe(takeUntil(this.unsubscribe$))
@@ -201,7 +204,9 @@ export class SetComponent implements OnInit, OnDestroy {
         }
 
         this.collected++;
-        this.progressWidth = (this.collected / this.set.card_count) * 100;
+
+        if (this.set)
+            this.progressWidth = (this.collected / this.set?.card_count) * 100;
 
         // update to db happens here
         this.cardsService.updateCollection([''], [id]);
@@ -217,58 +222,16 @@ export class SetComponent implements OnInit, OnDestroy {
         }
 
         this.collected--;
-        this.progressWidth = (this.collected / this.set.card_count) * 100;
+
+        if (this.set)
+            this.progressWidth = (this.collected / this.set?.card_count) * 100;
 
         // update to db happens here
         this.cardsService.updateCollection([id], ['']);
     }
 
     moveToSubSet(code: string): void {
-        this.scroller.scrollToAnchor(code);
-    }
-
-    addAllToCollection(): void {
-        let ids: string[] = [];
-
-        this.cards.forEach((card) => {
-            ids.push(card.id);
-        });
-
-        for (const element of this.collection) {
-            ids.forEach((id) => {
-                if (element.id == id) {
-                    element.collected = true;
-                }
-            });
-        }
-
-        this.progressWidth = 100;
-
-        // update to db happens here
-        this.cardsService.updateCollection([''], ids);
-        this.cdr.detectChanges();
-    }
-
-    removeAllFromCollection(): void {
-        let ids: string[] = [];
-
-        this.cards.forEach((card) => {
-            ids.push(card.id);
-        });
-
-        for (const element of this.collection) {
-            ids.forEach((id) => {
-                if (element.id == id) {
-                    element.collected = false;
-                }
-            });
-        }
-
-        this.progressWidth = 0;
-
-        // update to db happens here
-        this.cardsService.updateCollection(ids, ['']);
-        this.cdr.detectChanges();
+        this.router.navigateByUrl('/dashboard/sets/' + this.code + '/' + code);
     }
 
     handleBinderOpenAction() {
@@ -278,5 +241,9 @@ export class SetComponent implements OnInit, OnDestroy {
         dialogConfig.panelClass = 'binder-dialog';
         dialogConfig.data = { cards: this.cards, collection: this.collection };
         this.dialog.open(BinderModifyComponent, dialogConfig);
+    }
+
+    trimName(name: string): string {
+        return StringUtils.fetchName(name);
     }
 }
