@@ -27,6 +27,7 @@ import { SingleCardComponent } from '../shared/single-card/single-card.component
 import { SetDataComponent } from '../set/set-data/set-data.component';
 import { ResultsComponent } from '../search/results/results.component';
 import { ResultsMobileComponent } from '../search/results-mobile/results-mobile.component';
+import { SearchFormComponent } from '../search/search-form/search-form.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { ResultsMobileComponent } from '../search/results-mobile/results-mobile.
         SetDataComponent,
         ResultsComponent,
         ResultsMobileComponent,
+        SearchFormComponent,
     ],
     imports: [
         CommonModule,

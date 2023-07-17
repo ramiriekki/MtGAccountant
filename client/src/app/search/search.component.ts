@@ -29,14 +29,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected unsubscribe$: Subject<void> = new Subject();
     @ViewChild(MatTable, { static: false }) table!: MatTable<any>;
 
-    colors: any[] = [
-        { short: 'W', name: 'White' },
-        { short: 'B', name: 'Black' },
-        { short: 'G', name: 'Green' },
-        { short: 'R', name: 'Red' },
-        { short: 'U', name: 'Blue' },
-    ];
-
     parentForm!: FormGroup;
     submitted: boolean = false;
     model = new Search();
@@ -65,16 +57,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.isLoading = true;
 
         // Parent group init
-        this.parentForm = this.formBuilder.group({
-            name: new FormControl(),
-            rarities: new FormControl(),
-            setTypes: new FormControl(),
-            minPrice: new FormControl(),
-            maxPrice: new FormControl(),
-            sets: new FormControl(),
-            colors: new FormControl(),
-            owned: new FormControl(),
-        });
+
         this.getSetCodes();
         this.getCards();
         this.getCollection();
@@ -154,21 +137,6 @@ export class SearchComponent implements OnInit, OnDestroy {
             .subscribe((collection) => (this.collection = collection));
     }
 
-    onSubmit() {
-        this.searchService
-            .searchCards(this.parentForm.value)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => {
-                this.response = response;
-                this.isLoading = false;
-            });
-        this.searchService
-            .searchCards(this.parentForm.value)
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => {} /*this.logger.debug(response)**/);
-        this.submitted = true;
-    }
-
     formatLabel(value: number) {
         if (value >= 1000) {
             return Math.round(value / 1000) + 'k';
@@ -205,5 +173,18 @@ export class SearchComponent implements OnInit, OnDestroy {
             left: 0,
             behavior: 'smooth',
         });
+    }
+
+    setResponse(response: any): void {
+        this.response = response;
+    }
+
+    isSubmitted(submitted: boolean): void {
+        if (submitted === true) this.submitted = true;
+        else this.submitted = false;
+    }
+
+    getLoading(isLoading: boolean): void {
+        !isLoading ? (this.isLoading = false) : (this.isLoading = true);
     }
 }
