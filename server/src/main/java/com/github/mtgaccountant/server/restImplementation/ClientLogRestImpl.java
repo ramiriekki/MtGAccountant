@@ -19,6 +19,7 @@ public class ClientLogRestImpl implements ClientLogRest {
     @Override
     public ResponseEntity<String> log(Map<String, String> requestMap) {
         try {
+            System.out.println(requestMap);
             return logService.log(requestMap);
         } catch (Exception e) {
             e.printStackTrace();

@@ -36,22 +36,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         { short: 'R', name: 'Red' },
         { short: 'U', name: 'Blue' },
     ];
-    displayedColumns: string[] = [
-        'name',
-        'set',
-        'set_code',
-        'set_type',
-        'collector_number',
-        'rarity',
-        'prices',
-        'owned',
-    ];
-    displayedColumnsMobile: string[] = [
-        'name',
-        'set_code',
-        'collector_number',
-        'owned',
-    ];
+
     parentForm!: FormGroup;
     submitted: boolean = false;
     model = new Search();
@@ -180,7 +165,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchService
             .searchCards(this.parentForm.value)
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => this.logger.debug(response));
+            .subscribe((response) => {} /*this.logger.debug(response)**/);
         this.submitted = true;
     }
 
