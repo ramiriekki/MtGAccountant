@@ -93,6 +93,8 @@
             *ngIf="set.set_type == 'expansion'"
             class="set-card"
             [routerLink]="['/dashboard/sets/', set.code]"
+            badge="NEW!"
+            size="large"
         >
             <mat-toolbar color="accent"
                 ><p class="name">{{ set.name }}</p>
