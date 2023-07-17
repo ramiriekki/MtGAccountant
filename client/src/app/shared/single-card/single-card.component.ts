@@ -11,6 +11,7 @@ import { CardsService } from 'src/app/services/cards.service';
 export class SingleCardComponent implements OnInit {
     @Input() card!: Card;
     @Input() collection!: CollectionCard[];
+    isUpdating: boolean = false;
 
     constructor(private cardsService: CardsService) {}
 
@@ -23,18 +24,25 @@ export class SingleCardComponent implements OnInit {
     }
 
     addToCollection(id: string): void {
+        this.isUpdating = true;
+
         const card = this.collection.find((element) => element.id === id);
         if (card) {
             card.collected = true;
         }
-        this.cardsService.updateCollection([''], [id]);
+        this.cardsService.updateCollection([''], [id])?.subscribe(() => {
+            this.isUpdating = false;
+        });
     }
 
     removeFromCollection(id: string): void {
+        this.isUpdating = true;
         const card = this.collection.find((element) => element.id === id);
         if (card) {
             card.collected = false;
         }
-        this.cardsService.updateCollection([id], ['']);
+        this.cardsService.updateCollection([id], [''])?.subscribe(() => {
+            this.isUpdating = false;
+        });
     }
 }
