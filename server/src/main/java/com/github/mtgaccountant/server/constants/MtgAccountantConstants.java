@@ -11,4 +11,7 @@ public class MtgAccountantConstants {
     public static final String COLORS = "Colors";
     public static final String EMAIL_DOESNT_MATCH = "Email param doesn't match users email.";
     public static final String COLLECTED = "Collected";
+    public static final String SCHEDULED_BASE_URL = "https://api.scryfall.com/cards/search?q=set_type:token+or+set_type:core+or+set_type:expansion+or+set_type:commander+or+set_type:funny+or+set_type:masters+or+set_type:memorabilia+or+set_type:draft_innovation&include_extras=true&include_variations=true&order=released&page={page}";
+    public static final String NOT_FOUND = "Not found.";
+
 }

@@ -29,6 +29,7 @@ import { ResultsComponent } from '../search/results/results.component';
 import { ResultsMobileComponent } from '../search/results-mobile/results-mobile.component';
 import { SearchFormComponent } from '../search/search-form/search-form.component';
 import { Badge } from '../shared/directives/badge.directive';
+import { SetsContainerComponent } from '../sets/sets-container/sets-container.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import { Badge } from '../shared/directives/badge.directive';
         ResultsMobileComponent,
         SearchFormComponent,
         Badge,
+        SetsContainerComponent,
     ],
     imports: [
         CommonModule,

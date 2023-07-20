@@ -19,6 +19,7 @@ import com.github.mtgaccountant.server.jwt.JwtFilter;
 import com.github.mtgaccountant.server.models.Collection;
 import com.github.mtgaccountant.server.models.Set;
 import com.github.mtgaccountant.server.service.SetService;
+import com.github.mtgaccountant.server.utils.CollectionUtils;
 import com.github.mtgaccountant.server.wrapper.CardWrapper;
 import com.github.mtgaccountant.server.wrapper.CollectionCardWrapper;
 import com.github.mtgaccountant.server.wrapper.SetCodesWrapper;
@@ -85,7 +86,7 @@ public class SetServiceImpl implements SetService {
         try {
             List<Set> childSets = setDao.findByParentSetCode(code);
 
-            return new ResponseEntity<List<Set>>(childSets, HttpStatus.OK);
+            return new ResponseEntity<>(childSets, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +97,14 @@ public class SetServiceImpl implements SetService {
     @Override
     public ResponseEntity<Double> getSetValue(String code, String email) {
         try {
+            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
+
+            // Check if user email matches param email. If not return unauthorized
+            if (!user.getEmail().equals(email)) {
+                log.warn(MtgAccountantConstants.EMAIL_DOESNT_MATCH);
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
             List<CardWrapper> cards = cardDao.findSetCards(code);
             List<CardWrapper> childSetCards = new ArrayList<>();
             List<Set> childSets = setDao.findByParentSetCode(code);
@@ -105,43 +114,16 @@ public class SetServiceImpl implements SetService {
                 childSetCards.addAll(setCards);
             }
 
-            UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
-            double collectionValue = 0;
-
-            // Check if user email matches param email. If not return unauthorized
-            if (!user.getEmail().equals(email)) {
-                log.warn(MtgAccountantConstants.EMAIL_DOESNT_MATCH);
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-
-            // Get users collection from database.
             Collection collection = collectionDao.findByFinderID(user.getUsername() + user.getEmail());
 
-            for (CollectionCardWrapper card : collection.getCards()) {
-                for (CardWrapper cardWrapper : cards) {
-                    if (cardWrapper.getId().equals(card.getId())) {
-                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null) {
-                            collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur());
-                        }
-                    }
-                }
-            }
+            double collectionValue = CollectionUtils.calculateCollectionValue(collection.getCards(), cards);
+            collectionValue += CollectionUtils.calculateCollectionValue(collection.getCards(), childSetCards);
 
-            for (CollectionCardWrapper card : collection.getCards()) {
-                for (CardWrapper cardWrapper : childSetCards) {
-                    if (cardWrapper.getId().equals(card.getId())) {
-                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null) {
-                            collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur());
-                        }
-                    }
-                }
-            }
-
-            return new ResponseEntity<Double>(collectionValue, HttpStatus.OK);
+            return new ResponseEntity<>(collectionValue, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -184,12 +166,12 @@ public class SetServiceImpl implements SetService {
             cards.stream().filter(c -> Objects.nonNull(c.getPrices().getEur())).sorted(priceComparator.reversed())
                     .limit(5).forEach(returnCards::add);
 
-            return new ResponseEntity<List<CardWrapper>>(returnCards, HttpStatus.OK);
+            return new ResponseEntity<>(returnCards, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<List<CardWrapper>>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

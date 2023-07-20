@@ -35,18 +35,29 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ResponseEntity<String> uploadImage(MultipartFile file) {
+        FileOutputStream output = null;
         try {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
 
             File path = new File(dataPath + "/data/images/"
                     + user.getUsername() + "ProfilePicture.png");
-            path.createNewFile();
-            FileOutputStream output = new FileOutputStream(path);
-            output.write(file.getBytes());
-            output.close();
-            return new ResponseEntity<String>("File was uploaded successfully!", HttpStatus.OK);
+            if (path.createNewFile()) {
+                output = new FileOutputStream(path);
+                output.write(file.getBytes());
+
+                return new ResponseEntity<>("File was uploaded successfully!", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("File already exists!", HttpStatus.MULTI_STATUS);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.MULTI_STATUS);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.MULTI_STATUS);
+        } finally {
+            try {
+                if (output!= null)
+                    output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -57,6 +68,6 @@ public class ImageServiceImpl implements ImageService {
                 dataPath + "/data/images/" + id + "ProfilePicture.png");
         byte[] media = IOUtils.toByteArray(in);
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        return new ResponseEntity<byte[]>(media, headers, HttpStatus.OK);
+        return new ResponseEntity<>(media, headers, HttpStatus.OK);
     }
 }
