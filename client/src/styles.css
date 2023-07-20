@@ -120,3 +120,8 @@ mat-card {
     font-weight: bold;
 }
 /*  ------- Styles for Badges End ------- */
+
+app-binder-modify {
+    height: 95% !important;
+    display: block;
+}
