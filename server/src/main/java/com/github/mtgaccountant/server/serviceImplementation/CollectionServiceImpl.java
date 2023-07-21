@@ -204,19 +204,18 @@ public class CollectionServiceImpl implements CollectionService {
 
             for (CollectionCardWrapper card : collection.getCards()) {
                 for (CardWrapper cardWrapper : cards) {
-                    if (cardWrapper.getId().equals(card.getId())) {
-                        if (card.isCollected() && cardWrapper.getPrices().getEur() != null) {
+                    if (cardWrapper.getId().equals(card.getId()) &&  (card.isCollected() && cardWrapper.getPrices().getEur() != null)) {
                             collectionValue = collectionValue + Double.parseDouble(cardWrapper.getPrices().getEur());
-                        }
+                        
                     }
                 }
             }
 
-            return new ResponseEntity<Double>(collectionValue, HttpStatus.OK);
+            return new ResponseEntity<>(collectionValue, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Double>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -224,7 +223,7 @@ public class CollectionServiceImpl implements CollectionService {
         try {
             UserWrapper user = userDao.findUser(jwtFilter.getCurrentUser());
             List<CollectionCardWrapper> cards;
-            CollectionCardWrapper mostValuableCollectionCard = new CollectionCardWrapper("", "", "", false, null);
+            CollectionCardWrapper mostValuableCollectionCard;
 
             // Check if user email matches param email. If not return unauthorized
             if (!user.getEmail().equals(email)) {
@@ -246,12 +245,12 @@ public class CollectionServiceImpl implements CollectionService {
 
             CardWrapper mostValuable = cardDao.findCardById(mostValuableCollectionCard.getId());
 
-            return new ResponseEntity<CardWrapper>(mostValuable, HttpStatus.OK);
+            return new ResponseEntity<>(mostValuable, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<CardWrapper>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -270,11 +269,11 @@ public class CollectionServiceImpl implements CollectionService {
 
             collectedCards = (int) collection.getCards().stream().filter(c -> c.isCollected()).count();
 
-            return new ResponseEntity<Integer>(collectedCards, HttpStatus.OK);
+            return new ResponseEntity<>(collectedCards, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
     }
 
 }

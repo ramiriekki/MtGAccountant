@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.mtgaccountant.server.constants.MtgAccountantConstants;
-import com.github.mtgaccountant.server.dao.CardDao;
 import com.github.mtgaccountant.server.dao.CollectionDao;
 import com.github.mtgaccountant.server.dao.UserDao;
 import com.github.mtgaccountant.server.jwt.JwtFilter;
@@ -26,8 +25,6 @@ public class SearchUtils {
     private static final String NOT_COLLECTED = "NOT_COLLECTED";
     private static final String ALL = "ALL";
 
-    @Autowired
-    private CardDao cardDao;
     @Autowired
     private UserDao userDao;
     @Autowired

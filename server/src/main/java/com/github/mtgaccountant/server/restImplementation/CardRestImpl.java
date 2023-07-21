@@ -26,7 +26,7 @@ public class CardRestImpl implements CardRest {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<List<CardWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CardRestImpl implements CardRest {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<CardWrapper>(new CardWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new CardWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CardRestImpl implements CardRest {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<List<CardWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

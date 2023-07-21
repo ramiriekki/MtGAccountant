@@ -2,6 +2,7 @@ package com.github.mtgaccountant.server.serviceImplementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,17 +53,22 @@ public class ChatServiceImpl implements ChatService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Conversation>(new Conversation(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new Conversation(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     public ResponseEntity<Conversation> getChat(String id) {
         try {
-            return new ResponseEntity<>(chatDao.findById(id).get(), HttpStatus.OK);
+            Optional<Conversation> optionalChat = chatDao.findById(id);
+            if (optionalChat.isPresent()) {
+                return new ResponseEntity<>(optionalChat.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new Conversation(), HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Conversation>(new Conversation(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new Conversation(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -78,35 +84,48 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public ResponseEntity<Message> registerMessage(Message message) {
         try {
-            if (message.getContent() != null && message.getContent() != "") {
+            if (message.getContent() != null && !"".equals(message.getContent())) {
                 MinimalUserWrapper user = userDao.findMinUserByEmail(jwtFilter.getCurrentUser());
 
-                Conversation chat = chatDao.findById(message.getChatId()).get();
-                List<Message> messages = chat.getMessages();
-                message.setUser(user);
-                messages.add(message);
-                chat.setMessages(messages);
-                chatDao.save(chat);
+                Optional<Conversation> optionalChat = chatDao.findById(message.getChatId());
+                if (optionalChat.isPresent()) {
+                    Conversation chat = optionalChat.get();
 
-                return new ResponseEntity<>(message, HttpStatus.OK);
+                    List<Message> messages = chat.getMessages();
+                    message.setUser(user);
+                    messages.add(message);
+                    chat.setMessages(messages);
+                    chatDao.save(chat);
+    
+                    return new ResponseEntity<>(message, HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(new Message(), HttpStatus.NOT_FOUND);
+                }
+
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<Message>(new Message(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new Message(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     public ResponseEntity<String> removeChat(String id) {
         try {
-            Conversation chat = chatDao.findById(id).get();
-            chatDao.delete(chat);
+            Optional<Conversation> optionalChat = chatDao.findById(id);
+            if (optionalChat.isPresent()) {
+                Conversation chat = optionalChat.get();
+                chatDao.delete(chat);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(MtgAccountantConstants.NOT_FOUND, HttpStatus.NOT_FOUND);
+            }
 
-            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<String>(MtgAccountantConstants.SOMETHING_WENT_WRONG,
+        return new ResponseEntity<>(MtgAccountantConstants.SOMETHING_WENT_WRONG,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
